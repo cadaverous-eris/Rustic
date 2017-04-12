@@ -1,0 +1,6 @@
+{
+	"variants": {
+		"variant=olive":	{ "model": "rustic:leaves_olive" },
+		"variant=ironwood":	{ "model": "rustic:leaves_ironwood" }
+	}
+}

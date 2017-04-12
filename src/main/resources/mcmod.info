@@ -1,0 +1,16 @@
+[
+{
+  "modid": "rustic",
+  "name": "Rustic",
+  "description": "A simple decoration mod",
+  "version": "${version}",
+  "mcversion": "${mcversion}",
+  "url": "",
+  "updateUrl": "",
+  "authorList": ["mangoose"],
+  "credits": "",
+  "logoFile": "",
+  "screenshots": [],
+  "dependencies": []
+}
+]

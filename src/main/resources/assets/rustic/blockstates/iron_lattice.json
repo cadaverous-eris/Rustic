@@ -1,0 +1,61 @@
+{
+    "forge_marker": 1,
+    "defaults": {
+        "model": "rustic:iron_lattice_base"
+    },
+    "variants": {
+        "n": {
+            "true": { "submodel": { "bar_n": { "model": "rustic:iron_lattice_bar_n" } } },
+            "false": {}
+        },
+        "e": {
+            "true": { "submodel": { "bar_e": { "model": "rustic:iron_lattice_bar_n", "y": 90 } } },
+            "false": {}
+        },
+        "s": {
+            "true": { "submodel": { "bar_s": { "model": "rustic:iron_lattice_bar_n", "y": 180 } } },
+            "false": {}
+        },
+        "w": {
+            "true": { "submodel": { "bar_w": { "model": "rustic:iron_lattice_bar_n", "y": 270 } } },
+            "false": {}
+        },
+        "u": {
+            "true": { "submodel": { "bar_u": { "model": "rustic:iron_lattice_bar_n", "x": 270 } } },
+            "false": {}
+        },
+        "d": {
+            "true": { "submodel": { "bar_d": { "model": "rustic:iron_lattice_bar_n", "x": 90 } } },
+            "false": {}
+        },
+        "leaves_north": {
+            "true": { "submodel": { "leaves_n": { "model": "rustic:lattice_leaves_bar_n" } } },
+            "false": {}
+        },
+        "leaves_east": {
+            "true": { "submodel": { "leaves_e": { "model": "rustic:lattice_leaves_bar_n", "y": 90 } } },
+            "false": {}
+        },
+        "leaves_south": {
+            "true": { "submodel": { "leaves_s": { "model": "rustic:lattice_leaves_bar_n", "y": 180 } } },
+            "false": {}
+        },
+        "leaves_west": {
+            "true": { "submodel": { "leaves_w": { "model": "rustic:lattice_leaves_bar_n", "y": 270 } } },
+            "false": {}
+        },
+        "leaves_up": {
+            "true": { "submodel": { "leaves_u": { "model": "rustic:lattice_leaves_bar_n", "x": 270 } } },
+            "false": {}
+        },
+        "leaves_down": {
+            "true": { "submodel": { "leaves_d": { "model": "rustic:lattice_leaves_bar_n", "x": 90 } } },
+            "false": {}
+        },
+	"leaves": {
+            "true": { "submodel": { "leaves": { "model": "rustic:lattice_leaves_base" } } },
+            "false": {}
+        },
+	"inventory": []
+    }
+}

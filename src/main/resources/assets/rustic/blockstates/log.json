@@ -1,0 +1,12 @@
+{
+	"variants": {
+		"axis=y,variant=olive":	{ "model": "rustic:log_olive" },
+		"axis=z,variant=olive":	{ "model": "rustic:log_olive", "x": 90 },
+		"axis=x,variant=olive":	{ "model": "rustic:log_olive", "x": 90, "y": 90 },
+		"axis=none,variant=olive":	{ "model": "rustic:log_olive_bark" },
+		"axis=y,variant=ironwood":	{ "model": "rustic:log_ironwood" },
+		"axis=z,variant=ironwood":	{ "model": "rustic:log_ironwood", "x": 90 },
+		"axis=x,variant=ironwood":	{ "model": "rustic:log_ironwood", "x": 90, "y": 90 },
+		"axis=none,variant=ironwood":	{ "model": "rustic:log_ironwood_bark" }
+	}
+}

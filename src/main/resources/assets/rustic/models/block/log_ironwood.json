@@ -1,0 +1,12 @@
+{
+
+	"parent": "block/cube_column",
+
+	"textures": {
+
+		"end": "rustic:blocks/log_ironwood_top",
+		"side": "rustic:blocks/log_ironwood"
+
+	}
+
+}

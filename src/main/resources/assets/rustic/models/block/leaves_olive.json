@@ -1,0 +1,6 @@
+{
+	"parent": "block/leaves",
+	"textures": {
+		"all": "rustic:blocks/leaves_olive"
+	}
+}

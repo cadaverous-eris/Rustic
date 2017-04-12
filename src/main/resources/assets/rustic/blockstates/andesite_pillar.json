@@ -1,0 +1,7 @@
+{
+	"variants": {
+		"axis=y":	{ "model": "rustic:andesite_pillar" },
+		"axis=z":	{ "model": "rustic:andesite_pillar", "x": 90 },
+		"axis=x":	{ "model": "rustic:andesite_pillar", "x": 90, "y": 90 }
+	}
+}

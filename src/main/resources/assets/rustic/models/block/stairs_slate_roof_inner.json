@@ -1,0 +1,9 @@
+{
+	"parent": "block/inner_stairs",
+	"textures": {
+        	"bottom": "rustic:blocks/slate_roof",
+        	"top": "rustic:blocks/slate_roof",
+        	"side": "rustic:blocks/slate_roof",
+        	"particle": "rustic:blocks/slate_roof"
+    	}
+}

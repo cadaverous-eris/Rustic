@@ -1,0 +1,8 @@
+{
+	"variants": {
+		"facing=north":	{ "model": "rustic:beehive" },
+		"facing=east":	{ "model": "rustic:beehive", "y": 90},
+		"facing=south":	{ "model": "rustic:beehive", "y": 180 },
+		"facing=west":	{ "model": "rustic:beehive", "y": 270 }
+	}
+}

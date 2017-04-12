@@ -1,0 +1,6 @@
+{
+	"variants": {
+		"variant=olive":	{ "model": "rustic:sapling_olive" },
+		"variant=ironwood":	{ "model": "rustic:sapling_ironwood" }
+	}
+}

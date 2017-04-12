@@ -1,0 +1,12 @@
+{
+	"parent": "block/cube_all",
+	"textures": {
+		"particle": "rustic:blocks/fertile_soil",
+		"down": "rustic:blocks/fertile_soil",
+		"up": "blocks/farmland_wet",
+		"east": "rustic:blocks/fertile_soil",
+		"west": "rustic:blocks/fertile_soil",
+		"north": "rustic:blocks/fertile_soil",
+		"south": "rustic:blocks/fertile_soil"
+	}
+}

@@ -1,0 +1,7 @@
+{
+	"parent": "block/cube_all",
+	"textures": {
+		"all": "rustic:blocks/slate_roof",
+		"particle": "rustic:blocks/slate_roof"
+	}
+}

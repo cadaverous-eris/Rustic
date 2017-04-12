@@ -1,0 +1,6 @@
+{
+	"parent": "block/cube_all",
+	"textures": {
+		"all": "rustic:blocks/painted_wood_silver"
+	}
+}

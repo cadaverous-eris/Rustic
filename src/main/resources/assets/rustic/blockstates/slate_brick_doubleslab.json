@@ -1,0 +1,6 @@
+{
+    "variants": {
+        "half=bottom": { "model": "rustic:slate_brick_slab_double" },
+        "half=top": { "model": "rustic:slate_brick_slab_double" }
+    }
+}

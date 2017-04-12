@@ -1,0 +1,27 @@
+{
+	"forge_marker": 1,
+	"defaults": {
+		"model": "rustic:cabinet"
+	},
+	"variants": {
+		"top": {
+			"true": {},
+			"false": {}
+		},
+		"bottom": {
+			"true": {},
+			"false": {}
+		},
+		"mirror": {
+			"true": {},
+			"false": {}
+		},
+		"facing": {
+			"north": {},
+			"south": {},
+			"east": {},
+			"west": {}
+		},
+		"inventory": []
+	}
+}
