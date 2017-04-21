@@ -24,14 +24,17 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.potion.PotionUtils;
 import net.minecraftforge.client.ForgeHooksClient;
 import net.minecraftforge.client.MinecraftForgeClient;
+import net.minecraftforge.client.model.ModelLoaderRegistry;
 import net.minecraftforge.client.model.obj.OBJLoader;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
+import rustic.client.models.FluidBottleModel;
 import rustic.client.renderer.LayerIronSkin;
 import rustic.client.renderer.LiquidBarrelRenderer;
 import rustic.common.blocks.IColoredBlock;
 import rustic.common.blocks.ModBlocks;
+import rustic.common.blocks.fluids.ModFluids;
 import rustic.common.items.IColoredItem;
 import rustic.common.items.ModItems;
 import rustic.common.potions.PotionTypesRustic;
@@ -45,6 +48,8 @@ public class ClientProxy extends CommonProxy {
 	@Override
 	public void preInit(FMLPreInitializationEvent event) {
 		super.preInit(event);
+		ModelLoaderRegistry.registerLoader(FluidBottleModel.LoaderFluidBottle.INSTANCE);
+		ModFluids.initModels();
 		ModBlocks.initModels();
 		ModItems.initModels();
 	}

@@ -39,7 +39,10 @@ import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.monster.EntityCreeper;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
+import net.minecraft.init.Blocks;
+import net.minecraft.init.Items;
 import net.minecraft.init.MobEffects;
+import net.minecraft.init.SoundEvents;
 import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemBlock;
@@ -50,6 +53,7 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraft.network.play.server.SPacketEntityVelocity;
 import net.minecraft.potion.PotionEffect;
+import net.minecraft.stats.StatList;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumFacing.Axis;
@@ -60,6 +64,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.util.text.TextFormatting;
+import net.minecraft.world.World;
 import net.minecraftforge.client.GuiIngameForge;
 import net.minecraftforge.client.event.DrawBlockHighlightEvent;
 import net.minecraftforge.client.event.ModelBakeEvent;
@@ -75,7 +80,12 @@ import net.minecraftforge.event.entity.living.LivingEvent.LivingJumpEvent;
 import net.minecraftforge.event.entity.living.LivingEvent.LivingUpdateEvent;
 import net.minecraftforge.event.entity.living.PotionColorCalculationEvent;
 import net.minecraftforge.event.entity.player.ItemTooltipEvent;
+import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.event.world.ChunkEvent;
+import net.minecraftforge.fluids.BlockFluidBase;
+import net.minecraftforge.fluids.Fluid;
+import net.minecraftforge.fluids.FluidStack;
+import net.minecraftforge.fluids.IFluidBlock;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.TickEvent;
 import net.minecraftforge.fml.relauncher.Side;
@@ -84,15 +94,17 @@ import rustic.client.models.LiquidBarrelItemModel;
 import rustic.client.renderer.LayerIronSkin;
 import rustic.common.blocks.IAdvancedRotationPlacement;
 import rustic.common.blocks.ModBlocks;
+import rustic.common.items.ItemFluidBottle;
 import rustic.common.items.ModItems;
 import rustic.common.network.MessageTEUpdate;
 import rustic.common.network.PacketHandler;
 import rustic.common.potions.PotionTypesRustic;
 import rustic.common.tileentity.ITileEntitySyncable;
 import rustic.common.util.FluidTextureUtil;
+import rustic.common.util.GenericUtil;
 
 public class EventHandlerCommon {
-	
+
 	public static Map<BlockPos, TileEntity> toUpdate = new HashMap<BlockPos, TileEntity>();
 
 	public static void markTEForUpdate(BlockPos pos, TileEntity tile) {
@@ -111,7 +123,8 @@ public class EventHandlerCommon {
 	@SubscribeEvent
 	public void onItemUseTick(LivingEntityUseItemEvent.Tick event) {
 		ItemStack originalStack = event.getItem();
-		if (!originalStack.isEmpty() && originalStack.getItem() instanceof ItemSoup && originalStack.hasTagCompound() && originalStack.getTagCompound().hasKey("oiled")) {
+		if (!originalStack.isEmpty() && originalStack.getItem() instanceof ItemSoup && originalStack.hasTagCompound()
+				&& originalStack.getTagCompound().hasKey("oiled")) {
 			EntityLivingBase entityLiving = event.getEntityLiving();
 			if (entityLiving instanceof EntityPlayer && event.getDuration() == 1) {
 				EntityPlayer entityplayer = (EntityPlayer) entityLiving;
@@ -123,7 +136,8 @@ public class EventHandlerCommon {
 	@SubscribeEvent
 	public void onItemUseFinish(LivingEntityUseItemEvent.Finish event) {
 		ItemStack originalStack = event.getItem();
-		if (!originalStack.isEmpty() && originalStack.getItem() instanceof ItemFood && originalStack.hasTagCompound() && originalStack.getTagCompound().hasKey("oiled")) {
+		if (!originalStack.isEmpty() && originalStack.getItem() instanceof ItemFood && originalStack.hasTagCompound()
+				&& originalStack.getTagCompound().hasKey("oiled")) {
 			EntityLivingBase entityLiving = event.getEntityLiving();
 			if (entityLiving instanceof EntityPlayer) {
 				EntityPlayer entityplayer = (EntityPlayer) entityLiving;
@@ -135,8 +149,42 @@ public class EventHandlerCommon {
 	@SubscribeEvent
 	public void onItemTooltip(ItemTooltipEvent event) {
 		ItemStack stack = event.getItemStack();
-		if (!stack.isEmpty() && stack.getItem() instanceof ItemFood && stack.hasTagCompound() && stack.getTagCompound().hasKey("oiled")) {
-			event.getToolTip().add(TextFormatting.DARK_GREEN + "" + TextFormatting.ITALIC + I18n.format("tooltip.rustic.olive_oil"));
+		if (!stack.isEmpty() && stack.getItem() instanceof ItemFood && stack.hasTagCompound()
+				&& stack.getTagCompound().hasKey("oiled")) {
+			event.getToolTip().add(
+					TextFormatting.DARK_GREEN + "" + TextFormatting.ITALIC + I18n.format("tooltip.rustic.olive_oil"));
+		}
+	}
+
+	@SubscribeEvent
+	public void onPlayerRightClickItemEvent(PlayerInteractEvent.RightClickBlock event) {
+		EntityPlayer player = event.getEntityPlayer();
+		BlockPos pos = event.getPos();
+		ItemStack stack = event.getItemStack();
+		World world = event.getWorld();
+		if (event.getItemStack().getItem().equals(Items.GLASS_BOTTLE)) {
+			RayTraceResult raytraceresult = GenericUtil.rayTrace(world, player, true);
+			BlockPos pos2 = raytraceresult.getBlockPos();
+			if (player.canPlayerEdit(pos2, event.getFace(), stack)
+					&& player.canPlayerEdit(pos2.offset(raytraceresult.sideHit), raytraceresult.sideHit, stack)) {
+				IBlockState state = world.getBlockState(pos2);
+				if (state.getBlock() instanceof IFluidBlock) {
+					IFluidBlock fluidblock = ((IFluidBlock) state.getBlock());	
+					if (ItemFluidBottle.VALID_FLUIDS.contains(fluidblock.getFluid())
+							&& fluidblock.getFilledPercentage(world, pos2) == 1) {
+						world.setBlockState(pos2, Blocks.AIR.getDefaultState(), 11);
+						player.addStat(StatList.getObjectUseStats(stack.getItem()));
+						player.playSound(SoundEvents.ITEM_BUCKET_FILL, 1.0F, 1.0F);
+						stack.shrink(1);
+						ItemStack bottlestack = new ItemStack(ModItems.FLUID_BOTTLE, 1);
+						NBTTagCompound tag = new FluidStack(fluidblock.getFluid(), 1000).writeToNBT(new NBTTagCompound());
+						bottlestack.setTagCompound(tag);
+						if (!player.inventory.addItemStackToInventory(bottlestack)) {
+							player.dropItem(bottlestack, false);
+						}
+					}
+				}
+			}
 		}
 	}
 

@@ -80,6 +80,9 @@ item.rustic.tallow.name=Tallow
 item.rustic.ironberries.name=Ironberries
 item.rustic.olives.name=Olives
 
+tile.rustic.olive_oil.name=Olive Oil
+fluid.oliveoil=Olive Oil
+
 effect.ironskin=Iron Skin
 
 potion.effect.ironskin=Potion of Iron Skin

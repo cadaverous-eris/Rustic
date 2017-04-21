@@ -1,0 +1,286 @@
+package rustic.client.models;
+
+import java.util.Collection;
+import java.util.List;
+import java.util.Map;
+
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+import javax.vecmath.Matrix4f;
+
+import org.apache.commons.lang3.tuple.Pair;
+
+import com.google.common.base.Function;
+import com.google.common.base.Optional;
+import com.google.common.collect.ImmutableList;
+import com.google.common.collect.ImmutableMap;
+import com.google.common.collect.ImmutableSet;
+import com.google.common.collect.Maps;
+
+import net.minecraft.block.state.IBlockState;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.block.model.BakedQuad;
+import net.minecraft.client.renderer.block.model.IBakedModel;
+import net.minecraft.client.renderer.block.model.ItemCameraTransforms;
+import net.minecraft.client.renderer.block.model.ItemOverride;
+import net.minecraft.client.renderer.block.model.ItemOverrideList;
+import net.minecraft.client.renderer.block.model.ModelResourceLocation;
+import net.minecraft.client.renderer.block.model.ItemCameraTransforms.TransformType;
+import net.minecraft.client.renderer.texture.TextureAtlasSprite;
+import net.minecraft.client.renderer.vertex.VertexFormat;
+import net.minecraft.client.resources.IResourceManager;
+import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.util.EnumFacing;
+import net.minecraft.util.ResourceLocation;
+import net.minecraft.world.World;
+import net.minecraftforge.client.model.ICustomModelLoader;
+import net.minecraftforge.client.model.IModel;
+import net.minecraftforge.client.model.IModelCustomData;
+import net.minecraftforge.client.model.IPerspectiveAwareModel;
+import net.minecraftforge.client.model.IRetexturableModel;
+import net.minecraftforge.client.model.ItemLayerModel;
+import net.minecraftforge.client.model.ItemTextureQuadConverter;
+import net.minecraftforge.client.model.ModelDynBucket;
+import net.minecraftforge.client.model.SimpleModelState;
+import net.minecraftforge.common.ForgeVersion;
+import net.minecraftforge.common.model.IModelPart;
+import net.minecraftforge.common.model.IModelState;
+import net.minecraftforge.common.model.TRSRTransformation;
+import net.minecraftforge.fluids.Fluid;
+import net.minecraftforge.fluids.FluidRegistry;
+import net.minecraftforge.fluids.FluidStack;
+import net.minecraftforge.fluids.FluidUtil;
+import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
+import rustic.common.blocks.fluids.ModFluids;
+import rustic.common.items.ModItems;
+import rustic.core.Rustic;
+
+public class FluidBottleModel implements IModel, IModelCustomData, IRetexturableModel {
+
+	public static final ModelResourceLocation LOCATION = new ModelResourceLocation(new ResourceLocation(Rustic.MODID, "fluid_bottle"), "inventory");
+
+	private static final float NORTH_Z_FLUID = 7.498f / 16f;
+	private static final float SOUTH_Z_FLUID = 8.502f / 16f;
+
+	public static final IModel MODEL = new FluidBottleModel();
+
+	@Nullable
+	private final ResourceLocation liquidLocation;
+	@Nullable
+	private final ResourceLocation bottleLocation;
+	@Nullable
+	private final Fluid fluid;
+
+	public FluidBottleModel() {
+		liquidLocation = new ResourceLocation("minecraft", "items/potion_overlay");
+		bottleLocation = new ResourceLocation("minecraft", "items/potion_bottle_drinkable");
+		fluid = null;
+	}
+
+	public FluidBottleModel(Fluid fluid) {
+		liquidLocation = new ResourceLocation("minecraft", "items/potion_overlay");
+		bottleLocation = new ResourceLocation("minecraft", "items/potion_bottle_drinkable");
+		this.fluid = fluid;
+	}
+	
+	
+
+	@Override
+	public IModel retexture(ImmutableMap<String, String> textures) {
+		ResourceLocation liquid = liquidLocation;
+		ResourceLocation bottle = bottleLocation;
+
+		if (textures.containsKey("fluid")) {
+			liquid = new ResourceLocation(textures.get("fluid"));
+		}
+		if (textures.containsKey("bottle")) {
+			bottle = new ResourceLocation(textures.get("bottle"));
+		}
+
+		return new FluidBottleModel(fluid);
+	}
+
+	@Override
+	public IModel process(ImmutableMap<String, String> customData) {
+		String fluidName = customData.get("fluid");
+		Fluid fluid = FluidRegistry.getFluid(fluidName);
+		if (fluid == null) {
+			fluid = this.fluid;
+		}
+		return new FluidBottleModel(fluid);
+	}
+
+	@Override
+	public Collection<ResourceLocation> getDependencies() {
+		return ImmutableList.of();
+	}
+
+	@Override
+	public Collection<ResourceLocation> getTextures() {
+		ImmutableSet.Builder<ResourceLocation> builder = ImmutableSet.builder();
+		if (liquidLocation != null)
+			builder.add(liquidLocation);
+		if (bottleLocation != null)
+			builder.add(bottleLocation);
+		return builder.build();
+	}
+
+	@Override
+	public IBakedModel bake(IModelState state, VertexFormat format,
+			Function<ResourceLocation, TextureAtlasSprite> bakedTextureGetter) {
+		
+		ImmutableMap<TransformType, TRSRTransformation> transformMap = IPerspectiveAwareModel.MapWrapper.getTransforms(state);
+		
+		TRSRTransformation transform = state.apply(Optional.<IModelPart>absent()).or(TRSRTransformation.identity());
+		TextureAtlasSprite fluidSprite = null;
+		ImmutableList.Builder<BakedQuad> builder = ImmutableList.builder();
+
+		if (fluid != null) {
+			fluidSprite = bakedTextureGetter.apply(fluid.getStill());
+		}
+
+		if (bottleLocation != null) {
+			IBakedModel model = (new ItemLayerModel(ImmutableList.of(bottleLocation))).bake(state, format,
+					bakedTextureGetter);
+			builder.addAll(model.getQuads(null, null, 0));
+		}
+		
+		if (liquidLocation != null && fluidSprite != null) {
+			TextureAtlasSprite liquid = bakedTextureGetter.apply(liquidLocation);
+			builder.addAll(ItemTextureQuadConverter.convertTexture(format, transform, liquid, fluidSprite,
+					NORTH_Z_FLUID, EnumFacing.NORTH, fluid.getColor()));
+			builder.addAll(ItemTextureQuadConverter.convertTexture(format, transform, liquid, fluidSprite,
+					SOUTH_Z_FLUID, EnumFacing.SOUTH, fluid.getColor()));
+		}
+
+		return new BakedFluidBottle(this, builder.build(), fluidSprite, format, Maps.immutableEnumMap(transformMap),
+				Maps.<String, IBakedModel>newHashMap());
+
+	}
+
+	@Override
+	public IModelState getDefaultState() {
+		return TRSRTransformation.identity();
+	}
+
+	public enum LoaderFluidBottle implements ICustomModelLoader {
+		INSTANCE;
+
+		@Override
+		public boolean accepts(ResourceLocation modelLocation) {
+			return modelLocation.getResourceDomain().equals(Rustic.MODID)
+					&& modelLocation.getResourcePath().contains("fluid_bottle");
+		}
+
+		@Override
+		public IModel loadModel(ResourceLocation modelLocation) {
+			return MODEL;
+		}
+
+		@Override
+		public void onResourceManagerReload(IResourceManager resourceManager) {
+		}
+	}
+
+	private static final class BakedFluidBottleOverrideHandler extends ItemOverrideList {
+		public static final BakedFluidBottleOverrideHandler INSTANCE = new BakedFluidBottleOverrideHandler();
+
+		private BakedFluidBottleOverrideHandler() {
+			super(ImmutableList.<ItemOverride>of());
+		}
+
+		@Override
+		@Nonnull
+		public IBakedModel handleItemState(@Nonnull IBakedModel originalModel, @Nonnull ItemStack stack,
+				@Nullable World world, @Nullable EntityLivingBase entity) {
+			
+			FluidStack fluidStack = FluidStack.loadFluidStackFromNBT(stack.getTagCompound());
+			
+			if (fluidStack == null) {
+				return originalModel;
+			}
+			
+			BakedFluidBottle model = (BakedFluidBottle) originalModel;
+
+			Fluid fluid = fluidStack.getFluid();
+			String name = fluid.getName();
+			
+			if (!model.cache.containsKey(name)) {
+				IModel parent = model.parent.process(ImmutableMap.of("fluid", name));
+				Function<ResourceLocation, TextureAtlasSprite> textureGetter;
+				textureGetter = new Function<ResourceLocation, TextureAtlasSprite>() {
+					public TextureAtlasSprite apply(ResourceLocation location) {
+						return Minecraft.getMinecraft().getTextureMapBlocks().getAtlasSprite(location.toString());
+					}
+				};
+				IBakedModel bakedModel = parent.bake(new SimpleModelState(model.transforms), model.format,
+						textureGetter);
+				model.cache.put(name, bakedModel);
+				return bakedModel;
+			}
+
+			return model.cache.get(name);
+		}
+	}
+
+	private static final class BakedFluidBottle implements IPerspectiveAwareModel {
+
+		private final FluidBottleModel parent;
+		private final Map<String, IBakedModel> cache;
+		private final ImmutableMap<TransformType, TRSRTransformation> transforms;
+		private final ImmutableList<BakedQuad> quads;
+		private final TextureAtlasSprite particle;
+		private final VertexFormat format;
+
+		public BakedFluidBottle(FluidBottleModel parent, ImmutableList<BakedQuad> quads, TextureAtlasSprite particle,
+				VertexFormat format, ImmutableMap<ItemCameraTransforms.TransformType, TRSRTransformation> transforms,
+				Map<String, IBakedModel> cache) {
+			this.quads = quads;
+			this.particle = particle;
+			this.format = format;
+			this.parent = parent;
+			this.transforms = transforms;
+			this.cache = cache;
+		}
+
+		@Override
+		public ItemOverrideList getOverrides() {
+			return BakedFluidBottleOverrideHandler.INSTANCE;
+		}
+
+		@Override
+		public Pair<? extends IBakedModel, Matrix4f> handlePerspective(TransformType cameraTransformType) {
+			return IPerspectiveAwareModel.MapWrapper.handlePerspective(this, transforms, cameraTransformType);
+		}
+
+		@Override
+		public List<BakedQuad> getQuads(IBlockState state, EnumFacing side, long rand) {
+			if (side == null)
+				return quads;
+			return ImmutableList.of();
+		}
+
+		public boolean isAmbientOcclusion() {
+			return true;
+		}
+
+		public boolean isGui3d() {
+			return false;
+		}
+
+		public boolean isBuiltInRenderer() {
+			return false;
+		}
+
+		public TextureAtlasSprite getParticleTexture() {
+			return particle;
+		}
+
+		public ItemCameraTransforms getItemCameraTransforms() {
+			return ItemCameraTransforms.DEFAULT;
+		}
+	}
+
+}

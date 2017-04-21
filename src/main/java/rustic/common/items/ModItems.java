@@ -26,6 +26,7 @@ public class ModItems {
 	public static ItemBase TALLOW;
 	public static ItemFoodBase OLIVES;
 	public static ItemFoodBase IRONBERRIES;
+	public static ItemFluidBottle FLUID_BOTTLE;
 
 	public static ItemBase TEST;
 
@@ -68,6 +69,7 @@ public class ModItems {
 				}
 			}
 		};
+		FLUID_BOTTLE = new ItemFluidBottle();
 
 		TEST = new ItemBase("test") {
 			@Override
@@ -86,6 +88,7 @@ public class ModItems {
 		TALLOW.initModel();
 		OLIVES.initModel();
 		IRONBERRIES.initModel();
+		FLUID_BOTTLE.initModel();
 
 		TEST.initModel();
 	};

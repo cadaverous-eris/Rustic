@@ -18,18 +18,20 @@ public class LiquidBarrelItemOverrideList extends ItemOverrideList {
 	public LiquidBarrelItemOverrideList(List<ItemOverride> overridesIn) {
 		super(overridesIn);
 	}
-	
+
 	@Override
-	  public IBakedModel handleItemState(IBakedModel originalModel, ItemStack stack, World world, EntityLivingBase entity) {
+	public IBakedModel handleItemState(IBakedModel originalModel, ItemStack stack, World world,
+			EntityLivingBase entity) {
 		TileEntityLiquidBarrel tank = new TileEntityLiquidBarrel();
-	    if (stack != null && stack.getItem().equals(Item.getItemFromBlock(ModBlocks.LIQUID_BARREL)) && stack.hasTagCompound()) {
-	    	tank.getTank().readFromNBT(stack.getTagCompound());
-	    	int amount = tank.getAmount();
+		if (stack != null && stack.getItem().equals(Item.getItemFromBlock(ModBlocks.LIQUID_BARREL))
+				&& stack.hasTagCompound()) {
+			tank.getTank().readFromNBT(stack.getTagCompound());
+			int amount = tank.getAmount();
 			int capacity = tank.getCapacity();
 			Fluid fluid = tank.getFluid();
-		    return new LiquidBarrelFilledItemModel(originalModel, amount, capacity, fluid);
-	    }
-	    return originalModel;
-	  }
+			return new LiquidBarrelFilledItemModel(originalModel, amount, capacity, fluid);
+		}
+		return originalModel;
+	}
 
 }

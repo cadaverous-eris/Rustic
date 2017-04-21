@@ -6,14 +6,19 @@ import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Gui;
 import net.minecraft.client.gui.GuiIngame;
+import net.minecraft.client.gui.ScaledResolution;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.VertexBuffer;
 import net.minecraft.client.renderer.block.model.IBakedModel;
+import net.minecraft.client.renderer.block.model.ModelResourceLocation;
+import net.minecraft.client.renderer.texture.TextureAtlasSprite;
+import net.minecraft.client.renderer.texture.TextureMap;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumFacing;
@@ -24,23 +29,32 @@ import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.RayTraceResult;
+import net.minecraft.world.World;
 import net.minecraftforge.client.GuiIngameForge;
 import net.minecraftforge.client.event.DrawBlockHighlightEvent;
 import net.minecraftforge.client.event.ModelBakeEvent;
+import net.minecraftforge.client.event.RenderBlockOverlayEvent;
+import net.minecraftforge.client.event.RenderBlockOverlayEvent.OverlayType;
 import net.minecraftforge.client.event.RenderGameOverlayEvent;
 import net.minecraftforge.client.event.TextureStitchEvent;
+import net.minecraftforge.fluids.BlockFluidBase;
 import net.minecraftforge.client.event.RenderGameOverlayEvent.ElementType;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+import rustic.client.models.FluidBottleModel;
 import rustic.client.models.LiquidBarrelItemModel;
 import rustic.common.Config;
 import rustic.common.blocks.IAdvancedRotationPlacement;
+import rustic.common.blocks.fluids.ModFluids;
 import rustic.common.util.FluidTextureUtil;
+import rustic.core.Rustic;
 
 public class EventHandlerClient {
 
 	public static ResourceLocation RUSTIC_ICONS = new ResourceLocation("rustic:textures/gui/icons.png");
+	
+	public static ResourceLocation OLIVE_OIL_OVERLAY = new ResourceLocation("rustic:textures/blocks/fluids/olive_oil_overlay.png");
 	
 	@SideOnly(Side.CLIENT)
 	@SubscribeEvent
@@ -56,6 +70,24 @@ public class EventHandlerClient {
 			IBakedModel existingModel = (IBakedModel) object;
 			LiquidBarrelItemModel customModel = new LiquidBarrelItemModel(existingModel);
 			event.getModelRegistry().putObject(LiquidBarrelItemModel.modelResourceLocation, customModel);
+		}
+	}
+	
+	@SideOnly(Side.CLIENT)
+	@SubscribeEvent
+	public void onRenderBlockOverlayEvent(RenderBlockOverlayEvent event) {
+		if (event.getOverlayType() == OverlayType.WATER) {
+			Minecraft minecraft = Minecraft.getMinecraft();
+			EntityPlayer player = event.getPlayer();
+			IBlockState state = minecraft.world.getBlockState(event.getBlockPos());
+			
+			if (state.getBlock().equals(ModFluids.BLOCK_OLIVE_OIL)) {
+				event.setCanceled(true);
+				float brightness = player.getBrightnessForRender(event.getRenderPartialTicks());
+				GlStateManager.color(brightness, brightness, brightness, 0.5F);
+				drawBlockOverlay(OLIVE_OIL_OVERLAY);
+				GlStateManager.color(1,  1, 1, 1);
+			}
 		}
 	}
 	
@@ -192,6 +224,36 @@ public class EventHandlerClient {
 			GlStateManager.enableTexture2D();
 			GlStateManager.disableBlend();
 		}
+	}
+	
+	@SideOnly(Side.CLIENT)
+	private void drawBlockOverlay(ResourceLocation location) {
+		
+		Minecraft.getMinecraft().getTextureManager().bindTexture(location);
+		
+		Tessellator tessellator = Tessellator.getInstance();
+        VertexBuffer vertexbuffer = tessellator.getBuffer();
+        GlStateManager.enableBlend();
+        GlStateManager.tryBlendFuncSeparate(GlStateManager.SourceFactor.SRC_ALPHA, GlStateManager.DestFactor.ONE_MINUS_SRC_ALPHA, GlStateManager.SourceFactor.ONE, GlStateManager.DestFactor.ZERO);
+        GlStateManager.pushMatrix();
+        float f1 = 4.0F;
+        float f2 = -1.0F;
+        float f3 = 1.0F;
+        float f4 = -1.0F;
+        float f5 = 1.0F;
+        float f6 = -0.5F;
+        float f7 = -Minecraft.getMinecraft().player.rotationYaw / 64.0F;
+        float f8 = Minecraft.getMinecraft().player.rotationPitch / 64.0F;
+        vertexbuffer.begin(7, DefaultVertexFormats.POSITION_TEX);
+        vertexbuffer.pos(-1.0D, -1.0D, -0.5D).tex((double)(4.0F + f7), (double)(4.0F + f8)).endVertex();
+        vertexbuffer.pos(1.0D, -1.0D, -0.5D).tex((double)(0.0F + f7), (double)(4.0F + f8)).endVertex();
+        vertexbuffer.pos(1.0D, 1.0D, -0.5D).tex((double)(0.0F + f7), (double)(0.0F + f8)).endVertex();
+        vertexbuffer.pos(-1.0D, 1.0D, -0.5D).tex((double)(4.0F + f7), (double)(0.0F + f8)).endVertex();
+        tessellator.draw();
+        GlStateManager.popMatrix();
+        GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
+        GlStateManager.disableBlend();
+		
 	}
 	
 	@SideOnly(Side.CLIENT)

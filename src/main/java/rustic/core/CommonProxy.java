@@ -8,7 +8,9 @@ import rustic.client.GuiProxy;
 import rustic.client.renderer.LayerIronSkin;
 import rustic.common.Config;
 import rustic.common.blocks.ModBlocks;
+import rustic.common.blocks.fluids.ModFluids;
 import rustic.common.crafting.Recipes;
+import rustic.common.items.ItemFluidBottle;
 import rustic.common.items.ModItems;
 import rustic.common.network.PacketHandler;
 import rustic.common.potions.PotionTypesRustic;
@@ -40,6 +42,7 @@ public class CommonProxy {
         config = new Configuration(new File(directory.getPath(), "rustic.cfg"));
         Config.readConfig();
         
+        ModFluids.init();
         ModBlocks.init();
         ModItems.init();
         
@@ -53,6 +56,7 @@ public class CommonProxy {
 
     public void init(FMLInitializationEvent event) {
     	NetworkRegistry.INSTANCE.registerGuiHandler(Rustic.instance, new GuiProxy());
+    	initFluidBottle();
     }
 
     public void postInit(FMLPostInitializationEvent event) {
@@ -60,6 +64,10 @@ public class CommonProxy {
             config.save();
         }
     	
+    }
+    
+    private void initFluidBottle() {
+    	ItemFluidBottle.addFluid(ModFluids.OLIVE_OIL);
     }
 	
 }
