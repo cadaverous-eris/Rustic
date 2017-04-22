@@ -13,6 +13,7 @@ import rustic.common.blocks.slab.ItemBlockSlabBase;
 import rustic.common.tileentity.TileEntityApiary;
 import rustic.common.tileentity.TileEntityBarrel;
 import rustic.common.tileentity.TileEntityCabinet;
+import rustic.common.tileentity.TileEntityCrushingTub;
 import rustic.common.tileentity.TileEntityLiquidBarrel;
 import rustic.common.tileentity.TileEntityVase;
 import rustic.core.Rustic;
@@ -85,6 +86,7 @@ public class ModBlocks {
 	public static BlockLogRustic LOG;
 	public static BlockLeavesRustic LEAVES;
 	public static BlockSaplingRustic SAPLING;
+	public static BlockCrushingTub CRUSHING_TUB;
 
 	public static void init() {
 		STONE_PILLAR = new BlockPillar("stone");
@@ -171,12 +173,14 @@ public class ModBlocks {
 		LOG = new BlockLogRustic();
 		LEAVES = new BlockLeavesRustic();
 		SAPLING = new BlockSaplingRustic();
+		CRUSHING_TUB = new BlockCrushingTub();
 
 		GameRegistry.registerTileEntity(TileEntityApiary.class, Rustic.MODID + ":tileEntityApiary");
 		GameRegistry.registerTileEntity(TileEntityVase.class, Rustic.MODID + ":tileEntityVase");
 		GameRegistry.registerTileEntity(TileEntityBarrel.class, Rustic.MODID + ":tileEntityBarrel");
 		GameRegistry.registerTileEntity(TileEntityCabinet.class, Rustic.MODID + ":tileEntityCabinet");
 		GameRegistry.registerTileEntity(TileEntityLiquidBarrel.class, Rustic.MODID + ":tileEntityLiquidBarrel");
+		GameRegistry.registerTileEntity(TileEntityCrushingTub.class, Rustic.MODID + ":tileEntityCrushingTub");
 	}
 
 	@SideOnly(Side.CLIENT)
@@ -247,6 +251,7 @@ public class ModBlocks {
 		LOG.initModel();
 		LEAVES.initModel();
 		SAPLING.initModel();
+		CRUSHING_TUB.initModel();
 	}
 
 }

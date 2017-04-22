@@ -22,7 +22,7 @@ public class ModFluids {
 			@Override
 			public void onDrank(World world, EntityPlayer player, ItemStack stack) {
 				player.getFoodStats().addStats(0, 0.5F);
-				player.addPotionEffect(new PotionEffect(MobEffects.NAUSEA, 5, 1));
+				player.addPotionEffect(new PotionEffect(MobEffects.NAUSEA, 100, 1));
 			}
 		}.setDensity(920).setViscosity(6349);
 		register(OLIVE_OIL);

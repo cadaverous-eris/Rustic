@@ -5,6 +5,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.potion.PotionHelper;
 import net.minecraftforge.common.brewing.BrewingRecipeRegistry;
 import net.minecraftforge.common.brewing.IBrewingRecipe;
+import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fml.common.IFuelHandler;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.oredict.OreDictionary;
@@ -15,8 +16,12 @@ import rustic.common.blocks.BlockLogRustic;
 import rustic.common.blocks.BlockPlanksRustic;
 import rustic.common.blocks.BlockSaplingRustic;
 import rustic.common.blocks.ModBlocks;
+import rustic.common.blocks.fluids.ModFluids;
 import rustic.common.items.ModItems;
 import rustic.common.potions.PotionTypesRustic;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import com.google.common.base.Predicate;
 
@@ -27,6 +32,8 @@ import net.minecraft.init.Items;
 import net.minecraft.init.PotionTypes;
 
 public class Recipes {
+	
+	public static List<CrushingTubRecipe> crushingTubRecipes = new ArrayList<CrushingTubRecipe>();
 
 	public static void init() {
 		addCraftingRecipes();
@@ -34,6 +41,7 @@ public class Recipes {
 		addPotionRecipes();
 		addFuels();
 		addOreDictEntries();
+		addCrushingTubRecipes();
 	}
 
 	private static void addSmeltingRecipes() {
@@ -170,6 +178,10 @@ public class Recipes {
 		GameRegistry.addShapelessRecipe(new ItemStack(ModBlocks.PLANKS, 4, 1), new ItemStack(ModBlocks.LOG, 1, 1));
 
 		GameRegistry.addRecipe(new RecipeOliveOil());
+	}
+	
+	private static void addCrushingTubRecipes() {
+		crushingTubRecipes.add(new CrushingTubRecipe(new ItemStack(ModItems.OLIVES), new FluidStack(ModFluids.OLIVE_OIL, 250)));
 	}
 
 }

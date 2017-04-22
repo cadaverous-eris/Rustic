@@ -13,6 +13,8 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.NonNullList;
 import net.minecraft.world.World;
 import net.minecraftforge.common.ForgeHooks;
+import net.minecraftforge.fluids.FluidStack;
+import rustic.common.blocks.fluids.ModFluids;
 import rustic.common.items.ModItems;
 
 public class RecipeOliveOil implements IRecipe {
@@ -39,8 +41,13 @@ public class RecipeOliveOil implements IRecipe {
 			if (tempStack.getItem() instanceof ItemFood && foodStack.isEmpty()) {
 				foodStack = tempStack;
 				this.foodSlot = i;
-			} else if (tempStack.getItem().equals(ModItems.TEST) && oilStack.isEmpty()) {
-				oilStack = tempStack;
+			} else if (tempStack.getItem().equals(ModItems.FLUID_BOTTLE) && oilStack.isEmpty()) {
+				FluidStack fluidStack = FluidStack.loadFluidStackFromNBT(tempStack.getTagCompound());
+				if (fluidStack != null && fluidStack.getFluid() != null) {
+					if (fluidStack.getFluid().equals(ModFluids.OLIVE_OIL)) {
+						oilStack = tempStack;
+					}
+				}
 			} else {
 				return false;
 			}

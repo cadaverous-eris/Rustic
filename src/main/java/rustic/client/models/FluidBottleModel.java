@@ -1,12 +1,14 @@
 package rustic.client.models;
 
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.vecmath.Matrix4f;
+import javax.vecmath.Vector3f;
 
 import org.apache.commons.lang3.tuple.Pair;
 
@@ -59,7 +61,8 @@ import rustic.core.Rustic;
 
 public class FluidBottleModel implements IModel, IModelCustomData, IRetexturableModel {
 
-	public static final ModelResourceLocation LOCATION = new ModelResourceLocation(new ResourceLocation(Rustic.MODID, "fluid_bottle"), "inventory");
+	public static final ModelResourceLocation LOCATION = new ModelResourceLocation(
+			new ResourceLocation(Rustic.MODID, "fluid_bottle"), "inventory");
 
 	private static final float NORTH_Z_FLUID = 7.498f / 16f;
 	private static final float SOUTH_Z_FLUID = 8.502f / 16f;
@@ -84,8 +87,6 @@ public class FluidBottleModel implements IModel, IModelCustomData, IRetexturable
 		bottleLocation = new ResourceLocation("minecraft", "items/potion_bottle_drinkable");
 		this.fluid = fluid;
 	}
-	
-	
 
 	@Override
 	public IModel retexture(ImmutableMap<String, String> textures) {
@@ -130,9 +131,10 @@ public class FluidBottleModel implements IModel, IModelCustomData, IRetexturable
 	@Override
 	public IBakedModel bake(IModelState state, VertexFormat format,
 			Function<ResourceLocation, TextureAtlasSprite> bakedTextureGetter) {
-		
-		ImmutableMap<TransformType, TRSRTransformation> transformMap = IPerspectiveAwareModel.MapWrapper.getTransforms(state);
-		
+
+		ImmutableMap<TransformType, TRSRTransformation> transformMap = IPerspectiveAwareModel.MapWrapper
+				.getTransforms(state);
+
 		TRSRTransformation transform = state.apply(Optional.<IModelPart>absent()).or(TRSRTransformation.identity());
 		TextureAtlasSprite fluidSprite = null;
 		ImmutableList.Builder<BakedQuad> builder = ImmutableList.builder();
@@ -146,7 +148,7 @@ public class FluidBottleModel implements IModel, IModelCustomData, IRetexturable
 					bakedTextureGetter);
 			builder.addAll(model.getQuads(null, null, 0));
 		}
-		
+
 		if (liquidLocation != null && fluidSprite != null) {
 			TextureAtlasSprite liquid = bakedTextureGetter.apply(liquidLocation);
 			builder.addAll(ItemTextureQuadConverter.convertTexture(format, transform, liquid, fluidSprite,
@@ -195,18 +197,18 @@ public class FluidBottleModel implements IModel, IModelCustomData, IRetexturable
 		@Nonnull
 		public IBakedModel handleItemState(@Nonnull IBakedModel originalModel, @Nonnull ItemStack stack,
 				@Nullable World world, @Nullable EntityLivingBase entity) {
-			
+
 			FluidStack fluidStack = FluidStack.loadFluidStackFromNBT(stack.getTagCompound());
-			
+
 			if (fluidStack == null) {
 				return originalModel;
 			}
-			
+
 			BakedFluidBottle model = (BakedFluidBottle) originalModel;
 
 			Fluid fluid = fluidStack.getFluid();
 			String name = fluid.getName();
-			
+
 			if (!model.cache.containsKey(name)) {
 				IModel parent = model.parent.process(ImmutableMap.of("fluid", name));
 				Function<ResourceLocation, TextureAtlasSprite> textureGetter;
@@ -241,7 +243,7 @@ public class FluidBottleModel implements IModel, IModelCustomData, IRetexturable
 			this.particle = particle;
 			this.format = format;
 			this.parent = parent;
-			this.transforms = transforms;
+			this.transforms = itemTransforms();
 			this.cache = cache;
 		}
 
@@ -252,7 +254,34 @@ public class FluidBottleModel implements IModel, IModelCustomData, IRetexturable
 
 		@Override
 		public Pair<? extends IBakedModel, Matrix4f> handlePerspective(TransformType cameraTransformType) {
-			return IPerspectiveAwareModel.MapWrapper.handlePerspective(this, transforms, cameraTransformType);
+			return IPerspectiveAwareModel.MapWrapper.handlePerspective(this, (ImmutableMap<TransformType, TRSRTransformation>) this.transforms, cameraTransformType);
+		}
+		
+		private static ImmutableMap<TransformType, TRSRTransformation> itemTransforms() {
+			TRSRTransformation thirdperson = get(0, 3, 1, 0, 0, 0, 0.55f);
+            TRSRTransformation firstperson = get(1.13f, 3.2f, 1.13f, 0, -90, 25, 0.68f);
+            ImmutableMap.Builder<TransformType, TRSRTransformation> builder = ImmutableMap.builder();
+            builder.put(TransformType.GROUND,                  get(0, 2, 0, 0, 0, 0, 0.5f));
+            builder.put(TransformType.HEAD,                    get(0, 13, 7, 0, 180, 0, 1));
+            builder.put(TransformType.THIRD_PERSON_RIGHT_HAND, thirdperson);
+            builder.put(TransformType.THIRD_PERSON_LEFT_HAND, leftify(thirdperson));
+            builder.put(TransformType.FIRST_PERSON_RIGHT_HAND, firstperson);
+            builder.put(TransformType.FIRST_PERSON_LEFT_HAND, leftify(firstperson));
+            return (ImmutableMap) builder.build();
+		}
+
+		private static TRSRTransformation get(float tx, float ty, float tz, float ax, float ay, float az, float s) {
+			return TRSRTransformation.blockCenterToCorner(new TRSRTransformation(
+					new Vector3f(tx / 16, ty / 16, tz / 16),
+					TRSRTransformation.quatFromXYZDegrees(new Vector3f(ax, ay, az)), new Vector3f(s, s, s), null));
+		}
+
+		private static final TRSRTransformation flipX = new TRSRTransformation(null, null, new Vector3f(-1, 1, 1),
+				null);
+
+		private static TRSRTransformation leftify(TRSRTransformation transform) {
+			return TRSRTransformation.blockCenterToCorner(
+					flipX.compose(TRSRTransformation.blockCornerToCenter(transform)).compose(flipX));
 		}
 
 		@Override

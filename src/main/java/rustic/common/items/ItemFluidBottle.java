@@ -10,6 +10,7 @@ import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.renderer.ItemMeshDefinition;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.client.renderer.block.statemap.StateMapperBase;
+import net.minecraft.client.resources.I18n;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
@@ -69,18 +70,13 @@ public class ItemFluidBottle extends ItemFluidContainer {
 		empty = new ItemStack(Items.GLASS_BOTTLE);
 	}
 
+	@SideOnly(Side.CLIENT)
 	public void initModel() {
-		//ItemMeshDefinition meshDefinition = new ItemMeshDefinition() {
-		//	@Override
-		//	public ModelResourceLocation getModelLocation(ItemStack stack) {
-		//		return new ModelResourceLocation(new ResourceLocation(Rustic.MODID, "fluid_bottle"), "inventory");
-		//	}
-		//};
 		ItemMeshDefinition meshDefinition = new ItemMeshDefinition() {
 			@Override
-            public ModelResourceLocation getModelLocation(@Nonnull ItemStack stack) {
-                return FluidBottleModel.LOCATION;
-            }
+			public ModelResourceLocation getModelLocation(@Nonnull ItemStack stack) {
+				return FluidBottleModel.LOCATION;
+			}
 		};
 		ModelLoader.setCustomMeshDefinition(this, meshDefinition);
 		ModelLoader.registerItemVariants(this, FluidBottleModel.LOCATION);
@@ -145,7 +141,11 @@ public class ItemFluidBottle extends ItemFluidContainer {
 	}
 
 	public EnumAction getItemUseAction(ItemStack stack) {
-		return EnumAction.DRINK;
+		if (getFluid(stack) != null && getFluid(stack).getFluid() != null
+				&& getFluid(stack).getFluid() instanceof FluidDrinkable) {
+			return EnumAction.DRINK;
+		}
+		return EnumAction.NONE;
 	}
 
 	public ActionResult<ItemStack> onItemRightClick(World worldIn, EntityPlayer playerIn, EnumHand handIn) {
@@ -173,6 +173,19 @@ public class ItemFluidBottle extends ItemFluidContainer {
 		return this.empty;
 	}
 
+	@Override
+	@Nonnull
+	public String getItemStackDisplayName(@Nonnull ItemStack stack) {
+		FluidStack fluidStack = getFluid(stack);
+		if (fluidStack == null) {
+			return empty.getDisplayName();
+		}
+
+		String unloc = this.getUnlocalizedNameInefficiently(stack);
+
+		return I18n.format(unloc + ".name", fluidStack.getLocalizedName());
+	}
+
 	@SideOnly(Side.CLIENT)
 	public void getSubItems(Item itemIn, CreativeTabs tab, NonNullList<ItemStack> subItems) {
 		for (Fluid fluid : VALID_FLUIDS) {
@@ -185,7 +198,48 @@ public class ItemFluidBottle extends ItemFluidContainer {
 
 	@Override
 	public ICapabilityProvider initCapabilities(@Nonnull ItemStack stack, @Nullable NBTTagCompound nbt) {
-		FluidHandlerItemStack handler = new FluidHandlerItemStack(stack, capacity);
+		FluidHandlerItemStack.SwapEmpty handler = new FluidHandlerItemStack.SwapEmpty(stack, empty, capacity) {
+			@Override
+			public boolean canFillFluidType(FluidStack fluidstack) {
+				return ItemFluidBottle.VALID_FLUIDS.contains(fluidstack.getFluid());
+			}
+
+			@Override
+			public int fill(FluidStack resource, boolean doFill) {
+				if (resource == null || resource.amount < Fluid.BUCKET_VOLUME || getFluid() != null
+						|| !canFillFluidType(resource)) {
+					return 0;
+				}
+				if (doFill) {
+					setFluid(resource.getFluid());
+				}
+				return Fluid.BUCKET_VOLUME;
+			}
+
+			protected void setFluid(@Nullable Fluid fluid) {
+				if (fluid == null) {
+					container = new ItemStack(Items.GLASS_BOTTLE);
+				} else {
+					container = new ItemStack(ModItems.FLUID_BOTTLE);
+					NBTTagCompound tag = new FluidStack(fluid, 1000).writeToNBT(new NBTTagCompound());
+					container.setTagCompound(tag);
+				}
+			}
+			@Override
+			public FluidStack drain(FluidStack resource, boolean doDrain) {
+				if (resource == null || resource.amount < Fluid.BUCKET_VOLUME) {
+					return null;
+				}
+				return super.drain(resource, doDrain);
+			}
+			@Override
+			public FluidStack drain(int maxDrain, boolean doDrain) {
+				if (maxDrain < Fluid.BUCKET_VOLUME) {
+					return null;
+				}
+				return super.drain(maxDrain, doDrain);
+			}
+		};
 		return handler;
 	}
 

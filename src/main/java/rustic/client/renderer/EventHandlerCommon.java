@@ -1,4 +1,4 @@
-package rustic.common;
+package rustic.client.renderer;
 
 import java.lang.reflect.Field;
 import java.util.HashMap;
@@ -10,6 +10,7 @@ import org.lwjgl.opengl.GL11;
 import com.mojang.authlib.GameProfile;
 
 import net.minecraft.block.Block;
+import net.minecraft.block.ITileEntityProvider;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.Minecraft;
@@ -84,14 +85,17 @@ import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.event.world.ChunkEvent;
 import net.minecraftforge.fluids.BlockFluidBase;
 import net.minecraftforge.fluids.Fluid;
+import net.minecraftforge.fluids.FluidActionResult;
 import net.minecraftforge.fluids.FluidStack;
+import net.minecraftforge.fluids.FluidUtil;
 import net.minecraftforge.fluids.IFluidBlock;
+import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
+import net.minecraftforge.fluids.capability.IFluidHandler;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.TickEvent;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import rustic.client.models.LiquidBarrelItemModel;
-import rustic.client.renderer.LayerIronSkin;
 import rustic.common.blocks.IAdvancedRotationPlacement;
 import rustic.common.blocks.ModBlocks;
 import rustic.common.items.ItemFluidBottle;
@@ -158,11 +162,11 @@ public class EventHandlerCommon {
 
 	@SubscribeEvent
 	public void onPlayerRightClickItemEvent(PlayerInteractEvent.RightClickBlock event) {
-		EntityPlayer player = event.getEntityPlayer();
-		BlockPos pos = event.getPos();
-		ItemStack stack = event.getItemStack();
-		World world = event.getWorld();
 		if (event.getItemStack().getItem().equals(Items.GLASS_BOTTLE)) {
+			EntityPlayer player = event.getEntityPlayer();
+			BlockPos pos = event.getPos();
+			ItemStack stack = event.getItemStack();
+			World world = event.getWorld();
 			RayTraceResult raytraceresult = GenericUtil.rayTrace(world, player, true);
 			BlockPos pos2 = raytraceresult.getBlockPos();
 			if (player.canPlayerEdit(pos2, event.getFace(), stack)
@@ -183,6 +187,23 @@ public class EventHandlerCommon {
 							player.dropItem(bottlestack, false);
 						}
 					}
+				} else if (state.getBlock() instanceof ITileEntityProvider && world.getTileEntity(pos) != null && world.getTileEntity(pos).hasCapability(CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY, event.getFace())) {
+					IFluidHandler tank = world.getTileEntity(pos).getCapability(CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY, event.getFace());
+					if (tank.drain(1000, false) != null && tank.drain(1000, false).getFluid() != null) {
+						if (ItemFluidBottle.VALID_FLUIDS.contains(tank.drain(1000, false).getFluid()) && tank.drain(1000, false).amount >= 1000) {
+							FluidStack fill = tank.drain(1000, true);
+							player.addStat(StatList.getObjectUseStats(stack.getItem()));
+							player.playSound(SoundEvents.ITEM_BUCKET_FILL, 1.0F, 1.0F);
+							stack.shrink(1);
+							ItemStack bottlestack = new ItemStack(ModItems.FLUID_BOTTLE, 1);
+							NBTTagCompound tag = new FluidStack(fill.getFluid(), 1000).writeToNBT(new NBTTagCompound());
+							bottlestack.setTagCompound(tag);
+							if (!player.inventory.addItemStackToInventory(bottlestack)) {
+								player.dropItem(bottlestack, false);
+							}
+							event.setCanceled(true);
+						}
+					}	
 				}
 			}
 		}

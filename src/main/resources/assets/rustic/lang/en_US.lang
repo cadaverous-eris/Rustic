@@ -79,6 +79,7 @@ item.rustic.beeswax.name=Beeswax
 item.rustic.tallow.name=Tallow
 item.rustic.ironberries.name=Ironberries
 item.rustic.olives.name=Olives
+item.rustic.fluid_bottle.name=Bottle of %s
 
 tile.rustic.olive_oil.name=Olive Oil
 fluid.oliveoil=Olive Oil

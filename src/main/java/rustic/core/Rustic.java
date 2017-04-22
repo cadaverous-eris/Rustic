@@ -23,7 +23,7 @@ import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import rustic.client.EventHandlerClient;
-import rustic.common.EventHandlerCommon;
+import rustic.client.renderer.EventHandlerCommon;
 import rustic.common.blocks.ModBlocks;
 import rustic.common.blocks.fluids.ModFluids;
 import rustic.common.crafting.Recipes;
