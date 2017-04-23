@@ -69,10 +69,11 @@ public class TileEntityCrushingTub extends TileFluidHandler {
 					if (this.getAmount() <= this.getCapacity() - output.amount) {
 						tank.fillInternal(output, true);
 						itemStackHandler.extractItem(0, 1, false);
-						for (ItemStack byproduct : recipe.getByproducts()) {
-							world.getBlockState(pos).getBlock().spawnAsEntity(world, pos, byproduct);
+						ItemStack by = recipe.getByproduct().copy();
+						if (!by.isEmpty()) {
+							world.getBlockState(pos).getBlock().spawnAsEntity(world, pos, by);
 						}
-						this.world.playSound((EntityPlayer)null, this.pos.getX() + 0.5, this.pos.getY() + 0.5, this.pos.getZ() + 0.5, SoundEvents.BLOCK_SLIME_STEP, SoundCategory.BLOCKS, 0.5F, this.world.rand.nextFloat() * 0.1F + 0.9F);
+						this.world.playSound((EntityPlayer)null, this.pos.getX() + 0.5, this.pos.getY() + 0.5, this.pos.getZ() + 0.5, SoundEvents.BLOCK_SLIME_FALL, SoundCategory.BLOCKS, 0.5F, this.world.rand.nextFloat() * 0.1F + 0.9F);
 						IBlockState state = world.getBlockState(pos);
 						this.world.addBlockEvent(this.pos, this.getBlockType(), 1, 0);
 						getWorld().notifyBlockUpdate(pos, state, state, 3);
@@ -96,6 +97,7 @@ public class TileEntityCrushingTub extends TileFluidHandler {
 					getWorld().notifyBlockUpdate(pos, state, state, 3);
 					this.world.notifyNeighborsOfStateChange(this.pos, this.getBlockType(), true);
 					this.markDirty();
+					return true;
 				}
 			} else {
 				player.setHeldItem(hand, this.itemStackHandler.insertItem(0, heldItem, false));
@@ -105,6 +107,15 @@ public class TileEntityCrushingTub extends TileFluidHandler {
 				markDirty();
 				return true;
 			}
+		} else if (player.isSneaking() && this.getAmount() > 0) {
+			FluidStack drained = this.tank.drainInternal(capacity, true);
+			SoundEvent soundevent = drained.getFluid().getEmptySound(drained);
+			this.world.playSound(null, this.pos, soundevent, SoundCategory.BLOCKS, 1F, 1F);
+			this.world.addBlockEvent(this.pos, this.getBlockType(), 1, 0);
+			getWorld().notifyBlockUpdate(pos, state, state, 3);
+			this.world.notifyNeighborsOfStateChange(this.pos, this.getBlockType(), true);
+			markDirty();
+			return true;
 		}
 		if (itemStackHandler.getStackInSlot(0) != ItemStack.EMPTY && !world.isRemote) {
 			world.spawnEntity(
