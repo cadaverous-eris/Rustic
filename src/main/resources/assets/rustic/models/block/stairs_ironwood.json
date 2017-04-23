@@ -1,0 +1,9 @@
+{
+	"parent": "block/stairs",
+	"textures": {
+        	"bottom": "rustic:blocks/planks_ironwood",
+        	"top": "rustic:blocks/planks_ironwood",
+        	"side": "rustic:blocks/planks_ironwood",
+        	"particle": "rustic:blocks/planks_ironwood"
+    	}
+}

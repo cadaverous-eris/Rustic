@@ -68,6 +68,7 @@ public class CommonProxy {
     
     private void initFluidBottle() {
     	ItemFluidBottle.addFluid(ModFluids.OLIVE_OIL);
+    	ItemFluidBottle.addFluid(ModFluids.IRONBERRY_JUICE);
     }
 	
 }

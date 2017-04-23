@@ -1,0 +1,9 @@
+{
+	"parent": "block/outer_stairs",
+	"textures": {
+        	"bottom": "rustic:blocks/planks_olive",
+        	"top": "rustic:blocks/planks_olive",
+        	"side": "rustic:blocks/planks_olive",
+        	"particle": "rustic:blocks/planks_olive"
+    	}
+}

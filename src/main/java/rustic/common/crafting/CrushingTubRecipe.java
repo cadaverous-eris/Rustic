@@ -10,35 +10,33 @@ import scala.actors.threadpool.Arrays;
 public class CrushingTubRecipe {
 
 	protected ItemStack input;
-	protected List<ItemStack> byproducts;
+	protected ItemStack byproduct;
 	protected FluidStack output;
 	
-	public CrushingTubRecipe(ItemStack in, FluidStack out) {
-		this(in, out, new ArrayList<ItemStack>());
+	public CrushingTubRecipe(FluidStack out, ItemStack in) {
+		this(out, in, ItemStack.EMPTY);
 	}
 	
-	public CrushingTubRecipe(ItemStack in, FluidStack out, List<ItemStack> by) {
+	public CrushingTubRecipe(FluidStack out, ItemStack in, ItemStack by) {
 		this.input = in;
 		this.output = out;
-		this.byproducts = by;
-	}
-	
-	public CrushingTubRecipe(ItemStack in, FluidStack out, ItemStack... by) {
-		this.input = in;
-		this.output = out;
-		this.byproducts = Arrays.asList(by);
+		this.byproduct = by;
 	}
 	
 	public boolean matches(ItemStack in) {
 		return (in.getItem().equals(this.input.getItem()) && in.getMetadata() == this.input.getMetadata()) && ItemStack.areItemStackTagsEqual(in, this.input);
 	}
 	
-	public FluidStack getResult() {
-		return this.output;
+	public ItemStack getInput() {
+		return this.input.copy();
 	}
 	
-	public List<ItemStack> getByproducts() {
-		return this.byproducts;
+	public FluidStack getResult() {
+		return this.output.copy();
+	}
+	
+	public ItemStack getByproduct() {
+		return this.byproduct.copy();
 	}
 	
 }

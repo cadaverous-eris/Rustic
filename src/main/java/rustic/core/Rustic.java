@@ -23,7 +23,7 @@ import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import rustic.client.EventHandlerClient;
-import rustic.client.renderer.EventHandlerCommon;
+import rustic.common.EventHandlerCommon;
 import rustic.common.blocks.ModBlocks;
 import rustic.common.blocks.fluids.ModFluids;
 import rustic.common.crafting.Recipes;
@@ -67,6 +67,15 @@ public class Rustic {
 					ForgeModContainer.getInstance().universalBucket.getCapacity());
 			ItemStack stack = new ItemStack(ForgeModContainer.getInstance().universalBucket);
 			IFluidHandlerItem fluidHandler = new FluidBucketWrapper(stack);
+			if (fluidHandler.fill(fs, true) == fs.amount) {
+				ItemStack filled = fluidHandler.getContainer();
+				p_78018_1_.add(filled);
+			}
+			
+			fs = new FluidStack(ModFluids.IRONBERRY_JUICE,
+					ForgeModContainer.getInstance().universalBucket.getCapacity());
+			stack = new ItemStack(ForgeModContainer.getInstance().universalBucket);
+			fluidHandler = new FluidBucketWrapper(stack);
 			if (fluidHandler.fill(fs, true) == fs.amount) {
 				ItemStack filled = fluidHandler.getContainer();
 				p_78018_1_.add(filled);

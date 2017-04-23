@@ -1,0 +1,6 @@
+{
+    "variants": {
+        "half=bottom": { "model": "rustic:olive_slab_bottom" },
+        "half=top": { "model": "rustic:olive_slab_top" }
+    }
+}

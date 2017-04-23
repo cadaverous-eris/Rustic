@@ -1,0 +1,6 @@
+{
+    "variants": {
+        "half=bottom": { "model": "rustic:ironwood_slab_double" },
+        "half=top": { "model": "rustic:ironwood_slab_double" }
+    }
+}

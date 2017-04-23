@@ -72,6 +72,20 @@ tile.rustic.leaves_olive.name=Olive Leaves
 tile.rustic.leaves_ironwood.name=Ironwood Leaves
 tile.rustic.sapling_olive.name=Olive Sapling
 tile.rustic.sapling_ironwood.name=Ironwood Sapling
+tile.rustic.crushing_tub.name=Crushing Tub
+tile.rustic.evaporating_basin.name=Drying Basin
+tile.rustic.fence_olive.name=Olive Wood Fence
+tile.rustic.fence_ironwood.name=Ironwood Fence
+tile.rustic.fence_gate_olive.name=Olive Wood Fence Gate
+tile.rustic.fence_gate_ironwood.name=Ironwood Fence Gate
+tile.rustic.olive_slab.name=Olive Wood Slab
+tile.rustic.ironwood_slab.name=Ironwood Slab
+tile.rustic.stairs_olive.name=Olive Wood Stairs
+tile.rustic.stairs_ironwood.name=Ironwood Stairs
+tile.rustic.chair_olive.name=Olive Wood Chair
+tile.rustic.table_olive.name=Olive Wood Table
+tile.rustic.chair_ironwood.name=Ironwood Chair
+tile.rustic.table_ironwood.name=Ironwood Table
 
 item.rustic.bee.name=Bee
 item.rustic.honeycomb.name=Honeycomb
@@ -80,9 +94,13 @@ item.rustic.tallow.name=Tallow
 item.rustic.ironberries.name=Ironberries
 item.rustic.olives.name=Olives
 item.rustic.fluid_bottle.name=Bottle of %s
+item.rustic.dust_iron.name=Iron Dust
+item.rustic.dust_tiny_iron.name=Tiny Pile of Iron Dust
 
 tile.rustic.olive_oil.name=Olive Oil
 fluid.oliveoil=Olive Oil
+tile.rustic.ironberry_juice.name=Ironberry Juice
+fluid.ironberryjuice=Ironberry Juice
 
 effect.ironskin=Iron Skin
 
@@ -94,3 +112,6 @@ potion.effect.protean=Protean Potion
 splash_potion.effect.protean=Protean Splash Potion
 lingering_potion.effect.protean=Protean Lingering Potion
 tipped_arrow.effect.protean=Protean Arrow
+
+rustic.jei.recipe.crushing_tub=Crushing Tub
+rustic.jei.recipe.evaporating=Drying Basin

@@ -14,6 +14,7 @@ import rustic.common.tileentity.TileEntityApiary;
 import rustic.common.tileentity.TileEntityBarrel;
 import rustic.common.tileentity.TileEntityCabinet;
 import rustic.common.tileentity.TileEntityCrushingTub;
+import rustic.common.tileentity.TileEntityEvaporatingBasin;
 import rustic.common.tileentity.TileEntityLiquidBarrel;
 import rustic.common.tileentity.TileEntityVase;
 import rustic.core.Rustic;
@@ -87,6 +88,23 @@ public class ModBlocks {
 	public static BlockLeavesRustic LEAVES;
 	public static BlockSaplingRustic SAPLING;
 	public static BlockCrushingTub CRUSHING_TUB;
+	public static BlockEvaporatingBasin EVAPORATING_BASIN;
+	public static BlockFenceRustic OLIVE_FENCE;
+	public static BlockFenceRustic IRONWOOD_FENCE;
+	public static BlockFenceGateRustic OLIVE_FENCE_GATE;
+	public static BlockFenceGateRustic IRONWOOD_FENCE_GATE;
+	public static BlockDoubleSlabBase OLIVE_DOUBLESLAB;
+	public static BlockSlabBase OLIVE_SLAB;
+	public static ItemBlockSlabBase OLIVE_SLAB_ITEM;
+	public static BlockDoubleSlabBase IRONWOOD_DOUBLESLAB;
+	public static BlockSlabBase IRONWOOD_SLAB;
+	public static ItemBlockSlabBase IRONWOOD_SLAB_ITEM;
+	public static BlockStairsBase OLIVE_STAIRS;
+	public static BlockStairsBase IRONWOOD_STAIRS;
+	public static BlockChair CHAIR_OLIVE;
+	public static BlockChair CHAIR_IRONWOOD;
+	public static BlockTable TABLE_OLIVE;
+	public static BlockTable TABLE_IRONWOOD;
 
 	public static void init() {
 		STONE_PILLAR = new BlockPillar("stone");
@@ -174,13 +192,33 @@ public class ModBlocks {
 		LEAVES = new BlockLeavesRustic();
 		SAPLING = new BlockSaplingRustic();
 		CRUSHING_TUB = new BlockCrushingTub();
-
+		EVAPORATING_BASIN = new BlockEvaporatingBasin();
+		OLIVE_FENCE = new BlockFenceRustic(PLANKS.getDefaultState().withProperty(BlockPlanksRustic.VARIANT, BlockPlanksRustic.EnumType.OLIVE), "fence_olive");
+		IRONWOOD_FENCE = new BlockFenceRustic(PLANKS.getDefaultState().withProperty(BlockPlanksRustic.VARIANT, BlockPlanksRustic.EnumType.IRONWOOD), "fence_ironwood");
+		OLIVE_FENCE_GATE = new BlockFenceGateRustic(PLANKS.getDefaultState().withProperty(BlockPlanksRustic.VARIANT, BlockPlanksRustic.EnumType.OLIVE), "fence_gate_olive");
+		IRONWOOD_FENCE_GATE = new BlockFenceGateRustic(PLANKS.getDefaultState().withProperty(BlockPlanksRustic.VARIANT, BlockPlanksRustic.EnumType.IRONWOOD), "fence_gate_ironwood");
+		OLIVE_DOUBLESLAB = new BlockDoubleSlabBase(Material.WOOD, "olive_doubleslab", SoundType.WOOD);
+		OLIVE_SLAB = new BlockSlabBase(Material.WOOD, "olive_slab", OLIVE_DOUBLESLAB, SoundType.WOOD);
+		OLIVE_DOUBLESLAB.setSlab(OLIVE_SLAB);
+		OLIVE_SLAB_ITEM = new ItemBlockSlabBase(OLIVE_SLAB, OLIVE_DOUBLESLAB);
+		IRONWOOD_DOUBLESLAB = new BlockDoubleSlabBase(Material.WOOD, "ironwood_doubleslab", SoundType.WOOD);
+		IRONWOOD_SLAB = new BlockSlabBase(Material.WOOD, "ironwood_slab", IRONWOOD_DOUBLESLAB, SoundType.WOOD);
+		IRONWOOD_DOUBLESLAB.setSlab(IRONWOOD_SLAB);
+		IRONWOOD_SLAB_ITEM = new ItemBlockSlabBase(IRONWOOD_SLAB, IRONWOOD_DOUBLESLAB);
+		OLIVE_STAIRS = new BlockStairsBase(PLANKS.getDefaultState().withProperty(BlockPlanksRustic.VARIANT, BlockPlanksRustic.EnumType.OLIVE), "stairs_olive");
+		IRONWOOD_STAIRS = new BlockStairsBase(PLANKS.getDefaultState().withProperty(BlockPlanksRustic.VARIANT, BlockPlanksRustic.EnumType.IRONWOOD), "stairs_ironwood");
+		CHAIR_OLIVE = new BlockChair("olive");
+		CHAIR_IRONWOOD = new BlockChair("ironwood");
+		TABLE_OLIVE = new BlockTable("olive");
+		TABLE_IRONWOOD = new BlockTable("ironwood");
+		
 		GameRegistry.registerTileEntity(TileEntityApiary.class, Rustic.MODID + ":tileEntityApiary");
 		GameRegistry.registerTileEntity(TileEntityVase.class, Rustic.MODID + ":tileEntityVase");
 		GameRegistry.registerTileEntity(TileEntityBarrel.class, Rustic.MODID + ":tileEntityBarrel");
 		GameRegistry.registerTileEntity(TileEntityCabinet.class, Rustic.MODID + ":tileEntityCabinet");
 		GameRegistry.registerTileEntity(TileEntityLiquidBarrel.class, Rustic.MODID + ":tileEntityLiquidBarrel");
 		GameRegistry.registerTileEntity(TileEntityCrushingTub.class, Rustic.MODID + ":tileEntityCrushingTub");
+		GameRegistry.registerTileEntity(TileEntityEvaporatingBasin.class, Rustic.MODID + ":tileEntityEvaporatingBasin");
 	}
 
 	@SideOnly(Side.CLIENT)
@@ -252,6 +290,23 @@ public class ModBlocks {
 		LEAVES.initModel();
 		SAPLING.initModel();
 		CRUSHING_TUB.initModel();
+		EVAPORATING_BASIN.initModel();
+		OLIVE_FENCE.initModel();
+		IRONWOOD_FENCE.initModel();
+		OLIVE_FENCE_GATE.initModel();
+		IRONWOOD_FENCE_GATE.initModel();
+		OLIVE_DOUBLESLAB.initModel();
+		OLIVE_SLAB.initModel();
+		OLIVE_SLAB_ITEM.initModel();
+		IRONWOOD_DOUBLESLAB.initModel();
+		IRONWOOD_SLAB.initModel();
+		IRONWOOD_SLAB_ITEM.initModel();
+		OLIVE_STAIRS.initModel();
+		IRONWOOD_STAIRS.initModel();
+		CHAIR_OLIVE.initModel();
+		CHAIR_IRONWOOD.initModel();
+		TABLE_OLIVE.initModel();
+		TABLE_IRONWOOD.initModel();
 	}
 
 }

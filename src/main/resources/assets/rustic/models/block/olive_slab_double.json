@@ -1,0 +1,7 @@
+{
+	"parent": "block/cube_all",
+	"textures": {
+		"all": "rustic:blocks/planks_olive",
+		"particle": "rustic:blocks/planks_olive"
+	}
+}

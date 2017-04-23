@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockSlab;
+import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.state.BlockStateContainer;
@@ -33,8 +34,18 @@ public class BlockDoubleSlabBase extends BlockSlab {
 		setRegistryName(name);
 		setUnlocalizedName(Rustic.MODID + "." + name);
 		GameRegistry.register(this);
-		GameRegistry.register(new ItemBlock(this), getRegistryName());
+		//GameRegistry.register(new ItemBlock(this), getRegistryName());
 		this.setHardness(2.0F);
+	}
+	
+	public BlockDoubleSlabBase(Material materialIn, String name, SoundType sound) {
+		super(materialIn);
+		setRegistryName(name);
+		setUnlocalizedName(Rustic.MODID + "." + name);
+		GameRegistry.register(this);
+		//GameRegistry.register(new ItemBlock(this), getRegistryName());
+		this.setHardness(2.0F);
+		setSoundType(sound);
 	}
 
 	public void setSlab(Block slab) {

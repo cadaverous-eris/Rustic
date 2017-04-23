@@ -5,6 +5,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.potion.PotionHelper;
 import net.minecraftforge.common.brewing.BrewingRecipeRegistry;
 import net.minecraftforge.common.brewing.IBrewingRecipe;
+import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fml.common.IFuelHandler;
 import net.minecraftforge.fml.common.registry.GameRegistry;
@@ -34,6 +35,7 @@ import net.minecraft.init.PotionTypes;
 public class Recipes {
 	
 	public static List<CrushingTubRecipe> crushingTubRecipes = new ArrayList<CrushingTubRecipe>();
+	public static List<EvaporatingBasinRecipe> evaporatingRecipes = new ArrayList<EvaporatingBasinRecipe>();
 
 	public static void init() {
 		addCraftingRecipes();
@@ -42,16 +44,18 @@ public class Recipes {
 		addFuels();
 		addOreDictEntries();
 		addCrushingTubRecipes();
+		addEvaporatingRecipes();
 	}
 
 	private static void addSmeltingRecipes() {
 		GameRegistry.addSmelting(new ItemStack(ModItems.HONEYCOMB), new ItemStack(ModItems.BEESWAX), 0.3F);
-		//GameRegistry.addSmelting(new ItemStack(ModItems.IRONBERRIES), new ItemStack(Items.field_191525_da), 0.1F);
 		for (int i = 0; i < BlockPlanksRustic.EnumType.values().length; i++) {
 			IBlockState state = ModBlocks.LOG.getDefaultState().withProperty(BlockLogRustic.VARIANT, BlockPlanksRustic.EnumType.byMetadata(i));
 			int meta = ModBlocks.LOG.getMetaFromState(state);
 			GameRegistry.addSmelting(new ItemStack(ModBlocks.LOG, 1, meta), new ItemStack(Items.COAL, 1, 1), 0.15F);
 		}
+		GameRegistry.addSmelting(new ItemStack(ModItems.IRON_DUST), new ItemStack(Items.IRON_INGOT), 0.6F);
+		GameRegistry.addSmelting(new ItemStack(ModItems.IRON_DUST_TINY), new ItemStack(Items.field_191525_da), 0.15F);
 		if (Config.FLESH_SMELTING) {
 			GameRegistry.addSmelting(new ItemStack(Items.ROTTEN_FLESH), new ItemStack(ModItems.TALLOW), 0.3F);
 		}
@@ -96,6 +100,9 @@ public class Recipes {
 		OreDictionary.registerOre("wax", new ItemStack(ModItems.TALLOW));
 
 		OreDictionary.registerOre("stone", new ItemStack(ModBlocks.SLATE));
+		
+		OreDictionary.registerOre("dustTinyIron", new ItemStack(ModItems.IRON_DUST_TINY));
+		OreDictionary.registerOre("dustIron", new ItemStack(ModItems.IRON_DUST));
 	}
 
 	private static void addPotionRecipes() {
@@ -176,12 +183,33 @@ public class Recipes {
 		GameRegistry.addShapelessRecipe(new ItemStack(ModBlocks.FERTILE_SOIL), Blocks.DIRT, new ItemStack(Items.DYE, 1, 15));
 		GameRegistry.addShapelessRecipe(new ItemStack(ModBlocks.PLANKS, 4, 0), new ItemStack(ModBlocks.LOG, 1, 0));
 		GameRegistry.addShapelessRecipe(new ItemStack(ModBlocks.PLANKS, 4, 1), new ItemStack(ModBlocks.LOG, 1, 1));
-
+		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(ModBlocks.CRUSHING_TUB), "p p", "i i", "sss", 'p', "plankWood", 'i', new ItemStack(Items.IRON_INGOT), 's', "slabWood"));
+		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(ModItems.IRON_DUST), "ddd", "ddd", "ddd", 'd', "dustTinyIron"));
+		GameRegistry.addShapedRecipe(new ItemStack(ModBlocks.EVAPORATING_BASIN), "c c", "ccc", 'c', new ItemStack(Blocks.HARDENED_CLAY));
+		GameRegistry.addShapedRecipe(new ItemStack(ModBlocks.OLIVE_FENCE, 3), "psp", "psp", 'p', new ItemStack(ModBlocks.PLANKS, 1, BlockPlanksRustic.EnumType.OLIVE.getMetadata()), 's', new ItemStack(Items.STICK));
+		GameRegistry.addShapedRecipe(new ItemStack(ModBlocks.OLIVE_FENCE_GATE), "sps", "sps", 'p', new ItemStack(ModBlocks.PLANKS, 1, BlockPlanksRustic.EnumType.OLIVE.getMetadata()), 's', new ItemStack(Items.STICK));
+		GameRegistry.addShapedRecipe(new ItemStack(ModBlocks.IRONWOOD_FENCE, 3), "psp", "psp", 'p', new ItemStack(ModBlocks.PLANKS, 1, BlockPlanksRustic.EnumType.IRONWOOD.getMetadata()), 's', new ItemStack(Items.STICK));
+		GameRegistry.addShapedRecipe(new ItemStack(ModBlocks.IRONWOOD_FENCE_GATE), "sps", "sps", 'p', new ItemStack(ModBlocks.PLANKS, 1, BlockPlanksRustic.EnumType.IRONWOOD.getMetadata()), 's', new ItemStack(Items.STICK));
+		GameRegistry.addShapedRecipe(new ItemStack(ModBlocks.OLIVE_SLAB_ITEM), "ppp", 'p', new ItemStack(ModBlocks.PLANKS, 1, BlockPlanksRustic.EnumType.OLIVE.getMetadata()));
+		GameRegistry.addShapedRecipe(new ItemStack(ModBlocks.IRONWOOD_SLAB_ITEM), "ppp", 'p', new ItemStack(ModBlocks.PLANKS, 1, BlockPlanksRustic.EnumType.IRONWOOD.getMetadata()));
+		GameRegistry.addShapedRecipe(new ItemStack(ModBlocks.OLIVE_STAIRS), "p  ", "pp ", "ppp", 'p', new ItemStack(ModBlocks.PLANKS, 1, BlockPlanksRustic.EnumType.OLIVE.getMetadata()));
+		GameRegistry.addShapedRecipe(new ItemStack(ModBlocks.IRONWOOD_STAIRS), "p  ", "pp ", "ppp", 'p', new ItemStack(ModBlocks.PLANKS, 1, BlockPlanksRustic.EnumType.IRONWOOD.getMetadata()));
+		GameRegistry.addShapedRecipe(new ItemStack(ModBlocks.CHAIR_OLIVE, 4), "p  ", "ppp", "s s", 'p', new ItemStack(ModBlocks.PLANKS, 1, BlockPlanksRustic.EnumType.OLIVE.getMetadata()), 's', new ItemStack(Items.STICK));
+		GameRegistry.addShapedRecipe(new ItemStack(ModBlocks.CHAIR_IRONWOOD, 4), "p  ", "ppp", "s s", 'p', new ItemStack(ModBlocks.PLANKS, 1, BlockPlanksRustic.EnumType.IRONWOOD.getMetadata()), 's', new ItemStack(Items.STICK));
+		GameRegistry.addShapedRecipe(new ItemStack(ModBlocks.TABLE_OLIVE, 2), "ppp", "s s", 'p', new ItemStack(ModBlocks.PLANKS, 1, BlockPlanksRustic.EnumType.OLIVE.getMetadata()), 's', new ItemStack(Items.STICK));
+		GameRegistry.addShapedRecipe(new ItemStack(ModBlocks.TABLE_IRONWOOD, 2), "ppp", "s s", 'p', new ItemStack(ModBlocks.PLANKS, 1, BlockPlanksRustic.EnumType.IRONWOOD.getMetadata()), 's', new ItemStack(Items.STICK));
+		
 		GameRegistry.addRecipe(new RecipeOliveOil());
 	}
 	
 	private static void addCrushingTubRecipes() {
-		crushingTubRecipes.add(new CrushingTubRecipe(new ItemStack(ModItems.OLIVES), new FluidStack(ModFluids.OLIVE_OIL, 250)));
+		crushingTubRecipes.add(new CrushingTubRecipe(new FluidStack(ModFluids.OLIVE_OIL, 250), new ItemStack(ModItems.OLIVES)));
+		crushingTubRecipes.add(new CrushingTubRecipe(new FluidStack(ModFluids.IRONBERRY_JUICE, 250), new ItemStack(ModItems.IRONBERRIES)));
+		crushingTubRecipes.add(new CrushingTubRecipe(new FluidStack(FluidRegistry.WATER, 250), new ItemStack(Items.REEDS), new ItemStack(Items.SUGAR, 2)));
+	}
+	
+	private static void addEvaporatingRecipes() {
+		evaporatingRecipes.add(new EvaporatingBasinRecipe(new ItemStack(ModItems.IRON_DUST_TINY, 1), new FluidStack(ModFluids.IRONBERRY_JUICE, 500)));
 	}
 
 }

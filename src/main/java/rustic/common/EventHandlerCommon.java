@@ -1,4 +1,4 @@
-package rustic.client.renderer;
+package rustic.common;
 
 import java.lang.reflect.Field;
 import java.util.HashMap;

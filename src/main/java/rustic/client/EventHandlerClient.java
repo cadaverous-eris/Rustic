@@ -55,6 +55,7 @@ public class EventHandlerClient {
 	public static ResourceLocation RUSTIC_ICONS = new ResourceLocation("rustic:textures/gui/icons.png");
 	
 	public static ResourceLocation OLIVE_OIL_OVERLAY = new ResourceLocation("rustic:textures/blocks/fluids/olive_oil_overlay.png");
+	public static ResourceLocation IRONBERRY_JUICE_OVERLAY = new ResourceLocation("rustic:textures/blocks/fluids/ironberry_juice_overlay.png");
 	
 	@SideOnly(Side.CLIENT)
 	@SubscribeEvent
@@ -84,9 +85,15 @@ public class EventHandlerClient {
 			if (state.getBlock().equals(ModFluids.BLOCK_OLIVE_OIL)) {
 				event.setCanceled(true);
 				float brightness = player.getBrightnessForRender(event.getRenderPartialTicks());
-				GlStateManager.color(brightness, brightness, brightness, 0.5F);
+				GlStateManager.color(brightness, brightness, brightness, 0.99F);
 				drawBlockOverlay(OLIVE_OIL_OVERLAY);
-				GlStateManager.color(1,  1, 1, 1);
+				GlStateManager.color(1, 1, 1, 1);
+			} else if (state.getBlock().equals(ModFluids.BLOCK_IRONBERRY_JUICE)) {
+				event.setCanceled(true);
+				float brightness = player.getBrightnessForRender(event.getRenderPartialTicks());
+				GlStateManager.color(brightness, brightness, brightness, 0.99F);
+				drawBlockOverlay(IRONBERRY_JUICE_OVERLAY);
+				GlStateManager.color(1, 1, 1, 1);
 			}
 		}
 	}

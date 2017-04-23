@@ -34,7 +34,7 @@ public class BlockVase extends BlockBase implements ITileEntityProvider{
 	protected static final AxisAlignedBB VASE_AABB = new AxisAlignedBB(0.125D, 0.0D, 0.125D, 0.875D, 1D, 0.875D);
 
 	public BlockVase() {
-		super(Material.CLAY, "vase");
+		super(Material.ROCK, "vase");
 		setHardness(0.5F);
 	}
 	

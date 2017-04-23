@@ -49,6 +49,7 @@ public class LiquidBarrelRenderer extends TileEntitySpecialRenderer<TileEntityLi
             lightx = i >> 0x10 & 0xFFFF;
             lighty = i & 0xFFFF;
             
+            GlStateManager.pushAttrib();
             GlStateManager.disableCull();
             GlStateManager.disableLighting();
             GlStateManager.enableBlend();
@@ -64,10 +65,10 @@ public class LiquidBarrelRenderer extends TileEntitySpecialRenderer<TileEntityLi
 			buffer.pos(x+0.1875, y+0.125+0.8125*((float)amount/(float)capacity), z+0.8125).tex(minU, maxV).lightmap(lightx,lighty).color(red,green,blue,alpha).endVertex();
 			tess.draw();
 			
-			GlStateManager.disableAlpha();
 			GlStateManager.disableBlend();
 			GlStateManager.enableLighting();
 			GlStateManager.enableCull();
+			GlStateManager.popAttrib();
 		}
 	}
 

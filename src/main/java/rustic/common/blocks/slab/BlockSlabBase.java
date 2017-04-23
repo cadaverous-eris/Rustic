@@ -4,6 +4,7 @@ import javax.annotation.Nonnull;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockSlab;
+import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.state.BlockStateContainer;
@@ -29,10 +30,22 @@ public class BlockSlabBase extends BlockSlab {
 		setRegistryName(name);
 		setUnlocalizedName(Rustic.MODID + "." + name);
 		GameRegistry.register(this);
-		GameRegistry.register(new ItemBlock(this), getRegistryName());
+		//GameRegistry.register(new ItemBlock(this), getRegistryName());
 		this.setHardness(2.0F);
 		this.useNeighborBrightness = true;
 		this.doubleSlab = block;
+	}
+	
+	public BlockSlabBase(Material materialIn, String name, Block block, SoundType sound) {
+		super(materialIn);
+		setRegistryName(name);
+		setUnlocalizedName(Rustic.MODID + "." + name);
+		GameRegistry.register(this);
+		//GameRegistry.register(new ItemBlock(this), getRegistryName());
+		this.setHardness(2.0F);
+		this.useNeighborBrightness = true;
+		this.doubleSlab = block;
+		this.setSoundType(sound);
 	}
 
 	@SideOnly(Side.CLIENT)

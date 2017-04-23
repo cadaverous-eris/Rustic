@@ -27,8 +27,8 @@ public class ModItems {
 	public static ItemFoodBase OLIVES;
 	public static ItemFoodBase IRONBERRIES;
 	public static ItemFluidBottle FLUID_BOTTLE;
-
-	public static ItemBase TEST;
+	public static ItemBase IRON_DUST;
+	public static ItemBase IRON_DUST_TINY;
 
 	public static void init() {
 		BEE = new ItemBase("bee");
@@ -70,15 +70,8 @@ public class ModItems {
 			}
 		};
 		FLUID_BOTTLE = new ItemFluidBottle();
-
-		TEST = new ItemBase("test") {
-			@Override
-			public ActionResult<ItemStack> onItemRightClick(World worldIn, EntityPlayer playerIn, EnumHand handIn) {
-				playerIn.getFoodStats().setFoodLevel(2);
-				playerIn.getFoodStats().setFoodSaturationLevel(0.5F);
-				return super.onItemRightClick(worldIn, playerIn, handIn);
-			}
-		};
+		IRON_DUST = new ItemBase("dust_iron");
+		IRON_DUST_TINY = new ItemBase("dust_tiny_iron");
 	}
 
 	public static void initModels() {
@@ -89,7 +82,7 @@ public class ModItems {
 		OLIVES.initModel();
 		IRONBERRIES.initModel();
 		FLUID_BOTTLE.initModel();
-
-		TEST.initModel();
+		IRON_DUST.initModel();
+		IRON_DUST_TINY.initModel();
 	};
 }

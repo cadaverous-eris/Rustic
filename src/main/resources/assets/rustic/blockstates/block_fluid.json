@@ -7,6 +7,9 @@
 	"variants": {
 		"oliveoil": [{
 			"custom": { "fluid": "oliveoil" }
+		}],
+		"ironberryjuice": [{
+			"custom": { "fluid": "ironberryjuice" }
 		}]
 	}
 }
