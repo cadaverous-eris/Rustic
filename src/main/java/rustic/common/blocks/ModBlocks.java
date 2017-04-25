@@ -4,9 +4,14 @@ import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.Minecraft;
 import net.minecraft.item.Item;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.IBlockAccess;
+import net.minecraftforge.common.EnumPlantType;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+import rustic.common.blocks.crops.BlockHerbBase;
+import rustic.common.blocks.crops.Herbs;
 import rustic.common.blocks.slab.BlockDoubleSlabBase;
 import rustic.common.blocks.slab.BlockSlabBase;
 import rustic.common.blocks.slab.ItemBlockSlabBase;
@@ -212,6 +217,8 @@ public class ModBlocks {
 		TABLE_OLIVE = new BlockTable("olive");
 		TABLE_IRONWOOD = new BlockTable("ironwood");
 		
+		Herbs.init();
+		
 		GameRegistry.registerTileEntity(TileEntityApiary.class, Rustic.MODID + ":tileEntityApiary");
 		GameRegistry.registerTileEntity(TileEntityVase.class, Rustic.MODID + ":tileEntityVase");
 		GameRegistry.registerTileEntity(TileEntityBarrel.class, Rustic.MODID + ":tileEntityBarrel");
@@ -307,6 +314,8 @@ public class ModBlocks {
 		CHAIR_IRONWOOD.initModel();
 		TABLE_OLIVE.initModel();
 		TABLE_IRONWOOD.initModel();
+		
+		Herbs.initModels();
 	}
 
 }

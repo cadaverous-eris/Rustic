@@ -1,0 +1,14 @@
+{
+
+    "variants": {
+
+        "age=0": { "model": "rustic:horsetail_seed" },
+
+        "age=1": { "model": "rustic:horsetail_seed" },
+
+        "age=2": { "model": "rustic:horsetail_seed" },
+
+        "age=3": { "model": "rustic:horsetail" }
+
+    }
+}

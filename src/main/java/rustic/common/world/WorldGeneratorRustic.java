@@ -20,6 +20,9 @@ public class WorldGeneratorRustic implements IWorldGenerator {
 	private WorldGenMinable slate = new WorldGenMinable(ModBlocks.SLATE.getDefaultState(), Config.SLATE_VEIN_SIZE);
 	private WorldGenBeehive beehives = new WorldGenBeehive();
 	private WorldGenAllTrees trees = new WorldGenAllTrees();
+	private WorldGenSurfaceHerbs surfaceHerbs = new WorldGenSurfaceHerbs();
+	private WorldGenCaveHerbs caveHerbs = new WorldGenCaveHerbs();
+	private WorldGenNetherHerbs netherHerbs = new WorldGenNetherHerbs();
 
 	@Override
 	public void generate(Random random, int chunkX, int chunkZ, World world, IChunkGenerator chunkGenerator, IChunkProvider chunkProvider) {
@@ -27,6 +30,13 @@ public class WorldGeneratorRustic implements IWorldGenerator {
 
 		if (world.provider.getDimensionType() == DimensionType.OVERWORLD) {
 
+			if (random.nextFloat() < Config.HERB_GEN_CHANCE) {
+				surfaceHerbs.generate(world, random, chunkCenter);
+			}
+			if (random.nextFloat() < Config.HERB_GEN_CHANCE) {
+				caveHerbs.generate(world, random, chunkCenter);
+			}
+			
 			trees.generate(world, random, chunkCenter);
 
 			if (!world.getBiome(chunkCenter).isSnowyBiome() && random.nextFloat() < Config.BEEHIVE_GEN_CHANCE) {
@@ -39,6 +49,12 @@ public class WorldGeneratorRustic implements IWorldGenerator {
 				int z = chunkZ * 16 + random.nextInt(16);
 				slate.generate(world, random, new BlockPos(x, y, z));
 			}
+		} else if (world.provider.getDimensionType() == DimensionType.NETHER) {
+			
+			if (random.nextFloat() < Config.HERB_GEN_CHANCE) {
+				netherHerbs.generate(world, random, chunkCenter);
+			}
+			
 		}
 	}
 

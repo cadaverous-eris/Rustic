@@ -177,7 +177,7 @@ public class Recipes {
 		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(ModBlocks.PAINTED_WOOD_GREEN, 8), "PPP", "PDP", "PPP", 'P', "plankWood", 'D', "dyeGreen"));
 		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(ModBlocks.PAINTED_WOOD_RED, 8), "PPP", "PDP", "PPP", 'P', "plankWood", 'D', "dyeRed"));
 		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(ModBlocks.PAINTED_WOOD_BLACK, 8), "PPP", "PDP", "PPP", 'P', "plankWood", 'D', "dyeBlack"));
-		GameRegistry.addShapedRecipe(new ItemStack(ModBlocks.GARGOYLE, 8), "PRP", "SSS", 'P', new ItemStack(Blocks.STONE_PRESSURE_PLATE), 'R', new ItemStack(Blocks.STONE), 'S', new ItemStack(Blocks.STONE_SLAB, 1, 0));
+		GameRegistry.addShapedRecipe(new ItemStack(ModBlocks.GARGOYLE, 2), "PRP", "SSS", 'P', new ItemStack(Blocks.STONE_PRESSURE_PLATE), 'R', new ItemStack(Blocks.STONE), 'S', new ItemStack(Blocks.STONE_SLAB, 1, 0));
 		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(ModBlocks.CABINET), "WWW", "W D", "WWW", 'W', "plankWood", 'D', Blocks.TRAPDOOR));
 		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(ModBlocks.LIQUID_BARREL), "P P", "P P", "PSP", 'P', "plankWood", 'S', "slabWood"));
 		GameRegistry.addShapelessRecipe(new ItemStack(ModBlocks.FERTILE_SOIL), Blocks.DIRT, new ItemStack(Items.DYE, 1, 15));

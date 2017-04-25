@@ -1,18 +1,23 @@
+#Creative Tabs
 itemGroup.rustic=Rustic
 
+#Tooltips
 tooltip.rustic.olive_oil=Olive Oiled
 
+#Containers
 container.rustic.cabinet=Cabinet
 container.rustic.barrel=Barrel
 container.rustic.vase=Pot
 container.rustic.apiary=Apiary
 
+#Blocks
 tile.rustic.chain.name=Iron Chain
 tile.rustic.stone_pillar.name=Stone Pillar
 tile.rustic.andesite_pillar.name=Andesite Pillar
 tile.rustic.diorite_pillar.name=Diorite Pillar
 tile.rustic.granite_pillar.name=Granite Pillar
 tile.rustic.chandelier.name=Chandelier Ring
+tile.rustic.candle.name=Candle
 tile.rustic.beehive.name=Beehive
 tile.rustic.apiary.name=Apiary
 tile.rustic.slate.name=Slate
@@ -86,7 +91,19 @@ tile.rustic.chair_olive.name=Olive Wood Chair
 tile.rustic.table_olive.name=Olive Wood Table
 tile.rustic.chair_ironwood.name=Ironwood Chair
 tile.rustic.table_ironwood.name=Ironwood Table
+tile.rustic.aloe_vera.name=Aloe Vera
+tile.rustic.blood_orchid.name=Blood Orchid
+tile.rustic.chamomile.name=Chamomile
+tile.rustic.cohosh.name=Cohosh
+tile.rustic.core_root.name=Core Root
+tile.rustic.deathstalk_mushroom.name=Deathstalk Mushroom
+tile.rustic.ginseng.name=Ginseng
+tile.rustic.horsetail.name=Horsetail
+tile.rustic.marsh_mallow.name=Marsh Mallow
+tile.rustic.mooncap_mushroom.name=Mooncap Mushroom
+tile.rustic.wind_thistle.name=Wind Thistle
 
+#Items
 item.rustic.bee.name=Bee
 item.rustic.honeycomb.name=Honeycomb
 item.rustic.beeswax.name=Beeswax
@@ -96,14 +113,20 @@ item.rustic.olives.name=Olives
 item.rustic.fluid_bottle.name=Bottle of %s
 item.rustic.dust_iron.name=Iron Dust
 item.rustic.dust_tiny_iron.name=Tiny Pile of Iron Dust
+item.tile.rustic.core_root.name=Core Root
+item.tile.rustic.ginseng.name=Ginseng Root
+item.tile.rustic.marsh_mallow.name=Marsh Mallow Root
 
+#Fluids
 tile.rustic.olive_oil.name=Olive Oil
 fluid.oliveoil=Olive Oil
 tile.rustic.ironberry_juice.name=Ironberry Juice
 fluid.ironberryjuice=Ironberry Juice
 
+#Potion Effects
 effect.ironskin=Iron Skin
 
+#Potion Items
 potion.effect.ironskin=Potion of Iron Skin
 splash_potion.effect.ironskin=Splash Potion of Iron Skin
 lingering_potion.effect.ironskin=Lingering Potion of Iron Skin
@@ -113,5 +136,6 @@ splash_potion.effect.protean=Protean Splash Potion
 lingering_potion.effect.protean=Protean Lingering Potion
 tipped_arrow.effect.protean=Protean Arrow
 
+#JEI Categories
 rustic.jei.recipe.crushing_tub=Crushing Tub
 rustic.jei.recipe.evaporating=Drying Basin

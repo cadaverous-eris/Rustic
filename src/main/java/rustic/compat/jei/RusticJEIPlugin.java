@@ -2,22 +2,32 @@ package rustic.compat.jei;
 
 import java.util.ArrayList;
 
+import javax.annotation.Nullable;
+
 import mezz.jei.api.BlankModPlugin;
 import mezz.jei.api.IGuiHelper;
 import mezz.jei.api.IJeiHelpers;
 import mezz.jei.api.IModRegistry;
+import mezz.jei.api.ISubtypeRegistry;
 import mezz.jei.api.JEIPlugin;
+import mezz.jei.api.recipe.VanillaRecipeCategoryUid;
 import net.minecraft.item.ItemStack;
 import rustic.common.blocks.ModBlocks;
 import rustic.common.crafting.Recipes;
+import rustic.common.items.ModItems;
 
 @JEIPlugin
 public class RusticJEIPlugin extends BlankModPlugin {
+	
+	@Nullable
+	private ISubtypeRegistry subtypeRegistry;
 
 	@Override
 	public void register(IModRegistry reg) {
 		IJeiHelpers helper = reg.getJeiHelpers();
 		IGuiHelper guiHelper = helper.getGuiHelper();
+		
+		reg.addRecipes(OliveOilRecipeMaker.getOliveOilRecipes(), VanillaRecipeCategoryUid.CRAFTING);
 
 		reg.addRecipeCategories(new CrushingTubRecipeCategory(guiHelper));
         reg.addRecipeHandlers(new CrushingTubRecipeHandler());
@@ -37,6 +47,14 @@ public class RusticJEIPlugin extends BlankModPlugin {
         
         reg.addRecipeCategoryCraftingItem(new ItemStack(ModBlocks.CRUSHING_TUB),"rustic.crushing_tub");
         reg.addRecipeCategoryCraftingItem(new ItemStack(ModBlocks.EVAPORATING_BASIN), "rustic.evaporating");
+	}
+	
+	@Override
+	public void registerItemSubtypes(ISubtypeRegistry subtypeRegistry) {
+		this.subtypeRegistry = subtypeRegistry;
+		subtypeRegistry.useNbtForSubtypes(
+				ModItems.FLUID_BOTTLE
+		);
 	}
 
 }

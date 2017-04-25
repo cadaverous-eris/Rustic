@@ -16,6 +16,7 @@ import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+import rustic.common.blocks.ModBlocks;
 import rustic.core.Rustic;
 
 public class ModItems {

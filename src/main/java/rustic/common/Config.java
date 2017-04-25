@@ -23,7 +23,7 @@ public class Config {
 	public static int MAX_OLIVE_GEN_ATTEMPTS = 5;
 	public static float BEEHIVE_GEN_CHANCE = 0.1F;
 	public static int MAX_BEEHIVE_ATTEMPTS = 3;
-	public static int SLATE_VEINS_PER_CHUNK = 8;
+	public static int SLATE_VEINS_PER_CHUNK = 5;
 	public static int SLATE_VEIN_SIZE = 33;
 	public static float BEE_GROWTH_MULTIPLIER = 1.0F;
 	public static float BEE_REPRODUCTION_MULTIPLIER = 1.0F;
@@ -31,6 +31,8 @@ public class Config {
 	public static boolean FLESH_SMELTING = true;
 	public static boolean TOUGHNESS_HUD = true;
 	public static boolean EXTRA_ARMOR_HUD = true;
+	public static float HERB_GEN_CHANCE = 0.125F;
+	public static int MAX_HERB_ATTEMPTS = 8;
 
 	public static void readConfig() {
 		Configuration cfg = CommonProxy.config;
@@ -53,7 +55,7 @@ public class Config {
 
 		BEEHIVE_GEN_CHANCE = cfg.getFloat("Beehive Generation Chance", CATEGORY_BEES, 0.1F, 0, 1F, "chance for beehives to try to generate in a chunk");
 		MAX_BEEHIVE_ATTEMPTS = cfg.getInt("Max Beehive Generation Attempts", CATEGORY_BEES, 3, 0, 128, "maximum number of times the generator will attempt to place a beehive in a chunk");
-		SLATE_VEINS_PER_CHUNK = cfg.getInt("Slate Veins Per Chunk", CATEGORY_WORLD, 8, 0, 128, "number of times the generator will try to place a slate vein per chunk");
+		SLATE_VEINS_PER_CHUNK = cfg.getInt("Slate Veins Per Chunk", CATEGORY_WORLD, 5, 0, 128, "number of times the generator will try to place a slate vein per chunk");
 		SLATE_VEIN_SIZE = cfg.getInt("Slate Vein Size", CATEGORY_WORLD, 33, 0, 100, "number of blocks per slate vein");
 		BEE_GROWTH_MULTIPLIER = cfg.getFloat("Bee Crop Boost Multiplier", CATEGORY_BEES, 1F, 0F, 10F, "higher values increase the frequency with which apiaries forcibly age a crop");
 		BEE_REPRODUCTION_MULTIPLIER = cfg.getFloat("Bee Reproduction Multiplier", CATEGORY_BEES, 1F, 0F, 10F, "the time it takes for an apiary to produce a new bee is multiplied by this value\nLARGER numbers make bees reproduce LESS often");
@@ -65,6 +67,8 @@ public class Config {
 		MAX_IRONWOOD_GEN_ATTEMPTS = cfg.getInt("Max Ironwood Generation Attempts", CATEGORY_WORLD, 4, 0, 128, "maximum number of times the generator will attempt to place an ironwood tree in a chunk");
 		EXTRA_ARMOR_HUD = cfg.getBoolean("Extra Armor HUD", CATEGORY_GENERAL, true, "if enabled, allows the armor meter to go beyond one row\nonly one extra row will ever be rendered, because the armor stat is naturally capped at 30");
 		TOUGHNESS_HUD = cfg.getBoolean("Armor Toughness HUD", CATEGORY_GENERAL, true, "if enabled, adds a hud elemnt over the hunger meter to show armor toughness, if applicable");
+		HERB_GEN_CHANCE = cfg.getFloat("Herb Generation Chance", CATEGORY_WORLD, 0.125F, 0, 1F, "chance for an herb to try to generate in a chunk");
+		MAX_HERB_ATTEMPTS = cfg.getInt("Max Herb Generation Attempts", CATEGORY_GENERAL, 8, 0, 128, "maximum number of times the generator will attempt to place an herb in a chunk");
 
 		PROPERTY_ORDER_GENERAL.add("Flesh Smelting");
 		PROPERTY_ORDER_GENERAL.add("Extra Armor HUD");
