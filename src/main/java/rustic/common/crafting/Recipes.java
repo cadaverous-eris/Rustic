@@ -1,10 +1,16 @@
 package rustic.common.crafting;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import net.minecraft.block.state.IBlockState;
+import net.minecraft.init.Blocks;
+import net.minecraft.init.Items;
+import net.minecraft.init.MobEffects;
+import net.minecraft.init.PotionTypes;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.potion.PotionHelper;
-import net.minecraftforge.common.brewing.BrewingRecipeRegistry;
-import net.minecraftforge.common.brewing.IBrewingRecipe;
+import net.minecraft.potion.PotionEffect;
 import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fml.common.IFuelHandler;
@@ -17,34 +23,25 @@ import rustic.common.blocks.BlockLogRustic;
 import rustic.common.blocks.BlockPlanksRustic;
 import rustic.common.blocks.BlockSaplingRustic;
 import rustic.common.blocks.ModBlocks;
+import rustic.common.blocks.crops.Herbs;
 import rustic.common.blocks.fluids.ModFluids;
 import rustic.common.items.ModItems;
-import rustic.common.potions.PotionTypesRustic;
-
-import java.util.ArrayList;
-import java.util.List;
-
-import com.google.common.base.Predicate;
-
-import net.minecraft.block.BlockPlanks;
-import net.minecraft.block.state.IBlockState;
-import net.minecraft.init.Blocks;
-import net.minecraft.init.Items;
-import net.minecraft.init.PotionTypes;
+import rustic.common.potions.PotionsRustic;
 
 public class Recipes {
 	
 	public static List<CrushingTubRecipe> crushingTubRecipes = new ArrayList<CrushingTubRecipe>();
 	public static List<EvaporatingBasinRecipe> evaporatingRecipes = new ArrayList<EvaporatingBasinRecipe>();
+	public static List<CondenserRecipe> condenserRecipes = new ArrayList<CondenserRecipe>();
 
 	public static void init() {
 		addCraftingRecipes();
 		addSmeltingRecipes();
-		addPotionRecipes();
 		addFuels();
 		addOreDictEntries();
 		addCrushingTubRecipes();
 		addEvaporatingRecipes();
+		addCondenserRecipes();
 	}
 
 	private static void addSmeltingRecipes() {
@@ -103,23 +100,6 @@ public class Recipes {
 		
 		OreDictionary.registerOre("dustTinyIron", new ItemStack(ModItems.IRON_DUST_TINY));
 		OreDictionary.registerOre("dustIron", new ItemStack(ModItems.IRON_DUST));
-	}
-
-	private static void addPotionRecipes() {
-		for (int i = 0; i < 3; i++) {
-			BrewingRecipeRegistry.addRecipe(new BrewingRecipeRustic(PotionTypes.AWKWARD, new ItemStack(Items.CLAY_BALL), PotionTypesRustic.PROTEAN, i));
-			BrewingRecipeRegistry.addRecipe(new BrewingRecipeRustic(PotionTypesRustic.PROTEAN, new ItemStack(ModItems.IRONBERRIES), PotionTypesRustic.IRON_SKIN, i));
-			BrewingRecipeRegistry.addRecipe(new BrewingRecipeRustic(PotionTypesRustic.IRON_SKIN, new ItemStack(Items.REDSTONE), PotionTypesRustic.LONG_IRON_SKIN, i));
-			BrewingRecipeRegistry.addRecipe(new BrewingRecipeRustic(PotionTypesRustic.IRON_SKIN, new ItemStack(Items.GLOWSTONE_DUST), PotionTypesRustic.STRONG_IRON_SKIN, i));
-		}
-		BrewingRecipeRegistry.addRecipe(new BrewingRecipeRustic(PotionTypesRustic.IRON_SKIN, new ItemStack(Items.GUNPOWDER), PotionTypesRustic.IRON_SKIN, 0, 1));
-		BrewingRecipeRegistry.addRecipe(new BrewingRecipeRustic(PotionTypesRustic.LONG_IRON_SKIN, new ItemStack(Items.GUNPOWDER), PotionTypesRustic.LONG_IRON_SKIN, 0, 1));
-		BrewingRecipeRegistry.addRecipe(new BrewingRecipeRustic(PotionTypesRustic.STRONG_IRON_SKIN, new ItemStack(Items.GUNPOWDER), PotionTypesRustic.STRONG_IRON_SKIN, 0, 1));
-		BrewingRecipeRegistry.addRecipe(new BrewingRecipeRustic(PotionTypesRustic.PROTEAN, new ItemStack(Items.GUNPOWDER), PotionTypesRustic.PROTEAN, 0, 1));
-		BrewingRecipeRegistry.addRecipe(new BrewingRecipeRustic(PotionTypesRustic.IRON_SKIN, new ItemStack(Items.DRAGON_BREATH), PotionTypesRustic.IRON_SKIN, 1, 2));
-		BrewingRecipeRegistry.addRecipe(new BrewingRecipeRustic(PotionTypesRustic.LONG_IRON_SKIN, new ItemStack(Items.DRAGON_BREATH), PotionTypesRustic.LONG_IRON_SKIN, 1, 2));
-		BrewingRecipeRegistry.addRecipe(new BrewingRecipeRustic(PotionTypesRustic.STRONG_IRON_SKIN, new ItemStack(Items.DRAGON_BREATH), PotionTypesRustic.STRONG_IRON_SKIN, 1, 2));
-		BrewingRecipeRegistry.addRecipe(new BrewingRecipeRustic(PotionTypesRustic.PROTEAN, new ItemStack(Items.DRAGON_BREATH), PotionTypesRustic.PROTEAN, 1, 2));
 	}
 
 	private static void addCraftingRecipes() {
@@ -198,6 +178,10 @@ public class Recipes {
 		GameRegistry.addShapedRecipe(new ItemStack(ModBlocks.CHAIR_IRONWOOD, 4), "p  ", "ppp", "s s", 'p', new ItemStack(ModBlocks.PLANKS, 1, BlockPlanksRustic.EnumType.IRONWOOD.getMetadata()), 's', new ItemStack(Items.STICK));
 		GameRegistry.addShapedRecipe(new ItemStack(ModBlocks.TABLE_OLIVE, 2), "ppp", "s s", 'p', new ItemStack(ModBlocks.PLANKS, 1, BlockPlanksRustic.EnumType.OLIVE.getMetadata()), 's', new ItemStack(Items.STICK));
 		GameRegistry.addShapedRecipe(new ItemStack(ModBlocks.TABLE_IRONWOOD, 2), "ppp", "s s", 'p', new ItemStack(ModBlocks.PLANKS, 1, BlockPlanksRustic.EnumType.IRONWOOD.getMetadata()), 's', new ItemStack(Items.STICK));
+		GameRegistry.addShapedRecipe(new ItemStack(ModBlocks.CONDENSER), " b ", "beb", "bcb", 'b', new ItemStack(Items.BRICK), 'e', new ItemStack(Items.BUCKET), 'c', new ItemStack(Blocks.STAINED_HARDENED_CLAY, 1, 0));
+		GameRegistry.addShapedRecipe(new ItemStack(ModBlocks.RETORT), " b", "ie", " b", 'b', new ItemStack(Items.BRICK), 'i', new ItemStack(Items.IRON_INGOT), 'e', new ItemStack(Items.BUCKET));
+		GameRegistry.addShapedRecipe(new ItemStack(ModBlocks.CONDENSER_ADVANCED), " b ", "beb", "bib", 'b', new ItemStack(Items.NETHERBRICK), 'e', new ItemStack(Items.BUCKET), 'i', new ItemStack(Blocks.IRON_BLOCK));
+		GameRegistry.addShapedRecipe(new ItemStack(ModBlocks.RETORT_ADVANCED), " b", "ie", " b", 'b', new ItemStack(Items.NETHERBRICK), 'i', new ItemStack(Items.IRON_INGOT), 'e', new ItemStack(Items.BUCKET));
 		
 		GameRegistry.addRecipe(new RecipeOliveOil());
 	}
@@ -210,6 +194,36 @@ public class Recipes {
 	
 	private static void addEvaporatingRecipes() {
 		evaporatingRecipes.add(new EvaporatingBasinRecipe(new ItemStack(ModItems.IRON_DUST_TINY, 1), new FluidStack(ModFluids.IRONBERRY_JUICE, 500)));
+	}
+	
+	private static void addCondenserRecipes() {
+		condenserRecipes.add(new BasicCondenserRecipe(new PotionEffect(MobEffects.INSTANT_HEALTH, 1), new ItemStack(Herbs.CHAMOMILE), new ItemStack(Items.BEEF)));
+		condenserRecipes.add(new AdvancedCondenserRecipe(new PotionEffect(MobEffects.INSTANT_HEALTH, 1, 1), new ItemStack(Herbs.MARSH_MALLOW), new ItemStack(Herbs.CHAMOMILE), new ItemStack(Items.BEEF)));
+		condenserRecipes.add(new BasicCondenserRecipe(new PotionEffect(MobEffects.REGENERATION, 900), new ItemStack(Herbs.COHOSH), new ItemStack(Items.MUTTON)));
+		condenserRecipes.add(new AdvancedCondenserRecipe(new PotionEffect(MobEffects.REGENERATION, 1800), new ItemStack(Herbs.HORSETAIL), new ItemStack(Herbs.COHOSH), new ItemStack(Items.MUTTON)));
+		condenserRecipes.add(new AdvancedCondenserRecipe(new PotionEffect(MobEffects.REGENERATION, 450, 1), new ItemStack(Herbs.MARSH_MALLOW), new ItemStack(Herbs.COHOSH), new ItemStack(Items.MUTTON)));
+		condenserRecipes.add(new BasicCondenserRecipe(new PotionEffect(MobEffects.WITHER, 900), new ItemStack(Herbs.DEATHSTALK), new ItemStack(Blocks.SOUL_SAND)));
+		condenserRecipes.add(new AdvancedCondenserRecipe(new PotionEffect(MobEffects.WITHER, 1800), new ItemStack(Herbs.HORSETAIL), new ItemStack(Herbs.DEATHSTALK), new ItemStack(Blocks.SOUL_SAND)));
+		condenserRecipes.add(new AdvancedCondenserRecipe(new PotionEffect(MobEffects.WITHER, 450, 1), new ItemStack(Herbs.MARSH_MALLOW), new ItemStack(Herbs.DEATHSTALK), new ItemStack(Blocks.SOUL_SAND)));
+		condenserRecipes.add(new BasicCondenserRecipe(new PotionEffect(MobEffects.NIGHT_VISION, 3600), new ItemStack(Herbs.MOONCAP), new ItemStack(Items.SPIDER_EYE)));
+		condenserRecipes.add(new AdvancedCondenserRecipe(new PotionEffect(MobEffects.NIGHT_VISION, 9600), new ItemStack(Herbs.HORSETAIL), new ItemStack(Herbs.MOONCAP), new ItemStack(Items.SPIDER_EYE)));
+		condenserRecipes.add(new BasicCondenserRecipe(new PotionEffect(MobEffects.SPEED, 3600), new ItemStack(Herbs.WIND_THISTLE), new ItemStack(Items.SUGAR)));
+		condenserRecipes.add(new AdvancedCondenserRecipe(new PotionEffect(MobEffects.SPEED, 9600), new ItemStack(Herbs.HORSETAIL), new ItemStack(Herbs.WIND_THISTLE), new ItemStack(Items.SUGAR)));
+		condenserRecipes.add(new AdvancedCondenserRecipe(new PotionEffect(MobEffects.SPEED, 1800, 1), new ItemStack(Herbs.MARSH_MALLOW), new ItemStack(Herbs.WIND_THISTLE), new ItemStack(Items.SUGAR)));
+		condenserRecipes.add(new AdvancedCondenserRecipe(new PotionEffect(MobEffects.FIRE_RESISTANCE, 3600), ItemStack.EMPTY, new ItemStack(Herbs.ALOE_VERA), new ItemStack(Items.BRICK), new ItemStack(Items.COAL)));
+		condenserRecipes.add(new AdvancedCondenserRecipe(new PotionEffect(MobEffects.FIRE_RESISTANCE, 9600), new ItemStack(Herbs.HORSETAIL), new ItemStack(Herbs.ALOE_VERA), new ItemStack(Items.BRICK), new ItemStack(Items.COAL)));
+		condenserRecipes.add(new AdvancedCondenserRecipe(new PotionEffect(MobEffects.HEALTH_BOOST, 3600), ItemStack.EMPTY, new ItemStack(Herbs.BLOOD_ORCHID), new ItemStack(Items.ROTTEN_FLESH), new ItemStack(Items.REDSTONE)));
+		condenserRecipes.add(new AdvancedCondenserRecipe(new PotionEffect(MobEffects.HEALTH_BOOST, 9600), new ItemStack(Herbs.HORSETAIL), new ItemStack(Herbs.BLOOD_ORCHID), new ItemStack(Items.ROTTEN_FLESH), new ItemStack(Items.REDSTONE)));
+		condenserRecipes.add(new AdvancedCondenserRecipe(new PotionEffect(MobEffects.HEALTH_BOOST, 1800, 1), new ItemStack(Herbs.MARSH_MALLOW), new ItemStack(Herbs.BLOOD_ORCHID), new ItemStack(Items.ROTTEN_FLESH), new ItemStack(Items.REDSTONE)));
+		condenserRecipes.add(new AdvancedCondenserRecipe(new PotionEffect(MobEffects.HASTE, 3600), ItemStack.EMPTY, new ItemStack(Herbs.CORE_ROOT), new ItemStack(Items.field_191525_da), new ItemStack(Items.REDSTONE)));
+		condenserRecipes.add(new AdvancedCondenserRecipe(new PotionEffect(MobEffects.HASTE, 9600), new ItemStack(Herbs.HORSETAIL), new ItemStack(Herbs.CORE_ROOT), new ItemStack(Items.field_191525_da), new ItemStack(Items.REDSTONE)));
+		condenserRecipes.add(new AdvancedCondenserRecipe(new PotionEffect(MobEffects.HASTE, 1800, 1), new ItemStack(Herbs.MARSH_MALLOW), new ItemStack(Herbs.CORE_ROOT), new ItemStack(Items.field_191525_da), new ItemStack(Items.REDSTONE)));
+		condenserRecipes.add(new AdvancedCondenserRecipe(new PotionEffect(MobEffects.STRENGTH, 3600), ItemStack.EMPTY, new ItemStack(Herbs.GINSENG), new ItemStack(Items.BONE), new ItemStack(Items.GUNPOWDER)));
+		condenserRecipes.add(new AdvancedCondenserRecipe(new PotionEffect(MobEffects.STRENGTH, 9600), new ItemStack(Herbs.HORSETAIL), new ItemStack(Herbs.GINSENG), new ItemStack(Items.BONE), new ItemStack(Items.GUNPOWDER)));
+		condenserRecipes.add(new AdvancedCondenserRecipe(new PotionEffect(MobEffects.STRENGTH, 1800, 1), new ItemStack(Herbs.MARSH_MALLOW), new ItemStack(Herbs.GINSENG), new ItemStack(Items.BONE), new ItemStack(Items.GUNPOWDER)));
+		condenserRecipes.add(new AdvancedCondenserRecipe(new PotionEffect(PotionsRustic.IRON_SKIN_POTION, 3600), ItemStack.EMPTY, new ItemStack(ModItems.IRONBERRIES), new ItemStack(Items.LEATHER), new ItemStack(Items.CLAY_BALL)));
+		condenserRecipes.add(new AdvancedCondenserRecipe(new PotionEffect(PotionsRustic.IRON_SKIN_POTION, 9600), new ItemStack(Herbs.HORSETAIL), new ItemStack(ModItems.IRONBERRIES), new ItemStack(Items.LEATHER), new ItemStack(Items.CLAY_BALL)));
+		condenserRecipes.add(new AdvancedCondenserRecipe(new PotionEffect(PotionsRustic.IRON_SKIN_POTION, 1800, 1), new ItemStack(Herbs.MARSH_MALLOW), new ItemStack(ModItems.IRONBERRIES), new ItemStack(Items.LEATHER), new ItemStack(Items.CLAY_BALL)));
 	}
 
 }

@@ -68,7 +68,7 @@ public class Config {
 		EXTRA_ARMOR_HUD = cfg.getBoolean("Extra Armor HUD", CATEGORY_GENERAL, true, "if enabled, allows the armor meter to go beyond one row\nonly one extra row will ever be rendered, because the armor stat is naturally capped at 30");
 		TOUGHNESS_HUD = cfg.getBoolean("Armor Toughness HUD", CATEGORY_GENERAL, true, "if enabled, adds a hud elemnt over the hunger meter to show armor toughness, if applicable");
 		HERB_GEN_CHANCE = cfg.getFloat("Herb Generation Chance", CATEGORY_WORLD, 0.125F, 0, 1F, "chance for an herb to try to generate in a chunk");
-		MAX_HERB_ATTEMPTS = cfg.getInt("Max Herb Generation Attempts", CATEGORY_GENERAL, 8, 0, 128, "maximum number of times the generator will attempt to place an herb in a chunk");
+		MAX_HERB_ATTEMPTS = cfg.getInt("Max Herb Generation Attempts", CATEGORY_WORLD, 8, 0, 128, "maximum number of times the generator will attempt to place an herb in a chunk");
 
 		PROPERTY_ORDER_GENERAL.add("Flesh Smelting");
 		PROPERTY_ORDER_GENERAL.add("Extra Armor HUD");
@@ -79,6 +79,8 @@ public class Config {
 		PROPERTY_ORDER_WORLD.add("Max Olive Tree Generation Attempts");
 		PROPERTY_ORDER_WORLD.add("Ironwood Generation Chance");
 		PROPERTY_ORDER_WORLD.add("Max Ironwood Generation Attempts");
+		PROPERTY_ORDER_WORLD.add("Herb Generation Chance");
+		PROPERTY_ORDER_WORLD.add("Max Herb Generation Attempts");
 		PROPERTY_ORDER_BEES.add("Beehive Generation Chance");
 		PROPERTY_ORDER_BEES.add("Max Beehive Generation Attempts");
 		PROPERTY_ORDER_BEES.add("Bee Reproduction Multiplier");

@@ -20,33 +20,20 @@ import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-public class PotionTypesRustic {
+public class PotionsRustic {
 
 	public static final Potion IRON_SKIN_POTION = new PotionIronSkin();
 	
 	public static final PotionType IRON_SKIN = new PotionType("ironskin", new PotionEffect[] { new PotionEffect(IRON_SKIN_POTION, 3600, 0, false, true) });
 	public static final PotionType LONG_IRON_SKIN = new PotionType("ironskin", new PotionEffect[] { new PotionEffect(IRON_SKIN_POTION, 9600, 0, false, true) });
 	public static final PotionType STRONG_IRON_SKIN = new PotionType("ironskin", new PotionEffect[] { new PotionEffect(IRON_SKIN_POTION, 1800, 1, false, true) });
-	public static final PotionType PROTEAN = new PotionType("protean", new PotionEffect[0]);
-	//public static final PotionType PROTEAN = new PotionType("protean", new PotionEffect[] { new PotionEffect(new Potion(false, 11500975) {}) });
-
-	public static int typeID = 32;
-
-	public static void registerPotionType(String name, PotionType potionType) {
-		while (!PotionType.REGISTRY.getObjectById(typeID).getRegistryName().toString().equals("minecraft:water")) {
-			typeID++;
-		}
-		PotionType.REGISTRY.register(typeID, new ResourceLocation(name), potionType);
-		typeID++;
-	}
-
+	
 	public static void init() {
 		GameRegistry.register(IRON_SKIN_POTION, new ResourceLocation("rustic:ironskin"));
 		
 		GameRegistry.register(IRON_SKIN, new ResourceLocation("rustic:ironskin"));
 		GameRegistry.register(LONG_IRON_SKIN, new ResourceLocation("rustic:long_ironskin"));
 		GameRegistry.register(STRONG_IRON_SKIN, new ResourceLocation("rustic:strong_ironskin"));
-		GameRegistry.register(PROTEAN, new ResourceLocation("rustic:protean"));
 	}
 
 }

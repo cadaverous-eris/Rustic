@@ -37,7 +37,7 @@ import rustic.common.blocks.ModBlocks;
 import rustic.common.blocks.fluids.ModFluids;
 import rustic.common.items.IColoredItem;
 import rustic.common.items.ModItems;
-import rustic.common.potions.PotionTypesRustic;
+import rustic.common.potions.PotionsRustic;
 import rustic.common.tileentity.TileEntityLiquidBarrel;
 
 public class ClientProxy extends CommonProxy {

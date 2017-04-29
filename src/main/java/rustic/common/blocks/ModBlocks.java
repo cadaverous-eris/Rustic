@@ -18,6 +18,8 @@ import rustic.common.blocks.slab.ItemBlockSlabBase;
 import rustic.common.tileentity.TileEntityApiary;
 import rustic.common.tileentity.TileEntityBarrel;
 import rustic.common.tileentity.TileEntityCabinet;
+import rustic.common.tileentity.TileEntityCondenser;
+import rustic.common.tileentity.TileEntityCondenserAdvanced;
 import rustic.common.tileentity.TileEntityCrushingTub;
 import rustic.common.tileentity.TileEntityEvaporatingBasin;
 import rustic.common.tileentity.TileEntityLiquidBarrel;
@@ -110,6 +112,10 @@ public class ModBlocks {
 	public static BlockChair CHAIR_IRONWOOD;
 	public static BlockTable TABLE_OLIVE;
 	public static BlockTable TABLE_IRONWOOD;
+	public static BlockCondenser CONDENSER;
+	public static BlockRetort RETORT;
+	public static BlockCondenserAdvanced CONDENSER_ADVANCED;
+	public static BlockRetort RETORT_ADVANCED;
 
 	public static void init() {
 		STONE_PILLAR = new BlockPillar("stone");
@@ -216,6 +222,10 @@ public class ModBlocks {
 		CHAIR_IRONWOOD = new BlockChair("ironwood");
 		TABLE_OLIVE = new BlockTable("olive");
 		TABLE_IRONWOOD = new BlockTable("ironwood");
+		CONDENSER = new BlockCondenser();
+		RETORT = new BlockRetort("retort");
+		CONDENSER_ADVANCED = new BlockCondenserAdvanced();
+		RETORT_ADVANCED = new BlockRetort("retort_advanced");
 		
 		Herbs.init();
 		
@@ -226,6 +236,8 @@ public class ModBlocks {
 		GameRegistry.registerTileEntity(TileEntityLiquidBarrel.class, Rustic.MODID + ":tileEntityLiquidBarrel");
 		GameRegistry.registerTileEntity(TileEntityCrushingTub.class, Rustic.MODID + ":tileEntityCrushingTub");
 		GameRegistry.registerTileEntity(TileEntityEvaporatingBasin.class, Rustic.MODID + ":tileEntityEvaporatingBasin");
+		GameRegistry.registerTileEntity(TileEntityCondenser.class, Rustic.MODID + ":tileEntityCondenser");
+		GameRegistry.registerTileEntity(TileEntityCondenserAdvanced.class, Rustic.MODID + ":tileEntityCondenserAdvanced");
 	}
 
 	@SideOnly(Side.CLIENT)
@@ -314,6 +326,10 @@ public class ModBlocks {
 		CHAIR_IRONWOOD.initModel();
 		TABLE_OLIVE.initModel();
 		TABLE_IRONWOOD.initModel();
+		CONDENSER.initModel();
+		RETORT.initModel();
+		CONDENSER_ADVANCED.initModel();
+		RETORT_ADVANCED.initModel();
 		
 		Herbs.initModels();
 	}

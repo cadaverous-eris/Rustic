@@ -20,9 +20,9 @@ import net.minecraft.item.ItemStack;
 import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.IItemHandler;
+import rustic.client.util.FluidClientUtil;
 import rustic.common.tileentity.TileEntityCrushingTub;
 import rustic.common.tileentity.TileEntityEvaporatingBasin;
-import rustic.common.util.FluidTextureUtil;
 
 public class EvaporatingBasinRenderer extends TileEntitySpecialRenderer<TileEntityEvaporatingBasin> {
 
@@ -68,7 +68,7 @@ public class EvaporatingBasinRenderer extends TileEntitySpecialRenderer<TileEnti
             red = (c >> 16) & 0xFF;
             alpha = (c >> 24) & 0xFF;
            
-            TextureAtlasSprite sprite = FluidTextureUtil.stillTextures.get(fluid);
+            TextureAtlasSprite sprite = FluidClientUtil.stillTextures.get(fluid);
             diffU = maxU-minU;
             diffV = maxV-minV;
            

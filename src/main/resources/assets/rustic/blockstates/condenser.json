@@ -1,0 +1,12 @@
+{
+	"variants": {
+		"bottom=true,facing=north":	{ "model": "rustic:condenser" },
+		"bottom=true,facing=east":	{ "model": "rustic:condenser", "y": 90},
+		"bottom=true,facing=south":	{ "model": "rustic:condenser", "y": 180 },
+		"bottom=true,facing=west":	{ "model": "rustic:condenser", "y": 270 },
+		"bottom=false,facing=north":	{ "model": "rustic:condenser_top" },
+		"bottom=false,facing=east":	{ "model": "rustic:condenser_top", "y": 90},
+		"bottom=false,facing=south":	{ "model": "rustic:condenser_top", "y": 180 },
+		"bottom=false,facing=west":	{ "model": "rustic:condenser_top", "y": 270 }
+	}
+}

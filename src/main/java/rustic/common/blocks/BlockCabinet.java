@@ -118,6 +118,7 @@ public class BlockCabinet extends BlockRotatable implements ITileEntityProvider 
 		return this.getDefaultState().withProperty(FACING, f).withProperty(MIRROR, m).withProperty(TOP, t);
 	}
 
+	@Override
 	public void onBlockPlacedBy(World worldIn, BlockPos pos, IBlockState state, EntityLivingBase placer, ItemStack stack) {
 		if (stack.hasDisplayName()) {
 			TileEntity tileentity = worldIn.getTileEntity(pos);
@@ -128,6 +129,8 @@ public class BlockCabinet extends BlockRotatable implements ITileEntityProvider 
 			}
 		}
 	}
+	
+	
 
 	public IBlockState getStateFromMeta(int meta) {
 		IBlockState state = this.getDefaultState().withProperty(MIRROR, (meta & 4) > 0);

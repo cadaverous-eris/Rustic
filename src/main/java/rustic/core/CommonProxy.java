@@ -13,7 +13,7 @@ import rustic.common.crafting.Recipes;
 import rustic.common.items.ItemFluidBottle;
 import rustic.common.items.ModItems;
 import rustic.common.network.PacketHandler;
-import rustic.common.potions.PotionTypesRustic;
+import rustic.common.potions.PotionsRustic;
 import rustic.common.world.WorldGeneratorRustic;
 import net.minecraft.client.renderer.entity.Render;
 import net.minecraft.client.renderer.entity.RenderLivingBase;
@@ -46,7 +46,7 @@ public class CommonProxy {
         ModBlocks.init();
         ModItems.init();
         
-        PotionTypesRustic.init();
+        PotionsRustic.init();
 
         Recipes.init();
         

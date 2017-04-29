@@ -1,0 +1,37 @@
+{
+    "__comment": "Model generated using MrCrayfish's Model Creator (http://mrcrayfish.com/modelcreator/)",
+    "textures": {
+        "0": "rustic:blocks/condenser_adv_top_front",
+        "1": "rustic:blocks/condenser_adv_top_side",
+        "2": "rustic:blocks/condenser_adv_top",
+	"particle": "rustic:blocks/condenser_adv_top_side"
+    },
+    "elements": [
+        {
+            "name": "Cube",
+            "from": [ 0.0, 0.0, 0.0 ], 
+            "to": [ 16.0, 12.0, 16.0 ], 
+            "faces": {
+                "north": { "texture": "#0", "uv": [ 0.0, 4.0, 16.0, 16.0 ] },
+                "east": { "texture": "#1", "uv": [ 0.0, 4.0, 16.0, 16.0 ] },
+                "south": { "texture": "#1", "uv": [ 0.0, 4.0, 16.0, 16.0 ] },
+                "west": { "texture": "#1", "uv": [ 0.0, 4.0, 16.0, 16.0 ] },
+                "up": { "texture": "#2", "uv": [ 0.0, 0.0, 16.0, 16.0 ] },
+                "down": { "texture": "#2", "uv": [ 0.0, 0.0, 16.0, 16.0 ] }
+            }
+        },
+        {
+            "name": "Cube",
+            "from": [ 4.0, 12.0, 4.0 ], 
+            "to": [ 12.0, 16.0, 12.0 ], 
+            "faces": {
+                "north": { "texture": "#0", "uv": [ 4.0, 0.0, 12.0, 4.0 ] },
+                "east": { "texture": "#1", "uv": [ 4.0, 0.0, 12.0, 4.0 ] },
+                "south": { "texture": "#1", "uv": [ 4.0, 0.0, 12.0, 4.0 ] },
+                "west": { "texture": "#1", "uv": [ 4.0, 0.0, 12.0, 4.0 ] },
+                "up": { "texture": "#2", "uv": [ 4.0, 4.0, 12.0, 12.0 ] },
+                "down": { "texture": "#2", "uv": [ 4.0, 4.0, 12.0, 12.0 ] }
+            }
+        }
+    ]
+}

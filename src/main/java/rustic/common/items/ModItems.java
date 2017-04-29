@@ -30,6 +30,7 @@ public class ModItems {
 	public static ItemFluidBottle FLUID_BOTTLE;
 	public static ItemBase IRON_DUST;
 	public static ItemBase IRON_DUST_TINY;
+	public static ItemElixer ELIXER;
 
 	public static void init() {
 		BEE = new ItemBase("bee");
@@ -73,6 +74,7 @@ public class ModItems {
 		FLUID_BOTTLE = new ItemFluidBottle();
 		IRON_DUST = new ItemBase("dust_iron");
 		IRON_DUST_TINY = new ItemBase("dust_tiny_iron");
+		ELIXER = new ItemElixer();
 	}
 
 	public static void initModels() {
@@ -85,5 +87,6 @@ public class ModItems {
 		FLUID_BOTTLE.initModel();
 		IRON_DUST.initModel();
 		IRON_DUST_TINY.initModel();
+		ELIXER.initModel();
 	};
 }

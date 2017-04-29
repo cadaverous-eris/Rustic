@@ -13,7 +13,7 @@ import net.minecraft.init.MobEffects;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-import rustic.common.potions.PotionTypesRustic;
+import rustic.common.potions.PotionsRustic;
 
 @SideOnly(Side.CLIENT)
 public class LayerIronSkin<T extends ModelBase> implements LayerRenderer<EntityLivingBase> {
@@ -31,8 +31,8 @@ public class LayerIronSkin<T extends ModelBase> implements LayerRenderer<EntityL
 	}
 
 	public void doRenderLayer(EntityLivingBase entityLivingBaseIn, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch, float scale) {
-		if (entityLivingBaseIn.isPotionActive(PotionTypesRustic.IRON_SKIN_POTION) && !entityLivingBaseIn.isInvisible()) {
-			int amplifier = entityLivingBaseIn.getActivePotionEffect(PotionTypesRustic.IRON_SKIN_POTION).getAmplifier();
+		if (entityLivingBaseIn.isPotionActive(PotionsRustic.IRON_SKIN_POTION) && !entityLivingBaseIn.isInvisible()) {
+			int amplifier = entityLivingBaseIn.getActivePotionEffect(PotionsRustic.IRON_SKIN_POTION).getAmplifier();
 			GlStateManager.enableBlend();
 			GlStateManager.disableLighting();
 			this.renderer.bindTexture(new ResourceLocation("textures/blocks/iron_block.png"));

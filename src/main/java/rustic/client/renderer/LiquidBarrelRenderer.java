@@ -13,9 +13,9 @@ import net.minecraft.client.renderer.texture.TextureMap;
 import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraftforge.fluids.Fluid;
+import rustic.client.util.FluidClientUtil;
 import rustic.common.tileentity.TileEntityCabinet;
 import rustic.common.tileentity.TileEntityLiquidBarrel;
-import rustic.common.util.FluidTextureUtil;
 
 public class LiquidBarrelRenderer extends TileEntitySpecialRenderer<TileEntityLiquidBarrel> {
 	
@@ -36,7 +36,7 @@ public class LiquidBarrelRenderer extends TileEntitySpecialRenderer<TileEntityLi
             red = (c >> 16) & 0xFF;
             alpha = (c >> 24) & 0xFF;
             
-            TextureAtlasSprite sprite = FluidTextureUtil.stillTextures.get(fluid);
+            TextureAtlasSprite sprite = FluidClientUtil.stillTextures.get(fluid);
             diffU = maxU-minU;
             diffV = maxV-minV;
             

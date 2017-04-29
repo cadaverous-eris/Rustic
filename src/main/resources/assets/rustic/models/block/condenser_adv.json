@@ -1,0 +1,15 @@
+{
+
+    "parent": "block/orientable",
+
+    "textures": {
+
+        "top": "rustic:blocks/condenser_adv_top",
+
+        "front": "rustic:blocks/condenser_adv_front",
+
+        "side": "rustic:blocks/condenser_adv_side"
+
+    }
+
+}

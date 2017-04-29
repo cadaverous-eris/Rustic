@@ -9,6 +9,8 @@ container.rustic.cabinet=Cabinet
 container.rustic.barrel=Barrel
 container.rustic.vase=Pot
 container.rustic.apiary=Apiary
+container.rustic.condenser=Condenser
+container.rustic.condenser_advanced=Advanced Condenser
 
 #Blocks
 tile.rustic.chain.name=Iron Chain
@@ -102,6 +104,10 @@ tile.rustic.horsetail.name=Horsetail
 tile.rustic.marsh_mallow.name=Marsh Mallow
 tile.rustic.mooncap_mushroom.name=Mooncap Mushroom
 tile.rustic.wind_thistle.name=Wind Thistle
+tile.rustic.condenser.name=Alchemic Condenser
+tile.rustic.retort.name=Alchemic Retort
+tile.rustic.condenser_advanced.name=Advanced Alchemic Condenser
+tile.rustic.retort_advanced.name=Advanced Alchemic Retort
 
 #Items
 item.rustic.bee.name=Bee
@@ -131,10 +137,10 @@ potion.effect.ironskin=Potion of Iron Skin
 splash_potion.effect.ironskin=Splash Potion of Iron Skin
 lingering_potion.effect.ironskin=Lingering Potion of Iron Skin
 tipped_arrow.effect.ironskin=Arrow of Iron Skin
-potion.effect.protean=Protean Potion
-splash_potion.effect.protean=Protean Splash Potion
-lingering_potion.effect.protean=Protean Lingering Potion
-tipped_arrow.effect.protean=Protean Arrow
+
+#Elixers
+rustic.elixer.prefix=Elixer of 
+rutsic.elixer.separator=, 
 
 #JEI Categories
 rustic.jei.recipe.crushing_tub=Crushing Tub

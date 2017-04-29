@@ -1,0 +1,8 @@
+{
+	"variants": {
+		"facing=north":	{ "model": "rustic:retort" },
+		"facing=east":	{ "model": "rustic:retort", "y": 90},
+		"facing=south":	{ "model": "rustic:retort", "y": 180 },
+		"facing=west":	{ "model": "rustic:retort", "y": 270 }
+	}
+}

@@ -24,7 +24,7 @@ import net.minecraft.util.EnumFacing;
 import net.minecraftforge.client.model.IPerspectiveAwareModel;
 import net.minecraftforge.common.model.TRSRTransformation;
 import net.minecraftforge.fluids.Fluid;
-import rustic.common.util.FluidTextureUtil;
+import rustic.client.util.FluidClientUtil;
 
 public class LiquidBarrelFilledItemModel implements IPerspectiveAwareModel {
 
@@ -99,7 +99,7 @@ public class LiquidBarrelFilledItemModel implements IPerspectiveAwareModel {
 
 	private List<BakedQuad> getLiquidQuads(int amount, int capacity, Fluid fluid) {
 
-		TextureAtlasSprite fluidTexture = FluidTextureUtil.stillTextures.get(fluid);
+		TextureAtlasSprite fluidTexture = FluidClientUtil.stillTextures.get(fluid);
 		List<BakedQuad> returnList = new ArrayList<BakedQuad>();
 
 		float x1, x2, x3, x4;

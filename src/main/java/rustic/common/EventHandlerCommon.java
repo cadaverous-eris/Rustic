@@ -96,15 +96,15 @@ import net.minecraftforge.fml.common.gameevent.TickEvent;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import rustic.client.models.LiquidBarrelItemModel;
+import rustic.client.util.FluidClientUtil;
 import rustic.common.blocks.IAdvancedRotationPlacement;
 import rustic.common.blocks.ModBlocks;
 import rustic.common.items.ItemFluidBottle;
 import rustic.common.items.ModItems;
 import rustic.common.network.MessageTEUpdate;
 import rustic.common.network.PacketHandler;
-import rustic.common.potions.PotionTypesRustic;
+import rustic.common.potions.PotionsRustic;
 import rustic.common.tileentity.ITileEntitySyncable;
-import rustic.common.util.FluidTextureUtil;
 import rustic.common.util.GenericUtil;
 
 public class EventHandlerCommon {

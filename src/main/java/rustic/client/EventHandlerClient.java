@@ -44,10 +44,10 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import rustic.client.models.FluidBottleModel;
 import rustic.client.models.LiquidBarrelItemModel;
+import rustic.client.util.FluidClientUtil;
 import rustic.common.Config;
 import rustic.common.blocks.IAdvancedRotationPlacement;
 import rustic.common.blocks.fluids.ModFluids;
-import rustic.common.util.FluidTextureUtil;
 import rustic.core.Rustic;
 
 public class EventHandlerClient {
@@ -60,7 +60,7 @@ public class EventHandlerClient {
 	@SideOnly(Side.CLIENT)
 	@SubscribeEvent
 	public void onTextureStitchPre(TextureStitchEvent.Pre event) {
-		FluidTextureUtil.initTextures(event.getMap());
+		FluidClientUtil.initTextures(event.getMap());
 	}
 
 	@SideOnly(Side.CLIENT)
