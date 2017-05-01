@@ -22,6 +22,7 @@ import rustic.client.renderer.CrushingTubRenderer;
 import rustic.client.renderer.EvaporatingBasinRenderer;
 import rustic.common.tileentity.TileEntityCrushingTub;
 import rustic.common.tileentity.TileEntityEvaporatingBasin;
+import rustic.core.Rustic;
 
 public class BlockEvaporatingBasin extends BlockBase implements ITileEntityProvider {
 	
@@ -30,6 +31,7 @@ public class BlockEvaporatingBasin extends BlockBase implements ITileEntityProvi
 	public BlockEvaporatingBasin() {
 		super(Material.ROCK, "evaporating_basin");
 		setHardness(1.25F);
+		this.setCreativeTab(Rustic.farmingTab);
 		setSoundType(SoundType.STONE);
 	}
 

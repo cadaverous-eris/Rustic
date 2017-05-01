@@ -45,7 +45,7 @@ public class BlockApiary extends Block implements ITileEntityProvider {
 		GameRegistry.register(this);
 		GameRegistry.register(new ItemBlock(this), getRegistryName());
 		this.setDefaultState(this.blockState.getBaseState().withProperty(FACING, EnumFacing.NORTH));
-		this.setCreativeTab(Rustic.tab);
+		this.setCreativeTab(Rustic.farmingTab);
 		setSoundType(SoundType.WOOD);
 	}
 	

@@ -14,6 +14,7 @@ import net.minecraftforge.fluids.UniversalBucket;
 import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
 import net.minecraftforge.fluids.capability.IFluidHandlerItem;
 import net.minecraftforge.fluids.capability.wrappers.FluidBucketWrapper;
+import net.minecraftforge.fml.common.Loader;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.Mod.EventHandler;
 import net.minecraftforge.fml.common.SidedProxy;
@@ -27,6 +28,8 @@ import rustic.common.EventHandlerCommon;
 import rustic.common.blocks.ModBlocks;
 import rustic.common.blocks.fluids.ModFluids;
 import rustic.common.crafting.Recipes;
+import rustic.common.items.ModItems;
+import rustic.compat.crafttweaker.CraftTweakerHelper;
 
 @Mod(modid = Rustic.MODID, name = Rustic.NAME, version = Rustic.VERSION, useMetadata = true)
 public class Rustic {
@@ -37,16 +40,29 @@ public class Rustic {
 	@SidedProxy(clientSide = "rustic.core.ClientProxy", serverSide = "rustic.core.CommonProxy")
 	public static CommonProxy proxy;
 
-	public static CreativeTabs tab = new CreativeTabs("rustic") {
+	public static CreativeTabs decorTab = new CreativeTabs("rustic.decor") {
 		@Override
 		public String getTabLabel() {
-			return "rustic";
+			return "rustic.decor";
 		}
 
 		@Override
 		@SideOnly(Side.CLIENT)
 		public ItemStack getTabIconItem() {
 			return new ItemStack(ModBlocks.VASE);
+		}
+	};
+	
+	public static CreativeTabs farmingTab = new CreativeTabs("rustic.farming") {
+		@Override
+		public String getTabLabel() {
+			return "rustic.farming";
+		}
+
+		@Override
+		@SideOnly(Side.CLIENT)
+		public ItemStack getTabIconItem() {
+			return new ItemStack(ModItems.OLIVES);
 		}
 
 		@Override
@@ -86,6 +102,19 @@ public class Rustic {
 			}
 		}
 	};
+	
+	public static CreativeTabs alchemyTab = new CreativeTabs("rustic.alchemy") {
+		@Override
+		public String getTabLabel() {
+			return "rustic.alchemy";
+		}
+
+		@Override
+		@SideOnly(Side.CLIENT)
+		public ItemStack getTabIconItem() {
+			return ModItems.ELIXER.getDefaultInstance();
+		}
+	};
 
 	@Mod.Instance
 	public static Rustic instance;
@@ -109,5 +138,8 @@ public class Rustic {
 	@EventHandler
 	public void postInit(FMLPostInitializationEvent event) {
 		proxy.postInit(event);
+		if(Loader.isModLoaded("crafttweaker")) {
+			CraftTweakerHelper.postInit();
+		}
 	}
 }

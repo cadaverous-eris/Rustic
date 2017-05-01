@@ -12,7 +12,7 @@ public class ItemFoodBase extends ItemFood {
 		super(hunger, saturation, wolfFood);
 		setRegistryName(name);
 		setUnlocalizedName(Rustic.MODID + "." + name);
-		setCreativeTab(Rustic.tab);
+		setCreativeTab(Rustic.farmingTab);
 		GameRegistry.register(this);
 		initFood();
 	}

@@ -32,7 +32,7 @@ public class BlockLogRustic extends BlockLog {
 		super();
 		setRegistryName("log");
 		setUnlocalizedName(Rustic.MODID + "." + "log");
-		setCreativeTab(Rustic.tab);
+		setCreativeTab(Rustic.farmingTab);
 		ItemBlock item = new ItemBlock(this) {
 			@Override
 			public String getUnlocalizedName(ItemStack stack) {

@@ -65,7 +65,7 @@ public class ItemFluidBottle extends ItemFluidContainer {
 		super(1000);
 		setRegistryName("fluid_bottle");
 		setUnlocalizedName(Rustic.MODID + "." + "fluid_bottle");
-		setCreativeTab(Rustic.tab);
+		setCreativeTab(Rustic.farmingTab);
 		GameRegistry.register(this);
 		empty = new ItemStack(Items.GLASS_BOTTLE);
 	}

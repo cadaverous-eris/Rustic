@@ -1,5 +1,7 @@
 #Creative Tabs
-itemGroup.rustic=Rustic
+itemGroup.rustic.decor=Rustic Decorations
+itemGroup.rustic.farming=Rustic Agriculture
+itemGroup.rustic.alchemy=Rustic Alchemy
 
 #Tooltips
 tooltip.rustic.olive_oil=Olive Oiled
@@ -108,6 +110,8 @@ tile.rustic.condenser.name=Alchemic Condenser
 tile.rustic.retort.name=Alchemic Retort
 tile.rustic.condenser_advanced.name=Advanced Alchemic Condenser
 tile.rustic.retort_advanced.name=Advanced Alchemic Retort
+tile.rustic.crop_stake.name=Crop Stake
+tile.rustic.tomato_crop.name=Tomato Crop
 
 #Items
 item.rustic.bee.name=Bee
@@ -122,6 +126,8 @@ item.rustic.dust_tiny_iron.name=Tiny Pile of Iron Dust
 item.tile.rustic.core_root.name=Core Root
 item.tile.rustic.ginseng.name=Ginseng Root
 item.tile.rustic.marsh_mallow.name=Marsh Mallow Root
+item.rustic.tomato.name=Tomato
+item.rustic.tomato_seeds.name=Tomato Seeds
 
 #Fluids
 tile.rustic.olive_oil.name=Olive Oil
@@ -145,3 +151,5 @@ rutsic.elixer.separator=,
 #JEI Categories
 rustic.jei.recipe.crushing_tub=Crushing Tub
 rustic.jei.recipe.evaporating=Drying Basin
+rustic.jei.recipe.simple_alchemy=Simple Alchemy
+rustic.jei.recipe.advanced_alchemy=Advanced Alchemy

@@ -42,6 +42,7 @@ public class BlockCondenser extends BlockBase implements ITileEntityProvider {
 	public BlockCondenser() {
 		super(Material.ROCK, "condenser");
 		setHardness(2F);
+		setCreativeTab(Rustic.alchemyTab);
 		setSoundType(SoundType.STONE);
 		setDefaultState(this.blockState.getBaseState().withProperty(FACING, EnumFacing.NORTH).withProperty(BOTTOM, true));
 	}

@@ -38,7 +38,7 @@ public class BlockChain extends Block {
 		this.setHardness(1F);
 		GameRegistry.register(this);
 		GameRegistry.register(new ItemBlock(this), getRegistryName());
-		this.setCreativeTab(Rustic.tab);
+		this.setCreativeTab(Rustic.decorTab);
 		setSoundType(SoundType.METAL);
 	}
 

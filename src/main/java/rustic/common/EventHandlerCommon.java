@@ -82,6 +82,7 @@ import net.minecraftforge.event.entity.living.LivingEvent.LivingUpdateEvent;
 import net.minecraftforge.event.entity.living.PotionColorCalculationEvent;
 import net.minecraftforge.event.entity.player.ItemTooltipEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
+import net.minecraftforge.event.world.BlockEvent;
 import net.minecraftforge.event.world.ChunkEvent;
 import net.minecraftforge.fluids.BlockFluidBase;
 import net.minecraftforge.fluids.Fluid;
@@ -124,6 +125,13 @@ public class EventHandlerCommon {
 	//
 	// }
 
+	@SubscribeEvent
+	public void onGrassDropEvent(BlockEvent.HarvestDropsEvent event) {
+		if (event.getState().getBlock() == Blocks.TALLGRASS && event.getWorld().rand.nextInt(20) == 0) {
+			event.getDrops().add(new ItemStack(ModItems.TOMATO_SEEDS));
+		}
+	}
+	
 	@SubscribeEvent
 	public void onItemUseTick(LivingEntityUseItemEvent.Tick event) {
 		ItemStack originalStack = event.getItem();

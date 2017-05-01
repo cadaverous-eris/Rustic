@@ -12,7 +12,7 @@ public class ItemBase extends Item {
 		super();
 		setRegistryName(name);
 		setUnlocalizedName(Rustic.MODID + "." + name);
-		setCreativeTab(Rustic.tab);
+		setCreativeTab(Rustic.decorTab);
 		GameRegistry.register(this);
 	}
 	

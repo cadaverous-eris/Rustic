@@ -26,7 +26,7 @@ public class BlockChandelier extends Block{
 		this.setHardness(2F);
 		GameRegistry.register(this);
 		GameRegistry.register(new ItemBlock(this), getRegistryName());
-		this.setCreativeTab(Rustic.tab);
+		this.setCreativeTab(Rustic.decorTab);
 		setSoundType(SoundType.METAL);
 	}
 	

@@ -43,7 +43,7 @@ public class BlockPillar extends Block {
 		this.setDefaultState(this.blockState.getBaseState().withProperty(AXIS, EnumFacing.Axis.Y));
 		GameRegistry.register(this);
 		GameRegistry.register(new ItemBlock(this), getRegistryName());
-		this.setCreativeTab(Rustic.tab);
+		this.setCreativeTab(Rustic.decorTab);
 	}
 		
 	public void initModel() {

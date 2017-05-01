@@ -56,7 +56,7 @@ public class BlockSaplingRustic extends BlockBush implements IGrowable {
 		super();
 		setRegistryName("sapling");
 		setUnlocalizedName(Rustic.MODID + "." + "sapling");
-		setCreativeTab(Rustic.tab);
+		setCreativeTab(Rustic.farmingTab);
 		ItemBlock item = new ItemBlock(this) {
 			@Override
 			public String getUnlocalizedName(ItemStack stack) {

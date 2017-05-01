@@ -18,6 +18,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import rustic.common.tileentity.TileEntityCrushingTub;
+import rustic.core.Rustic;
 
 public class BlockRetort extends BlockBase {
 	
@@ -28,6 +29,7 @@ public class BlockRetort extends BlockBase {
 	public BlockRetort(String name) {
 		super(Material.ROCK, name);
 		setHardness(2F);
+		setCreativeTab(Rustic.alchemyTab);
 		setSoundType(SoundType.STONE);
 		setDefaultState(this.blockState.getBaseState().withProperty(FACING, EnumFacing.NORTH));
 	}

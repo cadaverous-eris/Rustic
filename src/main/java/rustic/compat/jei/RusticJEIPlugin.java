@@ -45,15 +45,24 @@ public class RusticJEIPlugin extends BlankModPlugin {
         }
         reg.addRecipes(evaporatingRecipes, "rustic.evaporating");
         
+        reg.addRecipeCategories(new SimpleAlchemyRecipeCategory(guiHelper));
+        reg.addRecipes(SimpleAlchemyRecipeMaker.getSimpleAlchemyRecipes(helper), "rustic.alchemy_simple");
+        
+        reg.addRecipeCategories(new AdvancedAlchemyRecipeCategory(guiHelper));
+        reg.addRecipes(AdvancedAlchemyRecipeMaker.getAlchemyRecipes(helper), "rustic.alchemy_advanced");
+        
         reg.addRecipeCategoryCraftingItem(new ItemStack(ModBlocks.CRUSHING_TUB),"rustic.crushing_tub");
         reg.addRecipeCategoryCraftingItem(new ItemStack(ModBlocks.EVAPORATING_BASIN), "rustic.evaporating");
+        reg.addRecipeCategoryCraftingItem(new ItemStack(ModBlocks.CONDENSER), "rustic.alchemy_simple", VanillaRecipeCategoryUid.FUEL);
+        reg.addRecipeCategoryCraftingItem(new ItemStack(ModBlocks.CONDENSER_ADVANCED), "rustic.alchemy_advanced", VanillaRecipeCategoryUid.FUEL);
 	}
 	
 	@Override
 	public void registerItemSubtypes(ISubtypeRegistry subtypeRegistry) {
 		this.subtypeRegistry = subtypeRegistry;
 		subtypeRegistry.useNbtForSubtypes(
-				ModItems.FLUID_BOTTLE
+				ModItems.FLUID_BOTTLE,
+				ModItems.ELIXER
 		);
 	}
 

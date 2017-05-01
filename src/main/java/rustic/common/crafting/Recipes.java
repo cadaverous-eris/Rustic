@@ -182,6 +182,7 @@ public class Recipes {
 		GameRegistry.addShapedRecipe(new ItemStack(ModBlocks.RETORT), " b", "ie", " b", 'b', new ItemStack(Items.BRICK), 'i', new ItemStack(Items.IRON_INGOT), 'e', new ItemStack(Items.BUCKET));
 		GameRegistry.addShapedRecipe(new ItemStack(ModBlocks.CONDENSER_ADVANCED), " b ", "beb", "bib", 'b', new ItemStack(Items.NETHERBRICK), 'e', new ItemStack(Items.BUCKET), 'i', new ItemStack(Blocks.IRON_BLOCK));
 		GameRegistry.addShapedRecipe(new ItemStack(ModBlocks.RETORT_ADVANCED), " b", "ie", " b", 'b', new ItemStack(Items.NETHERBRICK), 'i', new ItemStack(Items.IRON_INGOT), 'e', new ItemStack(Items.BUCKET));
+		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(ModBlocks.CROP_STAKE, 3), "p", "p", "p", 'p', "plankWood"));
 		
 		GameRegistry.addRecipe(new RecipeOliveOil());
 	}

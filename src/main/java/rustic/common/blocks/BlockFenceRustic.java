@@ -21,7 +21,7 @@ public class BlockFenceRustic extends BlockFence {
 		GameRegistry.register(this);
 		GameRegistry.register(new ItemBlock(this), getRegistryName());
 		setHardness(2F);
-		setCreativeTab(Rustic.tab);
+		setCreativeTab(Rustic.decorTab);
 		setSoundType(state.getBlock().getSoundType());
 	}
 	

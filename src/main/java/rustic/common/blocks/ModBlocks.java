@@ -10,11 +10,14 @@ import net.minecraftforge.common.EnumPlantType;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+import rustic.common.blocks.crops.BlockCropStake;
 import rustic.common.blocks.crops.BlockHerbBase;
+import rustic.common.blocks.crops.BlockStakeCrop;
 import rustic.common.blocks.crops.Herbs;
 import rustic.common.blocks.slab.BlockDoubleSlabBase;
 import rustic.common.blocks.slab.BlockSlabBase;
 import rustic.common.blocks.slab.ItemBlockSlabBase;
+import rustic.common.items.ModItems;
 import rustic.common.tileentity.TileEntityApiary;
 import rustic.common.tileentity.TileEntityBarrel;
 import rustic.common.tileentity.TileEntityCabinet;
@@ -116,6 +119,8 @@ public class ModBlocks {
 	public static BlockRetort RETORT;
 	public static BlockCondenserAdvanced CONDENSER_ADVANCED;
 	public static BlockRetort RETORT_ADVANCED;
+	public static BlockCropStake CROP_STAKE;
+	public static BlockStakeCrop TOMATO_CROP;
 
 	public static void init() {
 		STONE_PILLAR = new BlockPillar("stone");
@@ -226,6 +231,17 @@ public class ModBlocks {
 		RETORT = new BlockRetort("retort");
 		CONDENSER_ADVANCED = new BlockCondenserAdvanced();
 		RETORT_ADVANCED = new BlockRetort("retort_advanced");
+		CROP_STAKE = new BlockCropStake();
+		TOMATO_CROP = new BlockStakeCrop("tomato_crop") {
+			@Override
+			public Item getCrop() {
+				return ModItems.TOMATO;
+			}
+			@Override
+			public Item getSeed() {
+				return ModItems.TOMATO_SEEDS;
+			}
+		};
 		
 		Herbs.init();
 		
@@ -330,6 +346,7 @@ public class ModBlocks {
 		RETORT.initModel();
 		CONDENSER_ADVANCED.initModel();
 		RETORT_ADVANCED.initModel();
+		CROP_STAKE.initModel();
 		
 		Herbs.initModels();
 	}

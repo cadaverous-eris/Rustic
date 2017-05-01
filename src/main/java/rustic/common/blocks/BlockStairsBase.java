@@ -20,7 +20,7 @@ public class BlockStairsBase extends BlockStairs {
 		setUnlocalizedName(Rustic.MODID + "." + name);
 		GameRegistry.register(this);
 		GameRegistry.register(new ItemBlock(this), getRegistryName());
-		this.setCreativeTab(Rustic.tab);
+		this.setCreativeTab(Rustic.decorTab);
 	}
 	
 	public void initModel() {

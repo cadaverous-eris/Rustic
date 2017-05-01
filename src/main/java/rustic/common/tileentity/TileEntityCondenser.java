@@ -338,7 +338,7 @@ public class TileEntityCondenser extends TileFluidHandler implements ITickable {
 
 		for (CondenserRecipe recipe : Recipes.condenserRecipes) {
 			if (recipe instanceof AdvancedCondenserRecipe) {
-				break;
+				continue;
 			}
 			if (recipe.matches(ItemStack.EMPTY, new ItemStack[]{ internalStackHandler.getStackInSlot(0), internalStackHandler.getStackInSlot(1) })) {
 				if (internalStackHandler.insertItem(4, recipe.getResult(), true).isEmpty()) {
@@ -354,7 +354,7 @@ public class TileEntityCondenser extends TileFluidHandler implements ITickable {
 		if (this.canBrew()) {
 			for (CondenserRecipe recipe : Recipes.condenserRecipes) {
 				if (recipe instanceof AdvancedCondenserRecipe) {
-					break;
+					continue;
 				}
 				if (recipe.matches(ItemStack.EMPTY, new ItemStack[]{ internalStackHandler.getStackInSlot(0), internalStackHandler.getStackInSlot(1) })) {
 

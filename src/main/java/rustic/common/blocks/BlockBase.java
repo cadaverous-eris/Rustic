@@ -21,7 +21,7 @@ public class BlockBase extends Block {
 		GameRegistry.register(this);
 		GameRegistry.register(new ItemBlock(this), getRegistryName());
 		setHardness(1F);
-		setCreativeTab(Rustic.tab);
+		setCreativeTab(Rustic.decorTab);
 	}
 	
 	public BlockBase(Material mat, String name, boolean register) {
@@ -29,7 +29,7 @@ public class BlockBase extends Block {
 		setRegistryName(name);
 		setUnlocalizedName(Rustic.MODID + "." + name);
 		setHardness(1F);
-		setCreativeTab(Rustic.tab);
+		setCreativeTab(Rustic.decorTab);
 		if (register) {
 			GameRegistry.register(this);
 			GameRegistry.register(new ItemBlock(this), getRegistryName());

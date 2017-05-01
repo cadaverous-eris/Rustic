@@ -8,12 +8,14 @@ import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
+import rustic.core.Rustic;
 
 public class BlockFertileSoil extends BlockBase {
 
 	public BlockFertileSoil() {
 		super(Material.GROUND, "fertile_soil");
 		setHardness(0.5F);
+		this.setCreativeTab(Rustic.farmingTab);
 		setSoundType(SoundType.GROUND);
 	}
 

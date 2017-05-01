@@ -30,6 +30,7 @@ import rustic.client.renderer.LiquidBarrelRenderer;
 import rustic.common.tileentity.TileEntityBarrel;
 import rustic.common.tileentity.TileEntityCrushingTub;
 import rustic.common.tileentity.TileEntityLiquidBarrel;
+import rustic.core.Rustic;
 
 public class BlockCrushingTub extends BlockBase implements ITileEntityProvider {
 
@@ -47,6 +48,7 @@ public class BlockCrushingTub extends BlockBase implements ITileEntityProvider {
 	public BlockCrushingTub() {
 		super(Material.WOOD, "crushing_tub");
 		this.setHardness(1.5F);
+		this.setCreativeTab(Rustic.farmingTab);
 		setSoundType(SoundType.WOOD);
 	}
 

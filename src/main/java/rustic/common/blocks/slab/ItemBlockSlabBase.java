@@ -30,7 +30,7 @@ public class ItemBlockSlabBase extends ItemBlock {
 		super(block);
 		this.doubleSlab = doubleSlab;
 		setRegistryName(block.getRegistryName() + "_item");
-		tab = Rustic.tab;
+		tab = Rustic.decorTab;
 		GameRegistry.register(this);
 	}
 

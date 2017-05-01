@@ -52,7 +52,7 @@ public abstract class BlockHerbBase extends BlockBush implements IGrowable, IPla
 		setHardness(0F);
 		this.setTickRandomly(true);
 		this.setSoundType(SoundType.PLANT);
-		setCreativeTab(Rustic.tab);
+		setCreativeTab(Rustic.alchemyTab);
 		this.setDefaultState(this.blockState.getBaseState().withProperty(this.getAgeProperty(), Integer.valueOf(0)));
 	}
 	
@@ -87,7 +87,7 @@ public abstract class BlockHerbBase extends BlockBush implements IGrowable, IPla
 	}
 
 	protected static float getGrowthChance(Block blockIn, World worldIn, BlockPos pos) {
-		return 1F;
+		return 7F;
 	}
 
 	@Override

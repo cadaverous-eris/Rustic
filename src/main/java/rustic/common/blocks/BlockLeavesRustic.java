@@ -54,7 +54,7 @@ public class BlockLeavesRustic extends BlockLeaves implements IColoredBlock {
 		super();
 		setRegistryName("leaves");
 		setUnlocalizedName(Rustic.MODID + "." + "leaves");
-		setCreativeTab(Rustic.tab);
+		setCreativeTab(Rustic.farmingTab);
 		ItemBlock item = new ItemBlock(this) {
 			@Override
 			public String getUnlocalizedName(ItemStack stack) {

@@ -26,11 +26,13 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 import rustic.common.crafting.CondenserRecipe;
 import rustic.common.crafting.Recipes;
 import rustic.core.ClientProxy;
+import rustic.core.Rustic;
 
 public class ItemElixer extends ItemBase implements IColoredItem {
 
 	public ItemElixer() {
 		super("elixer");
+		setCreativeTab(Rustic.alchemyTab);
 	}
 
 	@Override

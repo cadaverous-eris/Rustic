@@ -54,7 +54,7 @@ public class BlockCandle extends Block {
 		GameRegistry.register(new ItemBlock(this), getRegistryName());
 		this.setLightLevel(1.0F);
 		this.setDefaultState(this.blockState.getBaseState().withProperty(FACING, EnumFacing.UP));
-		this.setCreativeTab(Rustic.tab);
+		this.setCreativeTab(Rustic.decorTab);
 		setSoundType(SoundType.METAL);
 	}
 	

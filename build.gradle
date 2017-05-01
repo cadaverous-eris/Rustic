@@ -38,6 +38,10 @@ repositories {
         name 'DVS1 Maven FS'
         url 'http://dvs1.progwml6.com/files/maven'
     }
+    maven { // CraftTweaker
+        name 'jared maven'
+        url "http://maven.blamejared.com/"
+    }
 }
 
 dependencies {
@@ -62,6 +66,7 @@ dependencies {
     // http://www.gradle.org/docs/current/userguide/artifact_dependencies_tutorial.html
     // http://www.gradle.org/docs/current/userguide/dependency_management.html
 	deobfCompile "mezz.jei:jei_1.11.2:4.3.1.259"
+	deobfCompile "MineTweaker3:MineTweaker3-MC1112-Main:1.11.2-3.0.+"
 	compile files('libs/')
 }
 

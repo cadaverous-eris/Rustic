@@ -31,10 +31,14 @@ public class ModItems {
 	public static ItemBase IRON_DUST;
 	public static ItemBase IRON_DUST_TINY;
 	public static ItemElixer ELIXER;
+	public static ItemFoodBase TOMATO;
+	public static ItemStakeCropSeed TOMATO_SEEDS;
 
 	public static void init() {
 		BEE = new ItemBase("bee");
+		BEE.setCreativeTab(Rustic.farmingTab);
 		HONEYCOMB = new ItemBase("honeycomb");
+		HONEYCOMB.setCreativeTab(Rustic.farmingTab);
 		BEESWAX = new ItemBase("beeswax");
 		TALLOW = new ItemBase("tallow");
 		OLIVES = new ItemFoodBase("olives", 1, 0.1F, false) {
@@ -73,8 +77,12 @@ public class ModItems {
 		};
 		FLUID_BOTTLE = new ItemFluidBottle();
 		IRON_DUST = new ItemBase("dust_iron");
+		IRON_DUST.setCreativeTab(Rustic.farmingTab);
 		IRON_DUST_TINY = new ItemBase("dust_tiny_iron");
+		IRON_DUST_TINY.setCreativeTab(Rustic.farmingTab);
 		ELIXER = new ItemElixer();
+		TOMATO = new ItemFoodBase("tomato", 4, 0.6F, false);
+		TOMATO_SEEDS = new ItemStakeCropSeed("tomato_seeds", ModBlocks.TOMATO_CROP);
 	}
 
 	public static void initModels() {
@@ -88,5 +96,7 @@ public class ModItems {
 		IRON_DUST.initModel();
 		IRON_DUST_TINY.initModel();
 		ELIXER.initModel();
+		TOMATO.initModel();
+		TOMATO_SEEDS.initModel();
 	};
 }

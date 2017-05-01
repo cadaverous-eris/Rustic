@@ -36,6 +36,7 @@ public class BlockCondenserAdvanced extends BlockBase implements ITileEntityProv
 	public BlockCondenserAdvanced() {
 		super(Material.ROCK, "condenser_advanced");
 		setHardness(2F);
+		setCreativeTab(Rustic.alchemyTab);
 		setSoundType(SoundType.STONE);
 		setDefaultState(this.blockState.getBaseState().withProperty(FACING, EnumFacing.NORTH).withProperty(BOTTOM, true));
 	}

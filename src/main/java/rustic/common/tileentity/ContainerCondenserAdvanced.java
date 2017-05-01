@@ -73,7 +73,54 @@ private TileEntityCondenserAdvanced te;
 	@Nullable
 	@Override
 	public ItemStack transferStackInSlot(EntityPlayer playerIn, int index) {
-		return ItemStack.EMPTY;
+		ItemStack itemstack = ItemStack.EMPTY;
+        Slot slot = (Slot)this.inventorySlots.get(index);
+        
+        if (slot != null && slot.getHasStack())
+        {
+            ItemStack itemstack1 = slot.getStack();
+            itemstack = itemstack1.copy();
+            if (index < 7) {
+                if (!this.mergeItemStack(itemstack1, 7, 43, true)) {
+                    return ItemStack.EMPTY;
+                }
+                slot.onSlotChange(itemstack1, itemstack);
+            } else if (index > 6) {
+                if (itemstack1.getItem().equals(Items.GLASS_BOTTLE)) {
+                    if (!this.mergeItemStack(itemstack1, 5, 6, false)) {
+                        return ItemStack.EMPTY;
+                    }
+                } else if (TileEntityFurnace.isItemFuel(itemstack1)) {
+                    if (!this.mergeItemStack(itemstack1, 4, 5, false)) {
+                        return ItemStack.EMPTY;
+                    }
+                } else if (!this.mergeItemStack(itemstack1, 0, 4, false)) {
+                    return ItemStack.EMPTY;
+                } else if (index >= 7 && index < 34) {
+                    if (!this.mergeItemStack(itemstack1, 34, 43, false)) {
+                        return ItemStack.EMPTY;
+                    }
+                } else if (index >= 34 && index < 43 && !this.mergeItemStack(itemstack1, 7, 34, false)) {
+                    return ItemStack.EMPTY;
+                }
+            } else if (!this.mergeItemStack(itemstack1, 7, 43, false)) {
+                return ItemStack.EMPTY;
+            }
+            
+            if (itemstack1.isEmpty()) {
+                slot.putStack(ItemStack.EMPTY);
+            } else {
+                slot.onSlotChanged();
+            }
+
+            if (itemstack1.getCount() == itemstack.getCount()) {
+                return ItemStack.EMPTY;
+            }
+
+            slot.onTake(playerIn, itemstack1);
+        }
+        
+		return itemstack;
 	}
 
 	@Override
