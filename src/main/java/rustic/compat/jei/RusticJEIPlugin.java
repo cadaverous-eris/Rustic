@@ -7,7 +7,9 @@ import javax.annotation.Nullable;
 import mezz.jei.api.BlankModPlugin;
 import mezz.jei.api.IGuiHelper;
 import mezz.jei.api.IJeiHelpers;
+import mezz.jei.api.IJeiRuntime;
 import mezz.jei.api.IModRegistry;
+import mezz.jei.api.IRecipeRegistry;
 import mezz.jei.api.ISubtypeRegistry;
 import mezz.jei.api.JEIPlugin;
 import mezz.jei.api.recipe.VanillaRecipeCategoryUid;
@@ -18,6 +20,8 @@ import rustic.common.items.ModItems;
 
 @JEIPlugin
 public class RusticJEIPlugin extends BlankModPlugin {
+	
+	public static IRecipeRegistry recipeRegistry;
 	
 	@Nullable
 	private ISubtypeRegistry subtypeRegistry;
@@ -65,5 +69,10 @@ public class RusticJEIPlugin extends BlankModPlugin {
 				ModItems.ELIXER
 		);
 	}
+	
+	@Override
+    public void onRuntimeAvailable(IJeiRuntime iJeiRuntime) {
+        recipeRegistry = iJeiRuntime.getRecipeRegistry();
+    }
 
 }

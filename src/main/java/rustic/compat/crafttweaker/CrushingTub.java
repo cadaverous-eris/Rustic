@@ -93,6 +93,7 @@ public class CrushingTub {
 					if (r.getInput().isItemEqual(input)) {
 						removedRecipes.add(r);
 						MineTweakerAPI.getIjeiRecipeRegistry().removeRecipe(new CrushingTubRecipeWrapper(r));
+						MineTweakerAPI.getIjeiRecipeRegistry().removeRecipe((r));
 						it.remove();
 					}
 				}
