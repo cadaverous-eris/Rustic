@@ -14,11 +14,11 @@ public class AdvancedAlchemyRecipeMaker {
 		
 	}
 	
-	public static List<AdvancedAlchemyRecipeWrapper> getAlchemyRecipes(IJeiHelpers helpers) {
-		List<AdvancedAlchemyRecipeWrapper> recipes = new ArrayList<AdvancedAlchemyRecipeWrapper>();
+	public static List<CondenserRecipe> getAlchemyRecipes(IJeiHelpers helpers) {
+		List<CondenserRecipe> recipes = new ArrayList<CondenserRecipe>();
 		
 		for (CondenserRecipe recipe : Recipes.condenserRecipes) {
-			recipes.add(new AdvancedAlchemyRecipeWrapper(recipe));
+			recipes.add(recipe);
 		}
 		
 		return recipes;

@@ -14,12 +14,12 @@ public class SimpleAlchemyRecipeMaker {
 		
 	}
 	
-	public static List<SimpleAlchemyRecipeWrapper> getSimpleAlchemyRecipes(IJeiHelpers helpers) {
-		List<SimpleAlchemyRecipeWrapper> recipes = new ArrayList<SimpleAlchemyRecipeWrapper>();
+	public static List<BasicCondenserRecipe> getSimpleAlchemyRecipes(IJeiHelpers helpers) {
+		List<BasicCondenserRecipe> recipes = new ArrayList<BasicCondenserRecipe>();
 		
 		for (CondenserRecipe recipe : Recipes.condenserRecipes) {
 			if (recipe instanceof BasicCondenserRecipe) {
-				recipes.add(new SimpleAlchemyRecipeWrapper((BasicCondenserRecipe) recipe));
+				recipes.add((BasicCondenserRecipe) recipe);
 			}
 		}
 		

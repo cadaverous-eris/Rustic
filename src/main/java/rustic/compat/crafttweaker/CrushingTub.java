@@ -37,7 +37,7 @@ public class CrushingTub {
 		@Override
 		public void apply() {
 			Recipes.crushingTubRecipes.add(recipe);
-			MineTweakerAPI.getIjeiRecipeRegistry().addRecipe(new CrushingTubRecipeWrapper(recipe));
+			MineTweakerAPI.getIjeiRecipeRegistry().addRecipe(recipe);
 		}
 
 		@Override
@@ -48,7 +48,7 @@ public class CrushingTub {
 		@Override
 		public void undo() {
 			Recipes.crushingTubRecipes.remove(recipe);
-			MineTweakerAPI.getIjeiRecipeRegistry().removeRecipe(new CrushingTubRecipeWrapper(recipe));
+			MineTweakerAPI.getIjeiRecipeRegistry().removeRecipe(recipe);
 		}
 
 		@Override
@@ -92,9 +92,7 @@ public class CrushingTub {
 				if (r != null && r.getResult() != null && r.getResult().isFluidEqual(output)) {
 					if (r.getInput().isItemEqual(input)) {
 						removedRecipes.add(r);
-						//MineTweakerAPI.getIjeiRecipeRegistry().removeRecipe(new CrushingTubRecipeWrapper(r));
-						//MineTweakerAPI.getIjeiRecipeRegistry().removeRecipe(r);
-						CraftTweakerHelper.removeRecipe(new CrushingTubRecipeWrapper(r));
+						MineTweakerAPI.getIjeiRecipeRegistry().removeRecipe(r);
 						it.remove();
 					}
 				}
@@ -107,7 +105,7 @@ public class CrushingTub {
 				for (CrushingTubRecipe recipe : removedRecipes)
 					if (recipe != null) {
 						Recipes.crushingTubRecipes.add(recipe);
-						MineTweakerAPI.getIjeiRecipeRegistry().addRecipe(new CrushingTubRecipeWrapper(recipe));
+						MineTweakerAPI.getIjeiRecipeRegistry().addRecipe(recipe);
 					}
 		}
 
