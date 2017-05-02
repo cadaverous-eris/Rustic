@@ -17,12 +17,24 @@ public class CraftTweakerHelper {
 
 	public static void postInit() {
 		MineTweakerAPI.registerClass(CrushingTub.class);
+		MineTweakerAPI.registerClass(EvaporatingBasin.class);
 	}
 
 	public static ItemStack toStack(IItemStack iStack) {
 		if (iStack == null)
 			return ItemStack.EMPTY;
 		return (ItemStack) iStack.getInternal();
+	}
+	
+	public static ItemStack[] toStacks(IItemStack[] iStacks) {
+		if (iStacks == null) {
+			return new ItemStack[0];
+		}
+		ItemStack[] ret = new ItemStack[iStacks.length];
+		for (int i = 0; i < iStacks.length; i++) {
+			ret[i] = toStack(iStacks[i]);
+		}
+		return ret;
 	}
 
 	public static Object toObject(IIngredient iStack) {

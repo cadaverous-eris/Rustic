@@ -56,14 +56,14 @@ public class RusticJEIPlugin extends BlankModPlugin {
         }
         reg.addRecipes(evaporatingRecipes, "rustic.evaporating");
         reg.handleRecipes(EvaporatingBasinRecipe.class, new EvaporatingRecipeWrapperFactory(), "rustic.evaporating");
+       
+        reg.addRecipeCategories(new AdvancedAlchemyRecipeCategory(guiHelper));
+        reg.addRecipes(AdvancedAlchemyRecipeMaker.getAlchemyRecipes(helper), "rustic.alchemy_advanced");
+        reg.handleRecipes(CondenserRecipe.class, new AdvancedAlchemyRecipeWrapperFactory(), "rustic.alchemy_advanced");
         
         reg.addRecipeCategories(new SimpleAlchemyRecipeCategory(guiHelper));
         reg.addRecipes(SimpleAlchemyRecipeMaker.getSimpleAlchemyRecipes(helper), "rustic.alchemy_simple");
         reg.handleRecipes(BasicCondenserRecipe.class, new SimpleAlchemyRecipeWrapperFactory(), "rustic.alchemy_simple");
-        
-        reg.addRecipeCategories(new AdvancedAlchemyRecipeCategory(guiHelper));
-        reg.addRecipes(AdvancedAlchemyRecipeMaker.getAlchemyRecipes(helper), "rustic.alchemy_advanced");
-        reg.handleRecipes(CondenserRecipe.class, new AdvancedAlchemyRecipeWrapperFactory(), "rustic.alchemy_advanced");
         
         reg.addRecipeCategoryCraftingItem(new ItemStack(ModBlocks.CRUSHING_TUB),"rustic.crushing_tub");
         reg.addRecipeCategoryCraftingItem(new ItemStack(ModBlocks.EVAPORATING_BASIN), "rustic.evaporating");
