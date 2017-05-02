@@ -94,7 +94,7 @@ public class CrushingTub {
 						removedRecipes.add(r);
 						//MineTweakerAPI.getIjeiRecipeRegistry().removeRecipe(new CrushingTubRecipeWrapper(r));
 						//MineTweakerAPI.getIjeiRecipeRegistry().removeRecipe(r);
-						CraftTweakerHelper.removeRecipe(new CrushingTubRecipeWrapper(r), "rustic.crushing_tub");
+						CraftTweakerHelper.removeRecipe(new CrushingTubRecipeWrapper(r));
 						it.remove();
 					}
 				}

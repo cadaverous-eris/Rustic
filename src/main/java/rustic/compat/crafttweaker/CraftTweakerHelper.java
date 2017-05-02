@@ -55,11 +55,10 @@ public class CraftTweakerHelper {
 		return (FluidStack) iStack.getInternal();
 	}
 	
-	public static void removeRecipe(IRecipeWrapper recipe, String categoryUid) {
+	public static void removeRecipe(Object recipe) {
 		if (Loader.isModLoaded("jei")) {
 			if (RusticJEIPlugin.recipeRegistry != null) {
-				System.out.println("removing recipe");
-				RusticJEIPlugin.recipeRegistry.removeRecipe(recipe, categoryUid);
+				RusticJEIPlugin.recipeRegistry.removeRecipe(recipe);
 			}
 		}
 	}

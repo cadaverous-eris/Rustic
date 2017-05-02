@@ -34,7 +34,7 @@ public class RusticJEIPlugin extends BlankModPlugin {
 		reg.addRecipes(OliveOilRecipeMaker.getOliveOilRecipes(), VanillaRecipeCategoryUid.CRAFTING);
 
 		reg.addRecipeCategories(new CrushingTubRecipeCategory(guiHelper));
-        reg.addRecipeHandlers(new CrushingTubRecipeHandler());
+        //reg.addRecipeHandlers(new CrushingTubRecipeHandler());
         ArrayList<CrushingTubRecipeWrapper> crushingTubRecipes = new ArrayList<CrushingTubRecipeWrapper>();
         for (int i = 0; i < Recipes.crushingTubRecipes.size(); i ++){
         	crushingTubRecipes.add(new CrushingTubRecipeWrapper(Recipes.crushingTubRecipes.get(i)));
@@ -42,7 +42,7 @@ public class RusticJEIPlugin extends BlankModPlugin {
         reg.addRecipes(crushingTubRecipes, "rustic.crushing_tub");
         
         reg.addRecipeCategories(new EvaporatingRecipeCategory(guiHelper));
-        reg.addRecipeHandlers(new EvaporatingRecipeHandler());
+        //reg.addRecipeHandlers(new EvaporatingRecipeHandler());
         ArrayList<EvaporatingRecipeWrapper> evaporatingRecipes = new ArrayList<EvaporatingRecipeWrapper>();
         for (int i = 0; i < Recipes.evaporatingRecipes.size(); i ++){
         	evaporatingRecipes.add(new EvaporatingRecipeWrapper(Recipes.evaporatingRecipes.get(i)));
