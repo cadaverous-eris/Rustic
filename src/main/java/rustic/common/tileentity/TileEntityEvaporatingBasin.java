@@ -39,6 +39,7 @@ public class TileEntityEvaporatingBasin extends TileFluidHandler implements ITic
 	private int capacity = Fluid.BUCKET_VOLUME * 6;
 
 	private FluidStack evaporatedFluid;
+	private int age = 0;
 
 	private ItemStackHandler itemStackHandler = new ItemStackHandler(1) {
 		@Override
@@ -63,44 +64,52 @@ public class TileEntityEvaporatingBasin extends TileFluidHandler implements ITic
 	}
 
 	@Override
-	public void update() {	
-		FluidStack drained = tank.drain(1, true);
+	public void update() {
+		age++;
+		if (age >= 1000000) {
+			age = 0;
+		}
+		if (this.age % 20 == 0) {
+			FluidStack drained = tank.drain(20, true);
 
-		if (evaporatedFluid == null) {
-			if (drained != null) {
-				evaporatedFluid = drained;
-
-				getWorld().notifyBlockUpdate(pos, getWorld().getBlockState(pos), getWorld().getBlockState(pos), 3);
-				this.world.notifyNeighborsOfStateChange(this.pos, this.getBlockType(), true);
-				this.markDirty();
-			}
-		} else {
-			if (drained != null) {
-				if (!evaporatedFluid.getFluid().equals(drained.getFluid())) {
+			if (evaporatedFluid == null) {
+				if (drained != null) {
 					evaporatedFluid = drained;
 
 					getWorld().notifyBlockUpdate(pos, getWorld().getBlockState(pos), getWorld().getBlockState(pos), 3);
 					this.world.notifyNeighborsOfStateChange(this.pos, this.getBlockType(), true);
 					this.markDirty();
-				} else {
-					evaporatedFluid.amount += drained.amount;
+				}
+			} else {
+				if (drained != null) {
+					if (!evaporatedFluid.getFluid().equals(drained.getFluid())) {
+						evaporatedFluid = drained;
 
-					getWorld().notifyBlockUpdate(pos, getWorld().getBlockState(pos), getWorld().getBlockState(pos), 3);
-					this.world.notifyNeighborsOfStateChange(this.pos, this.getBlockType(), true);
-					this.markDirty();
+						getWorld().notifyBlockUpdate(pos, getWorld().getBlockState(pos), getWorld().getBlockState(pos),
+								3);
+						this.world.notifyNeighborsOfStateChange(this.pos, this.getBlockType(), true);
+						this.markDirty();
+					} else {
+						evaporatedFluid.amount += drained.amount;
+
+						getWorld().notifyBlockUpdate(pos, getWorld().getBlockState(pos), getWorld().getBlockState(pos),
+								3);
+						this.world.notifyNeighborsOfStateChange(this.pos, this.getBlockType(), true);
+						this.markDirty();
+					}
 				}
 			}
-		}
-		if (evaporatedFluid != null && evaporatedFluid.amount > 0) {
-			for (EvaporatingBasinRecipe recipe : Recipes.evaporatingRecipes) {
-				ItemStack result = recipe.getResult().copy();
-				if (recipe.matches(evaporatedFluid)
-						&& itemStackHandler.insertItem(0, result, true).isEmpty()) {
-					evaporatedFluid.amount -= recipe.getInput().amount;
-					itemStackHandler.insertItem(0, result, false);
-					getWorld().notifyBlockUpdate(pos, getWorld().getBlockState(pos), getWorld().getBlockState(pos), 3);
-					this.world.notifyNeighborsOfStateChange(this.pos, this.getBlockType(), true);
-					this.markDirty();
+			if (evaporatedFluid != null && evaporatedFluid.amount > 0) {
+				for (EvaporatingBasinRecipe recipe : Recipes.evaporatingRecipes) {
+					ItemStack result = recipe.getResult().copy();
+					if (recipe.matches(evaporatedFluid) && itemStackHandler.insertItem(0, result, true).isEmpty()) {
+						evaporatedFluid.amount -= recipe.getInput().amount;
+						itemStackHandler.insertItem(0, result, false);
+						getWorld().notifyBlockUpdate(pos, getWorld().getBlockState(pos), getWorld().getBlockState(pos),
+								3);
+						this.world.notifyNeighborsOfStateChange(this.pos, this.getBlockType(), true);
+						this.markDirty();
+					}
 				}
 			}
 		}

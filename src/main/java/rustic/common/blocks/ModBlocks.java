@@ -121,6 +121,7 @@ public class ModBlocks {
 	public static BlockRetort RETORT_ADVANCED;
 	public static BlockCropStake CROP_STAKE;
 	public static BlockStakeCrop TOMATO_CROP;
+	public static BlockStakeCrop CHILI_CROP;
 
 	public static void init() {
 		STONE_PILLAR = new BlockPillar("stone");
@@ -240,6 +241,16 @@ public class ModBlocks {
 			@Override
 			public Item getSeed() {
 				return ModItems.TOMATO_SEEDS;
+			}
+		};
+		CHILI_CROP = new BlockStakeCrop("chili_crop") {
+			@Override
+			public Item getCrop() {
+				return ModItems.CHILI_PEPPER;
+			}
+			@Override
+			public Item getSeed() {
+				return ModItems.CHILI_PEPPER_SEEDS;
 			}
 		};
 		

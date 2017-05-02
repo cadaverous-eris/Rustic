@@ -18,6 +18,7 @@ public class CraftTweakerHelper {
 	public static void postInit() {
 		MineTweakerAPI.registerClass(CrushingTub.class);
 		MineTweakerAPI.registerClass(EvaporatingBasin.class);
+		MineTweakerAPI.registerClass(Condenser.class);
 	}
 
 	public static ItemStack toStack(IItemStack iStack) {

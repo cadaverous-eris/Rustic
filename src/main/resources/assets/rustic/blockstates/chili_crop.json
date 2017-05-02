@@ -1,0 +1,13 @@
+{
+
+    "variants": {
+
+        "age=0": { "model": "rustic:chili_crop_0" },
+
+        "age=1": { "model": "rustic:chili_crop_1" },
+
+        "age=2": { "model": "rustic:chili_crop_2" },
+
+        "age=3": { "model": "rustic:chili_crop_3" }
+    }
+}

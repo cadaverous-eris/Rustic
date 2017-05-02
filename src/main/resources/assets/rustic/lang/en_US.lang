@@ -112,6 +112,7 @@ tile.rustic.condenser_advanced.name=Advanced Alchemic Condenser
 tile.rustic.retort_advanced.name=Advanced Alchemic Retort
 tile.rustic.crop_stake.name=Crop Stake
 tile.rustic.tomato_crop.name=Tomato Crop
+tile.rustic.chili_crop.name=Chili Crop
 
 #Items
 item.rustic.bee.name=Bee
@@ -128,6 +129,8 @@ item.tile.rustic.ginseng.name=Ginseng Root
 item.tile.rustic.marsh_mallow.name=Marsh Mallow Root
 item.rustic.tomato.name=Tomato
 item.rustic.tomato_seeds.name=Tomato Seeds
+item.rustic.chili_pepper.name=Chili Pepper
+item.rustic.chili_pepper_seeds.name=Chili Pepper Seeds
 
 #Fluids
 tile.rustic.olive_oil.name=Olive Oil

@@ -129,6 +129,8 @@ public class EventHandlerCommon {
 	public void onGrassDropEvent(BlockEvent.HarvestDropsEvent event) {
 		if (event.getState().getBlock() == Blocks.TALLGRASS && event.getWorld().rand.nextInt(20) == 0) {
 			event.getDrops().add(new ItemStack(ModItems.TOMATO_SEEDS));
+		} else if (event.getState().getBlock() == Blocks.TALLGRASS && event.getWorld().rand.nextInt(20) == 0) {
+			event.getDrops().add(new ItemStack(ModItems.CHILI_PEPPER_SEEDS));
 		}
 	}
 	

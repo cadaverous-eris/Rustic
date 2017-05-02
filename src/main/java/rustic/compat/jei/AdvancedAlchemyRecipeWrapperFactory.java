@@ -2,12 +2,13 @@ package rustic.compat.jei;
 
 import mezz.jei.api.recipe.IRecipeWrapper;
 import mezz.jei.api.recipe.IRecipeWrapperFactory;
+import rustic.common.crafting.AdvancedCondenserRecipe;
 import rustic.common.crafting.CondenserRecipe;
 
-public class AdvancedAlchemyRecipeWrapperFactory implements IRecipeWrapperFactory<CondenserRecipe> {
+public class AdvancedAlchemyRecipeWrapperFactory implements IRecipeWrapperFactory<AdvancedCondenserRecipe> {
 
 	@Override
-	public IRecipeWrapper getRecipeWrapper(CondenserRecipe recipe) {
+	public IRecipeWrapper getRecipeWrapper(AdvancedCondenserRecipe recipe) {
 		return new AdvancedAlchemyRecipeWrapper(recipe);
 	}
 	

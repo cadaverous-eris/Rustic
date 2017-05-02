@@ -33,6 +33,8 @@ public class ModItems {
 	public static ItemElixer ELIXER;
 	public static ItemFoodBase TOMATO;
 	public static ItemStakeCropSeed TOMATO_SEEDS;
+	public static ItemFoodBase CHILI_PEPPER;
+	public static ItemStakeCropSeed CHILI_PEPPER_SEEDS;
 
 	public static void init() {
 		BEE = new ItemBase("bee");
@@ -83,6 +85,8 @@ public class ModItems {
 		ELIXER = new ItemElixer();
 		TOMATO = new ItemFoodBase("tomato", 4, 0.6F, false);
 		TOMATO_SEEDS = new ItemStakeCropSeed("tomato_seeds", ModBlocks.TOMATO_CROP);
+		CHILI_PEPPER = new ItemFoodBase("chili_pepper", 3, 0.8F, false);
+		CHILI_PEPPER_SEEDS = new ItemStakeCropSeed("chili_pepper_seeds", ModBlocks.CHILI_CROP);
 	}
 
 	public static void initModels() {
@@ -98,5 +102,7 @@ public class ModItems {
 		ELIXER.initModel();
 		TOMATO.initModel();
 		TOMATO_SEEDS.initModel();
+		CHILI_PEPPER.initModel();
+		CHILI_PEPPER_SEEDS.initModel();
 	};
 }

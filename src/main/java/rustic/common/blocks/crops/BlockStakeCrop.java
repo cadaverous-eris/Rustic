@@ -142,7 +142,7 @@ public class BlockStakeCrop extends BlockBase implements IGrowable, IPlantable {
 					net.minecraftforge.common.ForgeHooks.onCropsGrowPost(worldIn, pos, state,
 							worldIn.getBlockState(pos));
 				}
-			} else if (worldIn.getBlockState(pos.up()).getBlock() == ModBlocks.CROP_STAKE) {
+			} else if (worldIn.getBlockState(pos.up()).getBlock() == ModBlocks.CROP_STAKE && worldIn.getBlockState(pos.down(2)).getBlock() != this) {
 				float f = getGrowthChance(this, worldIn, pos);
 
 				if (net.minecraftforge.common.ForgeHooks.onCropsGrowPre(worldIn, pos, state,

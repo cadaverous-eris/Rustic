@@ -16,6 +16,7 @@ import mezz.jei.api.recipe.IRecipeWrapper;
 import mezz.jei.api.recipe.VanillaRecipeCategoryUid;
 import net.minecraft.item.ItemStack;
 import rustic.common.blocks.ModBlocks;
+import rustic.common.crafting.AdvancedCondenserRecipe;
 import rustic.common.crafting.BasicCondenserRecipe;
 import rustic.common.crafting.CondenserRecipe;
 import rustic.common.crafting.CrushingTubRecipe;
@@ -59,7 +60,7 @@ public class RusticJEIPlugin extends BlankModPlugin {
        
         reg.addRecipeCategories(new AdvancedAlchemyRecipeCategory(guiHelper));
         reg.addRecipes(AdvancedAlchemyRecipeMaker.getAlchemyRecipes(helper), "rustic.alchemy_advanced");
-        reg.handleRecipes(CondenserRecipe.class, new AdvancedAlchemyRecipeWrapperFactory(), "rustic.alchemy_advanced");
+        reg.handleRecipes(AdvancedCondenserRecipe.class, new AdvancedAlchemyRecipeWrapperFactory(), "rustic.alchemy_advanced");
         
         reg.addRecipeCategories(new SimpleAlchemyRecipeCategory(guiHelper));
         reg.addRecipes(SimpleAlchemyRecipeMaker.getSimpleAlchemyRecipes(helper), "rustic.alchemy_simple");
@@ -68,7 +69,7 @@ public class RusticJEIPlugin extends BlankModPlugin {
         reg.addRecipeCategoryCraftingItem(new ItemStack(ModBlocks.CRUSHING_TUB),"rustic.crushing_tub");
         reg.addRecipeCategoryCraftingItem(new ItemStack(ModBlocks.EVAPORATING_BASIN), "rustic.evaporating");
         reg.addRecipeCategoryCraftingItem(new ItemStack(ModBlocks.CONDENSER), "rustic.alchemy_simple", VanillaRecipeCategoryUid.FUEL);
-        reg.addRecipeCategoryCraftingItem(new ItemStack(ModBlocks.CONDENSER_ADVANCED), "rustic.alchemy_advanced", VanillaRecipeCategoryUid.FUEL);
+        reg.addRecipeCategoryCraftingItem(new ItemStack(ModBlocks.CONDENSER_ADVANCED), "rustic.alchemy_advanced", "rustic.alchemy_simple", VanillaRecipeCategoryUid.FUEL);
 	}
 	
 	@Override
