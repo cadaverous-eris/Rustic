@@ -2,6 +2,7 @@ package rustic.compat.jei;
 
 import mezz.jei.api.recipe.IRecipeHandler;
 import mezz.jei.api.recipe.IRecipeWrapper;
+import rustic.common.crafting.CrushingTubRecipe;
 
 public class CrushingTubRecipeHandler implements IRecipeHandler<CrushingTubRecipeWrapper> {
 
@@ -11,8 +12,8 @@ public class CrushingTubRecipeHandler implements IRecipeHandler<CrushingTubRecip
 	}
 
 	@Override
-	public Class<CrushingTubRecipeWrapper> getRecipeClass() {
-		return CrushingTubRecipeWrapper.class;
+	public Class getRecipeClass() {
+		return CrushingTubRecipe.class;
 	}
 
 	@Override

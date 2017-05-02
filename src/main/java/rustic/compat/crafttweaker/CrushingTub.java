@@ -92,8 +92,9 @@ public class CrushingTub {
 				if (r != null && r.getResult() != null && r.getResult().isFluidEqual(output)) {
 					if (r.getInput().isItemEqual(input)) {
 						removedRecipes.add(r);
-						MineTweakerAPI.getIjeiRecipeRegistry().removeRecipe(new CrushingTubRecipeWrapper(r));
-						MineTweakerAPI.getIjeiRecipeRegistry().removeRecipe((r));
+						//MineTweakerAPI.getIjeiRecipeRegistry().removeRecipe(new CrushingTubRecipeWrapper(r));
+						//MineTweakerAPI.getIjeiRecipeRegistry().removeRecipe(r);
+						CraftTweakerHelper.removeRecipe(new CrushingTubRecipeWrapper(r), "rustic.crushing_tub");
 						it.remove();
 					}
 				}
