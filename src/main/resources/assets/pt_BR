@@ -1,0 +1,158 @@
+#Creative Tabs
+itemGroup.rustic.decor=Decorações do Rustic
+itemGroup.rustic.farming=Agricutura do Rustic
+itemGroup.rustic.alchemy=Alquimia do Rustic
+
+#Tooltips
+tooltip.rustic.olive_oil=Untado com azeite
+
+#Containers
+container.rustic.cabinet=Armário
+container.rustic.barrel=Barril
+container.rustic.vase=Vaso
+container.rustic.apiary=Apiário
+container.rustic.condenser=Condensador
+container.rustic.condenser_advanced=Condensador Avançado
+
+#Blocks
+tile.rustic.chain.name=Corrente de Ferro
+tile.rustic.stone_pillar.name=Pilar de Pedra
+tile.rustic.andesite_pillar.name=Pilar de Andesito
+tile.rustic.diorite_pillar.name=Pilar de Diorito
+tile.rustic.granite_pillar.name=Pilar de Granito
+tile.rustic.chandelier.name=Aro de Lustre
+tile.rustic.candle.name=Vela
+tile.rustic.beehive.name=Colméia de Abelas
+tile.rustic.apiary.name=Apiário
+tile.rustic.slate.name=Ardósia
+tile.rustic.slate_roof.name=Telhado de Ardósia
+tile.rustic.slate_roof_slab.name=Laje de Telhado de Ardósia
+tile.rustic.stairs_slate_roof.name=Escada de Telhado de Ardósia
+tile.rustic.clay_wall.name=Parede de Argila
+tile.rustic.clay_wall_cross.name=Parede de Argila Transversal
+tile.rustic.clay_wall_diag.name=Parede de Argila Diagonal
+tile.rustic.vase.name=Vaso
+tile.rustic.chair_acacia.name=Cadeira de Acácia
+tile.rustic.table_acacia.name=Mesa de Acácia
+tile.rustic.chair_big_oak.name=Cadeira de Carvalho Escuro
+tile.rustic.table_big_oak.name=Mesa de Carvalho Escuro
+tile.rustic.chair_birch.name=Cadeira de Eucalipto
+tile.rustic.table_birch.name=Mesa de Eucalipto
+tile.rustic.chair_jungle.name=Cadeira de Madeira da Selva
+tile.rustic.table_jungle.name=Mesa de Madeira da Selva
+tile.rustic.chair_oak.name=Cadeira de Carvalho
+tile.rustic.table_oak.name=Mesa de Carvalho
+tile.rustic.chair_spruce.name=Cadeira de Pinheiro
+tile.rustic.table_spruce.name=Mesa de Pinheiro
+tile.rustic.slate_tile.name=Azulejo de Ardósia
+tile.rustic.slate_pillar.name=Pilar de Ardósia
+tile.rustic.slate_brick.name=Tijolo de Ardósia
+tile.rustic.slate_chiseled.name=Andósia Talhada
+tile.rustic.barrel.name=Barril
+tile.rustic.iron_lattice.name=Treliça de Ferro
+tile.rustic.iron_lantern.name=Lanterna de Ferro
+tile.rustic.painted_wood_white.name=Madeira Pintada de Branco
+tile.rustic.painted_wood_orange.name=Madeira Pintada de Laranja
+tile.rustic.painted_wood_magenta.name=Madeira Pintada de Magenta
+tile.rustic.painted_wood_light_blue.name=Madeira Pintada de Azul Claro
+tile.rustic.painted_wood_yellow.name=Madeira Pintada de Amarelo
+tile.rustic.painted_wood_lime.name=Madeira Pintada de Verde Limão
+tile.rustic.painted_wood_pink.name=Madeira Pintada de Rosa
+tile.rustic.painted_wood_gray.name=Madeira Pintada de Cinza
+tile.rustic.painted_wood_silver.name=Madeira Pintada de Cinza Claro
+tile.rustic.painted_wood_cyan.name=Madeira Pintada de Ciano
+tile.rustic.painted_wood_purple.name=Madeira Pintada de Roxo
+tile.rustic.painted_wood_blue.name=Madeira Pintada de Azul
+tile.rustic.painted_wood_brown.name=Madeira Pintada de Marrom
+tile.rustic.painted_wood_green.name=Madeira Pintada de Verde
+tile.rustic.painted_wood_red.name=Madeira Pintada de Vermelho
+tile.rustic.painted_wood_black.name=Madeira Pintada de Preto
+tile.rustic.stairs_slate_brick.name=Escada de Tijolos de Ardósia
+tile.rustic.slate_brick_slab.name=Laje de Tijolos de Ardósia
+tile.rustic.gargoyle.name=Gárgula
+tile.rustic.cabinet.name=Armário
+tile.rustic.liquid_barrel.name=Barril de Líquido
+tile.rustic.fertile_soil.name=Solo Fértil
+tile.rustic.log_olive.name=Madeira de Oliva
+tile.rustic.log_ironwood.name=Pau-Ferro
+tile.rustic.planks_olive.name=Tábuas de Madeira de Oliva
+tile.rustic.planks_ironwood.name=Tábuas de Pau-Ferro
+tile.rustic.leaves_olive.name=Folhas de Oliva
+tile.rustic.leaves_ironwood.name=Folhas de Pau-Ferro
+tile.rustic.sapling_olive.name=Muda de Oliva
+tile.rustic.sapling_ironwood.name=Muda de Pau-Ferro
+tile.rustic.crushing_tub.name=Tina de Esmagamento
+tile.rustic.evaporating_basin.name=Bacia de Secagem
+tile.rustic.fence_olive.name=Cerca de Oliva
+tile.rustic.fence_ironwood.name=Cerca de Pau-Ferro
+tile.rustic.fence_gate_olive.name=Portão de Oliva
+tile.rustic.fence_gate_ironwood.name=Portão de Pau-Ferro
+tile.rustic.olive_slab.name=Laje de Madeira de Oliva
+tile.rustic.ironwood_slab.name=Laje de Pau-Ferro
+tile.rustic.stairs_olive.name=Escada de Madeira de Oliva
+tile.rustic.stairs_ironwood.name=Escada de Pau-Ferro
+tile.rustic.chair_olive.name=Cadeira de Madeira de Oliva
+tile.rustic.table_olive.name=Mesa de Madeira de Oliva
+tile.rustic.chair_ironwood.name=Cadeira de Pau-Ferro
+tile.rustic.table_ironwood.name=Mesa de Pau-Ferro
+tile.rustic.aloe_vera.name=Aloe Vera
+tile.rustic.blood_orchid.name=Orquídea de Sangue
+tile.rustic.chamomile.name=Camomila
+tile.rustic.cohosh.name=Acteia
+tile.rustic.core_root.name=Raiz Núcleo
+tile.rustic.deathstalk_mushroom.name=Cogumelo Deathstalk
+tile.rustic.ginseng.name=Ginseng
+tile.rustic.horsetail.name=Cavalinha
+tile.rustic.marsh_mallow.name=Malvavisco 
+tile.rustic.mooncap_mushroom.name=Cogumelo Mooncap
+tile.rustic.wind_thistle.name=Cardo do Vento
+tile.rustic.condenser.name=Condensador Alquímico
+tile.rustic.retort.name=Retorta Alquímica
+tile.rustic.condenser_advanced.name=Condensador Alquímico Avançado
+tile.rustic.retort_advanced.name=Retorta Alquímica Avançada
+tile.rustic.crop_stake.name=Estaca de Cultura
+tile.rustic.tomato_crop.name=Cultura de Tomate
+tile.rustic.chili_crop.name=Cultura de Pimenta
+
+#Items
+item.rustic.bee.name=Abelha
+item.rustic.honeycomb.name=Favo de Mel
+item.rustic.beeswax.name=Cera de Abelha
+item.rustic.tallow.name=Sebo
+item.rustic.ironberries.name=Baga de Ferro
+item.rustic.olives.name=Azeitona
+item.rustic.fluid_bottle.name=Frasco com %s
+item.rustic.dust_iron.name=Pó de Ferro
+item.rustic.dust_tiny_iron.name=Minúscula Pilha de Pó de Ferro
+item.tile.rustic.core_root.name=Raiz Núcleo
+item.tile.rustic.ginseng.name=Raiz de Ginseng
+item.tile.rustic.marsh_mallow.name=Raiz de Malvisco
+item.rustic.tomato.name=Tomate
+item.rustic.tomato_seeds.name=Sementes de Tomate
+item.rustic.chili_pepper.name=Pimenta
+item.rustic.chili_pepper_seeds.name=Sementes de Pimenta
+
+#Fluids
+tile.rustic.olive_oil.name=Azeite de Oliva
+fluid.oliveoil=Azeite de Oliva
+tile.rustic.ironberry_juice.name=Suco de Baga de Ferro
+fluid.ironberryjuice=Suco de Baga de Ferro
+
+#Potion Effects
+effect.ironskin=Pele de Ferro
+
+#Potion Items
+potion.effect.ironskin=Poção de Pele de Ferro
+splash_potion.effect.ironskin=Poção Arremessável de Pele de Ferro
+lingering_potion.effect.ironskin=Poção Persistente de Pele de Ferro
+tipped_arrow.effect.ironskin=Flecha da Pele de Ferro
+
+#Elixers
+rustic.elixer.prefix=Elixir de
+rutsic.elixer.separator=, 
+
+#JEI Categories
+rustic.jei.recipe.crushing_tub=Tina de Esmagamento
+rustic.jei.recipe.evaporating=Bacia de Secagem
+rustic.jei.recipe.simple_alchemy=Alquimia Simples
+rustic.jei.recipe.advanced_alchemy=Alquimia Avançada
