@@ -18,7 +18,7 @@ public class Config {
 	private final static List<String> PROPERTY_ORDER_WORLD = new ArrayList<String>();
 
 	public static float IRONWOOD_GEN_CHANCE = 0.015F;
-	public static float OLIVE_GEN_CHANCE = 0.03F;
+	public static float OLIVE_GEN_CHANCE = 0.06F;
 	public static int MAX_IRONWOOD_GEN_ATTEMPTS = 4;
 	public static int MAX_OLIVE_GEN_ATTEMPTS = 5;
 	public static float BEEHIVE_GEN_CHANCE = 0.1F;
@@ -33,6 +33,8 @@ public class Config {
 	public static boolean EXTRA_ARMOR_HUD = true;
 	public static float HERB_GEN_CHANCE = 0.125F;
 	public static int MAX_HERB_ATTEMPTS = 8;
+	public static float WILDBERRY_GEN_CHANCE = 0.03F;
+	public static int MAX_WILDBERRY_ATTEMPTS = 6;
 
 	public static void readConfig() {
 		Configuration cfg = CommonProxy.config;
@@ -69,7 +71,9 @@ public class Config {
 		TOUGHNESS_HUD = cfg.getBoolean("Armor Toughness HUD", CATEGORY_GENERAL, true, "if enabled, adds a hud elemnt over the hunger meter to show armor toughness, if applicable");
 		HERB_GEN_CHANCE = cfg.getFloat("Herb Generation Chance", CATEGORY_WORLD, 0.125F, 0, 1F, "chance for an herb to try to generate in a chunk");
 		MAX_HERB_ATTEMPTS = cfg.getInt("Max Herb Generation Attempts", CATEGORY_WORLD, 8, 0, 128, "maximum number of times the generator will attempt to place an herb in a chunk");
-
+		WILDBERRY_GEN_CHANCE = cfg.getFloat("Wildberry Generation Chance", CATEGORY_WORLD, 0.06F, 0, 1F, "chance for wildberry bushes to try to generate in a chunk");
+		MAX_WILDBERRY_ATTEMPTS = cfg.getInt("Max Wildberry Generation Attempts", CATEGORY_WORLD, 6, 0, 128, "maximum number of times the generator will attempt to place a wildberry bush in a chunk");
+		
 		PROPERTY_ORDER_GENERAL.add("Flesh Smelting");
 		PROPERTY_ORDER_GENERAL.add("Extra Armor HUD");
 		PROPERTY_ORDER_GENERAL.add("Armor Toughness HUD");
@@ -81,6 +85,8 @@ public class Config {
 		PROPERTY_ORDER_WORLD.add("Max Ironwood Generation Attempts");
 		PROPERTY_ORDER_WORLD.add("Herb Generation Chance");
 		PROPERTY_ORDER_WORLD.add("Max Herb Generation Attempts");
+		PROPERTY_ORDER_WORLD.add("Wildberry Generation Chance");
+		PROPERTY_ORDER_WORLD.add("Max Wildberry Generation Attempts");
 		PROPERTY_ORDER_BEES.add("Beehive Generation Chance");
 		PROPERTY_ORDER_BEES.add("Max Beehive Generation Attempts");
 		PROPERTY_ORDER_BEES.add("Bee Reproduction Multiplier");

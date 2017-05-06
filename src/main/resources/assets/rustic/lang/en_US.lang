@@ -98,6 +98,7 @@ tile.rustic.table_ironwood.name=Ironwood Table
 tile.rustic.aloe_vera.name=Aloe Vera
 tile.rustic.blood_orchid.name=Blood Orchid
 tile.rustic.chamomile.name=Chamomile
+tile.rustic.cloudsbluff.name=Cloudsbluff
 tile.rustic.cohosh.name=Cohosh
 tile.rustic.core_root.name=Core Root
 tile.rustic.deathstalk_mushroom.name=Deathstalk Mushroom
@@ -110,9 +111,12 @@ tile.rustic.condenser.name=Alchemic Condenser
 tile.rustic.retort.name=Alchemic Retort
 tile.rustic.condenser_advanced.name=Advanced Alchemic Condenser
 tile.rustic.retort_advanced.name=Advanced Alchemic Retort
-tile.rustic.crop_stake.name=Crop Stake
+tile.rustic.crop_stake.name=Wooden Stake
 tile.rustic.tomato_crop.name=Tomato Crop
 tile.rustic.chili_crop.name=Chili Crop
+tile.rustic.wildberry_bush.name=Wildberry Bush
+tile.rustic.rope.name=Rope
+tile.rustic.stake_tied.name=Stake With Rope
 
 #Items
 item.rustic.bee.name=Bee
@@ -124,6 +128,7 @@ item.rustic.olives.name=Olives
 item.rustic.fluid_bottle.name=Bottle of %s
 item.rustic.dust_iron.name=Iron Dust
 item.rustic.dust_tiny_iron.name=Tiny Pile of Iron Dust
+item.tile.rustic.cloudsbluff.name=Cloudsbluff
 item.tile.rustic.core_root.name=Core Root
 item.tile.rustic.ginseng.name=Ginseng Root
 item.tile.rustic.marsh_mallow.name=Marsh Mallow Root
@@ -131,6 +136,7 @@ item.rustic.tomato.name=Tomato
 item.rustic.tomato_seeds.name=Tomato Seeds
 item.rustic.chili_pepper.name=Chili Pepper
 item.rustic.chili_pepper_seeds.name=Chili Pepper Seeds
+item.rustic.wildberries.name=Wildberries
 
 #Fluids
 tile.rustic.olive_oil.name=Olive Oil
@@ -140,6 +146,8 @@ fluid.ironberryjuice=Ironberry Juice
 
 #Potion Effects
 effect.ironskin=Iron Skin
+effect.feather=Feather
+effect.blazing_trail=Blazing Trail
 
 #Potion Items
 potion.effect.ironskin=Potion of Iron Skin

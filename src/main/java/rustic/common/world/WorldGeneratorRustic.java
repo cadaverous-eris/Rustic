@@ -23,12 +23,17 @@ public class WorldGeneratorRustic implements IWorldGenerator {
 	private WorldGenSurfaceHerbs surfaceHerbs = new WorldGenSurfaceHerbs();
 	private WorldGenCaveHerbs caveHerbs = new WorldGenCaveHerbs();
 	private WorldGenNetherHerbs netherHerbs = new WorldGenNetherHerbs();
+	private WorldGenWildberries wildberries = new WorldGenWildberries();
 
 	@Override
 	public void generate(Random random, int chunkX, int chunkZ, World world, IChunkGenerator chunkGenerator, IChunkProvider chunkProvider) {
 		BlockPos chunkCenter = new BlockPos(chunkX * 16 + 8, world.getHeight(chunkX * 16 + 8, chunkZ * 16 + 8), chunkZ * 16 + 8);
 
 		if (world.provider.getDimensionType() == DimensionType.OVERWORLD) {
+			
+			if (random.nextFloat() < Config.WILDBERRY_GEN_CHANCE) {
+				wildberries.generate(world, random, chunkCenter);
+			}
 
 			if (random.nextFloat() < Config.HERB_GEN_CHANCE) {
 				surfaceHerbs.generate(world, random, chunkCenter);

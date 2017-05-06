@@ -1,0 +1,9 @@
+{
+
+    "variants": {
+
+        "berries=false": { "model": "rustic:wildberry_bush" },
+
+        "berries=true": { "model": "rustic:wildberry_bush_berries" }
+    }
+}

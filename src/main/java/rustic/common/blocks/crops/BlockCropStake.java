@@ -5,6 +5,7 @@ import net.minecraft.block.material.MapColor;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
@@ -13,6 +14,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import rustic.common.blocks.BlockBase;
+import rustic.common.blocks.ModBlocks;
 import rustic.common.items.ItemStakeCropSeed;
 import rustic.common.tileentity.TileEntityLiquidBarrel;
 import rustic.core.Rustic;
@@ -44,7 +46,13 @@ public class BlockCropStake extends BlockBase {
 			if (world.getBlockState(pos.down()).getBlock().canSustainPlant(world.getBlockState(pos.down()), world, pos.down(), EnumFacing.UP, ((ItemStakeCropSeed) stack.getItem()).getCrop())) {
 				world.setBlockState(pos, ((ItemStakeCropSeed) stack.getItem()).getCropState(), 3);
 				player.getHeldItem(hand).shrink(1);
+				return true;
 			}
+		} else if (!stack.isEmpty() && stack.getItem() == Item.getItemFromBlock(ModBlocks.ROPE)) {
+			world.setBlockState(pos, ModBlocks.STAKE_TIED.getDefaultState(), 2);
+			world.scheduleUpdate(pos, ModBlocks.STAKE_TIED, 1);
+			player.getHeldItem(hand).shrink(1);
+			return true;
 		}
 		
 		return false;

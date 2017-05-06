@@ -39,11 +39,10 @@ public class PotionIronSkin extends Potion {
 	
 	@SideOnly(Side.CLIENT)
 	@Override
-	public int getStatusIconIndex()
-    {
+	public int getStatusIconIndex() {
 		Minecraft.getMinecraft().getTextureManager().bindTexture(POTION_ICONS);
-        return super.getStatusIconIndex();
-    }
+		return super.getStatusIconIndex();
+	}
 
 	public void removeAttributesModifiersFromEntity(EntityLivingBase entityLivingBaseIn, AbstractAttributeMap attributeMapIn, int amplifier) {
 		super.removeAttributesModifiersFromEntity(entityLivingBaseIn, attributeMapIn, amplifier);

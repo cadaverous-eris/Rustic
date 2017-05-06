@@ -8,6 +8,7 @@ import net.minecraft.init.MobEffects;
 import net.minecraft.item.ItemStack;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.ActionResult;
+import net.minecraft.util.DamageSource;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.world.World;
@@ -35,6 +36,7 @@ public class ModItems {
 	public static ItemStakeCropSeed TOMATO_SEEDS;
 	public static ItemFoodBase CHILI_PEPPER;
 	public static ItemStakeCropSeed CHILI_PEPPER_SEEDS;
+	public static ItemFoodBase WILDBERRIES;
 
 	public static void init() {
 		BEE = new ItemBase("bee");
@@ -85,8 +87,20 @@ public class ModItems {
 		ELIXER = new ItemElixer();
 		TOMATO = new ItemFoodBase("tomato", 4, 0.6F, false);
 		TOMATO_SEEDS = new ItemStakeCropSeed("tomato_seeds", ModBlocks.TOMATO_CROP);
-		CHILI_PEPPER = new ItemFoodBase("chili_pepper", 3, 0.8F, false);
+		CHILI_PEPPER = new ItemFoodBase("chili_pepper", 4, 0.8F, false) {
+			@Override
+			protected void onFoodEaten(ItemStack stack, World worldIn, EntityPlayer player) {
+				player.attackEntityFrom(DamageSource.ON_FIRE, 1.0F);
+				player.addPotionEffect(new PotionEffect(MobEffects.SPEED, 200));
+			}
+		};
 		CHILI_PEPPER_SEEDS = new ItemStakeCropSeed("chili_pepper_seeds", ModBlocks.CHILI_CROP);
+		WILDBERRIES = new ItemFoodBase("wildberries", 2, 0.3F, false) {
+			@Override
+			public int getMaxItemUseDuration(ItemStack stack) {
+				return 16;
+			}
+		};
 	}
 
 	public static void initModels() {
@@ -104,5 +118,6 @@ public class ModItems {
 		TOMATO_SEEDS.initModel();
 		CHILI_PEPPER.initModel();
 		CHILI_PEPPER_SEEDS.initModel();
+		WILDBERRIES.initModel();
 	};
 }

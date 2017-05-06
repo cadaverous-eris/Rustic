@@ -1,0 +1,22 @@
+{
+    "__comment": "Model generated using MrCrayfish's Model Creator (http://mrcrayfish.com/modelcreator/)",
+    "textures": {
+        "0": "rustic:blocks/rope_knot",
+        "particle": "rustic:blocks/rope_knot"
+    },
+    "elements": [
+        {
+            "name": "Cube",
+            "from": [ 6.500000007450581, 6.500000007450581, 6.500000007450581 ], 
+            "to": [ 9.50000000745058, 9.50000000745058, 9.50000000745058 ], 
+            "faces": {
+                "north": { "texture": "#0", "uv": [ 6.0, 0.0, 9.0, 3.0 ] },
+                "east": { "texture": "#0", "uv": [ 6.0, 0.0, 9.0, 3.0 ] },
+                "south": { "texture": "#0", "uv": [ 6.0, 0.0, 9.0, 3.0 ] },
+                "west": { "texture": "#0", "uv": [ 6.0, 0.0, 9.0, 3.0 ] },
+                "up": { "texture": "#0", "uv": [ 6.0, 0.0, 9.0, 3.0 ] },
+                "down": { "texture": "#0", "uv": [ 6.0, 0.0, 9.0, 3.0 ] }
+            }
+        }
+    ]
+}

@@ -73,6 +73,10 @@ public class BlockStakeCrop extends BlockBase implements IGrowable, IPlantable {
 	public int getMaxAge() {
 		return 3;
 	}
+	
+	public int getMaxHeight() {
+		return 3;
+	}
 
 	@Override
 	public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos) {
@@ -142,7 +146,7 @@ public class BlockStakeCrop extends BlockBase implements IGrowable, IPlantable {
 					net.minecraftforge.common.ForgeHooks.onCropsGrowPost(worldIn, pos, state,
 							worldIn.getBlockState(pos));
 				}
-			} else if (worldIn.getBlockState(pos.up()).getBlock() == ModBlocks.CROP_STAKE && worldIn.getBlockState(pos.down(2)).getBlock() != this) {
+			} else if (worldIn.getBlockState(pos.up()).getBlock() == ModBlocks.CROP_STAKE && worldIn.getBlockState(pos.down(getMaxHeight() - 1)).getBlock() != this) {
 				float f = getGrowthChance(this, worldIn, pos);
 
 				if (net.minecraftforge.common.ForgeHooks.onCropsGrowPre(worldIn, pos, state,

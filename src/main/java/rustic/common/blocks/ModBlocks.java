@@ -10,9 +10,11 @@ import net.minecraftforge.common.EnumPlantType;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+import rustic.common.blocks.crops.BlockBerryBush;
 import rustic.common.blocks.crops.BlockCropStake;
 import rustic.common.blocks.crops.BlockHerbBase;
 import rustic.common.blocks.crops.BlockStakeCrop;
+import rustic.common.blocks.crops.BlockStakeTied;
 import rustic.common.blocks.crops.Herbs;
 import rustic.common.blocks.slab.BlockDoubleSlabBase;
 import rustic.common.blocks.slab.BlockSlabBase;
@@ -122,6 +124,9 @@ public class ModBlocks {
 	public static BlockCropStake CROP_STAKE;
 	public static BlockStakeCrop TOMATO_CROP;
 	public static BlockStakeCrop CHILI_CROP;
+	public static BlockBerryBush WILDBERRY_BUSH;
+	public static BlockRope ROPE;
+	public static BlockStakeTied STAKE_TIED;
 
 	public static void init() {
 		STONE_PILLAR = new BlockPillar("stone");
@@ -252,7 +257,19 @@ public class ModBlocks {
 			public Item getSeed() {
 				return ModItems.CHILI_PEPPER_SEEDS;
 			}
+			@Override
+			public int getMaxHeight() {
+				return 2;
+			}
 		};
+		WILDBERRY_BUSH = new BlockBerryBush("wildberry_bush") {
+			@Override
+			public Item getBerries() {
+				return ModItems.WILDBERRIES;
+			}
+		};
+		ROPE = new BlockRope();
+		STAKE_TIED = new BlockStakeTied();
 		
 		Herbs.init();
 		
@@ -358,6 +375,8 @@ public class ModBlocks {
 		CONDENSER_ADVANCED.initModel();
 		RETORT_ADVANCED.initModel();
 		CROP_STAKE.initModel();
+		WILDBERRY_BUSH.initModel();
+		ROPE.initModel();
 		
 		Herbs.initModels();
 	}

@@ -23,6 +23,8 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 public class PotionsRustic {
 
 	public static final Potion IRON_SKIN_POTION = new PotionIronSkin();
+	public static final Potion FEATHER_POTION = new PotionFeather();
+	public static final Potion BLAZING_TRAIL_POTION = new PotionBlazingTrail();
 	
 	public static final PotionType IRON_SKIN = new PotionType("ironskin", new PotionEffect[] { new PotionEffect(IRON_SKIN_POTION, 3600, 0, false, true) });
 	public static final PotionType LONG_IRON_SKIN = new PotionType("ironskin", new PotionEffect[] { new PotionEffect(IRON_SKIN_POTION, 9600, 0, false, true) });
@@ -30,6 +32,8 @@ public class PotionsRustic {
 	
 	public static void init() {
 		GameRegistry.register(IRON_SKIN_POTION, new ResourceLocation("rustic:ironskin"));
+		GameRegistry.register(FEATHER_POTION, new ResourceLocation("rustic:feather"));
+		GameRegistry.register(BLAZING_TRAIL_POTION, new ResourceLocation("rustic:blazing_trail"));
 		
 		GameRegistry.register(IRON_SKIN, new ResourceLocation("rustic:ironskin"));
 		GameRegistry.register(LONG_IRON_SKIN, new ResourceLocation("rustic:long_ironskin"));

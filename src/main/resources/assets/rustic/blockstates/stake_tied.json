@@ -1,0 +1,25 @@
+{
+    "forge_marker": 1,
+    "defaults": {
+        "model": "rustic:stake_tied"
+    },
+    "variants": {
+        "north": {
+            "true": { "submodel": { "attachment_n": { "model": "rustic:rope_attachment_n" } } },
+            "false": {}
+        },
+        "east": {
+            "true": { "submodel": { "attachment_e": { "model": "rustic:rope_attachment_n", "y": 90 } } },
+            "false": {}
+        },
+        "south": {
+            "true": { "submodel": { "attachment_s": { "model": "rustic:rope_attachment_n", "y": 180 } } },
+            "false": {}
+        },
+        "west": {
+            "true": { "submodel": { "attachment_w": { "model": "rustic:rope_attachment_n", "y": 270 } } },
+            "false": {}
+        },
+	"inventory": []
+    }
+}

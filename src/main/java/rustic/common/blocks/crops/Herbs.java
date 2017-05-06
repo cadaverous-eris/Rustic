@@ -6,9 +6,14 @@ import java.util.Random;
 import java.util.Set;
 
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.MobEffects;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
+import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
+import net.minecraft.world.World;
 import net.minecraft.world.biome.Biome;
 import net.minecraftforge.common.BiomeDictionary;
 import net.minecraftforge.common.EnumPlantType;
@@ -19,6 +24,7 @@ public class Herbs {
 	public static BlockHerbBase ALOE_VERA;
 	public static BlockHerbBase BLOOD_ORCHID;
 	public static BlockHerbBase CHAMOMILE;
+	public static BlockHerbBase CLOUDSBLUFF_CROP;
 	public static BlockHerbBase COHOSH;
 	public static BlockHerbBase CORE_ROOT_CROP;
 	public static BlockHerbBase DEATHSTALK;
@@ -28,6 +34,7 @@ public class Herbs {
 	public static BlockHerbBase MOONCAP;
 	public static BlockHerbBase WIND_THISTLE;
 	
+	public static ItemHerbEdible CLOUDSBLUFF;
 	public static ItemHerbEdible CORE_ROOT;
 	public static ItemHerbEdible GINSENG;
 	public static ItemHerbEdible MARSH_MALLOW;
@@ -64,6 +71,17 @@ public class Herbs {
 			@Override
 			public Item getHerb() {
 				return Item.getItemFromBlock(this);
+			}
+		};
+		CLOUDSBLUFF_CROP = new BlockHerbBase("cloudsbluff", true) {
+			@Override
+			public EnumPlantType getPlantType(IBlockAccess world, BlockPos pos) {
+				return EnumPlantType.Plains;
+			}
+
+			@Override
+			public Item getHerb() {
+				return CLOUDSBLUFF;
 			}
 		};
 		COHOSH = new BlockHerbBase("cohosh", false) {
@@ -160,6 +178,14 @@ public class Herbs {
 			}
 		};
 		
+		CLOUDSBLUFF = new ItemHerbEdible(CLOUDSBLUFF_CROP, 2, 0.2F) {
+			@Override
+			protected void onFoodEaten(ItemStack stack, World worldIn, EntityPlayer player) {
+				if (!worldIn.isRemote) {
+					player.addPotionEffect(new PotionEffect(MobEffects.LEVITATION, 400));
+				}
+			}
+		};
 		CORE_ROOT = new ItemHerbEdible(CORE_ROOT_CROP, 2, 0.3F);
 		GINSENG = new ItemHerbEdible(GINSENG_CROP, 2, 0.3F);
 		MARSH_MALLOW = new ItemHerbEdible(MARSH_MALLOW_CROP, 3, 0.3F);
@@ -178,6 +204,7 @@ public class Herbs {
 		MOONCAP.initModel();
 		WIND_THISTLE.initModel();
 		
+		CLOUDSBLUFF.initModel();
 		CORE_ROOT.initModel();
 		GINSENG.initModel();
 		MARSH_MALLOW.initModel();
@@ -185,7 +212,6 @@ public class Herbs {
 	
 	public static BlockHerbBase getRandomHerbForBiome(Biome biome, Random rand) {
 		List<BlockHerbBase> herbs = new ArrayList<BlockHerbBase>();
-		//Set<BiomeDictionary.Type> types = BiomeDictionary.getTypes(biome);
 		
 		if (BiomeDictionary.hasType(biome, BiomeDictionary.Type.JUNGLE)) {
 			herbs.add(BLOOD_ORCHID);
@@ -200,6 +226,7 @@ public class Herbs {
 			herbs.add(ALOE_VERA);
 		} else if (BiomeDictionary.hasType(biome, BiomeDictionary.Type.MOUNTAIN) && !BiomeDictionary.hasType(biome, BiomeDictionary.Type.SNOWY)) {
 			herbs.add(WIND_THISTLE);
+			herbs.add(CLOUDSBLUFF_CROP);
 		} else if (BiomeDictionary.hasType(biome, BiomeDictionary.Type.SWAMP) && !BiomeDictionary.hasType(biome, BiomeDictionary.Type.SNOWY)) {
 			herbs.add(CHAMOMILE);
 			herbs.add(HORSETAIL);
