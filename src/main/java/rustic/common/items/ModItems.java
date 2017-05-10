@@ -37,6 +37,7 @@ public class ModItems {
 	public static ItemFoodBase CHILI_PEPPER;
 	public static ItemStakeCropSeed CHILI_PEPPER_SEEDS;
 	public static ItemFoodBase WILDBERRIES;
+	public static ItemFoodBase GRAPES;
 
 	public static void init() {
 		BEE = new ItemBase("bee");
@@ -95,7 +96,13 @@ public class ModItems {
 			}
 		};
 		CHILI_PEPPER_SEEDS = new ItemStakeCropSeed("chili_pepper_seeds", ModBlocks.CHILI_CROP);
-		WILDBERRIES = new ItemFoodBase("wildberries", 2, 0.3F, false) {
+		WILDBERRIES = new ItemFoodBase("wildberries", 2, 0.6F, false) {
+			@Override
+			public int getMaxItemUseDuration(ItemStack stack) {
+				return 16;
+			}
+		};
+		GRAPES = new ItemFoodBase("grapes", 3, 0.4F, false) {
 			@Override
 			public int getMaxItemUseDuration(ItemStack stack) {
 				return 16;
@@ -119,5 +126,6 @@ public class ModItems {
 		CHILI_PEPPER.initModel();
 		CHILI_PEPPER_SEEDS.initModel();
 		WILDBERRIES.initModel();
+		GRAPES.initModel();
 	};
 }

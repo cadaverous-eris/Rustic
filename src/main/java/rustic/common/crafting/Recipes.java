@@ -184,6 +184,7 @@ public class Recipes {
 		GameRegistry.addShapedRecipe(new ItemStack(ModBlocks.RETORT_ADVANCED), " b", "ie", " b", 'b', new ItemStack(Items.NETHERBRICK), 'i', new ItemStack(Items.IRON_INGOT), 'e', new ItemStack(Items.BUCKET));
 		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(ModBlocks.CROP_STAKE, 3), "p", "p", "p", 'p', "plankWood"));
 		GameRegistry.addShapedRecipe(new ItemStack(ModBlocks.ROPE, 12), "s", "s", "s", 's', new ItemStack(Items.STRING));
+		GameRegistry.addShapelessRecipe(new ItemStack(ModBlocks.GRAPE_STEM), new ItemStack(ModItems.GRAPES));
 		
 		GameRegistry.addRecipe(new RecipeOliveOil());
 	}

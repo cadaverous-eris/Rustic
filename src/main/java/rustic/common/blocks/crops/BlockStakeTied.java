@@ -97,16 +97,44 @@ public class BlockStakeTied extends BlockBase {
 		boolean s = false;
 		boolean e = false;
 		
-		if (world.getBlockState(pos.north()).getBlock() == ModBlocks.ROPE && world.getBlockState(pos.north()).getValue(BlockRope.AXIS) == EnumFacing.Axis.Z) {
+		IBlockState state1 = world.getBlockState(pos.north());
+		if (state1.getBlock() instanceof BlockRope && state1.getValue(BlockRope.AXIS) == EnumFacing.Axis.Z) {
 			n = true;
 		}
-		if (world.getBlockState(pos.west()).getBlock() == ModBlocks.ROPE && world.getBlockState(pos.west()).getValue(BlockRope.AXIS) == EnumFacing.Axis.X) {
+		if (state1.getBlock() == ModBlocks.GRAPE_LEAVES && state1.getValue(BlockGrapeLeaves.AXIS) == EnumFacing.Axis.Z) {
+			n = true;
+		}
+		if (state1.getBlock() == this) {
+			n = true;
+		}
+		state1 = world.getBlockState(pos.west());
+		if (state1.getBlock() instanceof BlockRope && state1.getValue(BlockRope.AXIS) == EnumFacing.Axis.X) {
 			w = true;
 		}
-		if (world.getBlockState(pos.south()).getBlock() == ModBlocks.ROPE && world.getBlockState(pos.south()).getValue(BlockRope.AXIS) == EnumFacing.Axis.Z) {
+		if (state1.getBlock() == ModBlocks.GRAPE_LEAVES && state1.getValue(BlockGrapeLeaves.AXIS) == EnumFacing.Axis.X) {
+			w = true;
+		}
+		if (state1.getBlock() == this) {
+			w = true;
+		}
+		state1 = world.getBlockState(pos.south());
+		if (state1.getBlock() instanceof BlockRope && state1.getValue(BlockRope.AXIS) == EnumFacing.Axis.Z) {
 			s = true;
 		}
-		if (world.getBlockState(pos.east()).getBlock() == ModBlocks.ROPE && world.getBlockState(pos.east()).getValue(BlockRope.AXIS) == EnumFacing.Axis.X) {
+		if (state1.getBlock() == ModBlocks.GRAPE_LEAVES && state1.getValue(BlockGrapeLeaves.AXIS) == EnumFacing.Axis.Z) {
+			s = true;
+		}
+		if (state1.getBlock() == this) {
+			s = true;
+		}
+		state1 = world.getBlockState(pos.east());
+		if (state1.getBlock() instanceof BlockRope && state1.getValue(BlockRope.AXIS) == EnumFacing.Axis.X) {
+			e = true;
+		}
+		if (state1.getBlock() == ModBlocks.GRAPE_LEAVES && state1.getValue(BlockGrapeLeaves.AXIS) == EnumFacing.Axis.X) {
+			e = true;
+		}
+		if (state1.getBlock() == this) {
 			e = true;
 		}
 		

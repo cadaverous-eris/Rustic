@@ -26,6 +26,7 @@ import net.minecraft.world.World;
 import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+import rustic.common.blocks.crops.BlockGrapeLeaves;
 
 public class BlockRope extends BlockBase {
 
@@ -33,20 +34,22 @@ public class BlockRope extends BlockBase {
 			EnumFacing.Axis.class);
 	public static final PropertyBool DANGLE = PropertyBool.create("dangle");
 	public static final PropertyBool SUPPORTED = PropertyBool.create("supported");
-	
+
 	protected static final AxisAlignedBB Y_AABB = new AxisAlignedBB(0.4375F, 0.0F, 0.4375F, 0.5625F, 1.0F, 0.5625F);
 	protected static final AxisAlignedBB X_AABB = new AxisAlignedBB(0.0, 0.4375F, 0.4375F, 1.0F, 0.5625F, 0.5625F);
 	protected static final AxisAlignedBB Z_AABB = new AxisAlignedBB(0.4375F, 0.4375F, 0.0F, 0.5625F, 0.5625F, 1.0F);
-	protected static final AxisAlignedBB X_DANGLE_AABB = new AxisAlignedBB(0.0, 0.0F, 0.40625F, 1.0F, 0.59375F, 0.59375F);
-	protected static final AxisAlignedBB Z_DANGLE_AABB = new AxisAlignedBB(0.40625F, 0.0F, 0.0F, 0.59375F, 0.59375F, 1.0F);
-	
-	public BlockRope() {
-		super(Material.CLOTH, "rope");
-		this.setDefaultState(this.blockState.getBaseState().withProperty(AXIS, EnumFacing.Axis.Y).withProperty(DANGLE, false));
+	protected static final AxisAlignedBB X_DANGLE_AABB = new AxisAlignedBB(0.0, 0.0F, 0.4375F, 1.0F, 0.5625F,
+			0.5625F);
+	protected static final AxisAlignedBB Z_DANGLE_AABB = new AxisAlignedBB(0.4375F, 0.0F, 0.0F, 0.5625F, 0.5625F,
+			1.0F);
+
+	public BlockRope(Material mat, String name, boolean register) {
+		super(mat, name, register);
 		setHardness(0.5F);
 		setSoundType(SoundType.CLOTH);
+		this.setDefaultState(this.blockState.getBaseState().withProperty(DANGLE, false).withProperty(AXIS, EnumFacing.Axis.Y).withProperty(SUPPORTED, false));
 	}
-	
+
 	@Override
 	public boolean onBlockActivated(World world, BlockPos pos, IBlockState state, EntityPlayer player, EnumHand hand,
 			EnumFacing side, float hitX, float hitY, float hitZ) {
@@ -63,14 +66,16 @@ public class BlockRope extends BlockBase {
 				world.setBlockState(pos.down(yOffset), state.withProperty(AXIS, EnumFacing.Axis.Y), 3);
 				player.getHeldItem(hand).shrink(1);
 				SoundType soundType = getSoundType(state, world, pos, player);
-				world.playSound(pos.getX(), pos.getY() - yOffset, pos.getZ(), soundType.getPlaceSound(), SoundCategory.BLOCKS, (soundType.getVolume() + 1.0F) / 2.0F, soundType.getPitch() * 0.8F, true);
+				world.playSound(pos.getX(), pos.getY() - yOffset, pos.getZ(), soundType.getPlaceSound(),
+						SoundCategory.BLOCKS, (soundType.getVolume() + 1.0F) / 2.0F, soundType.getPitch() * 0.8F,
+						false);
 				return true;
 			}
 		}
-		
+
 		return false;
 	}
-	
+
 	@Override
 	public boolean isLadder(IBlockState state, IBlockAccess world, BlockPos pos, EntityLivingBase entity) {
 		return true;
@@ -80,14 +85,19 @@ public class BlockRope extends BlockBase {
 	public int damageDropped(IBlockState state) {
 		return this.getMetaFromState(state.withProperty(AXIS, EnumFacing.Axis.Y).withProperty(SUPPORTED, false));
 	}
-	
+
 	@Override
 	public boolean canPlaceBlockOnSide(World world, BlockPos pos, EnumFacing side) {
 		BlockPos blockPos = pos.offset(side.getOpposite());
 		if (side == EnumFacing.UP && world.getBlockState(pos.up()).getBlock() != this) {
 			return false;
 		}
-		if (world.getBlockState(blockPos).getBlock() == this && world.getBlockState(blockPos).getValue(AXIS) == side.getAxis()) {
+		if (world.getBlockState(blockPos).getBlock() == ModBlocks.ROPE
+				&& world.getBlockState(blockPos).getValue(AXIS) == side.getAxis()) {
+			return true;
+		}
+		if (world.getBlockState(blockPos).getBlock() == ModBlocks.GRAPE_LEAVES
+				&& world.getBlockState(blockPos).getValue(BlockGrapeLeaves.AXIS) == side.getAxis()) {
 			return true;
 		}
 		if (world.getBlockState(blockPos).getBlock() == ModBlocks.STAKE_TIED) {
@@ -96,19 +106,20 @@ public class BlockRope extends BlockBase {
 		if (world.isSideSolid(blockPos, side)) {
 			return true;
 		}
-		
+
 		return false;
 	}
-	
+
 	protected void checkAndDropBlock(World worldIn, BlockPos pos, IBlockState state) {
 		if (!this.canBlockStay(worldIn, pos, state)) {
 			this.dropBlockAsItem(worldIn, pos, state, 0);
 			worldIn.setBlockToAir(pos);
 			SoundType soundType = getSoundType(state, worldIn, pos, null);
-			worldIn.playSound(pos.getX(), pos.getY(), pos.getZ(), soundType.getBreakSound(), SoundCategory.BLOCKS, (soundType.getVolume() + 1.0F) / 2.0F, soundType.getPitch() * 0.8F, true);
+			worldIn.playSound(pos.getX(), pos.getY(), pos.getZ(), soundType.getBreakSound(), SoundCategory.BLOCKS,
+					(soundType.getVolume() + 1.0F) / 2.0F, soundType.getPitch() * 0.8F, true);
 		}
 	}
-	
+
 	@Override
 	public void neighborChanged(IBlockState state, World worldIn, BlockPos pos, Block blockIn, BlockPos fromPos) {
 		super.neighborChanged(state, worldIn, pos, blockIn, fromPos);
@@ -118,29 +129,49 @@ public class BlockRope extends BlockBase {
 		}
 		this.checkAndDropBlock(worldIn, pos, state);
 	}
-	
+
 	public boolean canBlockStay(World world, BlockPos pos, IBlockState state) {
 		boolean canStay = state.getValue(SUPPORTED);
 		if (!canStay) {
 			boolean flag = false;
 			boolean flag1 = false;
 			if (state.getValue(AXIS) == EnumFacing.Axis.Y) {
-				if (world.getBlockState(pos.up()).getBlock() == ModBlocks.ROPE) {
+				if (world.getBlockState(pos.up()).getBlock() instanceof BlockRope || world.getBlockState(pos.up()).getBlock() == ModBlocks.GRAPE_LEAVES) {
 					canStay = true;
 				}
 			} else if (state.getValue(AXIS) == EnumFacing.Axis.Z) {
-				if (world.getBlockState(pos.north()).getBlock() == ModBlocks.ROPE && world.getBlockState(pos.north()).getValue(AXIS) == EnumFacing.Axis.Z) {
+				IBlockState state1 = world.getBlockState(pos.north());
+				if (state1.getBlock() == ModBlocks.ROPE
+						&& state1.getValue(AXIS) == EnumFacing.Axis.Z) {
+					flag = true;
+				} else if (state1.getBlock() == ModBlocks.GRAPE_LEAVES
+						&& state1.getValue(BlockGrapeLeaves.AXIS) == EnumFacing.Axis.Z) {
 					flag = true;
 				}
-				if (world.getBlockState(pos.south()).getBlock() == ModBlocks.ROPE && world.getBlockState(pos.south()).getValue(AXIS) == EnumFacing.Axis.Z) {
+				state1 = world.getBlockState(pos.south());
+				if (state1.getBlock() == ModBlocks.ROPE
+						&& state1.getValue(AXIS) == EnumFacing.Axis.Z) {
+					flag1 = true;
+				} else if (state1.getBlock() == ModBlocks.GRAPE_LEAVES
+						&& state1.getValue(BlockGrapeLeaves.AXIS) == EnumFacing.Axis.Z) {
 					flag1 = true;
 				}
 				canStay = flag && flag1;
 			} else if (state.getValue(AXIS) == EnumFacing.Axis.X) {
-				if (world.getBlockState(pos.west()).getBlock() == ModBlocks.ROPE && world.getBlockState(pos.west()).getValue(AXIS) == EnumFacing.Axis.X) {
+				IBlockState state1 = world.getBlockState(pos.west());
+				if (state1.getBlock() == ModBlocks.ROPE
+						&& state1.getValue(AXIS) == EnumFacing.Axis.X) {
+					flag = true;
+				} else if (state1.getBlock() == ModBlocks.GRAPE_LEAVES
+						&& state1.getValue(BlockGrapeLeaves.AXIS) == EnumFacing.Axis.X) {
 					flag = true;
 				}
-				if (world.getBlockState(pos.east()).getBlock() == ModBlocks.ROPE && world.getBlockState(pos.east()).getValue(AXIS) == EnumFacing.Axis.X) {
+				state1 = world.getBlockState(pos.east());
+				if (state1.getBlock() == ModBlocks.ROPE
+						&& state1.getValue(AXIS) == EnumFacing.Axis.X) {
+					flag1 = true;
+				} else if (state1.getBlock() == ModBlocks.GRAPE_LEAVES
+						&& state1.getValue(BlockGrapeLeaves.AXIS) == EnumFacing.Axis.X) {
 					flag1 = true;
 				}
 				canStay = flag && flag1;
@@ -167,9 +198,9 @@ public class BlockRope extends BlockBase {
 		} else if (i == 2) {
 			enumfacing$axis = EnumFacing.Axis.Z;
 		}
-		
+
 		i = meta & 4;
-		
+
 		if (i > 0) {
 			supported = true;
 		}
@@ -187,18 +218,19 @@ public class BlockRope extends BlockBase {
 		} else if (enumfacing$axis == EnumFacing.Axis.Z) {
 			i = 2;
 		}
-		
+
 		if (state.getValue(SUPPORTED)) {
 			i |= 4;
 		}
 
 		return i;
 	}
-	
+
 	@Override
 	public IBlockState getActualState(IBlockState state, IBlockAccess world, BlockPos pos) {
 		if (state.getValue(AXIS) != EnumFacing.Axis.Y) {
-			if (world.getBlockState(pos.down()).getBlock() == this && world.getBlockState(pos.down()).getValue(AXIS) == EnumFacing.Axis.Y) {
+			if (world.getBlockState(pos.down()).getBlock() instanceof BlockRope
+					&& world.getBlockState(pos.down()).getValue(AXIS) == EnumFacing.Axis.Y) {
 				return state.withProperty(DANGLE, true);
 			}
 		}
@@ -221,38 +253,41 @@ public class BlockRope extends BlockBase {
 		} else if (worldIn.getBlockState(blockPos).getBlock() == ModBlocks.STAKE_TIED) {
 			supported = true;
 		}
-		return super.getStateForPlacement(worldIn, pos, facing, hitX, hitY, hitZ, meta, placer).withProperty(AXIS,
-				facing.getAxis()).withProperty(SUPPORTED, supported);
+		return super.getStateForPlacement(worldIn, pos, facing, hitX, hitY, hitZ, meta, placer)
+				.withProperty(AXIS, facing.getAxis()).withProperty(SUPPORTED, supported);
 	}
-	
+
 	public boolean isSupported(IBlockState state, World world, BlockPos pos) {
 		boolean supported = false;
-		
+
 		if (state.getValue(AXIS) == EnumFacing.Axis.Y) {
 			supported = world.isSideSolid(pos.up(), EnumFacing.DOWN);
 		} else if (state.getValue(AXIS) == EnumFacing.Axis.Z) {
-			if (world.isSideSolid(pos.north(), EnumFacing.SOUTH) || world.getBlockState(pos.north()).getBlock() == ModBlocks.STAKE_TIED) {
+			if (world.isSideSolid(pos.north(), EnumFacing.SOUTH)
+					|| world.getBlockState(pos.north()).getBlock() == ModBlocks.STAKE_TIED) {
 				supported = true;
 			}
-			if (world.isSideSolid(pos.south(), EnumFacing.NORTH) || world.getBlockState(pos.south()).getBlock() == ModBlocks.STAKE_TIED) {
+			if (world.isSideSolid(pos.south(), EnumFacing.NORTH)
+					|| world.getBlockState(pos.south()).getBlock() == ModBlocks.STAKE_TIED) {
 				supported = true;
 			}
 		} else if (state.getValue(AXIS) == EnumFacing.Axis.X) {
-			if (world.isSideSolid(pos.west(), EnumFacing.EAST) || world.getBlockState(pos.west()).getBlock() == ModBlocks.STAKE_TIED) {
+			if (world.isSideSolid(pos.west(), EnumFacing.EAST)
+					|| world.getBlockState(pos.west()).getBlock() == ModBlocks.STAKE_TIED) {
 				supported = true;
 			}
-			if (world.isSideSolid(pos.east(), EnumFacing.WEST) || world.getBlockState(pos.east()).getBlock() == ModBlocks.STAKE_TIED) {
+			if (world.isSideSolid(pos.east(), EnumFacing.WEST)
+					|| world.getBlockState(pos.east()).getBlock() == ModBlocks.STAKE_TIED) {
 				supported = true;
 			}
 		}
-		
+
 		return supported;
 	}
-	
+
 	@SideOnly(Side.CLIENT)
 	public void initModel() {
-		ModelLoader.setCustomStateMapper(this,
-				(new StateMap.Builder()).ignore(new IProperty[] { SUPPORTED }).build());
+		ModelLoader.setCustomStateMapper(this, (new StateMap.Builder()).ignore(new IProperty[] { SUPPORTED }).build());
 		ModelLoader.setCustomModelResourceLocation(Item.getItemFromBlock(this), 0,
 				new ModelResourceLocation(getRegistryName().toString(), "inventory"));
 	}
@@ -276,7 +311,7 @@ public class BlockRope extends BlockBase {
 			return state;
 		}
 	}
-	
+
 	@Override
 	public boolean isOpaqueCube(IBlockState state) {
 		return false;

@@ -1,0 +1,22 @@
+{
+    "__comment": "Model generated using MrCrayfish's Model Creator (http://mrcrayfish.com/modelcreator/)",
+    "textures": {
+        "0": "blocks/leaves_oak",
+	"particle": "blocks/leaves_oak"
+    },
+    "elements": [
+        {
+            "name": "Leaves",
+            "from": [ 3.0, 3.0, 0.0 ], 
+            "to": [ 13.0, 13.0, 16.0 ], 
+            "faces": {
+                "north": { "texture": "#0", "uv": [ 3.0, 3.0, 13.0, 13.0 ], "cullface": "north", "tintindex": 0 },
+                "east": { "texture": "#0", "uv": [ 0.0, 3.0, 16.0, 13.0 ], "tintindex": 0 },
+                "south": { "texture": "#0", "uv": [ 3.0, 3.0, 13.0, 13.0 ], "cullface": "south", "tintindex": 0 },
+                "west": { "texture": "#0", "uv": [ 0.0, 3.0, 16.0, 13.0 ], "tintindex": 0 },
+                "up": { "texture": "#0", "uv": [ 3.0, 0.0, 13.0, 16.0 ], "tintindex": 0 },
+                "down": { "texture": "#0", "uv": [ 3.0, 0.0, 13.0, 16.0 ], "tintindex": 0 }
+            }
+        }
+    ]
+}

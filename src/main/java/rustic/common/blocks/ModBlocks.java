@@ -12,6 +12,8 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import rustic.common.blocks.crops.BlockBerryBush;
 import rustic.common.blocks.crops.BlockCropStake;
+import rustic.common.blocks.crops.BlockGrapeLeaves;
+import rustic.common.blocks.crops.BlockGrapeStem;
 import rustic.common.blocks.crops.BlockHerbBase;
 import rustic.common.blocks.crops.BlockStakeCrop;
 import rustic.common.blocks.crops.BlockStakeTied;
@@ -127,6 +129,8 @@ public class ModBlocks {
 	public static BlockBerryBush WILDBERRY_BUSH;
 	public static BlockRope ROPE;
 	public static BlockStakeTied STAKE_TIED;
+	public static BlockGrapeStem GRAPE_STEM;
+	public static BlockGrapeLeaves GRAPE_LEAVES;
 
 	public static void init() {
 		STONE_PILLAR = new BlockPillar("stone");
@@ -268,8 +272,10 @@ public class ModBlocks {
 				return ModItems.WILDBERRIES;
 			}
 		};
-		ROPE = new BlockRope();
+		ROPE = new BlockRope(Material.CLOTH, "rope", true);
 		STAKE_TIED = new BlockStakeTied();
+		GRAPE_STEM = new BlockGrapeStem();
+		GRAPE_LEAVES = new BlockGrapeLeaves();
 		
 		Herbs.init();
 		
@@ -377,6 +383,8 @@ public class ModBlocks {
 		CROP_STAKE.initModel();
 		WILDBERRY_BUSH.initModel();
 		ROPE.initModel();
+		GRAPE_STEM.initModel();
+		GRAPE_LEAVES.initModel();
 		
 		Herbs.initModels();
 	}

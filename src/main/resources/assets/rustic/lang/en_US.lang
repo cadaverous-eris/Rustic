@@ -117,6 +117,8 @@ tile.rustic.chili_crop.name=Chili Crop
 tile.rustic.wildberry_bush.name=Wildberry Bush
 tile.rustic.rope.name=Rope
 tile.rustic.stake_tied.name=Stake With Rope
+tile.rustic.grape_stem.name=Grape Seeds
+tile.rustic.grape_leaves.name=Grape Leaves
 
 #Items
 item.rustic.bee.name=Bee
@@ -137,6 +139,7 @@ item.rustic.tomato_seeds.name=Tomato Seeds
 item.rustic.chili_pepper.name=Chili Pepper
 item.rustic.chili_pepper_seeds.name=Chili Pepper Seeds
 item.rustic.wildberries.name=Wildberries
+item.rustic.grapes.name=Grapes
 
 #Fluids
 tile.rustic.olive_oil.name=Olive Oil
