@@ -10,6 +10,7 @@ import rustic.common.Config;
 import rustic.common.blocks.ModBlocks;
 import rustic.common.blocks.fluids.ModFluids;
 import rustic.common.crafting.Recipes;
+import rustic.common.entities.ModEntities;
 import rustic.common.items.ItemFluidBottle;
 import rustic.common.items.ModItems;
 import rustic.common.network.PacketHandler;
@@ -45,6 +46,7 @@ public class CommonProxy {
         ModFluids.init();
         ModBlocks.init();
         ModItems.init();
+        ModEntities.init();
         
         PotionsRustic.init();
 

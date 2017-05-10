@@ -168,27 +168,27 @@ public class BlockLattice extends BlockBase {
 		IBlockState stateTemp = worldIn.getBlockState(pos.north());
 		Block blockTemp = stateTemp.getBlock();
 		boolean nSolid = blockTemp.isSideSolid(stateTemp, worldIn, pos, EnumFacing.SOUTH)
-				|| blockTemp instanceof BlockLattice;
+				|| blockTemp instanceof BlockLattice || (blockTemp instanceof BlockChain && stateTemp.getValue(BlockChain.AXIS) == EnumFacing.Axis.Z);
 		stateTemp = worldIn.getBlockState(pos.east());
 		blockTemp = stateTemp.getBlock();
 		boolean eSolid = blockTemp.isSideSolid(stateTemp, worldIn, pos, EnumFacing.WEST)
-				|| blockTemp instanceof BlockLattice;
+				|| blockTemp instanceof BlockLattice || (blockTemp instanceof BlockChain && stateTemp.getValue(BlockChain.AXIS) == EnumFacing.Axis.X);
 		stateTemp = worldIn.getBlockState(pos.south());
 		blockTemp = stateTemp.getBlock();
 		boolean sSolid = blockTemp.isSideSolid(stateTemp, worldIn, pos, EnumFacing.NORTH)
-				|| blockTemp instanceof BlockLattice;
+				|| blockTemp instanceof BlockLattice || (blockTemp instanceof BlockChain && stateTemp.getValue(BlockChain.AXIS) == EnumFacing.Axis.Z);
 		stateTemp = worldIn.getBlockState(pos.west());
 		blockTemp = stateTemp.getBlock();
 		boolean wSolid = blockTemp.isSideSolid(stateTemp, worldIn, pos, EnumFacing.EAST)
-				|| blockTemp instanceof BlockLattice;
+				|| blockTemp instanceof BlockLattice || (blockTemp instanceof BlockChain && stateTemp.getValue(BlockChain.AXIS) == EnumFacing.Axis.X);
 		stateTemp = worldIn.getBlockState(pos.up());
 		blockTemp = stateTemp.getBlock();
 		boolean uSolid = blockTemp.isSideSolid(stateTemp, worldIn, pos, EnumFacing.DOWN)
-				|| blockTemp instanceof BlockLattice || blockTemp instanceof BlockChain || blockTemp instanceof BlockLantern;
+				|| blockTemp instanceof BlockLattice || (blockTemp instanceof BlockChain && stateTemp.getValue(BlockChain.AXIS) == EnumFacing.Axis.Y) || blockTemp instanceof BlockLantern;
 		stateTemp = worldIn.getBlockState(pos.down());
 		blockTemp = stateTemp.getBlock();
 		boolean dSolid = blockTemp.isSideSolid(stateTemp, worldIn, pos, EnumFacing.UP)
-				|| blockTemp instanceof BlockLattice || blockTemp instanceof BlockChain || blockTemp instanceof BlockLantern;
+				|| blockTemp instanceof BlockLattice || (blockTemp instanceof BlockChain && stateTemp.getValue(BlockChain.AXIS) == EnumFacing.Axis.Y) || blockTemp instanceof BlockLantern;
 		boolean leaves = state.getValue(LEAVES);
 
 		return state.withProperty(N, nSolid).withProperty(LEAVES_NORTH, nSolid && leaves).withProperty(E, eSolid)

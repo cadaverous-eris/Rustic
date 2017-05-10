@@ -12,7 +12,7 @@ public class PacketHandler {
     private static int id = 0;
     
     public static void registerMessages() {
-    	INSTANCE.registerMessage(MessageTEUpdate.MessageHolder.class, MessageTEUpdate.class, id ++, Side.CLIENT);
+    	INSTANCE.registerMessage(MessageShameFX.MessageHolder.class, MessageShameFX.class, id++, Side.CLIENT);
     }
 
 }

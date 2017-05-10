@@ -7,6 +7,8 @@ import java.util.List;
 import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.ModelPlayer;
+import net.minecraft.client.particle.Particle;
+import net.minecraft.client.particle.ParticleBreaking;
 import net.minecraft.client.renderer.color.IItemColor;
 import net.minecraft.client.renderer.entity.Render;
 import net.minecraft.client.renderer.entity.RenderLiving;
@@ -22,6 +24,7 @@ import net.minecraft.item.ItemPotion;
 import net.minecraft.item.ItemSplashPotion;
 import net.minecraft.item.ItemStack;
 import net.minecraft.potion.PotionUtils;
+import net.minecraft.util.EnumParticleTypes;
 import net.minecraftforge.client.ForgeHooksClient;
 import net.minecraftforge.client.MinecraftForgeClient;
 import net.minecraftforge.client.model.ModelLoaderRegistry;
@@ -35,6 +38,7 @@ import rustic.client.renderer.LiquidBarrelRenderer;
 import rustic.common.blocks.IColoredBlock;
 import rustic.common.blocks.ModBlocks;
 import rustic.common.blocks.fluids.ModFluids;
+import rustic.common.entities.ModEntities;
 import rustic.common.items.IColoredItem;
 import rustic.common.items.ModItems;
 import rustic.common.potions.PotionsRustic;
@@ -52,6 +56,7 @@ public class ClientProxy extends CommonProxy {
 		ModFluids.initModels();
 		ModBlocks.initModels();
 		ModItems.initModels();
+		ModEntities.initRenderers();
 	}
 
 	@Override
@@ -59,24 +64,25 @@ public class ClientProxy extends CommonProxy {
 		super.init(event);
 		initColorizer();
 	}
-	
+
 	@Override
 	public void postInit(FMLPostInitializationEvent event) {
-		
-		Collection<Render<? extends Entity>> renderers = Minecraft.getMinecraft().getRenderManager().entityRenderMap.values();
+
+		Collection<Render<? extends Entity>> renderers = Minecraft.getMinecraft().getRenderManager().entityRenderMap
+				.values();
 		Collection<RenderPlayer> playerRenderers = Minecraft.getMinecraft().getRenderManager().getSkinMap().values();
-		
+
 		for (Render renderer : renderers) {
 			if (renderer instanceof RenderLivingBase) {
 				RenderLivingBase renderLivingBase = (RenderLivingBase) renderer;
 				renderLivingBase.addLayer(new LayerIronSkin(renderLivingBase, renderLivingBase.getMainModel()));
 			}
 		}
-		
+
 		for (RenderPlayer renderPlayer : playerRenderers) {
 			renderPlayer.addLayer(new LayerIronSkin(renderPlayer, renderPlayer.getMainModel()));
 		}
-		
+
 	}
 
 	public static void addColoredBlock(Block block) {
@@ -84,7 +90,7 @@ public class ClientProxy extends CommonProxy {
 			coloredBlocks.add(block);
 		}
 	}
-	
+
 	public static void addColoredItem(Item item) {
 		if (item instanceof IColoredItem) {
 			coloredItems.add(item);
@@ -96,10 +102,12 @@ public class ClientProxy extends CommonProxy {
 			if (block instanceof IColoredBlock) {
 				IColoredBlock coloredBlock = (IColoredBlock) block;
 				if (coloredBlock.getBlockColor() != null) {
-					Minecraft.getMinecraft().getBlockColors().registerBlockColorHandler(coloredBlock.getBlockColor(), block);
+					Minecraft.getMinecraft().getBlockColors().registerBlockColorHandler(coloredBlock.getBlockColor(),
+							block);
 				}
 				if (coloredBlock.getItemColor() != null) {
-					Minecraft.getMinecraft().getItemColors().registerItemColorHandler(coloredBlock.getItemColor(), block);
+					Minecraft.getMinecraft().getItemColors().registerItemColorHandler(coloredBlock.getItemColor(),
+							block);
 				}
 			}
 		}

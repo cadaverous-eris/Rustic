@@ -1,1 +1,6 @@
-{	"parent": "rustic:block/chain"	}
+{
+    "parent": "item/generated",
+    "textures": {
+        "layer0": "rustic:blocks/chain"
+    }
+}

@@ -3,14 +3,19 @@ package rustic.common.items;
 import java.awt.Color;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.projectile.EntitySnowball;
 import net.minecraft.init.Items;
 import net.minecraft.init.MobEffects;
+import net.minecraft.init.SoundEvents;
 import net.minecraft.item.ItemStack;
 import net.minecraft.potion.PotionEffect;
+import net.minecraft.stats.StatList;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.DamageSource;
+import net.minecraft.util.EnumActionResult;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.EnumParticleTypes;
+import net.minecraft.util.SoundCategory;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldServer;
 import net.minecraftforge.client.model.ModelLoader;
@@ -18,6 +23,7 @@ import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import rustic.common.blocks.ModBlocks;
+import rustic.common.entities.EntityTomato;
 import rustic.core.Rustic;
 
 public class ModItems {
@@ -86,7 +92,29 @@ public class ModItems {
 		IRON_DUST_TINY = new ItemBase("dust_tiny_iron");
 		IRON_DUST_TINY.setCreativeTab(Rustic.farmingTab);
 		ELIXER = new ItemElixer();
-		TOMATO = new ItemFoodBase("tomato", 4, 0.6F, false);
+		TOMATO = new ItemFoodBase("tomato", 4, 0.6F, false) {
+			@Override
+			public ActionResult<ItemStack> onItemRightClick(World worldIn, EntityPlayer playerIn, EnumHand handIn) {
+				ItemStack itemstack = playerIn.getHeldItem(handIn);
+				if (super.onItemRightClick(worldIn, playerIn, handIn).getType() == EnumActionResult.FAIL) {
+					if (!playerIn.capabilities.isCreativeMode) {
+						itemstack.shrink(1);
+					}
+					worldIn.playSound((EntityPlayer) null, playerIn.posX, playerIn.posY, playerIn.posZ,
+							SoundEvents.ENTITY_SNOWBALL_THROW, SoundCategory.NEUTRAL, 0.5F,
+							0.4F / (itemRand.nextFloat() * 0.4F + 0.8F));
+					if (!worldIn.isRemote) {
+						EntityTomato entitytomato = new EntityTomato(worldIn, playerIn);
+						entitytomato.setHeadingFromThrower(playerIn, playerIn.rotationPitch, playerIn.rotationYaw,
+								0.0F, 1.5F, 1.0F);
+						worldIn.spawnEntity(entitytomato);
+					}
+					playerIn.addStat(StatList.getObjectUseStats(this));
+					return new ActionResult(EnumActionResult.SUCCESS, itemstack);
+				}
+				return super.onItemRightClick(worldIn, playerIn, handIn);
+			}
+		};
 		TOMATO_SEEDS = new ItemStakeCropSeed("tomato_seeds", ModBlocks.TOMATO_CROP);
 		CHILI_PEPPER = new ItemFoodBase("chili_pepper", 4, 0.8F, false) {
 			@Override

@@ -127,13 +127,24 @@ public class EventHandlerCommon {
 
 	@SubscribeEvent
 	public void onGrassDropEvent(BlockEvent.HarvestDropsEvent event) {
-		if (event.getState().getBlock() == Blocks.TALLGRASS && event.getWorld().rand.nextInt(20) == 0) {
-			event.getDrops().add(new ItemStack(ModItems.TOMATO_SEEDS));
-		} else if (event.getState().getBlock() == Blocks.TALLGRASS && event.getWorld().rand.nextInt(20) == 0) {
-			event.getDrops().add(new ItemStack(ModItems.CHILI_PEPPER_SEEDS));
+		if (event.getState().getBlock() == Blocks.TALLGRASS) {
+			if (event.getWorld().rand.nextInt(20) == 0) {
+				event.getDrops().add(new ItemStack(ModItems.TOMATO_SEEDS));
+			} else if (event.getWorld().rand.nextInt(20) == 0) {
+				event.getDrops().add(new ItemStack(ModItems.CHILI_PEPPER_SEEDS));
+			}
 		}
 	}
 	
+	@SubscribeEvent
+	public void onVineDropEvent(BlockEvent.HarvestDropsEvent event) {
+		if (event.getState().getBlock() == Blocks.VINE) {
+			if (event.getWorld().rand.nextInt(20) == 0) {
+				event.getDrops().add(new ItemStack(ModBlocks.GRAPE_STEM));
+			}
+		}
+	}
+
 	@SubscribeEvent
 	public void onItemUseTick(LivingEntityUseItemEvent.Tick event) {
 		ItemStack originalStack = event.getItem();
@@ -183,7 +194,7 @@ public class EventHandlerCommon {
 					&& player.canPlayerEdit(pos2.offset(raytraceresult.sideHit), raytraceresult.sideHit, stack)) {
 				IBlockState state = world.getBlockState(pos2);
 				if (state.getBlock() instanceof IFluidBlock) {
-					IFluidBlock fluidblock = ((IFluidBlock) state.getBlock());	
+					IFluidBlock fluidblock = ((IFluidBlock) state.getBlock());
 					if (ItemFluidBottle.VALID_FLUIDS.contains(fluidblock.getFluid())
 							&& fluidblock.getFilledPercentage(world, pos2) == 1) {
 						world.setBlockState(pos2, Blocks.AIR.getDefaultState(), 11);
@@ -191,16 +202,21 @@ public class EventHandlerCommon {
 						player.playSound(SoundEvents.ITEM_BUCKET_FILL, 1.0F, 1.0F);
 						stack.shrink(1);
 						ItemStack bottlestack = new ItemStack(ModItems.FLUID_BOTTLE, 1);
-						NBTTagCompound tag = new FluidStack(fluidblock.getFluid(), 1000).writeToNBT(new NBTTagCompound());
+						NBTTagCompound tag = new FluidStack(fluidblock.getFluid(), 1000)
+								.writeToNBT(new NBTTagCompound());
 						bottlestack.setTagCompound(tag);
 						if (!player.inventory.addItemStackToInventory(bottlestack)) {
 							player.dropItem(bottlestack, false);
 						}
 					}
-				} else if (state.getBlock() instanceof ITileEntityProvider && world.getTileEntity(pos) != null && world.getTileEntity(pos).hasCapability(CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY, event.getFace())) {
-					IFluidHandler tank = world.getTileEntity(pos).getCapability(CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY, event.getFace());
+				} else if (state.getBlock() instanceof ITileEntityProvider && world.getTileEntity(pos) != null
+						&& world.getTileEntity(pos).hasCapability(CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY,
+								event.getFace())) {
+					IFluidHandler tank = world.getTileEntity(pos)
+							.getCapability(CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY, event.getFace());
 					if (tank.drain(1000, false) != null && tank.drain(1000, false).getFluid() != null) {
-						if (ItemFluidBottle.VALID_FLUIDS.contains(tank.drain(1000, false).getFluid()) && tank.drain(1000, false).amount >= 1000) {
+						if (ItemFluidBottle.VALID_FLUIDS.contains(tank.drain(1000, false).getFluid())
+								&& tank.drain(1000, false).amount >= 1000) {
 							FluidStack fill = tank.drain(1000, true);
 							player.addStat(StatList.getObjectUseStats(stack.getItem()));
 							player.playSound(SoundEvents.ITEM_BUCKET_FILL, 1.0F, 1.0F);
@@ -213,7 +229,7 @@ public class EventHandlerCommon {
 							}
 							event.setCanceled(true);
 						}
-					}	
+					}
 				}
 			}
 		}

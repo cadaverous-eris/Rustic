@@ -454,6 +454,7 @@ public class BlockGrapeLeaves extends BlockBase implements IGrowable, IColoredBl
 		ClientProxy.addColoredBlock(this);
 	}
 
+	@SideOnly(Side.CLIENT)
 	@Override
 	public IBlockColor getBlockColor() {
 		return new IBlockColor() {
@@ -467,6 +468,7 @@ public class BlockGrapeLeaves extends BlockBase implements IGrowable, IColoredBl
 		};
 	}
 
+	@SideOnly(Side.CLIENT)
 	@Override
 	public IItemColor getItemColor() {
 		return null;
