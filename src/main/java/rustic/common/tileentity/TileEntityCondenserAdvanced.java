@@ -43,6 +43,7 @@ import rustic.common.crafting.AdvancedCondenserRecipe;
 import rustic.common.crafting.CondenserRecipe;
 import rustic.common.crafting.Recipes;
 import rustic.common.inventory.ExternalItemHandler;
+import rustic.core.Rustic;
 
 public class TileEntityCondenserAdvanced extends TileFluidHandler implements ITickable {
 
@@ -122,26 +123,39 @@ public class TileEntityCondenserAdvanced extends TileFluidHandler implements ITi
 				if (world.isRemote) {
 					if (world.getBlockState(pos).getBlock() == ModBlocks.CONDENSER_ADVANCED) {
 						EnumFacing blockFacing = world.getBlockState(pos).getValue(BlockCondenserAdvanced.FACING);
+						double yVel = 0.125;
 						switch (blockFacing) {
 						case NORTH:
-							world.spawnParticle(EnumParticleTypes.SMOKE_NORMAL, true, this.pos.getX() - 0.5D, this.pos.getY() + 1.0625D, this.pos.getZ() + 0.5D, 0, 0.05D, 0);
-							world.spawnParticle(EnumParticleTypes.SMOKE_NORMAL, true, this.pos.getX() + 1.5D, this.pos.getY() + 1.0625D, this.pos.getZ() + 0.5D, 0, 0.05D, 0);
-							world.spawnParticle(EnumParticleTypes.SMOKE_NORMAL, true, this.pos.getX() + 0.5D, this.pos.getY() + 1.0625D, this.pos.getZ() + 1.5D, 0, 0.05D, 0);
+							//world.spawnParticle(EnumParticleTypes.SMOKE_NORMAL, true, this.pos.getX() - 0.5D, this.pos.getY() + 1.0625D, this.pos.getZ() + 0.5D, 0, 0.05D, 0);
+							//world.spawnParticle(EnumParticleTypes.SMOKE_NORMAL, true, this.pos.getX() + 1.5D, this.pos.getY() + 1.0625D, this.pos.getZ() + 0.5D, 0, 0.05D, 0);
+							//world.spawnParticle(EnumParticleTypes.SMOKE_NORMAL, true, this.pos.getX() + 0.5D, this.pos.getY() + 1.0625D, this.pos.getZ() + 1.5D, 0, 0.05D, 0);
+							Rustic.proxy.spawnAlchemySmokeFX(world, this.brewTime, this.pos.getX() - 0.5D, this.pos.getY() + 1.0625D, this.pos.getZ() + 0.5D, 0, yVel, 0);
+							Rustic.proxy.spawnAlchemySmokeFX(world, this.brewTime, this.pos.getX() + 1.5D, this.pos.getY() + 1.0625D, this.pos.getZ() + 0.5D, 0, yVel, 0);
+							Rustic.proxy.spawnAlchemySmokeFX(world, this.brewTime, this.pos.getX() + 0.5D, this.pos.getY() + 1.0625D, this.pos.getZ() + 1.5D, 0, yVel, 0);
 							break;
 						case SOUTH:
-							world.spawnParticle(EnumParticleTypes.SMOKE_NORMAL, true, this.pos.getX() - 0.5D, this.pos.getY() + 1.0625D, this.pos.getZ() + 0.5D, 0, 0.05D, 0);
-							world.spawnParticle(EnumParticleTypes.SMOKE_NORMAL, true, this.pos.getX() + 1.5D, this.pos.getY() + 1.0625D, this.pos.getZ() + 0.5D, 0, 0.05D, 0);
-							world.spawnParticle(EnumParticleTypes.SMOKE_NORMAL, true, this.pos.getX() + 0.5D, this.pos.getY() + 1.0625D, this.pos.getZ() - 0.5D, 0, 0.05D, 0);
+							//world.spawnParticle(EnumParticleTypes.SMOKE_NORMAL, true, this.pos.getX() - 0.5D, this.pos.getY() + 1.0625D, this.pos.getZ() + 0.5D, 0, 0.05D, 0);
+							//world.spawnParticle(EnumParticleTypes.SMOKE_NORMAL, true, this.pos.getX() + 1.5D, this.pos.getY() + 1.0625D, this.pos.getZ() + 0.5D, 0, 0.05D, 0);
+							//world.spawnParticle(EnumParticleTypes.SMOKE_NORMAL, true, this.pos.getX() + 0.5D, this.pos.getY() + 1.0625D, this.pos.getZ() - 0.5D, 0, 0.05D, 0);
+							Rustic.proxy.spawnAlchemySmokeFX(world, this.brewTime, this.pos.getX() - 0.5D, this.pos.getY() + 1.0625D, this.pos.getZ() + 0.5D, 0, yVel, 0);
+							Rustic.proxy.spawnAlchemySmokeFX(world, this.brewTime, this.pos.getX() + 1.5D, this.pos.getY() + 1.0625D, this.pos.getZ() + 0.5D, 0, yVel, 0);
+							Rustic.proxy.spawnAlchemySmokeFX(world, this.brewTime, this.pos.getX() + 0.5D, this.pos.getY() + 1.0625D, this.pos.getZ() - 0.5D, 0, yVel, 0);
 							break;
 						case WEST:
-							world.spawnParticle(EnumParticleTypes.SMOKE_NORMAL, true, this.pos.getX() + 0.5D, this.pos.getY() + 1.0625D, this.pos.getZ() - 0.5D, 0, 0.05D, 0);
-							world.spawnParticle(EnumParticleTypes.SMOKE_NORMAL, true, this.pos.getX() + 0.5D, this.pos.getY() + 1.0625D, this.pos.getZ() + 1.5D, 0, 0.05D, 0);
-							world.spawnParticle(EnumParticleTypes.SMOKE_NORMAL, true, this.pos.getX() + 1.5D, this.pos.getY() + 1.0625D, this.pos.getZ() + 0.5D, 0, 0.05D, 0);
+							//world.spawnParticle(EnumParticleTypes.SMOKE_NORMAL, true, this.pos.getX() + 0.5D, this.pos.getY() + 1.0625D, this.pos.getZ() - 0.5D, 0, 0.05D, 0);
+							//world.spawnParticle(EnumParticleTypes.SMOKE_NORMAL, true, this.pos.getX() + 0.5D, this.pos.getY() + 1.0625D, this.pos.getZ() + 1.5D, 0, 0.05D, 0);
+							//world.spawnParticle(EnumParticleTypes.SMOKE_NORMAL, true, this.pos.getX() + 1.5D, this.pos.getY() + 1.0625D, this.pos.getZ() + 0.5D, 0, 0.05D, 0);
+							Rustic.proxy.spawnAlchemySmokeFX(world, this.brewTime, this.pos.getX() + 0.5D, this.pos.getY() + 1.0625D, this.pos.getZ() - 0.5D, 0, yVel, 0);
+							Rustic.proxy.spawnAlchemySmokeFX(world, this.brewTime, this.pos.getX() + 0.5D, this.pos.getY() + 1.0625D, this.pos.getZ() + 1.5D, 0, yVel, 0);
+							Rustic.proxy.spawnAlchemySmokeFX(world, this.brewTime, this.pos.getX() + 1.5D, this.pos.getY() + 1.0625D, this.pos.getZ() + 0.5D, 0, yVel, 0);
 							break;
 						case EAST:
-							world.spawnParticle(EnumParticleTypes.SMOKE_NORMAL, true, this.pos.getX() + 0.5D, this.pos.getY() + 1.0625D, this.pos.getZ() - 0.5D, 0, 0.05D, 0);
-							world.spawnParticle(EnumParticleTypes.SMOKE_NORMAL, true, this.pos.getX() + 0.5D, this.pos.getY() + 1.0625D, this.pos.getZ() + 1.5D, 0, 0.05D, 0);
-							world.spawnParticle(EnumParticleTypes.SMOKE_NORMAL, true, this.pos.getX() - 0.5D, this.pos.getY() + 1.0625D, this.pos.getZ() + 0.5D, 0, 0.05D, 0);
+							//world.spawnParticle(EnumParticleTypes.SMOKE_NORMAL, true, this.pos.getX() + 0.5D, this.pos.getY() + 1.0625D, this.pos.getZ() - 0.5D, 0, 0.05D, 0);
+							//world.spawnParticle(EnumParticleTypes.SMOKE_NORMAL, true, this.pos.getX() + 0.5D, this.pos.getY() + 1.0625D, this.pos.getZ() + 1.5D, 0, 0.05D, 0);
+							//world.spawnParticle(EnumParticleTypes.SMOKE_NORMAL, true, this.pos.getX() - 0.5D, this.pos.getY() + 1.0625D, this.pos.getZ() + 0.5D, 0, 0.05D, 0);
+							Rustic.proxy.spawnAlchemySmokeFX(world, this.brewTime, this.pos.getX() + 0.5D, this.pos.getY() + 1.0625D, this.pos.getZ() - 0.5D, 0, yVel, 0);
+							Rustic.proxy.spawnAlchemySmokeFX(world, this.brewTime, this.pos.getX() + 0.5D, this.pos.getY() + 1.0625D, this.pos.getZ() + 1.5D, 0, yVel, 0);
+							Rustic.proxy.spawnAlchemySmokeFX(world, this.brewTime, this.pos.getX() - 0.5D, this.pos.getY() + 1.0625D, this.pos.getZ() + 0.5D, 0, yVel, 0);
 							break;
 						default:
 							break;

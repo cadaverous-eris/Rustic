@@ -45,9 +45,11 @@ import rustic.common.blocks.BlockCondenser;
 import rustic.common.blocks.BlockRetort;
 import rustic.common.blocks.ModBlocks;
 import rustic.common.crafting.AdvancedCondenserRecipe;
+import rustic.common.crafting.BasicCondenserRecipe;
 import rustic.common.crafting.CondenserRecipe;
 import rustic.common.crafting.Recipes;
 import rustic.common.inventory.ExternalItemHandler;
+import rustic.core.Rustic;
 
 public class TileEntityCondenser extends TileFluidHandler implements ITickable {
 
@@ -108,7 +110,7 @@ public class TileEntityCondenser extends TileFluidHandler implements ITickable {
 		}
 		ItemStack fuelStack = (ItemStack) this.internalStackHandler.getStackInSlot(2);
 		if (this.isBurning() || !fuelStack.isEmpty()) {
-			if (!this.isBurning() && this.canBrew()) {
+			if (!this.isBurning() && this.canBrew() && this.getRecipe() != null) {
 				this.condenserBurnTime = TileEntityFurnace.getItemBurnTime(fuelStack);
 				this.currentItemBurnTime = this.condenserBurnTime;
 				if (this.isBurning() && !fuelStack.isEmpty() && !world.isRemote) {
@@ -120,18 +122,19 @@ public class TileEntityCondenser extends TileFluidHandler implements ITickable {
 					}
 				}
 			}
-			if (this.isBurning() && this.canBrew()) {
+			if (this.isBurning() && this.canBrew() && this.getRecipe() != null) {
 				++this.brewTime;
 				
 				if (world.isRemote) {
 					if (world.getBlockState(pos).getBlock() == ModBlocks.CONDENSER) {
 						EnumFacing blockFacing = world.getBlockState(pos).getValue(BlockCondenser.FACING);
+						double yVel = 0.125;
 						if (blockFacing == EnumFacing.NORTH || blockFacing == EnumFacing.SOUTH) {
-							world.spawnParticle(EnumParticleTypes.SMOKE_NORMAL, true, this.pos.getX() - 0.5D, this.pos.getY() + 1.0625D, this.pos.getZ() + 0.5D, 0, 0.05D, 0);
-							world.spawnParticle(EnumParticleTypes.SMOKE_NORMAL, true, this.pos.getX() + 1.5D, this.pos.getY() + 1.0625D, this.pos.getZ() + 0.5D, 0, 0.05D, 0);
+							Rustic.proxy.spawnAlchemySmokeFX(world, this.brewTime, this.pos.getX() - 0.5D, this.pos.getY() + 1.0625D, this.pos.getZ() + 0.5D, 0, yVel, 0);
+							Rustic.proxy.spawnAlchemySmokeFX(world, this.brewTime, this.pos.getX() + 1.5D, this.pos.getY() + 1.0625D, this.pos.getZ() + 0.5D, 0, yVel, 0);
 						} else if (blockFacing == EnumFacing.EAST || blockFacing == EnumFacing.WEST) {
-							world.spawnParticle(EnumParticleTypes.SMOKE_NORMAL, true, this.pos.getX() + 0.5D, this.pos.getY() + 1.0625D, this.pos.getZ() - 0.5D, 0, 0.05D, 0);
-							world.spawnParticle(EnumParticleTypes.SMOKE_NORMAL, true, this.pos.getX() + 0.5D, this.pos.getY() + 1.0625D, this.pos.getZ() + 1.5D, 0, 0.05D, 0);
+							Rustic.proxy.spawnAlchemySmokeFX(world, this.brewTime, this.pos.getX() + 0.5D, this.pos.getY() + 1.0625D, this.pos.getZ() - 0.5D, 0, yVel, 0);
+							Rustic.proxy.spawnAlchemySmokeFX(world, this.brewTime, this.pos.getX() + 0.5D, this.pos.getY() + 1.0625D, this.pos.getZ() + 1.5D, 0, yVel, 0);
 						}
 					}
 				}
@@ -336,37 +339,36 @@ public class TileEntityCondenser extends TileFluidHandler implements ITickable {
 			return false;
 		}
 
+		return true;
+	}
+	
+	private BasicCondenserRecipe getRecipe() {
 		for (CondenserRecipe recipe : Recipes.condenserRecipes) {
-			if (recipe instanceof AdvancedCondenserRecipe) {
+			if (!(recipe instanceof BasicCondenserRecipe)) {
 				continue;
 			}
-			if (recipe.matches(ItemStack.EMPTY, new ItemStack[]{ internalStackHandler.getStackInSlot(0), internalStackHandler.getStackInSlot(1) })) {
+			BasicCondenserRecipe basicRecipe = (BasicCondenserRecipe) recipe;
+			if (basicRecipe.matches(ItemStack.EMPTY, new ItemStack[]{ internalStackHandler.getStackInSlot(0), internalStackHandler.getStackInSlot(1) })) {
 				if (internalStackHandler.insertItem(4, recipe.getResult(), true).isEmpty()) {
-					return true;
+					return basicRecipe;
 				}
 			}
 		}
-
-		return false;
+		return null;
 	}
 
 	private void brew() {
-		if (this.canBrew()) {
-			for (CondenserRecipe recipe : Recipes.condenserRecipes) {
-				if (recipe instanceof AdvancedCondenserRecipe) {
-					continue;
-				}
-				if (recipe.matches(ItemStack.EMPTY, new ItemStack[]{ internalStackHandler.getStackInSlot(0), internalStackHandler.getStackInSlot(1) })) {
+		if (!canBrew()) {
+			return;
+		}
+		BasicCondenserRecipe recipe = getRecipe();
+		if (recipe != null) {
+			internalStackHandler.insertItem(4, recipe.getResult(), false);
+			internalStackHandler.extractItem(0, 1, false);
+			internalStackHandler.extractItem(1, 1, false);
 
-					internalStackHandler.insertItem(4, recipe.getResult(), false);
-					internalStackHandler.extractItem(0, 1, false);
-					internalStackHandler.extractItem(1, 1, false);
-
-					internalStackHandler.extractItem(3, 1, false);
-					tank.drain(125, true);
-
-				}
-			}
+			internalStackHandler.extractItem(3, 1, false);
+			tank.drain(125, true);
 		}
 	}
 

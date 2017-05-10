@@ -21,6 +21,7 @@ import net.minecraft.client.renderer.entity.RenderLivingBase;
 import net.minecraft.entity.Entity;
 import net.minecraft.potion.PotionType;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.world.World;
 import net.minecraftforge.common.config.Configuration;
 import net.minecraftforge.fml.client.registry.IRenderFactory;
 import net.minecraftforge.fml.client.registry.RenderingRegistry;
@@ -71,6 +72,10 @@ public class CommonProxy {
     private void initFluidBottle() {
     	ItemFluidBottle.addFluid(ModFluids.OLIVE_OIL);
     	ItemFluidBottle.addFluid(ModFluids.IRONBERRY_JUICE);
+    }
+    
+    public void spawnAlchemySmokeFX(World world, int brewTime, double x, double y, double z, double xVel, double yVel, double zVel) {
+    	
     }
 	
 }

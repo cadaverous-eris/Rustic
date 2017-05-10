@@ -9,6 +9,8 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.ModelPlayer;
 import net.minecraft.client.particle.Particle;
 import net.minecraft.client.particle.ParticleBreaking;
+import net.minecraft.client.particle.ParticleCloud;
+import net.minecraft.client.particle.ParticleSmokeNormal;
 import net.minecraft.client.renderer.color.IItemColor;
 import net.minecraft.client.renderer.entity.Render;
 import net.minecraft.client.renderer.entity.RenderLiving;
@@ -25,6 +27,8 @@ import net.minecraft.item.ItemSplashPotion;
 import net.minecraft.item.ItemStack;
 import net.minecraft.potion.PotionUtils;
 import net.minecraft.util.EnumParticleTypes;
+import net.minecraft.util.math.MathHelper;
+import net.minecraft.world.World;
 import net.minecraftforge.client.ForgeHooksClient;
 import net.minecraftforge.client.MinecraftForgeClient;
 import net.minecraftforge.client.model.ModelLoaderRegistry;
@@ -120,5 +124,17 @@ public class ClientProxy extends CommonProxy {
 			}
 		}
 	}
+	
+	@Override
+	public void spawnAlchemySmokeFX(World world, int brewTime, double x, double y, double z, double xVel, double yVel, double zVel) {
+		Particle smoke = new ParticleSmokeNormal.Factory().createParticle(EnumParticleTypes.SMOKE_NORMAL.getParticleID(), world, x, y, z, xVel, yVel, zVel);
+    	float colorScale = 0.4F;
+    	float r = colorScale * ((MathHelper.sin(30 + brewTime / 16F) * 0.5F) + 0.5F);
+    	float g = colorScale * ((MathHelper.sin(brewTime / 16F) * 0.5F) + 0.5F);
+    	float b = colorScale * ((MathHelper.sin(60 + brewTime / 16F) * 0.5F) + 0.5F);
+		smoke.setRBGColorF(r, g, b);
+    	smoke.setMaxAge(10);
+    	Minecraft.getMinecraft().effectRenderer.addEffect(smoke);
+    }
 
 }
