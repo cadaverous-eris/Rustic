@@ -82,6 +82,7 @@ public class Recipes {
 			IBlockState state = ModBlocks.LOG.getDefaultState().withProperty(BlockLogRustic.VARIANT, BlockPlanksRustic.EnumType.byMetadata(i));
 			int meta = ModBlocks.LOG.getMetaFromState(state);
 			OreDictionary.registerOre("treeWood", new ItemStack(ModBlocks.LOG, 1, meta));
+			OreDictionary.registerOre("logWood", new ItemStack(ModBlocks.LOG, 1, meta));
 			state = ModBlocks.LEAVES.getDefaultState().withProperty(BlockLeavesRustic.VARIANT, BlockPlanksRustic.EnumType.byMetadata(i));
 			meta = ModBlocks.LEAVES.getMetaFromState(state);
 			OreDictionary.registerOre("treeLeaves", new ItemStack(ModBlocks.LEAVES, 1, meta));
@@ -170,10 +171,10 @@ public class Recipes {
 		GameRegistry.addShapedRecipe(new ItemStack(ModBlocks.OLIVE_FENCE_GATE), "sps", "sps", 'p', new ItemStack(ModBlocks.PLANKS, 1, BlockPlanksRustic.EnumType.OLIVE.getMetadata()), 's', new ItemStack(Items.STICK));
 		GameRegistry.addShapedRecipe(new ItemStack(ModBlocks.IRONWOOD_FENCE, 3), "psp", "psp", 'p', new ItemStack(ModBlocks.PLANKS, 1, BlockPlanksRustic.EnumType.IRONWOOD.getMetadata()), 's', new ItemStack(Items.STICK));
 		GameRegistry.addShapedRecipe(new ItemStack(ModBlocks.IRONWOOD_FENCE_GATE), "sps", "sps", 'p', new ItemStack(ModBlocks.PLANKS, 1, BlockPlanksRustic.EnumType.IRONWOOD.getMetadata()), 's', new ItemStack(Items.STICK));
-		GameRegistry.addShapedRecipe(new ItemStack(ModBlocks.OLIVE_SLAB_ITEM), "ppp", 'p', new ItemStack(ModBlocks.PLANKS, 1, BlockPlanksRustic.EnumType.OLIVE.getMetadata()));
-		GameRegistry.addShapedRecipe(new ItemStack(ModBlocks.IRONWOOD_SLAB_ITEM), "ppp", 'p', new ItemStack(ModBlocks.PLANKS, 1, BlockPlanksRustic.EnumType.IRONWOOD.getMetadata()));
-		GameRegistry.addShapedRecipe(new ItemStack(ModBlocks.OLIVE_STAIRS), "p  ", "pp ", "ppp", 'p', new ItemStack(ModBlocks.PLANKS, 1, BlockPlanksRustic.EnumType.OLIVE.getMetadata()));
-		GameRegistry.addShapedRecipe(new ItemStack(ModBlocks.IRONWOOD_STAIRS), "p  ", "pp ", "ppp", 'p', new ItemStack(ModBlocks.PLANKS, 1, BlockPlanksRustic.EnumType.IRONWOOD.getMetadata()));
+		GameRegistry.addShapedRecipe(new ItemStack(ModBlocks.OLIVE_SLAB_ITEM, 6), "ppp", 'p', new ItemStack(ModBlocks.PLANKS, 1, BlockPlanksRustic.EnumType.OLIVE.getMetadata()));
+		GameRegistry.addShapedRecipe(new ItemStack(ModBlocks.IRONWOOD_SLAB_ITEM, 6), "ppp", 'p', new ItemStack(ModBlocks.PLANKS, 1, BlockPlanksRustic.EnumType.IRONWOOD.getMetadata()));
+		GameRegistry.addShapedRecipe(new ItemStack(ModBlocks.OLIVE_STAIRS, 4), "p  ", "pp ", "ppp", 'p', new ItemStack(ModBlocks.PLANKS, 1, BlockPlanksRustic.EnumType.OLIVE.getMetadata()));
+		GameRegistry.addShapedRecipe(new ItemStack(ModBlocks.IRONWOOD_STAIRS, 4), "p  ", "pp ", "ppp", 'p', new ItemStack(ModBlocks.PLANKS, 1, BlockPlanksRustic.EnumType.IRONWOOD.getMetadata()));
 		GameRegistry.addShapedRecipe(new ItemStack(ModBlocks.CHAIR_OLIVE, 4), "p  ", "ppp", "s s", 'p', new ItemStack(ModBlocks.PLANKS, 1, BlockPlanksRustic.EnumType.OLIVE.getMetadata()), 's', new ItemStack(Items.STICK));
 		GameRegistry.addShapedRecipe(new ItemStack(ModBlocks.CHAIR_IRONWOOD, 4), "p  ", "ppp", "s s", 'p', new ItemStack(ModBlocks.PLANKS, 1, BlockPlanksRustic.EnumType.IRONWOOD.getMetadata()), 's', new ItemStack(Items.STICK));
 		GameRegistry.addShapedRecipe(new ItemStack(ModBlocks.TABLE_OLIVE, 2), "ppp", "s s", 'p', new ItemStack(ModBlocks.PLANKS, 1, BlockPlanksRustic.EnumType.OLIVE.getMetadata()), 's', new ItemStack(Items.STICK));
