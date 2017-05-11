@@ -52,7 +52,7 @@ public class ModItems {
 		HONEYCOMB.setCreativeTab(Rustic.farmingTab);
 		BEESWAX = new ItemBase("beeswax");
 		TALLOW = new ItemBase("tallow");
-		OLIVES = new ItemFoodBase("olives", 1, 0.1F, false) {
+		OLIVES = new ItemFoodBase("olives", 1, 0.4F, false) {
 			@Override
 			public void initFood() {
 				setPotionEffect(new PotionEffect(MobEffects.NAUSEA, 200, 1, false, false), 0.95F);
@@ -63,7 +63,7 @@ public class ModItems {
 				return 24;
 			}
 		};
-		IRONBERRIES = new ItemFoodBase("ironberries", 2, 0.1F, false) {
+		IRONBERRIES = new ItemFoodBase("ironberries", 2, 0.4F, false) {
 			@Override
 			public void initFood() {
 				setAlwaysEdible();
@@ -92,7 +92,7 @@ public class ModItems {
 		IRON_DUST_TINY = new ItemBase("dust_tiny_iron");
 		IRON_DUST_TINY.setCreativeTab(Rustic.farmingTab);
 		ELIXER = new ItemElixer();
-		TOMATO = new ItemFoodBase("tomato", 4, 0.6F, false) {
+		TOMATO = new ItemFoodBase("tomato", 4, 0.4F, false) {
 			@Override
 			public ActionResult<ItemStack> onItemRightClick(World worldIn, EntityPlayer playerIn, EnumHand handIn) {
 				ItemStack itemstack = playerIn.getHeldItem(handIn);
@@ -116,7 +116,7 @@ public class ModItems {
 			}
 		};
 		TOMATO_SEEDS = new ItemStakeCropSeed("tomato_seeds", ModBlocks.TOMATO_CROP);
-		CHILI_PEPPER = new ItemFoodBase("chili_pepper", 4, 0.8F, false) {
+		CHILI_PEPPER = new ItemFoodBase("chili_pepper", 3, 0.4F, false) {
 			@Override
 			protected void onFoodEaten(ItemStack stack, World worldIn, EntityPlayer player) {
 				player.attackEntityFrom(DamageSource.ON_FIRE, 1.0F);
@@ -124,13 +124,13 @@ public class ModItems {
 			}
 		};
 		CHILI_PEPPER_SEEDS = new ItemStakeCropSeed("chili_pepper_seeds", ModBlocks.CHILI_CROP);
-		WILDBERRIES = new ItemFoodBase("wildberries", 2, 0.6F, false) {
+		WILDBERRIES = new ItemFoodBase("wildberries", 2, 0.5F, false) {
 			@Override
 			public int getMaxItemUseDuration(ItemStack stack) {
 				return 16;
 			}
 		};
-		GRAPES = new ItemFoodBase("grapes", 3, 0.4F, false) {
+		GRAPES = new ItemFoodBase("grapes", 3, 0.3F, false) {
 			@Override
 			public int getMaxItemUseDuration(ItemStack stack) {
 				return 16;

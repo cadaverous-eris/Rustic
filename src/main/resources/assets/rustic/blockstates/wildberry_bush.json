@@ -4,6 +4,6 @@
 
         "berries=false": { "model": "rustic:wildberry_bush" },
 
-        "berries=true": { "model": "rustic:wildberry_bush_berries" }
+        "berries=true": [ { "model": "rustic:wildberry_bush_berries" }, { "model": "rustic:wildberry_bush_berries", "y": 90 }, { "model": "rustic:wildberry_bush_berries", "y": 180 }, { "model": "rustic:wildberry_bush_berries", "y": 270 } ]
     }
 }

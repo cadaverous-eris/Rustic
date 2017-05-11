@@ -235,6 +235,7 @@ public class EventHandlerCommon {
 		}
 	}
 
+	/*
 	@SubscribeEvent
 	public void onWorldTick(TickEvent.WorldTickEvent event) {
 		if (!event.world.isRemote) {
@@ -263,5 +264,6 @@ public class EventHandlerCommon {
 			toUpdate.clear();
 		}
 	}
+	*/
 
 }

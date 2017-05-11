@@ -41,7 +41,7 @@ import rustic.common.blocks.ModBlocks;
 import rustic.core.Rustic;
 
 public abstract class BlockBerryBush extends BlockBase implements IPlantable, IGrowable {
-	
+
 	public static final PropertyBool BERRIES = PropertyBool.create("berries");
 
 	protected static final AxisAlignedBB BUSH_AABB = new AxisAlignedBB(0.125D, 0.0D, 0.125D, 0.875D, 1D, 0.875D);
@@ -55,14 +55,14 @@ public abstract class BlockBerryBush extends BlockBase implements IPlantable, IG
 		setTickRandomly(true);
 		setDefaultState(this.blockState.getBaseState().withProperty(BERRIES, false));
 	}
-	
+
 	public abstract Item getBerries();
-	
+
 	@Override
 	public void updateTick(World worldIn, BlockPos pos, IBlockState state, Random rand) {
 		super.updateTick(worldIn, pos, state, rand);
 		this.checkAndDropBlock(worldIn, pos, state);
-		
+
 		if (worldIn.getLightFromNeighbors(pos.up()) >= 9) {
 
 			if (!state.getValue(BERRIES)) {
@@ -77,8 +77,8 @@ public abstract class BlockBerryBush extends BlockBase implements IPlantable, IG
 			} else {
 				float f = getGrowthChance(this, worldIn, pos);
 
-				if (numNeighbors(worldIn, pos) < 3 && net.minecraftforge.common.ForgeHooks.onCropsGrowPre(worldIn, pos, state,
-						rand.nextInt((int) (25.0F / f) + 1) == 0)) {
+				if (numNeighbors(worldIn, pos) < 3 && net.minecraftforge.common.ForgeHooks.onCropsGrowPre(worldIn, pos,
+						state, rand.nextInt((int) (25.0F / f) + 1) == 0)) {
 					growOutward(worldIn, pos, rand);
 					net.minecraftforge.common.ForgeHooks.onCropsGrowPost(worldIn, pos, state,
 							worldIn.getBlockState(pos));
@@ -90,10 +90,10 @@ public abstract class BlockBerryBush extends BlockBase implements IPlantable, IG
 	protected static float getGrowthChance(Block blockIn, World worldIn, BlockPos pos) {
 		return 3F;
 	}
-	
+
 	protected int numNeighbors(World world, BlockPos pos) {
 		int n = 0;
-		
+
 		for (int i = -1; i <= 1; i++) {
 			for (int j = -1; j <= 1; j++) {
 				if (i == 0 && j == 0) {
@@ -104,10 +104,10 @@ public abstract class BlockBerryBush extends BlockBase implements IPlantable, IG
 				}
 			}
 		}
-		
+
 		return n;
 	}
-	
+
 	protected void growOutward(World world, BlockPos pos, Random rand) {
 		List<BlockPos> positions = new ArrayList<BlockPos>();
 		for (int i = -1; i <= 1; i++) {
@@ -115,7 +115,7 @@ public abstract class BlockBerryBush extends BlockBase implements IPlantable, IG
 				if (i == 0 && j == 0) {
 					continue;
 				}
-				if (canPlaceBlockAt(world, pos.add(i, 0 ,j))) {
+				if (canPlaceBlockAt(world, pos.add(i, 0, j))) {
 					positions.add(pos.add(i, 0, j));
 				}
 			}
@@ -125,9 +125,9 @@ public abstract class BlockBerryBush extends BlockBase implements IPlantable, IG
 			world.setBlockState(placePos, getDefaultState(), 3);
 		}
 	}
-	
+
 	@Override
-	public List<ItemStack> getDrops(IBlockAccess world, BlockPos pos, IBlockState state, int fortune){
+	public List<ItemStack> getDrops(IBlockAccess world, BlockPos pos, IBlockState state, int fortune) {
 		List<ItemStack> stacks = super.getDrops(world, pos, state, fortune);
 		if (state.getValue(BERRIES)) {
 			if (getBerries() != null) {
@@ -136,13 +136,14 @@ public abstract class BlockBerryBush extends BlockBase implements IPlantable, IG
 		}
 		return stacks;
 	}
-	
+
 	@Override
 	public boolean onBlockActivated(World world, BlockPos pos, IBlockState state, EntityPlayer player, EnumHand hand,
 			EnumFacing side, float hitX, float hitY, float hitZ) {
 		if (state.getValue(BERRIES)) {
 			world.setBlockState(pos, state.withProperty(BERRIES, false), 3);
-			state.getBlock().spawnAsEntity(world, pos.offset(side), new ItemStack(getBerries(), world.rand.nextInt(3) + 1));
+			state.getBlock().spawnAsEntity(world, pos.offset(side),
+					new ItemStack(getBerries(), world.rand.nextInt(3) + 1));
 			return true;
 		}
 		return false;
@@ -205,19 +206,18 @@ public abstract class BlockBerryBush extends BlockBase implements IPlantable, IG
 	}
 
 	public boolean canBlockStay(World worldIn, BlockPos pos, IBlockState state) {
-		if (state.getBlock() == this)
-		{
+		if (state.getBlock() == this) {
 			IBlockState soil = worldIn.getBlockState(pos.down());
 			return soil.getBlock().canSustainPlant(soil, worldIn, pos.down(), net.minecraft.util.EnumFacing.UP, this);
 		}
 		return this.canSustainBush(worldIn.getBlockState(pos.down()));
 	}
-	
+
 	@Override
 	public int damageDropped(IBlockState state) {
 		return getMetaFromState(getDefaultState().withProperty(BERRIES, false));
 	}
-	
+
 	@Override
 	public IBlockState getStateFromMeta(int meta) {
 		return this.getDefaultState().withProperty(BERRIES, meta > 0 ? true : false);
@@ -246,6 +246,12 @@ public abstract class BlockBerryBush extends BlockBase implements IPlantable, IG
 	@Override
 	public void grow(World worldIn, Random rand, BlockPos pos, IBlockState state) {
 		worldIn.setBlockState(pos, state.withProperty(BERRIES, true), 3);
+	}
+
+	@Override
+	@SideOnly(Side.CLIENT)
+	public Block.EnumOffsetType getOffsetType() {
+		return Block.EnumOffsetType.XZ;
 	}
 
 }
