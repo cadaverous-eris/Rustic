@@ -7,7 +7,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.potion.PotionUtils;
 import rustic.common.items.ModItems;
-import scala.actors.threadpool.Arrays;
+import java.util.Arrays;
 
 public class AdvancedCondenserRecipe extends CondenserRecipe {
 	
