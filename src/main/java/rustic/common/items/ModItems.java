@@ -19,6 +19,7 @@ import net.minecraft.util.SoundCategory;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldServer;
 import net.minecraftforge.client.model.ModelLoader;
+import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
@@ -116,6 +117,7 @@ public class ModItems {
 			}
 		};
 		TOMATO_SEEDS = new ItemStakeCropSeed("tomato_seeds", ModBlocks.TOMATO_CROP);
+		MinecraftForge.addGrassSeed(new ItemStack(TOMATO_SEEDS), 15);
 		CHILI_PEPPER = new ItemFoodBase("chili_pepper", 3, 0.4F, false) {
 			@Override
 			protected void onFoodEaten(ItemStack stack, World worldIn, EntityPlayer player) {
@@ -124,6 +126,7 @@ public class ModItems {
 			}
 		};
 		CHILI_PEPPER_SEEDS = new ItemStakeCropSeed("chili_pepper_seeds", ModBlocks.CHILI_CROP);
+		MinecraftForge.addGrassSeed(new ItemStack(CHILI_PEPPER_SEEDS), 15);
 		WILDBERRIES = new ItemFoodBase("wildberries", 2, 0.5F, false) {
 			@Override
 			public int getMaxItemUseDuration(ItemStack stack) {

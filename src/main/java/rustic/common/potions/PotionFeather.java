@@ -7,14 +7,10 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-public class PotionFeather extends Potion {
-	
-	public static ResourceLocation POTION_ICONS = new ResourceLocation("rustic:textures/gui/potion_icons.png");
+public class PotionFeather extends PotionBase {
 
 	protected PotionFeather() {
-		super(false, 14474460);
-		setPotionName("effect.feather");
-		setBeneficial();
+		super(false, 14474460, "feather");
 		setIconIndex(1, 0);
 	}
 	
@@ -31,12 +27,5 @@ public class PotionFeather extends Potion {
 	public boolean isReady(int duration, int amplifier) {
 		return true;
     }
-
-	@SideOnly(Side.CLIENT)
-	@Override
-	public int getStatusIconIndex() {
-		Minecraft.getMinecraft().getTextureManager().bindTexture(POTION_ICONS);
-		return super.getStatusIconIndex();
-	}
 
 }

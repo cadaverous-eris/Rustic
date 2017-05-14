@@ -24,24 +24,13 @@ import net.minecraft.world.WorldServer;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-public class PotionIronSkin extends Potion {
+public class PotionIronSkin extends PotionBase {
 	
-	public static ResourceLocation POTION_ICONS = new ResourceLocation("rustic:textures/gui/potion_icons.png");
-
 	protected PotionIronSkin() {
-		super(false, 16777148);
-		setPotionName("effect.ironskin");
-		setBeneficial();
+		super(false, 16777148, "ironskin");
 		setIconIndex(0, 0);
 		registerPotionAttributeModifier(SharedMonsterAttributes.ARMOR, "D666C8fD-8AC4-451D-9A06-777947832156", 3F, 0);
 		registerPotionAttributeModifier(SharedMonsterAttributes.ARMOR_TOUGHNESS, "D774E354-E3AB-42C4-9716-d2280CD7D988", 2F, 0);
-	}
-	
-	@SideOnly(Side.CLIENT)
-	@Override
-	public int getStatusIconIndex() {
-		Minecraft.getMinecraft().getTextureManager().bindTexture(POTION_ICONS);
-		return super.getStatusIconIndex();
 	}
 
 	public void removeAttributesModifiersFromEntity(EntityLivingBase entityLivingBaseIn, AbstractAttributeMap attributeMapIn, int amplifier) {

@@ -10,14 +10,10 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-public class PotionBlazingTrail extends Potion {
-	
-	public static ResourceLocation POTION_ICONS = new ResourceLocation("rustic:textures/gui/potion_icons.png");
+public class PotionBlazingTrail extends PotionBase {
 	
 	protected PotionBlazingTrail() {
-		super(false, 16738816);
-		setPotionName("effect.blazing_trail");
-		setBeneficial();
+		super(false, 16738816, "blazing_trail");
 		setIconIndex(2, 0);
 	}
 	
@@ -32,12 +28,5 @@ public class PotionBlazingTrail extends Potion {
 	public boolean isReady(int duration, int amplifier) {
 		return (duration % 10) == 0;
     }
-
-	@SideOnly(Side.CLIENT)
-	@Override
-	public int getStatusIconIndex() {
-		Minecraft.getMinecraft().getTextureManager().bindTexture(POTION_ICONS);
-		return super.getStatusIconIndex();
-	}
 
 }

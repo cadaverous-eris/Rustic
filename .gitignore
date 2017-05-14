@@ -40,4 +40,4 @@ run
 
 run_server
 libs
-base textures
+*.zip

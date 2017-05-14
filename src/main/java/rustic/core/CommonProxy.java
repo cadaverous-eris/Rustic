@@ -72,6 +72,11 @@ public class CommonProxy {
     private void initFluidBottle() {
     	ItemFluidBottle.addFluid(ModFluids.OLIVE_OIL);
     	ItemFluidBottle.addFluid(ModFluids.IRONBERRY_JUICE);
+    	ItemFluidBottle.addFluid(ModFluids.WILDBERRY_JUICE);
+    	ItemFluidBottle.addFluid(ModFluids.GRAPE_JUICE);
+    	ItemFluidBottle.addFluid(ModFluids.APPLE_JUICE);
+    	ItemFluidBottle.addFluid(ModFluids.ALE_WORT);
+    	ItemFluidBottle.addFluid(ModFluids.HONEY);
     }
     
     public void spawnAlchemySmokeFX(World world, int brewTime, double x, double y, double z, double xVel, double yVel, double zVel) {

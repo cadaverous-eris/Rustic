@@ -15,13 +15,10 @@ import rustic.common.network.MessageShameFX;
 import rustic.common.network.PacketHandler;
 import rustic.core.Rustic;
 
-public class PotionShame extends Potion {
-
-	public static ResourceLocation POTION_ICONS = new ResourceLocation("rustic:textures/gui/potion_icons.png");
+public class PotionShame extends PotionBase {
 
 	protected PotionShame() {
-		super(true, 16409650);
-		setPotionName("effect.shame");
+		super(true, 16409650, "shame");
 		setIconIndex(3, 0);
 	}
 
@@ -36,13 +33,6 @@ public class PotionShame extends Potion {
 	@Override
 	public boolean isReady(int duration, int amplifier) {
 		return (duration % 5) == 0;
-	}
-
-	@SideOnly(Side.CLIENT)
-	@Override
-	public int getStatusIconIndex() {
-		Minecraft.getMinecraft().getTextureManager().bindTexture(POTION_ICONS);
-		return super.getStatusIconIndex();
 	}
 
 }

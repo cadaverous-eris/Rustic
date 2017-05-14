@@ -8,6 +8,7 @@ import net.minecraft.util.EnumHand;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
 import net.minecraftforge.fluids.Fluid;
+import net.minecraftforge.fluids.FluidStack;
 
 public abstract class FluidDrinkable extends Fluid {
 
@@ -15,6 +16,6 @@ public abstract class FluidDrinkable extends Fluid {
 		super(fluidName, still, flowing);
 	}
 	
-	public abstract void onDrank(@Nonnull World world, @Nonnull EntityPlayer player, @Nonnull ItemStack stack);
+	public abstract void onDrank(@Nonnull World world, @Nonnull EntityPlayer player, @Nonnull ItemStack stack, @Nonnull FluidStack fluid);
 
 }

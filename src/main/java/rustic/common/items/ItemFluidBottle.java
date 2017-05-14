@@ -111,7 +111,7 @@ public class ItemFluidBottle extends ItemFluidContainer {
 
 		if (!worldIn.isRemote) {
 			if (fluid instanceof FluidDrinkable && entityplayer != null) {
-				((FluidDrinkable) fluid).onDrank(worldIn, entityplayer, stack);
+				((FluidDrinkable) fluid).onDrank(worldIn, entityplayer, stack, fluidstack);
 			}
 		}
 

@@ -1,5 +1,7 @@
 package rustic.client;
 
+import java.util.Random;
+
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
@@ -47,6 +49,7 @@ import rustic.client.models.LiquidBarrelItemModel;
 import rustic.client.util.FluidClientUtil;
 import rustic.common.Config;
 import rustic.common.blocks.IAdvancedRotationPlacement;
+import rustic.common.blocks.fluids.BlockFluidRustic;
 import rustic.common.blocks.fluids.ModFluids;
 import rustic.core.Rustic;
 
@@ -56,6 +59,13 @@ public class EventHandlerClient {
 	
 	public static ResourceLocation OLIVE_OIL_OVERLAY = new ResourceLocation("rustic:textures/blocks/fluids/olive_oil_overlay.png");
 	public static ResourceLocation IRONBERRY_JUICE_OVERLAY = new ResourceLocation("rustic:textures/blocks/fluids/ironberry_juice_overlay.png");
+	public static ResourceLocation WILDBERRY_JUICE_OVERLAY = new ResourceLocation("rustic:textures/blocks/fluids/wildberry_juice_overlay.png");
+	public static ResourceLocation GRAPE_JUICE_OVERLAY = new ResourceLocation("rustic:textures/blocks/fluids/grape_juice_overlay.png");
+	public static ResourceLocation APPLE_JUICE_OVERLAY = new ResourceLocation("rustic:textures/blocks/fluids/apple_juice_overlay.png");
+	public static ResourceLocation ALE_WORT_OVERLAY = new ResourceLocation("rustic:textures/blocks/fluids/ale_wort_overlay.png");
+	public static ResourceLocation HONEY_OVERLAY = new ResourceLocation("rustic:textures/blocks/fluids/honey_overlay.png");
+	
+	private Random rand = new Random();
 	
 	@SideOnly(Side.CLIENT)
 	@SubscribeEvent
@@ -80,7 +90,8 @@ public class EventHandlerClient {
 		if (event.getOverlayType() == OverlayType.WATER) {
 			Minecraft minecraft = Minecraft.getMinecraft();
 			EntityPlayer player = event.getPlayer();
-			IBlockState state = minecraft.world.getBlockState(event.getBlockPos());
+			BlockPos pos = event.getBlockPos().add(0, player.getEyeHeight(), 0);
+			IBlockState state = minecraft.world.getBlockState(pos);
 			
 			if (state.getBlock().equals(ModFluids.BLOCK_OLIVE_OIL)) {
 				event.setCanceled(true);
@@ -93,6 +104,36 @@ public class EventHandlerClient {
 				float brightness = player.getBrightnessForRender(event.getRenderPartialTicks());
 				GlStateManager.color(brightness, brightness, brightness, 0.99F);
 				drawBlockOverlay(IRONBERRY_JUICE_OVERLAY);
+				GlStateManager.color(1, 1, 1, 1);
+			} else if (state.getBlock().equals(ModFluids.BLOCK_WILDBERRY_JUICE)) {
+				event.setCanceled(true);
+				float brightness = player.getBrightnessForRender(event.getRenderPartialTicks());
+				GlStateManager.color(brightness, brightness, brightness, 0.99F);
+				drawBlockOverlay(WILDBERRY_JUICE_OVERLAY);
+				GlStateManager.color(1, 1, 1, 1);
+			} else if (state.getBlock().equals(ModFluids.BLOCK_GRAPE_JUICE)) {
+				event.setCanceled(true);
+				float brightness = player.getBrightnessForRender(event.getRenderPartialTicks());
+				GlStateManager.color(brightness, brightness, brightness, 0.99F);
+				drawBlockOverlay(GRAPE_JUICE_OVERLAY);
+				GlStateManager.color(1, 1, 1, 1);
+			} else if (state.getBlock().equals(ModFluids.BLOCK_APPLE_JUICE)) {
+				event.setCanceled(true);
+				float brightness = player.getBrightnessForRender(event.getRenderPartialTicks());
+				GlStateManager.color(brightness, brightness, brightness, 0.99F);
+				drawBlockOverlay(APPLE_JUICE_OVERLAY);
+				GlStateManager.color(1, 1, 1, 1);
+			} else if (state.getBlock().equals(ModFluids.BLOCK_ALE_WORT)) {
+				event.setCanceled(true);
+				float brightness = player.getBrightnessForRender(event.getRenderPartialTicks());
+				GlStateManager.color(brightness, brightness, brightness, 0.99F);
+				drawBlockOverlay(ALE_WORT_OVERLAY);
+				GlStateManager.color(1, 1, 1, 1);
+			} else if (state.getBlock().equals(ModFluids.BLOCK_HONEY)) {
+				event.setCanceled(true);
+				float brightness = player.getBrightnessForRender(event.getRenderPartialTicks());
+				GlStateManager.color(brightness, brightness, brightness, 0.99F);
+				drawBlockOverlay(HONEY_OVERLAY);
 				GlStateManager.color(1, 1, 1, 1);
 			}
 		}

@@ -29,6 +29,7 @@ import rustic.common.blocks.ModBlocks;
 import rustic.common.blocks.fluids.ModFluids;
 import rustic.common.crafting.Recipes;
 import rustic.common.items.ModItems;
+import rustic.common.potions.EventHandlerPotions;
 import rustic.compat.crafttweaker.CraftTweakerHelper;
 
 @Mod(modid = Rustic.MODID, name = Rustic.NAME, version = Rustic.VERSION, useMetadata = true)
@@ -96,6 +97,51 @@ public class Rustic {
 				ItemStack filled = fluidHandler.getContainer();
 				p_78018_1_.add(filled);
 			}
+			
+			fs = new FluidStack(ModFluids.WILDBERRY_JUICE,
+					ForgeModContainer.getInstance().universalBucket.getCapacity());
+			stack = new ItemStack(ForgeModContainer.getInstance().universalBucket);
+			fluidHandler = new FluidBucketWrapper(stack);
+			if (fluidHandler.fill(fs, true) == fs.amount) {
+				ItemStack filled = fluidHandler.getContainer();
+				p_78018_1_.add(filled);
+			}
+			
+			fs = new FluidStack(ModFluids.GRAPE_JUICE,
+					ForgeModContainer.getInstance().universalBucket.getCapacity());
+			stack = new ItemStack(ForgeModContainer.getInstance().universalBucket);
+			fluidHandler = new FluidBucketWrapper(stack);
+			if (fluidHandler.fill(fs, true) == fs.amount) {
+				ItemStack filled = fluidHandler.getContainer();
+				p_78018_1_.add(filled);
+			}
+			
+			fs = new FluidStack(ModFluids.APPLE_JUICE,
+					ForgeModContainer.getInstance().universalBucket.getCapacity());
+			stack = new ItemStack(ForgeModContainer.getInstance().universalBucket);
+			fluidHandler = new FluidBucketWrapper(stack);
+			if (fluidHandler.fill(fs, true) == fs.amount) {
+				ItemStack filled = fluidHandler.getContainer();
+				p_78018_1_.add(filled);
+			}
+			
+			fs = new FluidStack(ModFluids.ALE_WORT,
+					ForgeModContainer.getInstance().universalBucket.getCapacity());
+			stack = new ItemStack(ForgeModContainer.getInstance().universalBucket);
+			fluidHandler = new FluidBucketWrapper(stack);
+			if (fluidHandler.fill(fs, true) == fs.amount) {
+				ItemStack filled = fluidHandler.getContainer();
+				p_78018_1_.add(filled);
+			}
+			
+			fs = new FluidStack(ModFluids.HONEY,
+					ForgeModContainer.getInstance().universalBucket.getCapacity());
+			stack = new ItemStack(ForgeModContainer.getInstance().universalBucket);
+			fluidHandler = new FluidBucketWrapper(stack);
+			if (fluidHandler.fill(fs, true) == fs.amount) {
+				ItemStack filled = fluidHandler.getContainer();
+				p_78018_1_.add(filled);
+			}
 
 			if (this.getRelevantEnchantmentTypes() != null) {
 				this.addEnchantmentBooksToList(p_78018_1_, this.getRelevantEnchantmentTypes());
@@ -127,6 +173,9 @@ public class Rustic {
 	public void preInit(FMLPreInitializationEvent event) {
 		MinecraftForge.EVENT_BUS.register(new EventHandlerCommon());
 		MinecraftForge.EVENT_BUS.register(new EventHandlerClient());
+		
+		MinecraftForge.EVENT_BUS.register(new EventHandlerPotions());
+		
 		proxy.preInit(event);
 	}
 

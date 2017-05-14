@@ -10,6 +10,21 @@
 		}],
 		"ironberryjuice": [{
 			"custom": { "fluid": "ironberryjuice" }
+		}],
+		"wildberryjuice": [{
+			"custom": { "fluid": "wildberryjuice" }
+		}],
+		"grapejuice": [{
+			"custom": { "fluid": "grapejuice" }
+		}],
+		"applejuice": [{
+			"custom": { "fluid": "applejuice" }
+		}],
+		"alewort": [{
+			"custom": { "fluid": "alewort" }
+		}],
+		"honey": [{
+			"custom": { "fluid": "honey" }
 		}]
 	}
 }

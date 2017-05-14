@@ -146,12 +146,27 @@ tile.rustic.olive_oil.name=Olive Oil
 fluid.oliveoil=Olive Oil
 tile.rustic.ironberry_juice.name=Ironberry Juice
 fluid.ironberryjuice=Ironberry Juice
+tile.rustic.wildberry_juice.name=Wildberry Juice
+fluid.wildberryjuice=Wildberry Juice
+tile.rustic.grape_juice.name=Grape Juice
+fluid.grapejuice=Grape Juice
+tile.rustic.apple_juice.name=Apple Juice
+fluid.applejuice=Apple Juice
+tile.rustic.ale_wort.name=Ale Wort
+fluid.alewort=Ale Wort
+tile.rustic.honey.name=Honey
+fluid.honey=Honey
 
 #Potion Effects
 effect.ironskin=Iron Skin
 effect.feather=Feather
 effect.blazing_trail=Blazing Trail
 effect.shame=Shame
+effect.full=Full Stomach
+effect.magic_resistance=Magic Resistance
+effect.wither_ward=Wither Ward
+
+effect.tipsy=Inebriated
 
 #Potion Items
 potion.effect.ironskin=Potion of Iron Skin
