@@ -5,7 +5,7 @@ import java.util.List;
 
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.fluids.FluidStack;
-import scala.actors.threadpool.Arrays;
+import java.util.Arrays;
 
 public class CrushingTubRecipe {
 

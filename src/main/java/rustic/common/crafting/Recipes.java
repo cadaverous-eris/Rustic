@@ -40,7 +40,7 @@ import rustic.common.blocks.crops.Herbs;
 import rustic.common.blocks.fluids.ModFluids;
 import rustic.common.items.ModItems;
 import rustic.common.potions.PotionsRustic;
-import scala.actors.threadpool.Arrays;
+import java.util.Arrays;
 
 public class Recipes {
 
