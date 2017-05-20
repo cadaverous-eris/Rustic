@@ -15,9 +15,13 @@ import mezz.jei.api.JEIPlugin;
 import mezz.jei.api.recipe.IRecipeWrapper;
 import mezz.jei.api.recipe.VanillaRecipeCategoryUid;
 import net.minecraft.item.ItemStack;
+import rustic.client.gui.GuiBrewingBarrel;
+import rustic.client.gui.GuiCondenser;
+import rustic.client.gui.GuiCondenserAdvanced;
 import rustic.common.blocks.ModBlocks;
 import rustic.common.crafting.AdvancedCondenserRecipe;
 import rustic.common.crafting.BasicCondenserRecipe;
+import rustic.common.crafting.BrewingBarrelRecipe;
 import rustic.common.crafting.CondenserRecipe;
 import rustic.common.crafting.CrushingTubRecipe;
 import rustic.common.crafting.EvaporatingBasinRecipe;
@@ -66,10 +70,19 @@ public class RusticJEIPlugin extends BlankModPlugin {
         reg.addRecipes(SimpleAlchemyRecipeMaker.getSimpleAlchemyRecipes(helper), "rustic.alchemy_simple");
         reg.handleRecipes(BasicCondenserRecipe.class, new SimpleAlchemyRecipeWrapperFactory(), "rustic.alchemy_simple");
         
+        reg.addRecipeCategories(new BrewingRecipeCategory(guiHelper));
+        reg.addRecipes(Recipes.brewingRecipes, "rustic.brewing");
+        reg.handleRecipes(BrewingBarrelRecipe.class, new BrewingRecipeWrapperFactory(), "rustic.brewing");
+        
         reg.addRecipeCategoryCraftingItem(new ItemStack(ModBlocks.CRUSHING_TUB),"rustic.crushing_tub");
         reg.addRecipeCategoryCraftingItem(new ItemStack(ModBlocks.EVAPORATING_BASIN), "rustic.evaporating");
         reg.addRecipeCategoryCraftingItem(new ItemStack(ModBlocks.CONDENSER), "rustic.alchemy_simple", VanillaRecipeCategoryUid.FUEL);
         reg.addRecipeCategoryCraftingItem(new ItemStack(ModBlocks.CONDENSER_ADVANCED), "rustic.alchemy_advanced", "rustic.alchemy_simple", VanillaRecipeCategoryUid.FUEL);
+        reg.addRecipeCategoryCraftingItem(new ItemStack(ModBlocks.BREWING_BARREL), "rustic.brewing");
+        
+        reg.addRecipeClickArea(GuiBrewingBarrel.class, 85, 35, 24, 16, "rustic.brewing");
+        reg.addRecipeClickArea(GuiCondenser.class, 44, 29, 50, 28, "rustic.alchemy_simple");
+        reg.addRecipeClickArea(GuiCondenserAdvanced.class, 44, 25, 50, 35, "rustic.alchemy_simple", "rustic.alchemy_advanced");
 	}
 	
 	@Override

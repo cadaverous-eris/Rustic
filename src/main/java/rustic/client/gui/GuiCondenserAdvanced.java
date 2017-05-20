@@ -1,10 +1,15 @@
 package rustic.client.gui;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.lwjgl.opengl.GL11;
 
 import net.minecraft.client.gui.inventory.GuiContainer;
+import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.text.TextFormatting;
 import net.minecraftforge.fluids.FluidStack;
 import rustic.client.util.FluidClientUtil;
 import rustic.common.tileentity.ContainerCondenserAdvanced;
@@ -35,6 +40,13 @@ public class GuiCondenserAdvanced extends GuiContainer {
 		//this.fontRendererObj.drawString(this.te.getDisplayName().getUnformattedText(), 8, 6, 4210752);
 		//this.fontRendererObj.drawString(this.playerInv.getDisplayName().getUnformattedText(), 8, this.ySize - 96 + 2,
 		//		4210752);
+		if (isPointInRegion(133, 27, 16, 32, mouseX, mouseY)) {
+			FluidStack fluid = null;
+			if (te.getFluid() != null && te.getAmount() > 0) {
+				fluid = new FluidStack(te.getFluid(), te.getAmount());
+			}
+			drawFluidTooltip(fluid, te.getCapacity(), mouseX, mouseY);
+		}
 	}
 
 	@Override
@@ -65,14 +77,24 @@ public class GuiCondenserAdvanced extends GuiContainer {
 
 	private int getBurnLeftScaled(int pixels) {
 		int i = this.te.currentItemBurnTime;
-		//System.out.println(i);
+
 		if (i == 0) {
 			i = 200;
 		}
-
-		//System.out.println(this.te.condenserBurnTime / i);
 		
 		return (this.te.condenserBurnTime * pixels) / i;
+	}
+	
+	protected void drawFluidTooltip(FluidStack fluid, int capacity, int x, int y) {
+		List<String> lines = new ArrayList<String>();
+		if (fluid == null || fluid.getFluid() == null || fluid.amount <= 0) {
+			lines.add(TextFormatting.GRAY + I18n.format("tooltip.rustic.empty"));
+			lines.add(TextFormatting.GRAY + "" + 0 + "/" + capacity);
+		} else {
+			lines.add(fluid.getFluid().getRarity(fluid).rarityColor + fluid.getLocalizedName());
+			lines.add(TextFormatting.GRAY + "" + fluid.amount + "/" + capacity);
+		}
+		drawHoveringText(lines, x - guiLeft, y - guiTop);
 	}
 
 }

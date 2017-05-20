@@ -3,6 +3,7 @@ package rustic.core;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.NonNullList;
 import net.minecraftforge.common.ForgeModContainer;
 import net.minecraftforge.common.MinecraftForge;
@@ -26,6 +27,7 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 import rustic.client.EventHandlerClient;
 import rustic.common.EventHandlerCommon;
 import rustic.common.blocks.ModBlocks;
+import rustic.common.blocks.fluids.FluidBooze;
 import rustic.common.blocks.fluids.ModFluids;
 import rustic.common.crafting.Recipes;
 import rustic.common.items.ModItems;
@@ -79,68 +81,16 @@ public class Rustic {
 					}
 				}
 			}
-
-			FluidStack fs = new FluidStack(ModFluids.OLIVE_OIL,
-					ForgeModContainer.getInstance().universalBucket.getCapacity());
-			ItemStack stack = new ItemStack(ForgeModContainer.getInstance().universalBucket);
-			IFluidHandlerItem fluidHandler = new FluidBucketWrapper(stack);
-			if (fluidHandler.fill(fs, true) == fs.amount) {
-				ItemStack filled = fluidHandler.getContainer();
-				p_78018_1_.add(filled);
-			}
 			
-			fs = new FluidStack(ModFluids.IRONBERRY_JUICE,
-					ForgeModContainer.getInstance().universalBucket.getCapacity());
-			stack = new ItemStack(ForgeModContainer.getInstance().universalBucket);
-			fluidHandler = new FluidBucketWrapper(stack);
-			if (fluidHandler.fill(fs, true) == fs.amount) {
-				ItemStack filled = fluidHandler.getContainer();
-				p_78018_1_.add(filled);
-			}
-			
-			fs = new FluidStack(ModFluids.WILDBERRY_JUICE,
-					ForgeModContainer.getInstance().universalBucket.getCapacity());
-			stack = new ItemStack(ForgeModContainer.getInstance().universalBucket);
-			fluidHandler = new FluidBucketWrapper(stack);
-			if (fluidHandler.fill(fs, true) == fs.amount) {
-				ItemStack filled = fluidHandler.getContainer();
-				p_78018_1_.add(filled);
-			}
-			
-			fs = new FluidStack(ModFluids.GRAPE_JUICE,
-					ForgeModContainer.getInstance().universalBucket.getCapacity());
-			stack = new ItemStack(ForgeModContainer.getInstance().universalBucket);
-			fluidHandler = new FluidBucketWrapper(stack);
-			if (fluidHandler.fill(fs, true) == fs.amount) {
-				ItemStack filled = fluidHandler.getContainer();
-				p_78018_1_.add(filled);
-			}
-			
-			fs = new FluidStack(ModFluids.APPLE_JUICE,
-					ForgeModContainer.getInstance().universalBucket.getCapacity());
-			stack = new ItemStack(ForgeModContainer.getInstance().universalBucket);
-			fluidHandler = new FluidBucketWrapper(stack);
-			if (fluidHandler.fill(fs, true) == fs.amount) {
-				ItemStack filled = fluidHandler.getContainer();
-				p_78018_1_.add(filled);
-			}
-			
-			fs = new FluidStack(ModFluids.ALE_WORT,
-					ForgeModContainer.getInstance().universalBucket.getCapacity());
-			stack = new ItemStack(ForgeModContainer.getInstance().universalBucket);
-			fluidHandler = new FluidBucketWrapper(stack);
-			if (fluidHandler.fill(fs, true) == fs.amount) {
-				ItemStack filled = fluidHandler.getContainer();
-				p_78018_1_.add(filled);
-			}
-			
-			fs = new FluidStack(ModFluids.HONEY,
-					ForgeModContainer.getInstance().universalBucket.getCapacity());
-			stack = new ItemStack(ForgeModContainer.getInstance().universalBucket);
-			fluidHandler = new FluidBucketWrapper(stack);
-			if (fluidHandler.fill(fs, true) == fs.amount) {
-				ItemStack filled = fluidHandler.getContainer();
-				p_78018_1_.add(filled);
+			for (Fluid fluid : ModFluids.getFluids()) {
+				FluidStack fs = new FluidStack(fluid,
+						ForgeModContainer.getInstance().universalBucket.getCapacity());
+				ItemStack stack = new ItemStack(ForgeModContainer.getInstance().universalBucket);
+				IFluidHandlerItem fluidHandler = new FluidBucketWrapper(stack);
+				if (fluidHandler.fill(fs, true) == fs.amount) {
+					ItemStack filled = fluidHandler.getContainer();
+					p_78018_1_.add(filled);
+				}
 			}
 
 			if (this.getRelevantEnchantmentTypes() != null) {

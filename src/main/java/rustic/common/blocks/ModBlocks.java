@@ -24,6 +24,7 @@ import rustic.common.blocks.slab.ItemBlockSlabBase;
 import rustic.common.items.ModItems;
 import rustic.common.tileentity.TileEntityApiary;
 import rustic.common.tileentity.TileEntityBarrel;
+import rustic.common.tileentity.TileEntityBrewingBarrel;
 import rustic.common.tileentity.TileEntityCabinet;
 import rustic.common.tileentity.TileEntityCondenser;
 import rustic.common.tileentity.TileEntityCondenserAdvanced;
@@ -131,6 +132,7 @@ public class ModBlocks {
 	public static BlockStakeTied STAKE_TIED;
 	public static BlockGrapeStem GRAPE_STEM;
 	public static BlockGrapeLeaves GRAPE_LEAVES;
+	public static BlockBrewingBarrel BREWING_BARREL;
 
 	public static void init() {
 		STONE_PILLAR = new BlockPillar("stone");
@@ -276,6 +278,7 @@ public class ModBlocks {
 		STAKE_TIED = new BlockStakeTied();
 		GRAPE_STEM = new BlockGrapeStem();
 		GRAPE_LEAVES = new BlockGrapeLeaves();
+		BREWING_BARREL = new BlockBrewingBarrel();
 		
 		Herbs.init();
 		
@@ -288,6 +291,7 @@ public class ModBlocks {
 		GameRegistry.registerTileEntity(TileEntityEvaporatingBasin.class, Rustic.MODID + ":tileEntityEvaporatingBasin");
 		GameRegistry.registerTileEntity(TileEntityCondenser.class, Rustic.MODID + ":tileEntityCondenser");
 		GameRegistry.registerTileEntity(TileEntityCondenserAdvanced.class, Rustic.MODID + ":tileEntityCondenserAdvanced");
+		GameRegistry.registerTileEntity(TileEntityBrewingBarrel.class, Rustic.MODID + ":tileEntityBrewingBarrel");
 	}
 
 	@SideOnly(Side.CLIENT)
@@ -385,6 +389,7 @@ public class ModBlocks {
 		ROPE.initModel();
 		GRAPE_STEM.initModel();
 		GRAPE_LEAVES.initModel();
+		BREWING_BARREL.initModel();
 		
 		Herbs.initModels();
 	}

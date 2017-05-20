@@ -26,6 +26,7 @@ import net.minecraft.potion.PotionUtils;
 import net.minecraft.stats.StatList;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.EnumActionResult;
+import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.NonNullList;
 import net.minecraft.util.ResourceLocation;
@@ -35,11 +36,13 @@ import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 import net.minecraftforge.client.model.ModelDynBucket;
 import net.minecraftforge.client.model.ModelLoader;
+import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.capabilities.ICapabilityProvider;
 import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.UniversalBucket;
+import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
 import net.minecraftforge.fluids.capability.ItemFluidContainer;
 import net.minecraftforge.fluids.capability.templates.FluidHandlerItemStack;
 import net.minecraftforge.fluids.capability.wrappers.FluidBucketWrapper;
@@ -47,6 +50,7 @@ import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import rustic.client.models.FluidBottleModel;
+import rustic.common.blocks.fluids.FluidBooze;
 import rustic.common.blocks.fluids.FluidDrinkable;
 import rustic.common.blocks.fluids.ModFluids;
 import rustic.core.Rustic;
@@ -54,6 +58,7 @@ import rustic.core.Rustic;
 public class ItemFluidBottle extends ItemFluidContainer {
 
 	public static List<Fluid> VALID_FLUIDS = new ArrayList<Fluid>();
+	public static final String FLUID_NBT_KEY = "Fluid";
 
 	public static void addFluid(Fluid fluid) {
 		VALID_FLUIDS.add(fluid);
@@ -86,18 +91,22 @@ public class ItemFluidBottle extends ItemFluidContainer {
 	public ItemStack getDefaultInstance() {
 		NBTTagCompound nbt = new FluidStack(ModFluids.OLIVE_OIL, 1000).writeToNBT(new NBTTagCompound());
 		ItemStack stack = super.getDefaultInstance();
+		NBTTagCompound tag = new NBTTagCompound();
+		tag.setTag(FLUID_NBT_KEY, nbt);
 		stack.setTagCompound(nbt);
 		return stack;
 	}
 
 	@Nonnull
-	public ItemStack getFilledBottle(@Nonnull ItemFluidBottle item, Fluid fluid) {
-		ItemStack bottle = new ItemStack(item);
+	public ItemStack getFilledBottle(Fluid fluid) {
+		ItemStack bottle = new ItemStack(this);
 
 		if (this.VALID_FLUIDS.contains(fluid)) {
+			NBTTagCompound fluidTag = new NBTTagCompound();
+			FluidStack fluidStack = new FluidStack(fluid, this.getCapacity());
+			fluidStack.writeToNBT(fluidTag);
 			NBTTagCompound tag = new NBTTagCompound();
-			FluidStack fluidStack = new FluidStack(fluid, item.getCapacity());
-			fluidStack.writeToNBT(tag);
+			tag.setTag(FLUID_NBT_KEY, fluidTag);
 			bottle.setTagCompound(tag);
 		}
 
@@ -155,7 +164,10 @@ public class ItemFluidBottle extends ItemFluidContainer {
 
 	@Nullable
 	public FluidStack getFluid(@Nonnull ItemStack container) {
-		return FluidStack.loadFluidStackFromNBT(container.getTagCompound());
+		if (container.hasTagCompound() && container.getTagCompound().hasKey(FLUID_NBT_KEY)) {
+			return FluidStack.loadFluidStackFromNBT(container.getTagCompound().getCompoundTag(FLUID_NBT_KEY));
+		}
+		return null;
 	}
 
 	public int getCapacity() {
@@ -189,9 +201,19 @@ public class ItemFluidBottle extends ItemFluidContainer {
 	@SideOnly(Side.CLIENT)
 	public void getSubItems(Item itemIn, CreativeTabs tab, NonNullList<ItemStack> subItems) {
 		for (Fluid fluid : VALID_FLUIDS) {
-			ItemStack stack = new ItemStack(this);
-			NBTTagCompound nbt = new FluidStack(fluid, 1000).writeToNBT(new NBTTagCompound());
-			stack.setTagCompound(nbt);
+			ItemStack stack = getFilledBottle(fluid);
+			if (fluid instanceof FluidBooze) {
+				if (stack.hasTagCompound() && stack.getTagCompound().hasKey(FluidHandlerItemStack.FLUID_NBT_KEY)) {
+					NBTTagCompound fluidTag = stack.getTagCompound()
+							.getCompoundTag(FluidHandlerItemStack.FLUID_NBT_KEY);
+					if (!fluidTag.hasKey("Tag")) {
+						fluidTag.setTag("Tag", new NBTTagCompound());
+					}
+					if (!fluidTag.getCompoundTag("Tag").hasKey(FluidBooze.QUALITY_NBT_KEY)) {
+						fluidTag.getCompoundTag("Tag").setFloat(FluidBooze.QUALITY_NBT_KEY, 0.75F);
+					}
+				}
+			}
 			subItems.add(stack);
 		}
 	}
@@ -211,20 +233,25 @@ public class ItemFluidBottle extends ItemFluidContainer {
 					return 0;
 				}
 				if (doFill) {
-					setFluid(resource.getFluid());
+					setFluid(resource.copy());
 				}
 				return Fluid.BUCKET_VOLUME;
 			}
 
-			protected void setFluid(@Nullable Fluid fluid) {
+			protected void setFluid(@Nullable FluidStack fluid) {
 				if (fluid == null) {
 					container = new ItemStack(Items.GLASS_BOTTLE);
 				} else {
 					container = new ItemStack(ModItems.FLUID_BOTTLE);
-					NBTTagCompound tag = new FluidStack(fluid, 1000).writeToNBT(new NBTTagCompound());
+					FluidStack fs = fluid.copy();
+					fs.amount = 1000;
+					NBTTagCompound fluidTag = fs.writeToNBT(new NBTTagCompound());
+					NBTTagCompound tag = new NBTTagCompound();
+					tag.setTag(FLUID_NBT_KEY, fluidTag);
 					container.setTagCompound(tag);
 				}
 			}
+
 			@Override
 			public FluidStack drain(FluidStack resource, boolean doDrain) {
 				if (resource == null || resource.amount < Fluid.BUCKET_VOLUME) {
@@ -232,12 +259,30 @@ public class ItemFluidBottle extends ItemFluidContainer {
 				}
 				return super.drain(resource, doDrain);
 			}
+
 			@Override
 			public FluidStack drain(int maxDrain, boolean doDrain) {
 				if (maxDrain < Fluid.BUCKET_VOLUME) {
 					return null;
 				}
 				return super.drain(maxDrain, doDrain);
+			}
+
+			@Nonnull
+			@Override
+			public ItemStack getContainer() {
+				FluidStack contained = getFluid();
+				if (contained == null || contained.getFluid() == null || contained.amount <= 0) {
+					return new ItemStack(Items.GLASS_BOTTLE);
+				}
+				return container;
+			}
+
+			@SuppressWarnings("unchecked")
+			@Override
+			@Nullable
+			public <T> T getCapability(@Nonnull Capability<T> capability, @Nullable EnumFacing facing) {
+				return capability == CapabilityFluidHandler.FLUID_HANDLER_ITEM_CAPABILITY ? (T) this : null;
 			}
 		};
 		return handler;

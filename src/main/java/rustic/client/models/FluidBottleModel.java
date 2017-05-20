@@ -55,6 +55,7 @@ import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.FluidUtil;
 import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
+import net.minecraftforge.fluids.capability.templates.FluidHandlerItemStack;
 import rustic.common.blocks.fluids.ModFluids;
 import rustic.common.items.ModItems;
 import rustic.core.Rustic;
@@ -198,7 +199,10 @@ public class FluidBottleModel implements IModel, IModelCustomData, IRetexturable
 		public IBakedModel handleItemState(@Nonnull IBakedModel originalModel, @Nonnull ItemStack stack,
 				@Nullable World world, @Nullable EntityLivingBase entity) {
 
-			FluidStack fluidStack = FluidStack.loadFluidStackFromNBT(stack.getTagCompound());
+			FluidStack fluidStack = null;
+			if (stack.hasTagCompound() && stack.getTagCompound().hasKey(FluidHandlerItemStack.FLUID_NBT_KEY)) {
+				fluidStack = FluidStack.loadFluidStackFromNBT(stack.getTagCompound().getCompoundTag(FluidHandlerItemStack.FLUID_NBT_KEY));
+			}
 
 			if (fluidStack == null) {
 				return originalModel;

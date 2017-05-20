@@ -1,0 +1,8 @@
+{
+	"variants": {
+		"facing=north":	{ "model": "rustic:brewing_barrel" },
+		"facing=east":	{ "model": "rustic:brewing_barrel", "y": 90},
+		"facing=south":	{ "model": "rustic:brewing_barrel", "y": 180 },
+		"facing=west":	{ "model": "rustic:brewing_barrel", "y": 270 }
+	}
+}

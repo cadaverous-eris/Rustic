@@ -5,6 +5,8 @@ itemGroup.rustic.alchemy=Rustic Alchemy
 
 #Tooltips
 tooltip.rustic.olive_oil=Olive Oiled
+tooltip.rustic.quality=Quality: 
+tooltip.rustic.empty=Empty
 
 #Containers
 container.rustic.cabinet=Cabinet
@@ -13,6 +15,7 @@ container.rustic.vase=Pot
 container.rustic.apiary=Apiary
 container.rustic.condenser=Condenser
 container.rustic.condenser_advanced=Advanced Condenser
+container.rustic.brewing_barrel=Brewing Barrel
 
 #Blocks
 tile.rustic.chain.name=Iron Chain
@@ -119,6 +122,7 @@ tile.rustic.rope.name=Rope
 tile.rustic.stake_tied.name=Stake With Rope
 tile.rustic.grape_stem.name=Grape Seeds
 tile.rustic.grape_leaves.name=Grape Leaves
+tile.rustic.brewing_barrel.name=Brewing Barrel
 
 #Items
 item.rustic.bee.name=Bee
@@ -157,6 +161,13 @@ fluid.alewort=Ale Wort
 tile.rustic.honey.name=Honey
 fluid.honey=Honey
 
+fluid.ale=Ale
+fluid.cider=Cider
+fluid.ironwine=Iron Wine
+fluid.mead=Mead
+fluid.wildberrywine=Wildberry Wine
+fluid.wine=Wine
+
 #Potion Effects
 effect.ironskin=Iron Skin
 effect.feather=Feather
@@ -183,3 +194,4 @@ rustic.jei.recipe.crushing_tub=Crushing Tub
 rustic.jei.recipe.evaporating=Drying Basin
 rustic.jei.recipe.simple_alchemy=Simple Alchemy
 rustic.jei.recipe.advanced_alchemy=Advanced Alchemy
+rustic.jei.recipe.brewing=Brewing Barrel

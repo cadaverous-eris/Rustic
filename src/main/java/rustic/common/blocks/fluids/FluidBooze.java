@@ -11,6 +11,8 @@ import rustic.common.potions.PotionsRustic;
 
 public class FluidBooze extends FluidDrinkable {
 	
+	public static final String QUALITY_NBT_KEY = "Quality";
+	
 	private float inebriationChance = 0.5F;
 
 	public FluidBooze(String fluidName, ResourceLocation still, ResourceLocation flowing) {
@@ -28,10 +30,7 @@ public class FluidBooze extends FluidDrinkable {
 
 	@Override
 	public void onDrank(World world, EntityPlayer player, ItemStack stack, FluidStack fluid) {
-		float quality = 0.5F;
-		if (fluid.tag.hasKey("Quality", 5)) {
-			quality = fluid.tag.getFloat("Quality");
-		}
+		float quality = getQuality(fluid);
 		
 		inebriate(world, player, quality);
 		affectPlayer(world, player, quality);
@@ -39,6 +38,14 @@ public class FluidBooze extends FluidDrinkable {
 	
 	protected void affectPlayer(World world, EntityPlayer player, float quality) {
 		
+	}
+	
+	public float getQuality(FluidStack fluid) {
+		float quality = 0F;
+		if (fluid.tag != null && fluid.tag.hasKey(QUALITY_NBT_KEY, 5)) {
+			quality = fluid.tag.getFloat(QUALITY_NBT_KEY);
+		}
+		return Math.max(Math.min(quality, 1), 0);
 	}
 	
 	protected void inebriate(World world, EntityPlayer player, float quality) {

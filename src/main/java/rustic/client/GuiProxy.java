@@ -7,6 +7,7 @@ import net.minecraft.world.World;
 import net.minecraftforge.fml.common.network.IGuiHandler;
 import rustic.client.gui.GuiApiary;
 import rustic.client.gui.GuiBarrel;
+import rustic.client.gui.GuiBrewingBarrel;
 import rustic.client.gui.GuiCabinet;
 import rustic.client.gui.GuiCabinetDouble;
 import rustic.client.gui.GuiCondenser;
@@ -15,6 +16,7 @@ import rustic.client.gui.GuiVase;
 import rustic.common.blocks.BlockCabinet;
 import rustic.common.tileentity.ContainerApiary;
 import rustic.common.tileentity.ContainerBarrel;
+import rustic.common.tileentity.ContainerBrewingBarrel;
 import rustic.common.tileentity.ContainerCabinet;
 import rustic.common.tileentity.ContainerCabinetDouble;
 import rustic.common.tileentity.ContainerCondenser;
@@ -22,6 +24,7 @@ import rustic.common.tileentity.ContainerCondenserAdvanced;
 import rustic.common.tileentity.ContainerVase;
 import rustic.common.tileentity.TileEntityApiary;
 import rustic.common.tileentity.TileEntityBarrel;
+import rustic.common.tileentity.TileEntityBrewingBarrel;
 import rustic.common.tileentity.TileEntityCabinet;
 import rustic.common.tileentity.TileEntityCondenser;
 import rustic.common.tileentity.TileEntityCondenserAdvanced;
@@ -45,6 +48,8 @@ public class GuiProxy implements IGuiHandler {
 			return new ContainerCondenser(player.inventory, (TileEntityCondenser) te);
 		} else if (te instanceof TileEntityCondenserAdvanced) {
 			return new ContainerCondenserAdvanced(player.inventory, (TileEntityCondenserAdvanced) te);
+		} else if (te instanceof TileEntityBrewingBarrel) {
+			return new ContainerBrewingBarrel(player.inventory, (TileEntityBrewingBarrel) te);
 		}
 		return null;
 	}
@@ -81,6 +86,8 @@ public class GuiProxy implements IGuiHandler {
 			return new GuiCondenser(new ContainerCondenser(player.inventory, (TileEntityCondenser) te), player.inventory);
 		} else if (te instanceof TileEntityCondenserAdvanced) {
 			return new GuiCondenserAdvanced(new ContainerCondenserAdvanced(player.inventory, (TileEntityCondenserAdvanced) te), player.inventory);
+		} else if (te instanceof TileEntityBrewingBarrel) {
+			return new GuiBrewingBarrel(new ContainerBrewingBarrel(player.inventory, (TileEntityBrewingBarrel) te), player.inventory);
 		}
 		return null;
 	}

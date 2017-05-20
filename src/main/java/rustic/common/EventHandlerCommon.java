@@ -44,6 +44,7 @@ import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.init.MobEffects;
+import net.minecraft.init.PotionTypes;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.Item;
@@ -55,6 +56,7 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraft.network.play.server.SPacketEntityVelocity;
 import net.minecraft.potion.PotionEffect;
+import net.minecraft.potion.PotionUtils;
 import net.minecraft.stats.StatList;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
@@ -73,6 +75,7 @@ import net.minecraftforge.client.event.ModelBakeEvent;
 import net.minecraftforge.client.event.RenderGameOverlayEvent;
 import net.minecraftforge.client.event.RenderGameOverlayEvent.ElementType;
 import net.minecraftforge.common.ForgeHooks;
+import net.minecraftforge.common.ForgeModContainer;
 import net.minecraftforge.client.event.RenderLivingEvent;
 import net.minecraftforge.client.event.TextureStitchEvent;
 import net.minecraftforge.event.entity.EntityJoinWorldEvent;
@@ -88,11 +91,14 @@ import net.minecraftforge.event.world.ChunkEvent;
 import net.minecraftforge.fluids.BlockFluidBase;
 import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidActionResult;
+import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.FluidUtil;
 import net.minecraftforge.fluids.IFluidBlock;
+import net.minecraftforge.fluids.UniversalBucket;
 import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
 import net.minecraftforge.fluids.capability.IFluidHandler;
+import net.minecraftforge.fluids.capability.ItemFluidContainer;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.TickEvent;
 import net.minecraftforge.fml.relauncher.Side;
@@ -101,6 +107,7 @@ import rustic.client.models.LiquidBarrelItemModel;
 import rustic.client.util.FluidClientUtil;
 import rustic.common.blocks.IAdvancedRotationPlacement;
 import rustic.common.blocks.ModBlocks;
+import rustic.common.blocks.fluids.FluidBooze;
 import rustic.common.items.ItemFluidBottle;
 import rustic.common.items.ModItems;
 import rustic.common.network.MessageTEUpdate;
@@ -189,7 +196,7 @@ public class EventHandlerCommon {
 	}
 
 	@SubscribeEvent
-	public void onItemTooltip(ItemTooltipEvent event) {
+	public void onFoodTooltip(ItemTooltipEvent event) {
 		ItemStack stack = event.getItemStack();
 		if (!stack.isEmpty() && stack.getItem() instanceof ItemFood && stack.hasTagCompound()
 				&& stack.getTagCompound().hasKey("oiled")) {
@@ -197,9 +204,26 @@ public class EventHandlerCommon {
 					TextFormatting.DARK_GREEN + "" + TextFormatting.ITALIC + I18n.format("tooltip.rustic.olive_oil"));
 		}
 	}
+	
+	@SubscribeEvent
+	public void onBoozeTooltip(ItemTooltipEvent event) {
+		ItemStack stack = event.getItemStack();
+		if (!stack.isEmpty()) {
+			if (stack.getItem() instanceof ItemFluidContainer) {
+				FluidStack fluid = FluidUtil.getFluidContained(stack);
+				if (fluid != null && fluid.getFluid() != null && fluid.getFluid() instanceof FluidBooze) {
+					if (fluid.tag != null && fluid.tag.hasKey(FluidBooze.QUALITY_NBT_KEY, 5)) {
+						float quality = fluid.tag.getFloat(FluidBooze.QUALITY_NBT_KEY);
+						event.getToolTip().add(
+								TextFormatting.GOLD + "" + I18n.format("tooltip.rustic.quality") + quality);
+					}
+				}
+			}
+		}
+	}
 
 	@SubscribeEvent
-	public void onPlayerRightClickItemEvent(PlayerInteractEvent.RightClickBlock event) {
+	public void onPlayerUseGlassBottle(PlayerInteractEvent.RightClickBlock event) {
 		if (event.getItemStack().getItem().equals(Items.GLASS_BOTTLE)) {
 			EntityPlayer player = event.getEntityPlayer();
 			BlockPos pos = event.getPos();
@@ -219,8 +243,10 @@ public class EventHandlerCommon {
 						player.playSound(SoundEvents.ITEM_BUCKET_FILL, 1.0F, 1.0F);
 						stack.shrink(1);
 						ItemStack bottlestack = new ItemStack(ModItems.FLUID_BOTTLE, 1);
-						NBTTagCompound tag = new FluidStack(fluidblock.getFluid(), 1000)
+						NBTTagCompound fluidTag = new FluidStack(fluidblock.getFluid(), 1000)
 								.writeToNBT(new NBTTagCompound());
+						NBTTagCompound tag = new NBTTagCompound();
+						tag.setTag(ItemFluidBottle.FLUID_NBT_KEY, fluidTag);
 						bottlestack.setTagCompound(tag);
 						if (!player.inventory.addItemStackToInventory(bottlestack)) {
 							player.dropItem(bottlestack, false);
@@ -231,7 +257,7 @@ public class EventHandlerCommon {
 								event.getFace())) {
 					IFluidHandler tank = world.getTileEntity(pos)
 							.getCapability(CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY, event.getFace());
-					if (tank.drain(1000, false) != null && tank.drain(1000, false).getFluid() != null) {
+					if (tank != null && tank.drain(1000, false) != null && tank.drain(1000, false).getFluid() != null) {
 						if (ItemFluidBottle.VALID_FLUIDS.contains(tank.drain(1000, false).getFluid())
 								&& tank.drain(1000, false).amount >= 1000) {
 							FluidStack fill = tank.drain(1000, true);
@@ -239,8 +265,20 @@ public class EventHandlerCommon {
 							player.playSound(SoundEvents.ITEM_BUCKET_FILL, 1.0F, 1.0F);
 							stack.shrink(1);
 							ItemStack bottlestack = new ItemStack(ModItems.FLUID_BOTTLE, 1);
-							NBTTagCompound tag = new FluidStack(fill.getFluid(), 1000).writeToNBT(new NBTTagCompound());
+							NBTTagCompound fluidTag = new FluidStack(fill.getFluid(), 1000).writeToNBT(new NBTTagCompound());
+							NBTTagCompound tag = new NBTTagCompound();
+							tag.setTag(ItemFluidBottle.FLUID_NBT_KEY, fluidTag);
 							bottlestack.setTagCompound(tag);
+							if (!player.inventory.addItemStackToInventory(bottlestack)) {
+								player.dropItem(bottlestack, false);
+							}
+							event.setCanceled(true);
+						} else if (tank.drain(1000, false).getFluid() == FluidRegistry.WATER) {
+							FluidStack fill = tank.drain(1000, true);
+							player.addStat(StatList.getObjectUseStats(stack.getItem()));
+							player.playSound(SoundEvents.ITEM_BUCKET_FILL, 1.0F, 1.0F);
+							stack.shrink(1);
+							ItemStack bottlestack = PotionUtils.addPotionToItemStack(new ItemStack(Items.POTIONITEM), PotionTypes.WATER);
 							if (!player.inventory.addItemStackToInventory(bottlestack)) {
 								player.dropItem(bottlestack, false);
 							}

@@ -47,6 +47,7 @@ public class Recipes {
 	public static List<CrushingTubRecipe> crushingTubRecipes = new ArrayList<CrushingTubRecipe>();
 	public static List<EvaporatingBasinRecipe> evaporatingRecipes = new ArrayList<EvaporatingBasinRecipe>();
 	public static List<CondenserRecipe> condenserRecipes = new ArrayList<CondenserRecipe>();
+	public static List<BrewingBarrelRecipe> brewingRecipes = new ArrayList<BrewingBarrelRecipe>();
 
 	public static void init() {
 		addCraftingRecipes();
@@ -56,6 +57,7 @@ public class Recipes {
 		addCrushingTubRecipes();
 		addEvaporatingRecipes();
 		addCondenserRecipes();
+		addBrewingRecipes();
 	}
 
 	private static void addSmeltingRecipes() {
@@ -432,6 +434,15 @@ public class Recipes {
 		condenserRecipes.add(new AdvancedCondenserRecipe(new PotionEffect(PotionsRustic.BLAZING_TRAIL_POTION, 9600),
 				new ItemStack(Herbs.HORSETAIL), new ItemStack(ModItems.CHILI_PEPPER), new ItemStack(Items.BLAZE_POWDER),
 				new ItemStack(Blocks.NETHERRACK)));
+	}
+	
+	private static void addBrewingRecipes() {
+		brewingRecipes.add(new BrewingBarrelRecipe(new FluidStack(ModFluids.ALE, 1), new FluidStack(ModFluids.ALE_WORT, 1)));
+		brewingRecipes.add(new BrewingBarrelRecipe(new FluidStack(ModFluids.CIDER, 1), new FluidStack(ModFluids.APPLE_JUICE, 1)));
+		brewingRecipes.add(new BrewingBarrelRecipe(new FluidStack(ModFluids.IRON_WINE, 1), new FluidStack(ModFluids.IRONBERRY_JUICE, 1)));
+		brewingRecipes.add(new BrewingBarrelRecipe(new FluidStack(ModFluids.MEAD, 1), new FluidStack(ModFluids.HONEY, 1)));
+		brewingRecipes.add(new BrewingBarrelRecipe(new FluidStack(ModFluids.WILDBERRY_WINE, 1), new FluidStack(ModFluids.WILDBERRY_JUICE, 1)));
+		brewingRecipes.add(new BrewingBarrelRecipe(new FluidStack(ModFluids.WINE, 1), new FluidStack(ModFluids.GRAPE_JUICE, 1)));
 	}
 
 }
