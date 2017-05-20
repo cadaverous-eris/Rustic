@@ -1,9 +1,20 @@
 {
-
+    "forge_marker": 1,
+    "defaults": { "model": "rustic:wildberry_bush" },
     "variants": {
-
-        "berries=false": { "model": "rustic:wildberry_bush" },
-
-        "berries=true": [ { "model": "rustic:wildberry_bush_berries" }, { "model": "rustic:wildberry_bush_berries", "y": 90 }, { "model": "rustic:wildberry_bush_berries", "y": 180 }, { "model": "rustic:wildberry_bush_berries", "y": 270 } ]
+        "berries": {
+            "true": { "submodel": { "berries": [
+                { "model": "rustic:wildberries_0" },
+                { "model": "rustic:wildberries_0", "y": 90 },
+                { "model": "rustic:wildberries_0", "y": 180 },
+                { "model": "rustic:wildberries_0", "y": 270 },
+                { "model": "rustic:wildberries_1" },
+                { "model": "rustic:wildberries_1", "y": 90 },
+                { "model": "rustic:wildberries_1", "y": 180 },
+                { "model": "rustic:wildberries_1", "y": 270 }
+                ] } },
+            "false": {}
+        },
+	"inventory": []
     }
 }

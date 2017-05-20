@@ -1,37 +1,10 @@
 {
     "__comment": "Model generated using MrCrayfish's Model Creator (http://mrcrayfish.com/modelcreator/)",
     "textures": {
-        "0": "blocks/log_oak",
         "1": "rustic:blocks/wildberry_bush_leaves",
         "particle": "rustic:blocks/wildberry_bush_leaves"
     },
     "elements": [
-        {
-            "name": "Stem",
-            "from": [ 6.0, 0.0, 6.0 ], 
-            "to": [ 10.0, 10.0, 10.0 ], 
-            "faces": {
-                "north": { "texture": "#0", "uv": [ 6.0, 6.0, 10.0, 16.0 ] },
-                "east": { "texture": "#0", "uv": [ 6.0, 6.0, 10.0, 16.0 ] },
-                "south": { "texture": "#0", "uv": [ 6.0, 6.0, 10.0, 16.0 ] },
-                "west": { "texture": "#0", "uv": [ 6.0, 6.0, 10.0, 16.0 ] },
-                "up": { "texture": "#0", "uv": [ 6.0, 6.0, 10.0, 10.0 ] },
-                "down": { "texture": "#0", "uv": [ 6.0, 7.0, 10.0, 11.0 ] }
-            }
-        },
-        {
-            "name": "Leaves",
-            "from": [ 2.0, 4.0, 2.0 ], 
-            "to": [ 14.0, 16.0, 14.0 ], 
-            "faces": {
-                "north": { "texture": "#1", "uv": [ 2.0, 2.0, 14.0, 14.0 ] },
-                "east": { "texture": "#1", "uv": [ 2.0, 2.0, 14.0, 14.0 ] },
-                "south": { "texture": "#1", "uv": [ 2.0, 2.0, 14.0, 14.0 ] },
-                "west": { "texture": "#1", "uv": [ 2.0, 2.0, 14.0, 14.0 ] },
-                "up": { "texture": "#1", "uv": [ 2.0, 2.0, 14.0, 14.0 ] },
-                "down": { "texture": "#1", "uv": [ 2.0, 2.0, 14.0, 14.0 ] }
-            }
-        },
         {
             "name": "Berry1",
             "from": [ 5.0, 12.0, 1.0 ], 

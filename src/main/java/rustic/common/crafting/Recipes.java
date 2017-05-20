@@ -196,8 +196,8 @@ public class Recipes {
 				new ItemStack(ModBlocks.SLATE_TILE));
 		GameRegistry.addShapedRecipe(new ItemStack(ModBlocks.SLATE_CHISELED, 4), "SS", "SS", 'S',
 				new ItemStack(ModBlocks.SLATE_BRICK));
-		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(ModBlocks.BARREL), "PSP", "P P", "PSP", 'P',
-				"plankWood", 'S', "slabWood"));
+		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(ModBlocks.BARREL, 2), "PSP", "I I", "PSP", 'P',
+				"plankWood", 'S', "slabWood", 'I', new ItemStack(Items.IRON_INGOT)));
 		GameRegistry.addShapedRecipe(new ItemStack(ModBlocks.IRON_LATTICE, 16), " I ", "III", " I ", 'I',
 				new ItemStack(Items.IRON_INGOT));
 		GameRegistry.addShapedRecipe(new ItemStack(ModBlocks.IRON_LANTERN, 4), "I", "C", "I", 'I',
@@ -239,8 +239,8 @@ public class Recipes {
 				new ItemStack(Blocks.STONE_SLAB, 1, 0));
 		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(ModBlocks.CABINET), "WWW", "W D", "WWW", 'W',
 				"plankWood", 'D', Blocks.TRAPDOOR));
-		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(ModBlocks.LIQUID_BARREL), "P P", "P P", "PSP", 'P',
-				"plankWood", 'S', "slabWood"));
+		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(ModBlocks.LIQUID_BARREL, 2), "P P", "I I", "PSP", 'P',
+				"plankWood", 'S', "slabWood", 'I', new ItemStack(Items.IRON_INGOT)));
 		GameRegistry.addShapelessRecipe(new ItemStack(ModBlocks.FERTILE_SOIL), Blocks.DIRT,
 				new ItemStack(Items.DYE, 1, 15));
 		GameRegistry.addShapelessRecipe(new ItemStack(ModBlocks.PLANKS, 4, 0), new ItemStack(ModBlocks.LOG, 1, 0));
@@ -299,6 +299,8 @@ public class Recipes {
 		GameRegistry.addShapedRecipe(new ItemStack(ModBlocks.ROPE, 12), "s", "s", "s", 's',
 				new ItemStack(Items.STRING));
 		GameRegistry.addShapelessRecipe(new ItemStack(ModBlocks.GRAPE_STEM), new ItemStack(ModItems.GRAPES));
+		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(ModBlocks.BREWING_BARREL), "PIP", "S S", "PIP", 'P',
+				"plankWood", 'S', "slabWood", 'I', new ItemStack(Items.IRON_INGOT)));
 
 		RecipeSorter.register("rustic:ale_wort", AleWortRecipe.class, RecipeSorter.Category.SHAPELESS, "after:minecraft:shapeless");
 		GameRegistry.addRecipe(new AleWortRecipe());
