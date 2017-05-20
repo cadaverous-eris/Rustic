@@ -1,0 +1,40 @@
+{
+    "forge_marker": 1,
+    "defaults": { "model": "oak_leaves" },
+    "variants": {
+        "apple_age": {
+            "0": {},
+            "1": { "submodel": { "apples": [
+                { "model": "rustic:apple_0" },
+                { "model": "rustic:apple_0", "y": 90 },
+                { "model": "rustic:apple_0", "y": 180 },
+                { "model": "rustic:apple_0", "y": 270 },
+                { "model": "rustic:apple_0_1" },
+                { "model": "rustic:apple_0_1", "y": 90 },
+                { "model": "rustic:apple_0_1", "y": 180 },
+                { "model": "rustic:apple_0_1", "y": 270 }
+                ] } },
+            "2": { "submodel": { "apples": [
+                { "model": "rustic:apple_1" },
+                { "model": "rustic:apple_1", "y": 90 },
+                { "model": "rustic:apple_1", "y": 180 },
+                { "model": "rustic:apple_1", "y": 270 },
+                { "model": "rustic:apple_1_1" },
+                { "model": "rustic:apple_1_1", "y": 90 },
+                { "model": "rustic:apple_1_1", "y": 180 },
+                { "model": "rustic:apple_1_1", "y": 270 }
+                ] } },
+            "3": { "submodel": { "apples": [
+                { "model": "rustic:apple_2" },
+                { "model": "rustic:apple_2", "y": 90 },
+                { "model": "rustic:apple_2", "y": 180 },
+                { "model": "rustic:apple_2", "y": 270 },
+                { "model": "rustic:apple_2_1" },
+                { "model": "rustic:apple_2_1", "y": 90 },
+                { "model": "rustic:apple_2_1", "y": 180 },
+                { "model": "rustic:apple_2_1", "y": 270 }
+                ] } }
+        },
+	"inventory": []
+    }
+}

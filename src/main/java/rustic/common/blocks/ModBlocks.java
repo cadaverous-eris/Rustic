@@ -10,11 +10,14 @@ import net.minecraftforge.common.EnumPlantType;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+import rustic.common.blocks.crops.BlockAppleSeeds;
 import rustic.common.blocks.crops.BlockBerryBush;
 import rustic.common.blocks.crops.BlockCropStake;
 import rustic.common.blocks.crops.BlockGrapeLeaves;
 import rustic.common.blocks.crops.BlockGrapeStem;
 import rustic.common.blocks.crops.BlockHerbBase;
+import rustic.common.blocks.crops.BlockLeavesApple;
+import rustic.common.blocks.crops.BlockSaplingApple;
 import rustic.common.blocks.crops.BlockStakeCrop;
 import rustic.common.blocks.crops.BlockStakeTied;
 import rustic.common.blocks.crops.Herbs;
@@ -133,6 +136,9 @@ public class ModBlocks {
 	public static BlockGrapeStem GRAPE_STEM;
 	public static BlockGrapeLeaves GRAPE_LEAVES;
 	public static BlockBrewingBarrel BREWING_BARREL;
+	public static BlockAppleSeeds APPLE_SEEDS;
+	public static BlockSaplingApple APPLE_SAPLING;
+	public static BlockLeavesApple APPLE_LEAVES;
 
 	public static void init() {
 		STONE_PILLAR = new BlockPillar("stone");
@@ -279,6 +285,9 @@ public class ModBlocks {
 		GRAPE_STEM = new BlockGrapeStem();
 		GRAPE_LEAVES = new BlockGrapeLeaves();
 		BREWING_BARREL = new BlockBrewingBarrel();
+		APPLE_SEEDS = new BlockAppleSeeds();
+		APPLE_SAPLING = new BlockSaplingApple();
+		APPLE_LEAVES = new BlockLeavesApple();
 		
 		Herbs.init();
 		
@@ -390,6 +399,9 @@ public class ModBlocks {
 		GRAPE_STEM.initModel();
 		GRAPE_LEAVES.initModel();
 		BREWING_BARREL.initModel();
+		APPLE_SEEDS.initModel();
+		APPLE_SAPLING.initModel();
+		APPLE_LEAVES.initModel();
 		
 		Herbs.initModels();
 	}

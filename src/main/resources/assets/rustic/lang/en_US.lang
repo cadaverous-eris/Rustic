@@ -123,6 +123,9 @@ tile.rustic.stake_tied.name=Stake With Rope
 tile.rustic.grape_stem.name=Grape Seeds
 tile.rustic.grape_leaves.name=Grape Leaves
 tile.rustic.brewing_barrel.name=Brewing Barrel
+tile.rustic.apple_seeds.name=Apple Seeds
+tile.rustic.sapling_apple.name=Apple Sapling
+tile.rustic.leaves_apple.name=Apple Leaves
 
 #Items
 item.rustic.bee.name=Bee

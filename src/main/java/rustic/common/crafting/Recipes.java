@@ -302,24 +302,26 @@ public class Recipes {
 		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(ModBlocks.BREWING_BARREL), "PIP", "S S", "PIP", 'P',
 				"plankWood", 'S', "slabWood", 'I', new ItemStack(Items.IRON_INGOT)));
 
-		RecipeSorter.register("rustic:ale_wort", AleWortRecipe.class, RecipeSorter.Category.SHAPELESS, "after:minecraft:shapeless");
+		RecipeSorter.register("rustic:ale_wort", AleWortRecipe.class, RecipeSorter.Category.SHAPELESS,
+				"after:minecraft:shapeless");
 		GameRegistry.addRecipe(new AleWortRecipe());
 
-		RecipeSorter.register("rustic:olive_oil", RecipeOliveOil.class, RecipeSorter.Category.SHAPELESS, "after:minecraft:shapeless");
+		RecipeSorter.register("rustic:olive_oil", RecipeOliveOil.class, RecipeSorter.Category.SHAPELESS,
+				"after:minecraft:shapeless");
 		GameRegistry.addRecipe(new RecipeOliveOil());
 	}
-	
+
 	public static class AleWortRecipe extends ShapelessRecipes {
 
-		static final ItemStack aleWortBucket = UniversalBucket.getFilledBucket(ForgeModContainer.getInstance().universalBucket,
-				ModFluids.ALE_WORT);
-		static final List<ItemStack> inputs = Arrays.asList(new ItemStack[] {new ItemStack(Items.BREAD),
-				new ItemStack(Items.SUGAR), new ItemStack(Items.WATER_BUCKET)});
-		
+		static final ItemStack aleWortBucket = UniversalBucket
+				.getFilledBucket(ForgeModContainer.getInstance().universalBucket, ModFluids.ALE_WORT);
+		static final List<ItemStack> inputs = Arrays.asList(new ItemStack[] { new ItemStack(Items.BREAD),
+				new ItemStack(Items.SUGAR), new ItemStack(Items.WATER_BUCKET) });
+
 		public AleWortRecipe() {
 			super(aleWortBucket, inputs);
 		}
-		
+
 		@Override
 		@Nonnull
 		public NonNullList<ItemStack> getRemainingItems(InventoryCrafting inv) {
@@ -332,7 +334,7 @@ public class Recipes {
 			}
 			return ret;
 		}
-		
+
 	}
 
 	private static void addCrushingTubRecipes() {
@@ -346,8 +348,8 @@ public class Recipes {
 				new ItemStack(ModItems.WILDBERRIES)));
 		crushingTubRecipes
 				.add(new CrushingTubRecipe(new FluidStack(ModFluids.GRAPE_JUICE, 250), new ItemStack(ModItems.GRAPES)));
-		crushingTubRecipes
-				.add(new CrushingTubRecipe(new FluidStack(ModFluids.APPLE_JUICE, 250), new ItemStack(Items.APPLE)));
+		crushingTubRecipes.add(new CrushingTubRecipe(new FluidStack(ModFluids.APPLE_JUICE, 250),
+				new ItemStack(Items.APPLE), new ItemStack(ModBlocks.APPLE_SEEDS)));
 		crushingTubRecipes
 				.add(new CrushingTubRecipe(new FluidStack(ModFluids.HONEY, 250), new ItemStack(ModItems.HONEYCOMB)));
 	}
@@ -437,14 +439,20 @@ public class Recipes {
 				new ItemStack(Herbs.HORSETAIL), new ItemStack(ModItems.CHILI_PEPPER), new ItemStack(Items.BLAZE_POWDER),
 				new ItemStack(Blocks.NETHERRACK)));
 	}
-	
+
 	private static void addBrewingRecipes() {
-		brewingRecipes.add(new BrewingBarrelRecipe(new FluidStack(ModFluids.ALE, 1), new FluidStack(ModFluids.ALE_WORT, 1)));
-		brewingRecipes.add(new BrewingBarrelRecipe(new FluidStack(ModFluids.CIDER, 1), new FluidStack(ModFluids.APPLE_JUICE, 1)));
-		brewingRecipes.add(new BrewingBarrelRecipe(new FluidStack(ModFluids.IRON_WINE, 1), new FluidStack(ModFluids.IRONBERRY_JUICE, 1)));
-		brewingRecipes.add(new BrewingBarrelRecipe(new FluidStack(ModFluids.MEAD, 1), new FluidStack(ModFluids.HONEY, 1)));
-		brewingRecipes.add(new BrewingBarrelRecipe(new FluidStack(ModFluids.WILDBERRY_WINE, 1), new FluidStack(ModFluids.WILDBERRY_JUICE, 1)));
-		brewingRecipes.add(new BrewingBarrelRecipe(new FluidStack(ModFluids.WINE, 1), new FluidStack(ModFluids.GRAPE_JUICE, 1)));
+		brewingRecipes
+				.add(new BrewingBarrelRecipe(new FluidStack(ModFluids.ALE, 1), new FluidStack(ModFluids.ALE_WORT, 1)));
+		brewingRecipes.add(
+				new BrewingBarrelRecipe(new FluidStack(ModFluids.CIDER, 1), new FluidStack(ModFluids.APPLE_JUICE, 1)));
+		brewingRecipes.add(new BrewingBarrelRecipe(new FluidStack(ModFluids.IRON_WINE, 1),
+				new FluidStack(ModFluids.IRONBERRY_JUICE, 1)));
+		brewingRecipes
+				.add(new BrewingBarrelRecipe(new FluidStack(ModFluids.MEAD, 1), new FluidStack(ModFluids.HONEY, 1)));
+		brewingRecipes.add(new BrewingBarrelRecipe(new FluidStack(ModFluids.WILDBERRY_WINE, 1),
+				new FluidStack(ModFluids.WILDBERRY_JUICE, 1)));
+		brewingRecipes.add(
+				new BrewingBarrelRecipe(new FluidStack(ModFluids.WINE, 1), new FluidStack(ModFluids.GRAPE_JUICE, 1)));
 	}
 
 }

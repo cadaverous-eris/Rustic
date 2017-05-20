@@ -1,0 +1,6 @@
+{
+    "parent": "block/cross",
+    "textures": {
+        "cross": "rustic:blocks/apple_seeds_1"
+    }
+}

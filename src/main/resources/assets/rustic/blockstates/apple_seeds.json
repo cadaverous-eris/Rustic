@@ -1,0 +1,9 @@
+{
+
+    "variants": {
+
+        "age=0": { "model": "rustic:apple_seeds_0" },
+
+        "age=1": { "model": "rustic:apple_seeds_1" }
+    }
+}

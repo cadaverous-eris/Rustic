@@ -11,6 +11,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagByte;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraftforge.fluids.FluidStack;
+import net.minecraftforge.fluids.capability.templates.FluidHandlerItemStack;
 import rustic.common.blocks.fluids.ModFluids;
 import rustic.common.items.ModItems;
 
@@ -22,8 +23,10 @@ public class OliveOilRecipeWrapper extends BlankRecipeWrapper implements ICrafti
 	public OliveOilRecipeWrapper(Item foodItem) {
 		ItemStack foodStack = new ItemStack(foodItem);
 		ItemStack oilStack = new ItemStack(ModItems.FLUID_BOTTLE);
-		NBTTagCompound nbt = new FluidStack(ModFluids.OLIVE_OIL, 1000).writeToNBT(new NBTTagCompound());
-		oilStack.setTagCompound(nbt);
+		NBTTagCompound fluidTag = new FluidStack(ModFluids.OLIVE_OIL, 1000).writeToNBT(new NBTTagCompound());
+		NBTTagCompound tag = new NBTTagCompound();
+		tag.setTag(FluidHandlerItemStack.FLUID_NBT_KEY, fluidTag);
+		oilStack.setTagCompound(tag);
 		
 		this.inputs = new ArrayList<ItemStack>();
 		this.inputs.add(foodStack);
