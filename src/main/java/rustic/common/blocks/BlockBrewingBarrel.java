@@ -16,6 +16,7 @@ import net.minecraft.util.Mirror;
 import net.minecraft.util.Rotation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
+import rustic.common.tileentity.TileEntityBarrel;
 import rustic.common.tileentity.TileEntityBrewingBarrel;
 import rustic.common.tileentity.TileEntityCondenser;
 import rustic.core.Rustic;
@@ -92,6 +93,12 @@ public class BlockBrewingBarrel extends BlockBase implements ITileEntityProvider
 		super.eventReceived(state, worldIn, pos, id, param);
 		TileEntity tileentity = worldIn.getTileEntity(pos);
 		return tileentity == null ? false : tileentity.receiveClientEvent(id, param);
+	}
+	
+	public void breakBlock(World worldIn, BlockPos pos, IBlockState state) {
+		((TileEntityBrewingBarrel)worldIn.getTileEntity(pos)).breakBlock(worldIn,pos,state);
+		worldIn.removeTileEntity(pos);
+		super.breakBlock(worldIn, pos, state);
 	}
 
 }

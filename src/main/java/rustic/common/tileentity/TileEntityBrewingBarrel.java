@@ -14,8 +14,10 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.tileentity.TileEntityFurnace;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ITickable;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TextComponentTranslation;
+import net.minecraft.world.World;
 import net.minecraftforge.common.ForgeModContainer;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.fluids.Fluid;
@@ -240,6 +242,18 @@ public class TileEntityBrewingBarrel extends TileEntity implements ITickable {
 			return (T) externalStackHandler;
 		}
 		return super.getCapability(capability, facing);
+	}
+	
+	public void breakBlock(World world, BlockPos pos, IBlockState state) {
+		this.invalidate();
+		if (internalStackHandler != null && !world.isRemote) {
+			for (int i = 0; i < internalStackHandler.getSlots(); i++) {
+				if (internalStackHandler.getStackInSlot(i) != null) {
+					state.getBlock().spawnAsEntity(world, pos, internalStackHandler.getStackInSlot(i));
+				}
+			}
+		}
+		world.setTileEntity(pos, null);
 	}
 
 	@Override

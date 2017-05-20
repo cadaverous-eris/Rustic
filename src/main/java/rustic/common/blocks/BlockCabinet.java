@@ -74,8 +74,11 @@ public class BlockCabinet extends BlockRotatable implements ITileEntityProvider 
 		if (!(te instanceof TileEntityCabinet)) {
 			return false;
 		}
-		player.openGui(Rustic.instance, GUI_ID, world, pos.getX(), pos.getY(), pos.getZ());
-		return true;
+		if (facing == state.getValue(FACING)) {
+			player.openGui(Rustic.instance, GUI_ID, world, pos.getX(), pos.getY(), pos.getZ());
+			return true;
+		}
+		return false;
 	}
 
 	public void breakBlock(World worldIn, BlockPos pos, IBlockState state) {
