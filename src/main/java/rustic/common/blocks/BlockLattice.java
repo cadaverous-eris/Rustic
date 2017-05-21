@@ -5,6 +5,7 @@ import java.util.List;
 import javax.annotation.Nullable;
 
 import net.minecraft.block.Block;
+import net.minecraft.block.BlockLeaves;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.IProperty;
@@ -128,8 +129,7 @@ public class BlockLattice extends BlockBase {
 	public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn,
 			EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
 		ItemStack heldItem = playerIn.getHeldItem(hand);
-		if (heldItem.getItem().equals(Item.getItemFromBlock(Blocks.LEAVES))
-				|| heldItem.getItem().equals(Item.getItemFromBlock(Blocks.LEAVES2))) {
+		if (Block.getBlockFromItem(heldItem.getItem()) != null && Block.getBlockFromItem(heldItem.getItem()) instanceof BlockLeaves) {
 			worldIn.setBlockState(pos, state.withProperty(LEAVES, true));
 			playerIn.getHeldItem(hand).shrink(1);
 			return true;

@@ -91,9 +91,17 @@ public class Recipes {
 
 	private static void addOreDictEntries() {
 		OreDictionary.registerOre("cropOlive", new ItemStack(ModItems.OLIVES));
-		OreDictionary.registerOre("foodIronberries", new ItemStack(ModItems.IRONBERRIES));
+		OreDictionary.registerOre("cropIronberry", new ItemStack(ModItems.IRONBERRIES));
 		OreDictionary.registerOre("listAllfruit", new ItemStack(ModItems.OLIVES));
 		OreDictionary.registerOre("listAllfruit", new ItemStack(ModItems.IRONBERRIES));
+		OreDictionary.registerOre("listAllfruit", new ItemStack(ModItems.GRAPES));
+		OreDictionary.registerOre("listAllberry", new ItemStack(ModItems.GRAPES));
+		OreDictionary.registerOre("listAllberry", new ItemStack(ModItems.IRONBERRIES));
+		OreDictionary.registerOre("listAllberry", new ItemStack(ModItems.WILDBERRIES));
+		OreDictionary.registerOre("cropWildberry", new ItemStack(ModItems.WILDBERRIES));
+		OreDictionary.registerOre("cropGrape", new ItemStack(ModItems.GRAPES));
+		OreDictionary.registerOre("cropChilipepper", new ItemStack(ModItems.CHILI_PEPPER));
+		OreDictionary.registerOre("cropTomato", new ItemStack(ModItems.TOMATO));
 
 		for (int i = 0; i < BlockPlanksRustic.EnumType.values().length; i++) {
 			IBlockState state = ModBlocks.LOG.getDefaultState().withProperty(BlockLogRustic.VARIANT,
@@ -114,6 +122,8 @@ public class Recipes {
 			meta = ModBlocks.PLANKS.getMetaFromState(state);
 			OreDictionary.registerOre("plankWood", new ItemStack(ModBlocks.PLANKS, 1, meta));
 		}
+		OreDictionary.registerOre("treeSapling", new ItemStack(ModBlocks.APPLE_SAPLING));
+		OreDictionary.registerOre("treeLeaves", new ItemStack(ModBlocks.APPLE_LEAVES));
 
 		OreDictionary.registerOre("wax", new ItemStack(ModItems.BEESWAX));
 		OreDictionary.registerOre("wax", new ItemStack(ModItems.TALLOW));
