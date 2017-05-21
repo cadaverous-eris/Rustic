@@ -230,7 +230,7 @@ public class BlockLeavesApple extends BlockLeaves implements IColoredBlock, IGro
 	@Override
 	public ItemStack getPickBlock(IBlockState state, RayTraceResult target, World world, BlockPos pos,
 			EntityPlayer player) {
-		return new ItemStack(this, 1, this.getMetaFromState(this.getDefaultState()));
+		return new ItemStack(this, 1, 0);
 	}
 
 	@Override
