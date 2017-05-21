@@ -122,6 +122,11 @@ public class Recipes {
 			meta = ModBlocks.PLANKS.getMetaFromState(state);
 			OreDictionary.registerOre("plankWood", new ItemStack(ModBlocks.PLANKS, 1, meta));
 		}
+		OreDictionary.registerOre("slabWood", new ItemStack(ModBlocks.OLIVE_SLAB_ITEM));
+		OreDictionary.registerOre("slabWood", new ItemStack(ModBlocks.IRONWOOD_SLAB_ITEM));
+		OreDictionary.registerOre("stairWood", new ItemStack(ModBlocks.OLIVE_STAIRS));
+		OreDictionary.registerOre("stairWood", new ItemStack(ModBlocks.IRONWOOD_STAIRS));
+		
 		OreDictionary.registerOre("treeSapling", new ItemStack(ModBlocks.APPLE_SAPLING));
 		OreDictionary.registerOre("treeLeaves", new ItemStack(ModBlocks.APPLE_LEAVES));
 
