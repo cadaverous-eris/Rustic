@@ -122,7 +122,7 @@ public class ModItems {
 			@Override
 			protected void onFoodEaten(ItemStack stack, World worldIn, EntityPlayer player) {
 				player.attackEntityFrom(DamageSource.ON_FIRE, 1.0F);
-				player.addPotionEffect(new PotionEffect(MobEffects.SPEED, 200));
+				player.addPotionEffect(new PotionEffect(MobEffects.SPEED, 400));
 			}
 		};
 		CHILI_PEPPER_SEEDS = new ItemStakeCropSeed("chili_pepper_seeds", ModBlocks.CHILI_CROP);
