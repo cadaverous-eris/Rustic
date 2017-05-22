@@ -96,7 +96,7 @@ public class BlockGrapeLeaves extends BlockBase implements IGrowable, IColoredBl
 
 	@Override
 	public int damageDropped(IBlockState state) {
-		return this.getMetaFromState(state.withProperty(AXIS, EnumFacing.Axis.Y).withProperty(SUPPORTED, false)
+		return this.getMetaFromState(state.withProperty(AXIS, EnumFacing.Axis.Z).withProperty(SUPPORTED, false)
 				.withProperty(GRAPES, false).withProperty(DIST, 0));
 	}
 
