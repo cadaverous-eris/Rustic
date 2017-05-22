@@ -30,7 +30,7 @@ public class FluidClientUtil {
 
 	public static void drawFluidStack(FluidStack fluid, int x, int y, int width, int height) {
 
-		if (fluid == null || fluid.getFluid() == null) {
+		if (fluid == null || fluid.getFluid() == null || fluid.amount <= 0) {
 			return;
 		}
 
@@ -56,19 +56,35 @@ public class FluidClientUtil {
 			return;
 		}
 
-		int iterations = (int) (height / spriteHeight);
-		float leftOver = (height % spriteHeight);
-		float leftOverNorm = leftOver / (float) spriteHeight;
+		int iterationsY = (int) (height / spriteHeight);
+		float leftOverY = (height % spriteHeight);
+		float leftOverNormY = leftOverY / (float) spriteHeight;
+		int iterationsX = (int) (width / spriteWidth);
+		float leftOverX = (width % spriteWidth);
+		float leftOverNormX = leftOverX / (float) spriteWidth;
+		
 
 		Minecraft.getMinecraft().getTextureManager().bindTexture(TextureMap.LOCATION_BLOCKS_TEXTURE);
 
-		for (int j = 0; j < iterations; j++) {
-			ClientUtils.drawTexturedColoredRect(x, y + (spriteHeight * j), spriteWidth,
-					spriteHeight, minU, minV, maxU, maxV, color);
+		for (int i = 0; i < iterationsY; i++) {
+			for (int j = 0; j < iterationsX; j++) {
+				ClientUtils.drawTexturedColoredRect(x + (spriteWidth * j), y + (spriteHeight * i), spriteWidth,
+						spriteHeight, minU, minV, maxU, maxV, color);
+			}
+			if (leftOverX > 0) {
+				ClientUtils.drawTexturedColoredRect(x + (spriteWidth * iterationsX), y + (spriteHeight * i), leftOverX,
+						spriteHeight, minU, minV, minU + (uDiff * leftOverNormX), maxV, color);
+			}
 		}
-		if (leftOver > 0) {
-			ClientUtils.drawTexturedColoredRect(x, y + (spriteHeight * iterations), spriteWidth,
-					leftOver, minU, minV, maxU, minV + (vDiff * leftOverNorm), color);
+		if (leftOverY > 0) {
+			for (int j = 0; j < iterationsX; j++) {
+				ClientUtils.drawTexturedColoredRect(x + (spriteWidth * j), y + (spriteHeight * iterationsY), spriteWidth,
+						leftOverY, minU, minV, maxU, minV + (vDiff * leftOverNormY), color);
+			}
+			if (leftOverX > 0) {
+				ClientUtils.drawTexturedColoredRect(x + (spriteWidth * iterationsX), y + (spriteHeight * iterationsY), leftOverX,
+						leftOverY, minU, minV, minU + (uDiff * leftOverNormX), minV + (vDiff * leftOverNormY), color);
+			}
 		}
 
 	}
