@@ -101,7 +101,7 @@ public class ItemFluidBottle extends ItemFluidContainer {
 	public ItemStack getFilledBottle(Fluid fluid) {
 		ItemStack bottle = new ItemStack(this);
 
-		if (this.VALID_FLUIDS.contains(fluid)) {
+		if (this.VALID_FLUIDS.contains(fluid) && FluidRegistry.getFluidName(fluid) != null) {
 			NBTTagCompound fluidTag = new NBTTagCompound();
 			FluidStack fluidStack = new FluidStack(fluid, this.getCapacity());
 			fluidStack.writeToNBT(fluidTag);
