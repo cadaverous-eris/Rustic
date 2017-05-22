@@ -100,6 +100,7 @@ import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
 import net.minecraftforge.fluids.capability.IFluidHandler;
 import net.minecraftforge.fluids.capability.ItemFluidContainer;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+import net.minecraftforge.fml.common.gameevent.PlayerEvent;
 import net.minecraftforge.fml.common.gameevent.TickEvent;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
@@ -155,6 +156,17 @@ public class EventHandlerCommon {
 		}
 	}
 	*/
+	
+	@SubscribeEvent
+	public void onOliveOilCraftingEvent(PlayerEvent.ItemCraftedEvent event) {
+		if (event.player != null) {
+			if (!event.crafting.isEmpty() && event.crafting.getItem() instanceof ItemFood && event.crafting.hasTagCompound() && event.crafting.getTagCompound().hasKey("oiled")) {
+				if (!event.player.inventory.addItemStackToInventory(new ItemStack(Items.GLASS_BOTTLE))) {
+					event.player.dropItem(new ItemStack(Items.GLASS_BOTTLE), false);
+				}
+			}
+		}
+	}
 	
 	@SubscribeEvent
 	public void onVineDropEvent(BlockEvent.HarvestDropsEvent event) {

@@ -84,9 +84,6 @@ public class RecipeOliveOil implements IRecipe {
 	@Override
 	public NonNullList<ItemStack> getRemainingItems(InventoryCrafting inv) {
 		NonNullList items = NonNullList.<ItemStack>withSize(inv.getSizeInventory(), ItemStack.EMPTY);
-		for (int i = 0; i < inv.getSizeInventory(); i++) {
-			items.set(i, ForgeHooks.getContainerItem(inv.getStackInSlot(i)));
-		}
 		return items;
 	}
 
