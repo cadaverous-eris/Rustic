@@ -98,9 +98,8 @@ public abstract class BlockHerbBase extends BlockBush implements IGrowable, IPla
 		int age = getAge(state);
 		Random rand = world instanceof World ? ((World) world).rand : new Random();
 
-		ret.add(new ItemStack(this.getHerb(), 1, 0));
 		if (age >= getMaxAge()) {
-			int k = 3 + fortune;
+			int k = 2 + fortune;
 
 			for (int i = 0; i < k; ++i) {
 				if (rand.nextInt(2 * getMaxAge()) <= age) {
@@ -122,7 +121,7 @@ public abstract class BlockHerbBase extends BlockBush implements IGrowable, IPla
 	}
 
 	protected int getAge(IBlockState state) {
-		return ((Integer) state.getValue(this.getAgeProperty())).intValue();
+		return state.getValue(this.getAgeProperty());
 	}
 
 	public IBlockState withAge(int age) {
