@@ -1,22 +1,23 @@
 {
     "__comment": "Model generated using MrCrayfish's Model Creator (http://mrcrayfish.com/modelcreator/)",
     "textures": {
-        "0": "rustic:blocks/crop_stake",
-	"crop": "#crop",
-	"particle": "#crop"
+        "0": "blocks/planks_oak",
+		"2":"blocks/log_oak_top",
+		"crop": "#crop",
+		"particle": "#crop"
     },
     "elements": [
-        {
-            "name": "Stake",
+		{
+            "name": "Cube",
             "from": [ 6.0, 0.0, 6.0 ], 
             "to": [ 10.0, 16.0, 10.0 ], 
             "faces": {
-                "north": { "texture": "#0", "uv": [ 0.0, 0.0, 4.0, 16.0 ] },
-                "east": { "texture": "#0", "uv": [ 4.0, 0.0, 8.0, 16.0 ] },
-                "south": { "texture": "#0", "uv": [ 8.0, 0.0, 12.0, 16.0 ] },
-                "west": { "texture": "#0", "uv": [ 12.0, 0.0, 16.0, 16.0 ] },
-                "up": { "texture": "#0", "uv": [ 0.0, 0.0, 4.0, 4.0 ] },
-                "down": { "texture": "#0", "uv": [ 0.0, 12.0, 4.0, 16.0 ] }
+                "north": { "texture": "#0", "uv": [ 0.0, 0.0, 16.0, 4.0 ], "rotation": 90 },
+                "east": { "texture": "#0", "uv": [ 0.0, 8.0, 16.0, 12.0 ], "rotation": 90 },
+                "south": { "texture": "#0", "uv": [ 0.0, 0.0, 16.0, 4.0 ], "rotation": 90 },
+                "west": { "texture": "#0", "uv": [ 0.0, 8.0, 16.0, 12.0 ], "rotation": 90 },
+                "up": { "texture": "#2", "uv": [ 6.0, 6.0, 10.0, 10.0 ] },
+                "down": { "texture": "#2", "uv": [ 6.0, 6.0, 10.0, 10.0 ] }
             }
         },
         {
@@ -25,11 +26,7 @@
             "to": [ 16.0, 16.0, 2.0 ], 
             "faces": {
                 "north": { "texture": "#crop", "uv": [ 0.0, 0.0, 16.0, 16.0 ] },
-                "east": { "texture": "#crop", "uv": [ 0.0, 0.0, 0.0, 16.0 ] },
-                "south": { "texture": "#crop", "uv": [ 0.0, 0.0, 16.0, 16.0 ] },
-                "west": { "texture": "#crop", "uv": [ 0.0, 0.0, 0.0, 16.0 ] },
-                "up": { "texture": "#crop", "uv": [ 0.0, 0.0, 16.0, 0.0 ] },
-                "down": { "texture": "#crop", "uv": [ 0.0, 0.0, 16.0, 0.0 ] }
+                "south": { "texture": "#crop", "uv": [ 16.0, 0.0, 0.0, 16.0 ] }
             }
         },
         {
@@ -37,12 +34,8 @@
             "from": [ 0.0, 0.0, 14.0 ], 
             "to": [ 16.0, 16.0, 14.0 ], 
             "faces": {
-                "north": { "texture": "#crop", "uv": [ 0.0, 0.0, 16.0, 16.0 ] },
-                "east": { "texture": "#crop", "uv": [ 0.0, 0.0, 0.0, 16.0 ] },
-                "south": { "texture": "#crop", "uv": [ 0.0, 0.0, 16.0, 16.0 ] },
-                "west": { "texture": "#crop", "uv": [ 0.0, 0.0, 0.0, 16.0 ] },
-                "up": { "texture": "#crop", "uv": [ 0.0, 0.0, 16.0, 0.0 ] },
-                "down": { "texture": "#crop", "uv": [ 0.0, 0.0, 16.0, 0.0 ] }
+                "north": { "texture": "#crop", "uv": [ 16.0, 0.0, 0.0, 16.0 ] },
+                "south": { "texture": "#crop", "uv": [ 0.0, 0.0, 16.0, 16.0 ] }
             }
         },
         {
@@ -50,12 +43,8 @@
             "from": [ 2.0, 0.0, 0.0 ], 
             "to": [ 2.0, 16.0, 16.0 ], 
             "faces": {
-                "north": { "texture": "#crop", "uv": [ 0.0, 0.0, 0.0, 16.0 ] },
-                "east": { "texture": "#crop", "uv": [ 0.0, 0.0, 16.0, 16.0 ] },
-                "south": { "texture": "#crop", "uv": [ 0.0, 0.0, 0.0, 16.0 ] },
-                "west": { "texture": "#crop", "uv": [ 0.0, 0.0, 16.0, 16.0 ] },
-                "up": { "texture": "#crop", "uv": [ 0.0, 0.0, 0.0, 16.0 ] },
-                "down": { "texture": "#crop", "uv": [ 0.0, 0.0, 0.0, 16.0 ] }
+                "east": { "texture": "#crop", "uv": [ 16.0, 0.0, 0.0, 16.0 ] },
+                "west": { "texture": "#crop", "uv": [ 0.0, 0.0, 16.0, 16.0 ] }
             }
         },
         {
@@ -63,12 +52,8 @@
             "from": [ 14.0, 0.0, 0.0 ], 
             "to": [ 14.0, 16.0, 16.0 ], 
             "faces": {
-                "north": { "texture": "#crop", "uv": [ 0.0, 0.0, 0.0, 16.0 ] },
                 "east": { "texture": "#crop", "uv": [ 0.0, 0.0, 16.0, 16.0 ] },
-                "south": { "texture": "#crop", "uv": [ 0.0, 0.0, 0.0, 16.0 ] },
-                "west": { "texture": "#crop", "uv": [ 0.0, 0.0, 16.0, 16.0 ] },
-                "up": { "texture": "#crop", "uv": [ 0.0, 0.0, 0.0, 16.0 ] },
-                "down": { "texture": "#crop", "uv": [ 0.0, 0.0, 0.0, 16.0 ] }
+                "west": { "texture": "#crop", "uv": [ 16.0, 0.0, 0.0, 16.0 ] }
             }
         }
     ]
