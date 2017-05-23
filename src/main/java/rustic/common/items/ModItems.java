@@ -38,7 +38,7 @@ public class ModItems {
 	public static ItemFluidBottle FLUID_BOTTLE;
 	public static ItemBase IRON_DUST;
 	public static ItemBase IRON_DUST_TINY;
-	public static ItemElixer ELIXER;
+	public static ItemElixir ELIXER;
 	public static ItemFoodBase TOMATO;
 	public static ItemStakeCropSeed TOMATO_SEEDS;
 	public static ItemFoodBase CHILI_PEPPER;
@@ -92,7 +92,7 @@ public class ModItems {
 		IRON_DUST.setCreativeTab(Rustic.farmingTab);
 		IRON_DUST_TINY = new ItemBase("dust_tiny_iron");
 		IRON_DUST_TINY.setCreativeTab(Rustic.farmingTab);
-		ELIXER = new ItemElixer();
+		ELIXER = new ItemElixir();
 		TOMATO = new ItemFoodBase("tomato", 4, 0.4F, false) {
 			@Override
 			public ActionResult<ItemStack> onItemRightClick(World worldIn, EntityPlayer playerIn, EnumHand handIn) {

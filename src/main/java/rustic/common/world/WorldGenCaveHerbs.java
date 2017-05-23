@@ -46,7 +46,7 @@ public class WorldGenCaveHerbs extends WorldGenerator {
 		if (world.isAirBlock(pos)) {
 			
 			int i = 0;
-			while (world.isAirBlock(pos.down(i))) {
+			while (world.isAirBlock(pos.down(i)) && pos.getY() - i >= 4) {
 				i++;
 			}
 			pos = pos.down(i - 1);

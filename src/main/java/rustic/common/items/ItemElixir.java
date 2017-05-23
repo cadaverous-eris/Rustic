@@ -28,11 +28,12 @@ import rustic.common.crafting.Recipes;
 import rustic.core.ClientProxy;
 import rustic.core.Rustic;
 
-public class ItemElixer extends ItemBase implements IColoredItem {
+public class ItemElixir extends ItemBase implements IColoredItem {
 
-	public ItemElixer() {
-		super("elixer");
+	public ItemElixir() {
+		super("elixir");
 		setCreativeTab(Rustic.alchemyTab);
+		setMaxStackSize(16);
 	}
 
 	@Override
@@ -101,13 +102,13 @@ public class ItemElixer extends ItemBase implements IColoredItem {
 
 	@Override
 	public String getItemStackDisplayName(ItemStack stack) {
-		String name = I18n.translateToLocal("rustic.elixer.prefix");
+		String name = I18n.translateToLocal("rustic.elixir.prefix");
 		int i = 0;
 		List<PotionEffect> effects = PotionUtils.getEffectsFromStack(stack);
 		for (PotionEffect effect : effects) {
 			name += I18n.translateToLocal(effect.getEffectName());
 			if (i < effects.size() - 1) {
-				name += I18n.translateToLocal("rustic.elixer.separator");
+				name += I18n.translateToLocal("rustic.elixir.separator");
 			}
 			i++;
 		}

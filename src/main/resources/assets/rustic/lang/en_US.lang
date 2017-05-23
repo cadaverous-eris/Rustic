@@ -188,9 +188,9 @@ splash_potion.effect.ironskin=Splash Potion of Iron Skin
 lingering_potion.effect.ironskin=Lingering Potion of Iron Skin
 tipped_arrow.effect.ironskin=Arrow of Iron Skin
 
-#Elixers
-rustic.elixer.prefix=Elixer of 
-rutsic.elixer.separator=, 
+#Elixirs
+rustic.elixir.prefix=Elixir of 
+rutsic.elixir.separator=, 
 
 #JEI Categories
 rustic.jei.recipe.crushing_tub=Crushing Tub
