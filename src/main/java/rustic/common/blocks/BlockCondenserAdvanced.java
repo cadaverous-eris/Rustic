@@ -75,6 +75,16 @@ public class BlockCondenserAdvanced extends BlockBase implements ITileEntityProv
 	}
 	
 	@Override
+	public boolean isFullCube(IBlockState state) {
+		return state.getValue(BOTTOM);
+	}
+
+	@Override
+	public boolean isOpaqueCube(IBlockState state) {
+		return state.getValue(BOTTOM);
+	}
+	
+	@Override
 	public List<ItemStack> getDrops(IBlockAccess world, BlockPos pos, IBlockState state, int fortune){
 		return new ArrayList<ItemStack>();
 	}

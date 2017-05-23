@@ -88,7 +88,7 @@ public abstract class BlockHerbBase extends BlockBush implements IGrowable, IPla
 	}
 
 	protected static float getGrowthChance(Block blockIn, World worldIn, BlockPos pos) {
-		return 7F;
+		return 5F;
 	}
 
 	@Override

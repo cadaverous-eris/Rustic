@@ -281,7 +281,7 @@ public class BlockGrapeLeaves extends BlockBase implements IGrowable, IColoredBl
 	}
 
 	protected static float getGrowthChance(Block blockIn, World worldIn, BlockPos pos) {
-		return 6F;
+		return 4F;
 	}
 
 	@Override

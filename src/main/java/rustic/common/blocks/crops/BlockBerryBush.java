@@ -88,7 +88,7 @@ public abstract class BlockBerryBush extends BlockBase implements IPlantable, IG
 	}
 
 	protected static float getGrowthChance(Block blockIn, World worldIn, BlockPos pos) {
-		return 3F;
+		return 2F;
 	}
 
 	protected int numNeighbors(World world, BlockPos pos) {
