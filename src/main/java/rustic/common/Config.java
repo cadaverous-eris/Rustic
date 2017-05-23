@@ -35,6 +35,13 @@ public class Config {
 	public static int MAX_HERB_ATTEMPTS = 8;
 	public static float WILDBERRY_GEN_CHANCE = 0.03F;
 	public static int MAX_WILDBERRY_ATTEMPTS = 6;
+	public static boolean ENABLE_SLATE = true;
+	public static boolean ENABLE_PILLARS = true;
+	public static boolean ENABLE_CLAY_WALLS = true;
+	public static boolean ENABLE_PAINTED_WOOD = true;
+	public static boolean ENABLE_TABLES = true;
+	public static boolean ENABLE_CHAIRS = true;
+	public static boolean ENABLE_LATTICE = true;
 
 	public static void readConfig() {
 		Configuration cfg = CommonProxy.config;
@@ -73,10 +80,24 @@ public class Config {
 		MAX_HERB_ATTEMPTS = cfg.getInt("Max Herb Generation Attempts", CATEGORY_WORLD, 8, 0, 128, "maximum number of times the generator will attempt to place an herb in a chunk");
 		WILDBERRY_GEN_CHANCE = cfg.getFloat("Wildberry Generation Chance", CATEGORY_WORLD, 0.06F, 0, 1F, "chance for wildberry bushes to try to generate in a chunk");
 		MAX_WILDBERRY_ATTEMPTS = cfg.getInt("Max Wildberry Generation Attempts", CATEGORY_WORLD, 6, 0, 128, "maximum number of times the generator will attempt to place a wildberry bush in a chunk");
+		ENABLE_SLATE = cfg.getBoolean("Enable Slate", CATEGORY_GENERAL, true, "enable/disable all slate blocks and world gen");
+		ENABLE_PILLARS = cfg.getBoolean("Enable Stone Pillars", CATEGORY_GENERAL, true, "enable/disable all stone pillar blocks");
+		ENABLE_CLAY_WALLS = cfg.getBoolean("Enable Clay Walls", CATEGORY_GENERAL, true, "enable/disable all clay wall blocks");
+		ENABLE_PAINTED_WOOD = cfg.getBoolean("Enable Painted Wood", CATEGORY_GENERAL, true, "enable/disable all painted wood blocks");
+		ENABLE_TABLES = cfg.getBoolean("Enable Tables", CATEGORY_GENERAL, true, "enable/disable all table blocks");
+		ENABLE_CHAIRS = cfg.getBoolean("Enable Chairs", CATEGORY_GENERAL, true, "enable/disable all chair blocks");
+		ENABLE_LATTICE = cfg.getBoolean("Enable Lattice", CATEGORY_GENERAL, true, "enable/disable lattice blocks");
 		
 		PROPERTY_ORDER_GENERAL.add("Flesh Smelting");
 		PROPERTY_ORDER_GENERAL.add("Extra Armor HUD");
 		PROPERTY_ORDER_GENERAL.add("Armor Toughness HUD");
+		PROPERTY_ORDER_GENERAL.add("Enable Slate");
+		PROPERTY_ORDER_GENERAL.add("Enable Stone Pillars");
+		PROPERTY_ORDER_GENERAL.add("Enable Clay Walls");
+		PROPERTY_ORDER_GENERAL.add("Enable Painted Wood");
+		PROPERTY_ORDER_GENERAL.add("Enable Tables");
+		PROPERTY_ORDER_GENERAL.add("Enable Chairs");
+		PROPERTY_ORDER_GENERAL.add("Enable Lattice");
 		PROPERTY_ORDER_WORLD.add("Slate Veins Per Chunk");
 		PROPERTY_ORDER_WORLD.add("Slate Vein Size");
 		PROPERTY_ORDER_WORLD.add("Olive Tree Generation Chance");
