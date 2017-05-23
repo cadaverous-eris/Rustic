@@ -259,7 +259,7 @@ public class TileEntityBrewingBarrel extends TileEntity implements ITickable {
 	@Override
 	public void update() {
 		boolean fluidChanged = false;
-		if (internalStackHandler.getStackInSlot(0) != ItemStack.EMPTY && !world.isRemote) {
+		if (!internalStackHandler.getStackInSlot(0).isEmpty() && !world.isRemote) {
 			ItemStack stack = internalStackHandler.getStackInSlot(0);
 			ItemStack in = stack.copy();
 			in.setCount(1);
@@ -276,7 +276,7 @@ public class TileEntityBrewingBarrel extends TileEntity implements ITickable {
 					}
 					if (internalStackHandler.insertItem(3, out, true).isEmpty()) {
 						input.fill(fluid, true);
-						stack.shrink(1);
+						internalStackHandler.getStackInSlot(0).shrink(1);
 						internalStackHandler.insertItem(3, out, false);
 						fluidChanged |= true;
 					}
@@ -288,7 +288,7 @@ public class TileEntityBrewingBarrel extends TileEntity implements ITickable {
 					out = fluidHandlerDummy.getContainer();
 					if (amount > 0 && internalStackHandler.insertItem(3, out, true).isEmpty()) {
 						input.drain(amount, true);
-						stack.shrink(1);
+						internalStackHandler.getStackInSlot(0).shrink(1);
 						internalStackHandler.insertItem(3, out, false);
 						fluidChanged |= true;
 					}
@@ -301,13 +301,13 @@ public class TileEntityBrewingBarrel extends TileEntity implements ITickable {
 				out = fluidHandlerDummy.getContainer();
 				if (amount > 0 && internalStackHandler.insertItem(3, out, true).isEmpty()) {
 					input.drain(amount, true);
-					stack.shrink(1);
+					internalStackHandler.getStackInSlot(0).shrink(1);
 					internalStackHandler.insertItem(3, out, false);
 					fluidChanged |= true;
 				}
 			}
 		}
-		if (internalStackHandler.getStackInSlot(1) != ItemStack.EMPTY && !world.isRemote) {
+		if (!internalStackHandler.getStackInSlot(1).isEmpty() && !world.isRemote) {
 			ItemStack stack = internalStackHandler.getStackInSlot(1);
 			ItemStack in = stack.copy();
 			in.setCount(1);
@@ -321,7 +321,7 @@ public class TileEntityBrewingBarrel extends TileEntity implements ITickable {
 					out = fluidHandlerDummy.getContainer();
 					if (amount > 0 && internalStackHandler.insertItem(4, out, true).isEmpty()) {
 						output.drain(amount, true);
-						stack.shrink(1);
+						internalStackHandler.getStackInSlot(1).shrink(1);
 						internalStackHandler.insertItem(4, out, false);
 						fluidChanged |= true;
 					}
@@ -334,13 +334,13 @@ public class TileEntityBrewingBarrel extends TileEntity implements ITickable {
 				out = fluidHandlerDummy.getContainer();
 				if (amount > 0 && internalStackHandler.insertItem(4, out, true).isEmpty()) {
 					output.drain(amount, true);
-					stack.shrink(1);
+					internalStackHandler.getStackInSlot(1).shrink(1);
 					internalStackHandler.insertItem(4, out, false);
 					fluidChanged |= true;
 				}
 			}
 		}
-		if (internalStackHandler.getStackInSlot(2) != ItemStack.EMPTY && !world.isRemote) {
+		if (!internalStackHandler.getStackInSlot(2).isEmpty() && !world.isRemote) {
 			ItemStack stack = internalStackHandler.getStackInSlot(2);
 			ItemStack in = stack.copy();
 			in.setCount(1);
@@ -358,7 +358,7 @@ public class TileEntityBrewingBarrel extends TileEntity implements ITickable {
 					}
 					if (internalStackHandler.insertItem(5, out, true).isEmpty()) {
 						auxiliary.fill(fluid, true);
-						stack.shrink(1);
+						internalStackHandler.getStackInSlot(2).shrink(1);
 						internalStackHandler.insertItem(5, out, false);
 						fluidChanged |= true;
 					}
@@ -370,7 +370,7 @@ public class TileEntityBrewingBarrel extends TileEntity implements ITickable {
 					out = fluidHandlerDummy.getContainer();
 					if (amount > 0 && internalStackHandler.insertItem(5, out, true).isEmpty()) {
 						auxiliary.drain(amount, true);
-						stack.shrink(1);
+						internalStackHandler.getStackInSlot(2).shrink(1);
 						internalStackHandler.insertItem(5, out, false);
 						fluidChanged |= true;
 					}
@@ -389,7 +389,7 @@ public class TileEntityBrewingBarrel extends TileEntity implements ITickable {
 				}
 				if (amount > 0 && internalStackHandler.insertItem(5, out, true).isEmpty()) {
 					auxiliary.drain(amount, true);
-					stack.shrink(1);
+					internalStackHandler.getStackInSlot(2).shrink(1);
 					internalStackHandler.insertItem(5, out, false);
 					fluidChanged |= true;
 				}
