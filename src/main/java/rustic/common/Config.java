@@ -33,7 +33,7 @@ public class Config {
 	public static boolean EXTRA_ARMOR_HUD = true;
 	public static float HERB_GEN_CHANCE = 0.125F;
 	public static int MAX_HERB_ATTEMPTS = 8;
-	public static float WILDBERRY_GEN_CHANCE = 0.02F;
+	public static float WILDBERRY_GEN_CHANCE = 0.05F;
 	public static int MAX_WILDBERRY_ATTEMPTS = 4;
 	public static boolean ENABLE_SLATE = true;
 	public static boolean ENABLE_PILLARS = true;
@@ -78,7 +78,7 @@ public class Config {
 		TOUGHNESS_HUD = cfg.getBoolean("Armor Toughness HUD", CATEGORY_GENERAL, true, "if enabled, adds a hud elemnt over the hunger meter to show armor toughness, if applicable");
 		HERB_GEN_CHANCE = cfg.getFloat("Herb Generation Chance", CATEGORY_WORLD, 0.125F, 0, 1F, "chance for an herb to try to generate in a chunk");
 		MAX_HERB_ATTEMPTS = cfg.getInt("Max Herb Generation Attempts", CATEGORY_WORLD, 8, 0, 128, "maximum number of times the generator will attempt to place an herb in a chunk");
-		WILDBERRY_GEN_CHANCE = cfg.getFloat("Wildberry Generation Chance", CATEGORY_WORLD, 0.02F, 0, 1F, "chance for wildberry bushes to try to generate in a chunk");
+		WILDBERRY_GEN_CHANCE = cfg.getFloat("Wildberry Generation Chance", CATEGORY_WORLD, 0.05F, 0, 1F, "chance for wildberry bushes to try to generate in a chunk");
 		MAX_WILDBERRY_ATTEMPTS = cfg.getInt("Max Wildberry Generation Attempts", CATEGORY_WORLD, 4, 0, 128, "maximum number of times the generator will attempt to place a wildberry bush in a chunk");
 		ENABLE_SLATE = cfg.getBoolean("Enable Slate", CATEGORY_GENERAL, true, "enable/disable all slate blocks and world gen");
 		ENABLE_PILLARS = cfg.getBoolean("Enable Stone Pillars", CATEGORY_GENERAL, true, "enable/disable all stone pillar blocks");
