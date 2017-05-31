@@ -68,7 +68,7 @@ public class TileEntityCabinet extends TileEntityLockableLoot implements ITickab
 	@Override
 	public AxisAlignedBB getRenderBoundingBox() {
 		IBlockState state = world.getBlockState(pos);
-		if (world.getBlockState(pos.up()).getPropertyKeys().contains(BlockCabinet.TOP) && world.getBlockState(pos.up()).getValue(BlockCabinet.TOP)) {
+		if (world.getBlockState(pos.up()).getBlock() == ModBlocks.CABINET && world.getBlockState(pos.up()).getPropertyKeys().contains(BlockCabinet.TOP) && world.getBlockState(pos.up()).getValue(BlockCabinet.TOP)) {
 			return new AxisAlignedBB(pos.getX(), pos.getY(), pos.getZ(), pos.getX() + 1D, pos.getY() + 2D, pos.getZ() + 1D);
 		}
 		return new AxisAlignedBB(pos.getX(), pos.getY(), pos.getZ(), pos.getX() + 1D, pos.getY() + 1D, pos.getZ() + 1D);
