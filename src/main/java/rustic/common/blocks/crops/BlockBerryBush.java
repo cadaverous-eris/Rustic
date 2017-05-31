@@ -78,7 +78,7 @@ public abstract class BlockBerryBush extends BlockBase implements IPlantable, IG
 				float f = getGrowthChance(this, worldIn, pos);
 
 				if (numNeighbors(worldIn, pos) < 3 && net.minecraftforge.common.ForgeHooks.onCropsGrowPre(worldIn, pos,
-						state, rand.nextInt((int) (50.0F / f) + 1) == 0)) {
+						state, rand.nextInt((int) (100.0F / f) + 1) == 0)) {
 					growOutward(worldIn, pos, rand);
 					net.minecraftforge.common.ForgeHooks.onCropsGrowPost(worldIn, pos, state,
 							worldIn.getBlockState(pos));
