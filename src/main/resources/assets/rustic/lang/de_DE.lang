@@ -1,0 +1,200 @@
+#Creative Tabs
+itemGroup.rustic.decor=Rustic Dekorationen
+itemGroup.rustic.farming=Rustic Landwirtschaft
+itemGroup.rustic.alchemy=Rustic Alchemie
+
+#Tooltips
+tooltip.rustic.olive_oil=Mit Olivenöl geölt
+tooltip.rustic.quality=Qualität: 
+tooltip.rustic.empty=Leer
+
+#Containers
+container.rustic.cabinet=Schrank
+container.rustic.barrel=Fass
+container.rustic.vase=Topf
+container.rustic.apiary=Bienenhaus
+container.rustic.condenser=Kondensator
+container.rustic.condenser_advanced=Erweiterter Kondensator
+container.rustic.brewing_barrel=Braufass
+
+#Blocks
+tile.rustic.chain.name=Eisenkette
+tile.rustic.stone_pillar.name=Steinsäule
+tile.rustic.andesite_pillar.name=Andesitsäule
+tile.rustic.diorite_pillar.name=Dioritsäule
+tile.rustic.granite_pillar.name=Granitsäule
+tile.rustic.chandelier.name=Kronleuchterring
+tile.rustic.candle.name=Kerze
+tile.rustic.beehive.name=Bienenstock
+tile.rustic.apiary.name=Bienenhaus
+tile.rustic.slate.name=Schiefer
+tile.rustic.slate_roof.name=Schieferdach
+tile.rustic.slate_roof_slab.name=Schieferdachstufe
+tile.rustic.stairs_slate_roof.name=Schieferdachtreppe
+tile.rustic.clay_wall.name=Tonmauer
+tile.rustic.clay_wall_cross.name=Gekreuzte Tonmauer
+tile.rustic.clay_wall_diag.name=Diagonale Tonmauer
+tile.rustic.vase.name=Topf
+tile.rustic.chair_acacia.name=Akazienstuhl
+tile.rustic.table_acacia.name=Akazientisch
+tile.rustic.chair_big_oak.name=Schwarzeichenstuhl
+tile.rustic.table_big_oak.name=Schwarzeichentisch
+tile.rustic.chair_birch.name=Birkenstuhl
+tile.rustic.table_birch.name=Birkentisch
+tile.rustic.chair_jungle.name=Tropenstuhl
+tile.rustic.table_jungle.name=Tropentisch
+tile.rustic.chair_oak.name=Eichenstuhl
+tile.rustic.table_oak.name=Eichentisch
+tile.rustic.chair_spruce.name=Fichtenstuhl
+tile.rustic.table_spruce.name=Fichtentisch
+tile.rustic.slate_tile.name=Schieferfliesen
+tile.rustic.slate_pillar.name=Schiefersäule
+tile.rustic.slate_brick.name=Schieferziegel
+tile.rustic.slate_chiseled.name=Gemeißelter Schiefer
+tile.rustic.barrel.name=Fass
+tile.rustic.iron_lattice.name=Eisengitterwerk
+tile.rustic.iron_lantern.name=Eisenlaterne
+tile.rustic.painted_wood_white.name=Weiß gefärbtes Holz
+tile.rustic.painted_wood_orange.name=Orange gefärbtes Holz
+tile.rustic.painted_wood_magenta.name=Magenta gefärbtes Holz
+tile.rustic.painted_wood_light_blue.name=Hellblau gefärbtes Holz
+tile.rustic.painted_wood_yellow.name=Gelb gefärbtes Holz
+tile.rustic.painted_wood_lime.name=Hellgrün gefärbtes Holz
+tile.rustic.painted_wood_pink.name=Rosa gefärbtes Holz
+tile.rustic.painted_wood_gray.name=Grau gefärbtes Holz
+tile.rustic.painted_wood_silver.name=Hellgrau gefärbtes Holz
+tile.rustic.painted_wood_cyan.name=Türkis gefärbtes Holz
+tile.rustic.painted_wood_purple.name=Violett gefärbtes Holz
+tile.rustic.painted_wood_blue.name=Blau gefärbtes Holz
+tile.rustic.painted_wood_brown.name=Braun gefärbtes Holz
+tile.rustic.painted_wood_green.name=Grün gefärbtes Holz
+tile.rustic.painted_wood_red.name=Rot gefärbtes Holz
+tile.rustic.painted_wood_black.name=Schwarz gefärbtes Holz
+tile.rustic.stairs_slate_brick.name=Schieferziegeltreppe
+tile.rustic.slate_brick_slab.name=Schieferziegelstufe
+tile.rustic.gargoyle.name=Wasserspeier
+tile.rustic.cabinet.name=Schrank
+tile.rustic.liquid_barrel.name=Flüssigkeitsfass
+tile.rustic.fertile_soil.name=Fruchtbarer Boden
+tile.rustic.log_olive.name=Olivenholz
+tile.rustic.log_ironwood.name=Eisenholz
+tile.rustic.planks_olive.name=Olivenholzbretter
+tile.rustic.planks_ironwood.name=Eisenholzbretter
+tile.rustic.leaves_olive.name=Olivenlaub
+tile.rustic.leaves_ironwood.name=Eisenholzlaub
+tile.rustic.sapling_olive.name=Olivensetzling
+tile.rustic.sapling_ironwood.name=Eisenholzsetzling
+tile.rustic.crushing_tub.name=Zerkleinerungswanne
+tile.rustic.evaporating_basin.name=Trockenbecken
+tile.rustic.fence_olive.name=Olivenholzzaun
+tile.rustic.fence_ironwood.name=Eisenholzzaun
+tile.rustic.fence_gate_olive.name=Olivenholzzauntor
+tile.rustic.fence_gate_ironwood.name=Eisenholzzauntor
+tile.rustic.olive_slab.name=Olivenholzstufe
+tile.rustic.ironwood_slab.name=Eisenholzstufe
+tile.rustic.stairs_olive.name=Olivenholztreppe
+tile.rustic.stairs_ironwood.name=Eisenholztreppe
+tile.rustic.chair_olive.name=Olivenholzstuhl
+tile.rustic.table_olive.name=Olivenholztisch
+tile.rustic.chair_ironwood.name=Eisenholzstuhl
+tile.rustic.table_ironwood.name=Eisenholztisch
+tile.rustic.aloe_vera.name=Aloe Vera
+tile.rustic.blood_orchid.name=Blut-Orchidee
+tile.rustic.chamomile.name=Kamille
+tile.rustic.cloudsbluff.name=Cloudsbluff
+tile.rustic.cohosh.name=Cohosh
+tile.rustic.core_root.name=Kernwurzel
+tile.rustic.deathstalk_mushroom.name=Deathstalk-Pilz
+tile.rustic.ginseng.name=Ginseng
+tile.rustic.horsetail.name=Schachtelhalm
+tile.rustic.marsh_mallow.name=Marsh Mallow
+tile.rustic.mooncap_mushroom.name=Mooncap-Pilz
+tile.rustic.wind_thistle.name=Winddistel
+tile.rustic.condenser.name=Alchemischer Kondensator
+tile.rustic.retort.name=Alchemische Retorte
+tile.rustic.condenser_advanced.name=Erweiterter Alchemischer Kondensator
+tile.rustic.retort_advanced.name=Erweiterte Alchemische Retorte
+tile.rustic.crop_stake.name=Holzpflock
+tile.rustic.tomato_crop.name=Tomatenpflanze
+tile.rustic.chili_crop.name=Chilipflanze
+tile.rustic.wildberry_bush.name=Wildbeerenbusch
+tile.rustic.rope.name=Seil
+tile.rustic.stake_tied.name=Pflock mit Seil
+tile.rustic.grape_stem.name=Traubensamen
+tile.rustic.grape_leaves.name=Traubenblätter
+tile.rustic.brewing_barrel.name=Braufass
+tile.rustic.apple_seeds.name=Apfelsamen
+tile.rustic.sapling_apple.name=Apfelsetzling
+tile.rustic.leaves_apple.name=Apfelbaumlaub
+
+#Items
+item.rustic.bee.name=Biene
+item.rustic.honeycomb.name=Bienenwabe
+item.rustic.beeswax.name=Bienenwachs
+item.rustic.tallow.name=Talg
+item.rustic.ironberries.name=Eisenbeeren
+item.rustic.olives.name=Oliven
+item.rustic.fluid_bottle.name=Flasche voll %s
+item.rustic.dust_iron.name=Eisenstaub
+item.rustic.dust_tiny_iron.name=Winziger Haufen Eisenstaub
+item.tile.rustic.cloudsbluff.name=Cloudsbluff
+item.tile.rustic.core_root.name=Kernwurzel
+item.tile.rustic.ginseng.name=Ginsengwurzel
+item.tile.rustic.marsh_mallow.name=Marsh Mallow-Wurzel
+item.rustic.tomato.name=Tomate
+item.rustic.tomato_seeds.name=Tomatensamen
+item.rustic.chili_pepper.name=Chilischote
+item.rustic.chili_pepper_seeds.name=Chilisamen
+item.rustic.wildberries.name=Wildbeeren
+item.rustic.grapes.name=Trauben
+
+#Fluids
+tile.rustic.olive_oil.name=Olivenöl
+fluid.oliveoil=Olivenöl
+tile.rustic.ironberry_juice.name=Eisenbeerensaft
+fluid.ironberryjuice=Eisenbeerensaft
+tile.rustic.wildberry_juice.name=Wildbeerensaft
+fluid.wildberryjuice=Wildbeerensaft
+tile.rustic.grape_juice.name=Traubensaft
+fluid.grapejuice=Traubensaft
+tile.rustic.apple_juice.name=Apfelsaft
+fluid.applejuice=Apfelsaft
+tile.rustic.ale_wort.name=Ale Wort
+fluid.alewort=Ale Wort
+tile.rustic.honey.name=Honig
+fluid.honey=Honig
+
+fluid.ale=Ale
+fluid.cider=Apfelwein
+fluid.ironwine=Eisenwein
+fluid.mead=Met
+fluid.wildberrywine=Wildbeerenwein
+fluid.wine=Wein
+
+#Potion Effects
+effect.ironskin=Eisenhaut
+effect.feather=Feder
+effect.blazing_trail=Lodernde Spur
+effect.shame=Scham
+effect.full=Voller Magen
+effect.magic_resistance=Magieresistenz
+effect.wither_ward=Witherschutz
+
+effect.tipsy=Betrunken
+
+#Potion Items
+potion.effect.ironskin=Trank der Eisenhaut
+splash_potion.effect.ironskin=Wurftrank der Eisenhaut
+lingering_potion.effect.ironskin=Verweiltrank der Eisenhaut
+tipped_arrow.effect.ironskin=Pfeil der Eisenhaut
+
+#Elixirs
+rustic.elixir.prefix=Elixier aus 
+rutsic.elixir.separator=, 
+
+#JEI Categories
+rustic.jei.recipe.crushing_tub=Zerkleinerungswanne
+rustic.jei.recipe.evaporating=Trockenbecken
+rustic.jei.recipe.simple_alchemy=Einfache Alchemie
+rustic.jei.recipe.advanced_alchemy=Erweiterte Alchemie
+rustic.jei.recipe.brewing=Braufass
