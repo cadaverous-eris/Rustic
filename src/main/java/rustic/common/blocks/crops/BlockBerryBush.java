@@ -34,6 +34,7 @@ import net.minecraftforge.common.EnumPlantType;
 import net.minecraftforge.common.IPlantable;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+import rustic.common.Config;
 import rustic.common.blocks.BlockBase;
 import rustic.common.blocks.BlockPlanksRustic;
 import rustic.common.blocks.BlockRope;
@@ -143,7 +144,7 @@ public abstract class BlockBerryBush extends BlockBase implements IPlantable, IG
 		if (state.getValue(BERRIES)) {
 			world.setBlockState(pos, state.withProperty(BERRIES, false), 3);
 			state.getBlock().spawnAsEntity(world, pos.offset(side),
-					new ItemStack(getBerries(), world.rand.nextInt(3) + 1));
+					new ItemStack(getBerries()));
 			return true;
 		}
 		return false;
@@ -251,7 +252,10 @@ public abstract class BlockBerryBush extends BlockBase implements IPlantable, IG
 	@Override
 	@SideOnly(Side.CLIENT)
 	public Block.EnumOffsetType getOffsetType() {
-		return Block.EnumOffsetType.XZ;
+		if (Config.OFFSET_WILDBERRY_BUSHES) {
+			return Block.EnumOffsetType.XZ;
+		}
+		return Block.EnumOffsetType.NONE;
 	}
 
 }

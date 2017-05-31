@@ -35,6 +35,7 @@ public class Config {
 	public static int MAX_HERB_ATTEMPTS = 8;
 	public static float WILDBERRY_GEN_CHANCE = 0.05F;
 	public static int MAX_WILDBERRY_ATTEMPTS = 4;
+	public static boolean OFFSET_WILDBERRY_BUSHES = true;
 	public static boolean ENABLE_SLATE = true;
 	public static boolean ENABLE_PILLARS = true;
 	public static boolean ENABLE_CLAY_WALLS = true;
@@ -80,6 +81,7 @@ public class Config {
 		MAX_HERB_ATTEMPTS = cfg.getInt("Max Herb Generation Attempts", CATEGORY_WORLD, 8, 0, 128, "maximum number of times the generator will attempt to place an herb in a chunk");
 		WILDBERRY_GEN_CHANCE = cfg.getFloat("Wildberry Generation Chance", CATEGORY_WORLD, 0.05F, 0, 1F, "chance for wildberry bushes to try to generate in a chunk");
 		MAX_WILDBERRY_ATTEMPTS = cfg.getInt("Max Wildberry Generation Attempts", CATEGORY_WORLD, 4, 0, 128, "maximum number of times the generator will attempt to place a wildberry bush in a chunk");
+		OFFSET_WILDBERRY_BUSHES = cfg.getBoolean("Wildberry Bush Offset", CATEGORY_GENERAL, true, "enable/disable the random offset added to wildberry bush models");
 		ENABLE_SLATE = cfg.getBoolean("Enable Slate", CATEGORY_GENERAL, true, "enable/disable all slate blocks and world gen");
 		ENABLE_PILLARS = cfg.getBoolean("Enable Stone Pillars", CATEGORY_GENERAL, true, "enable/disable all stone pillar blocks");
 		ENABLE_CLAY_WALLS = cfg.getBoolean("Enable Clay Walls", CATEGORY_GENERAL, true, "enable/disable all clay wall blocks");
@@ -91,6 +93,7 @@ public class Config {
 		PROPERTY_ORDER_GENERAL.add("Flesh Smelting");
 		PROPERTY_ORDER_GENERAL.add("Extra Armor HUD");
 		PROPERTY_ORDER_GENERAL.add("Armor Toughness HUD");
+		PROPERTY_ORDER_GENERAL.add("Wildberry Bush Offset");
 		PROPERTY_ORDER_GENERAL.add("Enable Slate");
 		PROPERTY_ORDER_GENERAL.add("Enable Stone Pillars");
 		PROPERTY_ORDER_GENERAL.add("Enable Clay Walls");

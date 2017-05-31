@@ -167,6 +167,18 @@ public class BlockCondenser extends BlockBase implements ITileEntityProvider {
 				}
 				return true;
 			}
+		} else if (!state.getValue(BOTTOM)) {
+			if (world.getTileEntity(pos.down()) != null && world.getTileEntity(pos.down()) instanceof TileEntityCondenser && hasRetorts(world, pos.down(), state)) {
+				if (!((TileEntityCondenser) world.getTileEntity(pos.down())).activate(world, pos.down(), state, player, hand, side, hitX,
+						hitY, hitZ)) {
+					if (world.isRemote) {
+						return true;
+					}
+					player.openGui(Rustic.instance, GUI_ID, world, pos.getX(), pos.down().getY(), pos.getZ());
+					return true;
+				}
+				return true;
+			}
 		}
 		return false;
 	}

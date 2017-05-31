@@ -12,7 +12,9 @@ import net.minecraft.block.properties.PropertyInteger;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.EnumFacing;
+import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
@@ -72,6 +74,16 @@ public class BlockRetort extends BlockBase {
 	@Override
 	protected BlockStateContainer createBlockState() {
 		return new BlockStateContainer(this, new IProperty[] { FACING });
+	}
+	
+	@Override
+	public boolean onBlockActivated(World world, BlockPos pos, IBlockState state, EntityPlayer player, EnumHand hand,
+			EnumFacing side, float hitX, float hitY, float hitZ) {
+		IBlockState state2 = world.getBlockState(pos.offset(state.getValue(FACING).getOpposite()));
+		if (state2.getBlock() == ModBlocks.CONDENSER || state2.getBlock() == ModBlocks.CONDENSER_ADVANCED) {
+			return state2.getBlock().onBlockActivated(world, pos.offset(state.getValue(FACING).getOpposite()), state2, player, hand, side, hitX, hitY, hitZ);
+		}
+		return false;
 	}
 
 }
