@@ -141,7 +141,7 @@ public class ModFluids {
 					int duration = (int) (12000 * (Math.max(Math.abs((quality - 0.5F) * 2F), 0F)));
 					player.addPotionEffect(new PotionEffect(PotionsRustic.FULL_POTION, duration));
 				} else {
-					int duration = (int) (12000 * Math.max(1 - quality, 0));
+					int duration = (int) (6000 * Math.max(1 - quality, 0));
 					player.addPotionEffect(new PotionEffect(MobEffects.HUNGER, duration));
 					player.addPotionEffect(new PotionEffect(MobEffects.NAUSEA, duration));
 				}
@@ -160,7 +160,7 @@ public class ModFluids {
 				} else {
 					int duration = (int) (1200 * Math.max(1 - quality, 0));
 					player.addPotionEffect(new PotionEffect(MobEffects.POISON, duration));
-					duration = (int) (12000 * Math.max(1 - quality, 0));
+					duration = (int) (6000 * Math.max(1 - quality, 0));
 					player.addPotionEffect(new PotionEffect(MobEffects.NAUSEA, duration));
 				}
 			}
@@ -176,7 +176,7 @@ public class ModFluids {
 					player.getFoodStats().addStats(1, saturation);
 					player.setAbsorptionAmount(Math.max(Math.min(player.getAbsorptionAmount() + absorption, 20F), player.getAbsorptionAmount()));
 				} else {
-					int duration = (int) (12000 * Math.max(1 - quality, 0));
+					int duration = (int) (6000 * Math.max(1 - quality, 0));
 					float damage = 10F * (Math.max(Math.abs(quality - 0.5F) + 0.1F, 0F));
 					player.attackEntityFrom(DamageSource.MAGIC, damage);
 					player.addPotionEffect(new PotionEffect(MobEffects.NAUSEA, duration));
@@ -196,7 +196,7 @@ public class ModFluids {
 				} else {
 					int duration = (int) (800 * Math.max(1 - quality, 0));
 					player.addPotionEffect(new PotionEffect(MobEffects.WITHER, duration));
-					duration = (int) (12000 * Math.max(1 - quality, 0));
+					duration = (int) (6000 * Math.max(1 - quality, 0));
 					player.addPotionEffect(new PotionEffect(MobEffects.NAUSEA, duration));
 				}
 			}
@@ -210,7 +210,7 @@ public class ModFluids {
 					float saturation = 2F * quality;
 					player.getFoodStats().addStats(1, saturation);
 					for (PotionEffect effect : player.getActivePotionEffects()) {
-						if (effect.getPotion().isBeneficial() && effect.getAmplifier() < 2) {
+						if (!effect.getPotion().isBadEffect() && effect.getAmplifier() < 2) {
 							player.addPotionEffect(new PotionEffect(effect.getPotion(), effect.getDuration(), effect.getAmplifier() + 1, effect.getIsAmbient(), effect.doesShowParticles()));
 						}
 					}
@@ -225,7 +225,7 @@ public class ModFluids {
 							}
 						}
 					}
-					int duration = (int) (12000 * Math.max(1 - quality, 0));
+					int duration = (int) (6000 * Math.max(1 - quality, 0));
 					player.addPotionEffect(new PotionEffect(MobEffects.NAUSEA, duration));
 				}
 			}
@@ -240,7 +240,7 @@ public class ModFluids {
 					player.getFoodStats().addStats(1, saturation);
 					int durationIncrease = (int) (2400 * ((quality - 0.5F) * 2F));
 					for (PotionEffect effect : player.getActivePotionEffects()) {
-						if (effect.getPotion().isBeneficial() && effect.getDuration() < 12000) {
+						if (!effect.getPotion().isBadEffect() && effect.getDuration() < 12000) {
 							int duration = Math.max(Math.min(effect.getDuration() + durationIncrease, 12000), effect.getDuration());
 							player.addPotionEffect(new PotionEffect(effect.getPotion(), duration, effect.getAmplifier(), effect.getIsAmbient(), effect.doesShowParticles()));
 						}
@@ -248,7 +248,7 @@ public class ModFluids {
 				} else {
 					for (PotionEffect effect : player.getActivePotionEffects()) {
 						int durationDecrease = (int) (2400 * (Math.abs(quality - 0.5)));
-						if (effect.getPotion().isBeneficial()) {
+						if (!effect.getPotion().isBadEffect()) {
 							int duration = effect.getDuration() - durationDecrease;
 							if (duration > 0) {
 								player.removePotionEffect(effect.getPotion());
@@ -258,7 +258,7 @@ public class ModFluids {
 							}
 						}
 					}
-					int duration = (int) (12000 * Math.max(1 - quality, 0));
+					int duration = (int) (6000 * Math.max(1 - quality, 0));
 					player.addPotionEffect(new PotionEffect(MobEffects.NAUSEA, duration));
 				}
 			}

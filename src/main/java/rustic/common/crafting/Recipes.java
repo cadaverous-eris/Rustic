@@ -5,6 +5,7 @@ import java.util.List;
 
 import javax.annotation.Nonnull;
 
+import minetweaker.api.recipes.ShapelessRecipe;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
@@ -335,6 +336,10 @@ public class Recipes {
 		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(ModBlocks.BREWING_BARREL), "PIP", "S S", "PIP", 'P',
 				"plankWood", 'S', "slabWood", 'I', new ItemStack(Items.IRON_INGOT)));
 
+		List<ItemStack> bottle = new ArrayList<ItemStack>();
+		bottle.add(new ItemStack(ModItems.FLUID_BOTTLE));
+		GameRegistry.addRecipe(new ShapelessRecipes(new ItemStack(Items.GLASS_BOTTLE), bottle));
+		
 		RecipeSorter.register("rustic:ale_wort", AleWortRecipe.class, RecipeSorter.Category.SHAPELESS,
 				"after:minecraft:shapeless");
 		GameRegistry.addRecipe(new AleWortRecipe());

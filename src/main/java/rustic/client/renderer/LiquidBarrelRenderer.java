@@ -55,6 +55,7 @@ public class LiquidBarrelRenderer extends TileEntitySpecialRenderer<TileEntityLi
             GlStateManager.enableBlend();
             GlStateManager.enableAlpha();
             GlStateManager.blendFunc(SourceFactor.SRC_ALPHA, DestFactor.ONE_MINUS_SRC_ALPHA);
+            
             Minecraft.getMinecraft().renderEngine.bindTexture(TextureMap.LOCATION_BLOCKS_TEXTURE);
             Tessellator tess = Tessellator.getInstance();
             VertexBuffer buffer = tess.getBuffer();
