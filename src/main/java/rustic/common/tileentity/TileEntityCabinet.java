@@ -42,17 +42,25 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.ItemStackHandler;
+import net.minecraftforge.fml.common.Optional;
 import rustic.common.blocks.BlockCabinet;
 import rustic.common.blocks.ModBlocks;
 import rustic.common.inventory.DoubleCabinetItemHandler;
 import rustic.common.util.ItemStackHandlerRustic;
+import vazkii.quark.base.handler.IDropoffManager;
 
-public class TileEntityCabinet extends TileEntityLockableLoot implements ITickable {
+@Optional.Interface(modid="quark", iface="vazkii.quark.base.handler.IDropoffManager")
+public class TileEntityCabinet extends TileEntityLockableLoot implements ITickable, IDropoffManager {
 
 	public float lidAngle = 0;
 	public float prevLidAngle = 0;
 	public int numPlayersUsing = 0;
 	private int ticksSinceSync = 0;
+
+    @Optional.Method(modid="quark")
+    public boolean acceptsDropoff() {
+        return true;
+    }
 
 	private ItemStackHandlerRustic itemStackHandler = new ItemStackHandlerRustic (27) {
 		@Override
