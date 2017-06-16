@@ -116,6 +116,13 @@ public class BlockGrapeStem extends BlockBase implements IGrowable, IPlantable {
 				|| (state.getValue(AGE) == getMaxAge() && worldIn.getBlockState(pos.up()).getBlock() == ModBlocks.ROPE
 						&& worldIn.getBlockState(pos.up()).getValue(BlockRope.AXIS) != EnumFacing.Axis.Y);
 	}
+	
+	@Override
+	public boolean canPlaceBlockAt(World worldIn, BlockPos pos) {
+		IBlockState soil = worldIn.getBlockState(pos.down());
+		return super.canPlaceBlockAt(worldIn, pos)
+				&& soil.getBlock().canSustainPlant(soil, worldIn, pos.down(), net.minecraft.util.EnumFacing.UP, this);
+	}
 
 	@Override
 	public boolean canUseBonemeal(World worldIn, Random rand, BlockPos pos, IBlockState state) {

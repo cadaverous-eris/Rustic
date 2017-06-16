@@ -112,6 +112,13 @@ public class BlockAppleSeeds extends BlockBase implements IGrowable, IPlantable 
 			worldIn.setBlockState(pos, ModBlocks.APPLE_SAPLING.getDefaultState(), 3);
 		}
 	}
+	
+	@Override
+	public boolean canPlaceBlockAt(World worldIn, BlockPos pos) {
+		IBlockState soil = worldIn.getBlockState(pos.down());
+		return super.canPlaceBlockAt(worldIn, pos)
+				&& soil.getBlock().canSustainPlant(soil, worldIn, pos.down(), net.minecraft.util.EnumFacing.UP, this);
+	}
 
 	@Override
 	public IBlockState getStateForPlacement(World worldIn, BlockPos pos, EnumFacing facing, float hitX, float hitY,
