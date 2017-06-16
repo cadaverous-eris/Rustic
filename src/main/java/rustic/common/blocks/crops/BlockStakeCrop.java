@@ -164,7 +164,7 @@ public class BlockStakeCrop extends BlockBase implements IGrowable, IPlantable {
 		IBlockState soil = world.getBlockState(pos.add(0, -1, 0));
 		if (soil.getBlock().isFertile(world, pos.add(0, -1, 0)) || soil.getBlock() == block)
 			growth *= 1.5F;
-		return 4.5F + growth;
+		return 3.5F + growth;
 	}
 
 	protected void checkAndDropBlock(World worldIn, BlockPos pos, IBlockState state) {

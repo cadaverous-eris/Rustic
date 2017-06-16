@@ -88,7 +88,7 @@ public class BlockLeavesApple extends BlockLeaves implements IColoredBlock, IGro
 	}
 
 	protected static float getGrowthChance(Block blockIn, World worldIn, BlockPos pos) {
-		return 4F;
+		return 1F;
 	}
 
 	protected static boolean isAirAdjacent(World world, BlockPos pos, IBlockState state) {
