@@ -99,15 +99,13 @@ public abstract class BlockHerbBase extends BlockBush implements IGrowable, IPla
 		Random rand = world instanceof World ? ((World) world).rand : new Random();
 
 		if (age >= getMaxAge()) {
-			int k = 3 + fortune;
+			int k = 2 + fortune;
 
 			for (int i = 0; i < k; ++i) {
 				if (rand.nextInt(2 * getMaxAge()) <= age) {
 					ret.add(new ItemStack(this.getHerb()));
 				}
 			}
-		} else {
-			ret.add(new ItemStack(this.getHerb()));
 		}
 		return ret;
 	}
