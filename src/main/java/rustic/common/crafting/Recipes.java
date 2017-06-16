@@ -335,44 +335,18 @@ public class Recipes {
 		GameRegistry.addShapelessRecipe(new ItemStack(ModBlocks.GRAPE_STEM), new ItemStack(ModItems.GRAPES));
 		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(ModBlocks.BREWING_BARREL), "PIP", "S S", "PIP", 'P',
 				"plankWood", 'S', "slabWood", 'I', new ItemStack(Items.IRON_INGOT)));
-
-		List<ItemStack> bottle = new ArrayList<ItemStack>();
-		bottle.add(new ItemStack(ModItems.FLUID_BOTTLE));
-		GameRegistry.addRecipe(new ShapelessRecipes(new ItemStack(Items.GLASS_BOTTLE), bottle));
 		
-		RecipeSorter.register("rustic:ale_wort", AleWortRecipe.class, RecipeSorter.Category.SHAPELESS,
+		RecipeSorter.register("rustic:shapeless_nonreturn", RecipeNonIngredientReturn.class, RecipeSorter.Category.SHAPELESS,
 				"after:minecraft:shapeless");
-		GameRegistry.addRecipe(new AleWortRecipe());
+		ItemStack aleWortBucket = UniversalBucket
+				.getFilledBucket(ForgeModContainer.getInstance().universalBucket, ModFluids.ALE_WORT);
+		GameRegistry.addRecipe(new RecipeNonIngredientReturn(aleWortBucket, new ItemStack(Items.BREAD),
+				new ItemStack(Items.SUGAR), new ItemStack(Items.WATER_BUCKET)));
+		GameRegistry.addRecipe(new RecipeNonIngredientReturn(new ItemStack(Items.GLASS_BOTTLE), new ItemStack(ModItems.FLUID_BOTTLE)));
 
 		RecipeSorter.register("rustic:olive_oil", RecipeOliveOil.class, RecipeSorter.Category.SHAPELESS,
 				"after:minecraft:shapeless");
 		GameRegistry.addRecipe(new RecipeOliveOil());
-	}
-
-	public static class AleWortRecipe extends ShapelessRecipes {
-
-		static final ItemStack aleWortBucket = UniversalBucket
-				.getFilledBucket(ForgeModContainer.getInstance().universalBucket, ModFluids.ALE_WORT);
-		static final List<ItemStack> inputs = Arrays.asList(new ItemStack[] { new ItemStack(Items.BREAD),
-				new ItemStack(Items.SUGAR), new ItemStack(Items.WATER_BUCKET) });
-
-		public AleWortRecipe() {
-			super(aleWortBucket, inputs);
-		}
-
-		@Override
-		@Nonnull
-		public NonNullList<ItemStack> getRemainingItems(InventoryCrafting inv) {
-			NonNullList<ItemStack> ret = super.getRemainingItems(inv);
-			for (int i = 0; i < ret.size(); i++) {
-				if (ret.get(i).getItem() == Items.BUCKET) {
-					ret.set(i, ItemStack.EMPTY);
-					break;
-				}
-			}
-			return ret;
-		}
-
 	}
 
 	private static void addCrushingTubRecipes() {
