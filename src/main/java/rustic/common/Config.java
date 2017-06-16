@@ -1,10 +1,12 @@
 package rustic.common;
 
 import rustic.core.CommonProxy;
+import scala.actors.threadpool.Arrays;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import net.minecraft.item.Item;
 import net.minecraftforge.common.config.Configuration;
 
 public class Config {
@@ -43,6 +45,7 @@ public class Config {
 	public static boolean ENABLE_TABLES = true;
 	public static boolean ENABLE_CHAIRS = true;
 	public static boolean ENABLE_LATTICE = true;
+	public static List<String> OLIVE_OIL_BLACKLIST = new ArrayList<String>();
 
 	public static void readConfig() {
 		Configuration cfg = CommonProxy.config;
@@ -89,8 +92,10 @@ public class Config {
 		ENABLE_TABLES = cfg.getBoolean("Enable Tables", CATEGORY_GENERAL, true, "enable/disable all table blocks");
 		ENABLE_CHAIRS = cfg.getBoolean("Enable Chairs", CATEGORY_GENERAL, true, "enable/disable all chair blocks");
 		ENABLE_LATTICE = cfg.getBoolean("Enable Lattice", CATEGORY_GENERAL, true, "enable/disable lattice blocks");
+		OLIVE_OIL_BLACKLIST = Arrays.asList(cfg.getStringList("Olive Oil Food Blacklist", CATEGORY_GENERAL, new String[0], "add registry names of items to this list to prevent them from being craftable with olive oil\nput each item name on a new line, don't use commas\n"));
 		
 		PROPERTY_ORDER_GENERAL.add("Flesh Smelting");
+		PROPERTY_ORDER_GENERAL.add("Olive Oil Food Blacklist");
 		PROPERTY_ORDER_GENERAL.add("Extra Armor HUD");
 		PROPERTY_ORDER_GENERAL.add("Armor Toughness HUD");
 		PROPERTY_ORDER_GENERAL.add("Wildberry Bush Offset");

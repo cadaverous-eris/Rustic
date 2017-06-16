@@ -15,6 +15,7 @@ import net.minecraft.world.World;
 import net.minecraftforge.common.ForgeHooks;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.FluidUtil;
+import rustic.common.Config;
 import rustic.common.blocks.fluids.ModFluids;
 import rustic.common.items.ModItems;
 
@@ -40,6 +41,12 @@ public class RecipeOliveOil implements IRecipe {
 		for (int i : occupiedSlots) {
 			ItemStack tempStack = inv.getStackInSlot(i);
 			if (tempStack.getItem() instanceof ItemFood && foodStack.isEmpty()) {
+				boolean flag = false;
+				for (String itemName : Config.OLIVE_OIL_BLACKLIST) {
+					if (itemName.equals(tempStack.getItem().getRegistryName().toString())) {
+						return false;
+					}
+				}
 				foodStack = tempStack;
 				this.foodSlot = i;
 			} else if (tempStack.getItem().equals(ModItems.FLUID_BOTTLE) && oilStack.isEmpty()) {
