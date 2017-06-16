@@ -10,7 +10,6 @@ import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.renderer.ItemMeshDefinition;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.client.renderer.block.statemap.StateMapperBase;
-import net.minecraft.client.resources.I18n;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
@@ -33,6 +32,7 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.util.math.Vec3d;
+import net.minecraft.util.text.translation.I18n;
 import net.minecraft.world.World;
 import net.minecraftforge.client.model.ModelDynBucket;
 import net.minecraftforge.client.model.ModelLoader;
@@ -196,7 +196,7 @@ public class ItemFluidBottle extends ItemFluidContainer {
 
 		String unloc = this.getUnlocalizedName(stack);
 
-		return I18n.format(unloc + ".name", fluidStack.getLocalizedName());
+		return I18n.translateToLocalFormatted(unloc + ".name", fluidStack.getLocalizedName());
 	}
 
 	@SideOnly(Side.CLIENT)
