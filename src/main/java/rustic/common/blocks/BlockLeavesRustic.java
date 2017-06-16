@@ -202,7 +202,7 @@ public class BlockLeavesRustic extends BlockLeaves implements IColoredBlock {
 
 	@Override
 	public ItemStack getPickBlock(IBlockState state, RayTraceResult target, World world, BlockPos pos, EntityPlayer player) {
-		return new ItemStack(this, 1, this.getMetaFromState(this.getDefaultState().withProperty(VARIANT, state.getValue(VARIANT))));
+		return new ItemStack(this, 1, ((BlockPlanksRustic.EnumType) state.getValue(VARIANT)).getMetadata());
 	}
 
 	@Override
