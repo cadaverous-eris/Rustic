@@ -59,7 +59,7 @@ public class BlockStakeCrop extends BlockBase implements IGrowable, IPlantable {
 	public static final PropertyInteger AGE = PropertyInteger.create("age", 0, 3);
 
 	protected static final AxisAlignedBB CROP_AABB = new AxisAlignedBB(0.125F, 0F, 0.125F, 0.875F, 1.0F, 0.875F);
-	protected static final AxisAlignedBB STAKE_AABB = new AxisAlignedBB(0.375F, 0.0F, 0.375F, 0.625F, 1.0F, 0.625F);
+	protected static final AxisAlignedBB STAKE_AABB = new AxisAlignedBB(0.4375F, 0.0F, 0.4375F, 0.5625F, 1.0F, 0.5625F);
 
 	public BlockStakeCrop(String name) {
 		super(STAKE_CROP, name, false);

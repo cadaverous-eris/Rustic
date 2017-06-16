@@ -28,7 +28,7 @@ public class BlockCropStake extends BlockBase {
 		}
 	};
 
-	protected static final AxisAlignedBB STAKE_AABB = new AxisAlignedBB(0.375F, 0.0F, 0.375F, 0.625F, 1.0F, 0.625F);
+	protected static final AxisAlignedBB STAKE_AABB = new AxisAlignedBB(0.4375F, 0.0F, 0.4375F, 0.5625F, 1.0F, 0.5625F);
 
 	public BlockCropStake() {
 		super(CROP_STAKE, "crop_stake");
