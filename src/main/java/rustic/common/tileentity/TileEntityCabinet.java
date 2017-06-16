@@ -46,8 +46,9 @@ import rustic.common.blocks.BlockCabinet;
 import rustic.common.blocks.ModBlocks;
 import rustic.common.inventory.DoubleCabinetItemHandler;
 import rustic.common.util.ItemStackHandlerRustic;
+import vazkii.quark.base.handler.IDropoffManager;
 
-public class TileEntityCabinet extends TileEntityLockableLoot implements ITickable {
+public class TileEntityCabinet extends TileEntityLockableLoot implements ITickable, IDropoffManager {
 
 	public float lidAngle = 0;
 	public float prevLidAngle = 0;
@@ -425,6 +426,11 @@ public class TileEntityCabinet extends TileEntityLockableLoot implements ITickab
 	public void setLootTable(ResourceLocation file, long seed) {
 		super.setLootTable(file, seed);
 		markDirty();
+	}
+
+	@Override
+	public boolean acceptsDropoff() {
+		return true;
 	}
 
 }
