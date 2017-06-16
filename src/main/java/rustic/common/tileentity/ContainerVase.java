@@ -3,6 +3,7 @@ package rustic.common.tileentity;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
+import invtweaks.api.container.ChestContainer;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.Container;
 import net.minecraft.inventory.IInventory;
@@ -13,6 +14,7 @@ import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.SlotItemHandler;
 import rustic.common.items.ModItems;
 
+@ChestContainer
 public class ContainerVase extends Container {
 	
 	private TileEntityVase te;

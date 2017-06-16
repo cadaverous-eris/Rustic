@@ -1,9 +1,9 @@
 package rustic.common;
 
 import rustic.core.CommonProxy;
-import scala.actors.threadpool.Arrays;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import net.minecraft.item.Item;
