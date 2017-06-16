@@ -20,12 +20,19 @@ import net.minecraft.world.World;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.ItemStackHandler;
+import net.minecraftforge.fml.common.Optional;
 import rustic.common.util.ItemStackHandlerRustic;
 import rustic.core.Rustic;
+import vazkii.quark.base.handler.IDropoffManager;
 
-public class TileEntityBarrel extends TileEntityLockableLoot {
-	
-	private ItemStackHandlerRustic itemStackHandler = new ItemStackHandlerRustic(27) {
+@Optional.Interface(modid="quark", iface="vazkii.quark.base.handler.IDropoffManager")
+public class TileEntityBarrel extends TileEntityLockableLoot implements IDropoffManager {
+    @Optional.Method(modid="quark")
+    public boolean acceptsDropoff() {
+        return true;
+    }
+
+    private ItemStackHandlerRustic itemStackHandler = new ItemStackHandlerRustic(27) {
         @Override
         protected void onContentsChanged(int slot) {
             TileEntityBarrel.this.markDirty();
