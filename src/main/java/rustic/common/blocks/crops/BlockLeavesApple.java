@@ -80,7 +80,7 @@ public class BlockLeavesApple extends BlockLeaves implements IColoredBlock, IGro
 			float f = getGrowthChance(this, worldIn, pos);
 
 			if (net.minecraftforge.common.ForgeHooks.onCropsGrowPre(worldIn, pos, state,
-					rand.nextInt((int) (25.0F / f) + 1) == 0)) {
+					rand.nextInt((int) (50.0F / f) + 1) == 0)) {
 				worldIn.setBlockState(pos, state.withProperty(AGE, (i + 1)), 2);
 				net.minecraftforge.common.ForgeHooks.onCropsGrowPost(worldIn, pos, state, worldIn.getBlockState(pos));
 			}
