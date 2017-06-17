@@ -30,7 +30,7 @@ public class CabinetRenderer extends TileEntitySpecialRenderer<TileEntityCabinet
 		GlStateManager.depthMask(true);
 		int i;
 
-		if (te.hasWorld() && te.getBlockType() == ModBlocks.CABINET && !te.getWorld().getBlockState(te.getPos()).getValue(BlockCabinet.TOP)) {
+		if (te.hasWorld() && te.getWorld().getBlockState(te.getPos()).getBlock() == ModBlocks.CABINET && !te.getWorld().getBlockState(te.getPos()).getValue(BlockCabinet.TOP)) {
 
 			ModelBase modelcabinet;
 			
