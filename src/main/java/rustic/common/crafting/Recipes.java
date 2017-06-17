@@ -335,18 +335,21 @@ public class Recipes {
 		GameRegistry.addShapelessRecipe(new ItemStack(ModBlocks.GRAPE_STEM), new ItemStack(ModItems.GRAPES));
 		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(ModBlocks.BREWING_BARREL), "PIP", "S S", "PIP", 'P',
 				"plankWood", 'S', "slabWood", 'I', new ItemStack(Items.IRON_INGOT)));
-		
-		RecipeSorter.register("rustic:shapeless_nonreturn", RecipeNonIngredientReturn.class, RecipeSorter.Category.SHAPELESS,
-				"after:minecraft:shapeless");
-		ItemStack aleWortBucket = UniversalBucket
-				.getFilledBucket(ForgeModContainer.getInstance().universalBucket, ModFluids.ALE_WORT);
+
+		RecipeSorter.register("rustic:shapeless_nonreturn", RecipeNonIngredientReturn.class,
+				RecipeSorter.Category.SHAPELESS, "after:minecraft:shapeless");
+		ItemStack aleWortBucket = UniversalBucket.getFilledBucket(ForgeModContainer.getInstance().universalBucket,
+				ModFluids.ALE_WORT);
 		GameRegistry.addRecipe(new RecipeNonIngredientReturn(aleWortBucket, new ItemStack(Items.BREAD),
 				new ItemStack(Items.SUGAR), new ItemStack(Items.WATER_BUCKET)));
-		GameRegistry.addRecipe(new RecipeNonIngredientReturn(new ItemStack(Items.GLASS_BOTTLE), new ItemStack(ModItems.FLUID_BOTTLE)));
+		GameRegistry.addRecipe(
+				new RecipeNonIngredientReturn(new ItemStack(Items.GLASS_BOTTLE), new ItemStack(ModItems.FLUID_BOTTLE)));
 
-		RecipeSorter.register("rustic:olive_oil", RecipeOliveOil.class, RecipeSorter.Category.SHAPELESS,
-				"after:minecraft:shapeless");
-		GameRegistry.addRecipe(new RecipeOliveOil());
+		if (Config.ENABLE_OLIVE_OILING) {
+			RecipeSorter.register("rustic:olive_oil", RecipeOliveOil.class, RecipeSorter.Category.SHAPELESS,
+					"after:minecraft:shapeless");
+			GameRegistry.addRecipe(new RecipeOliveOil());
+		}
 	}
 
 	private static void addCrushingTubRecipes() {
