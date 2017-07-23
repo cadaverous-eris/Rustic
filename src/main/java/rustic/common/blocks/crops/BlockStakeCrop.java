@@ -68,6 +68,8 @@ public class BlockStakeCrop extends BlockBase implements IGrowable, IPlantable {
 		setTickRandomly(true);
 		this.setDefaultState(this.blockState.getBaseState().withProperty(AGE, Integer.valueOf(0)));
 		GameRegistry.register(this);
+		
+		Blocks.FIRE.setFireInfo(this, 30, 100);
 	}
 
 	public int getMaxAge() {

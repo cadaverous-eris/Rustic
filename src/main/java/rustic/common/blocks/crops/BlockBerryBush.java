@@ -55,6 +55,8 @@ public abstract class BlockBerryBush extends BlockBase implements IPlantable, IG
 		setLightOpacity(1);
 		setTickRandomly(true);
 		setDefaultState(this.blockState.getBaseState().withProperty(BERRIES, false));
+		
+		Blocks.FIRE.setFireInfo(this, 40, 80);
 	}
 
 	public abstract Item getBerries();

@@ -38,7 +38,7 @@ import rustic.compat.crafttweaker.CraftTweakerHelper;
 public class Rustic {
 	public static final String MODID = "rustic";
 	public static final String NAME = "Rustic";
-	public static final String VERSION = "0.3.7";
+	public static final String VERSION = "0.3.12";
 
 	@SidedProxy(clientSide = "rustic.core.ClientProxy", serverSide = "rustic.core.CommonProxy")
 	public static CommonProxy proxy;
@@ -108,7 +108,7 @@ public class Rustic {
 		@Override
 		@SideOnly(Side.CLIENT)
 		public ItemStack getTabIconItem() {
-			return ModItems.ELIXER.getDefaultInstance();
+			return ModItems.ELIXIR.getDefaultInstance();
 		}
 	};
 

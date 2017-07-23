@@ -187,7 +187,7 @@ public class EventHandlerClient {
 	@SideOnly(Side.CLIENT)
 	@SubscribeEvent
 	public void onRenderArmorOverlayEvent(RenderGameOverlayEvent.Pre event) {
-		if (event.getType() == ElementType.ARMOR) {
+		if (event.getType() == ElementType.ARMOR && Config.EXTRA_ARMOR_HUD) {
 			if (Minecraft.getMinecraft().getRenderViewEntity() instanceof EntityLivingBase) {
 				EntityLivingBase viewEntity = (EntityLivingBase) Minecraft.getMinecraft().getRenderViewEntity();
 				event.setCanceled(true);
@@ -201,9 +201,6 @@ public class EventHandlerClient {
 				int armorLevel = viewEntity.getTotalArmorValue();
 				
 				int armorRows = MathHelper.ceil(armorLevel / 20.0F);
-				if (!Config.EXTRA_ARMOR_HUD && armorRows > 1) {
-					armorRows = 1;
-				}
 		        int rowHeight = Math.min(Math.max(10 - (armorRows - 2), 3), 10);
 
 				int top = (height - GuiIngameForge.left_height) - ((armorRows * rowHeight) - 10);

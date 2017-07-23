@@ -24,6 +24,7 @@ import net.minecraft.client.renderer.color.IBlockColor;
 import net.minecraft.client.renderer.color.IItemColor;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
@@ -74,6 +75,8 @@ public class BlockGrapeLeaves extends BlockBase implements IGrowable, IColoredBl
 		setSoundType(SoundType.PLANT);
 		this.setDefaultState(this.blockState.getBaseState().withProperty(AXIS, EnumFacing.Axis.X)
 				.withProperty(DANGLE, false).withProperty(GRAPES, false).withProperty(DIST, 0));
+		
+		Blocks.FIRE.setFireInfo(this, 30, 60);
 	}
 
 	@Override

@@ -95,7 +95,12 @@ public class TileEntityCondenser extends TileFluidHandler implements ITickable {
 
 	public TileEntityCondenser() {
 		super();
-		tank = new FluidTank(capacity);
+		tank = new FluidTank(capacity) {
+			@Override
+			protected void onContentsChanged() {
+				markDirty();
+			}
+		};
 		tank.setTileEntity(this);
 		tank.setCanFill(true);
 		tank.setCanDrain(true);

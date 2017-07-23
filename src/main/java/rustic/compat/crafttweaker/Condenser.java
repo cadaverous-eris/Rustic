@@ -10,13 +10,13 @@ import minetweaker.api.item.IItemStack;
 import minetweaker.api.liquid.ILiquidStack;
 import net.minecraft.item.ItemStack;
 import net.minecraft.potion.PotionEffect;
-import net.minecraft.potion.PotionUtils;
 import net.minecraftforge.fml.common.Loader;
 import rustic.common.crafting.AdvancedCondenserRecipe;
 import rustic.common.crafting.BasicCondenserRecipe;
 import rustic.common.crafting.CondenserRecipe;
 import rustic.common.crafting.EvaporatingBasinRecipe;
 import rustic.common.crafting.Recipes;
+import rustic.common.util.ElixirUtils;
 import rustic.compat.jei.AdvancedAlchemyRecipeWrapper;
 import rustic.compat.jei.RusticJEIPlugin;
 import stanhebben.zenscript.annotations.ZenClass;
@@ -95,11 +95,11 @@ public class Condenser {
 
 		@Override
 		public void apply() {
-			List<PotionEffect> effects = PotionUtils.getEffectsFromStack(output);
+			List<PotionEffect> effects = ElixirUtils.getEffects(output);
 			Iterator<CondenserRecipe> it = Recipes.condenserRecipes.iterator();
 			while (it.hasNext()) {
 				CondenserRecipe r = it.next();
-				List<PotionEffect> rEffects = PotionUtils.getEffectsFromStack(r.getResult());
+				List<PotionEffect> rEffects = ElixirUtils.getEffects(r.getResult());
 				if (r != null && r.getResult() != null && r.getResult().isItemEqual(output)
 						&& (effects.equals(rEffects))) {
 					removedRecipes.add(r);

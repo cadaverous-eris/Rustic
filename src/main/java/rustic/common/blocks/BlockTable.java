@@ -8,6 +8,7 @@ import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.properties.PropertyBool;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.init.Blocks;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
@@ -24,6 +25,8 @@ public class BlockTable extends BlockBase {
 		setHardness(1F);
 		setSoundType(SoundType.WOOD);
 		this.setDefaultState(this.blockState.getBaseState().withProperty(NW, true).withProperty(NE, true).withProperty(SE, true).withProperty(SW, true));
+		
+		Blocks.FIRE.setFireInfo(this, 5, 20);
 	}
 	
 	@Override

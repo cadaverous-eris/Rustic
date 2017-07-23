@@ -41,8 +41,8 @@ public class WorldGenAllTrees extends WorldGenerator {
 
 		if (validBiome && rand.nextFloat() < Config.OLIVE_GEN_CHANCE) {
 			for (int i = 0; i < Config.MAX_OLIVE_GEN_ATTEMPTS; i++) {
-				int x = pos.getX() + (5 - rand.nextInt(12));
-				int z = pos.getZ() + (5 - rand.nextInt(12));
+				int x = pos.getX() + (5 - rand.nextInt(11));
+				int z = pos.getZ() + (5 - rand.nextInt(11));
 				int y = world.getHeight(x, z);
 				BlockPos genPos = new BlockPos(x, y, z);
 				
@@ -62,8 +62,8 @@ public class WorldGenAllTrees extends WorldGenerator {
 		
 		if (validBiome && rand.nextFloat() < Config.IRONWOOD_GEN_CHANCE) {
 			for (int i = 0; i < Config.MAX_IRONWOOD_GEN_ATTEMPTS; i++) {
-				int x = pos.getX() + (5 - rand.nextInt(12));
-				int z = pos.getZ() + (5 - rand.nextInt(12));
+				int x = pos.getX() + (5 - rand.nextInt(11));
+				int z = pos.getZ() + (5 - rand.nextInt(11));
 				int y = world.getHeight(x, z);
 				BlockPos genPos = new BlockPos(x, y, z);
 				

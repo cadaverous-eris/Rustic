@@ -10,6 +10,7 @@ import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
@@ -50,6 +51,8 @@ public class BlockLogRustic extends BlockLog {
 		GameRegistry.register(this);
 		GameRegistry.register(item, getRegistryName());
 		setDefaultState(this.blockState.getBaseState().withProperty(VARIANT, BlockPlanksRustic.EnumType.OLIVE).withProperty(LOG_AXIS, BlockLog.EnumAxis.Y));
+		
+		Blocks.FIRE.setFireInfo(this, 5, 5);
 	}
 
 	@SideOnly(Side.CLIENT)

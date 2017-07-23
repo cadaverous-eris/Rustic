@@ -6,6 +6,7 @@ import net.minecraft.block.material.MapColor;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
+import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemBlock;
 import net.minecraftforge.client.model.ModelLoader;
@@ -23,6 +24,8 @@ public class BlockFenceRustic extends BlockFence {
 		setHardness(2F);
 		setCreativeTab(Rustic.decorTab);
 		setSoundType(state.getBlock().getSoundType());
+		
+		Blocks.FIRE.setFireInfo(this, 5, 20);
 	}
 	
 	public void initModel() {

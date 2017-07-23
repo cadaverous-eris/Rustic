@@ -40,7 +40,13 @@ public class TileEntityLiquidBarrel extends TileFluidHandler {
 
 	public TileEntityLiquidBarrel() {
 		super();
-		tank = new FluidTank(capacity);
+		tank = new FluidTank(capacity) {
+			@Override
+			protected void onContentsChanged() {
+				markDirty();
+				getWorld().notifyBlockUpdate(pos, getWorld().getBlockState(pos), getWorld().getBlockState(pos), 2);
+			}
+		};
 		tank.setTileEntity(this);
 		tank.setCanFill(true);
 		tank.setCanDrain(true);

@@ -89,7 +89,12 @@ public class TileEntityCondenserAdvanced extends TileFluidHandler implements ITi
 
 	public TileEntityCondenserAdvanced() {
 		super();
-		tank = new FluidTank(capacity);
+		tank = new FluidTank(capacity) {
+			@Override
+			protected void onContentsChanged() {
+				markDirty();
+			}
+		};
 		tank.setTileEntity(this);
 		tank.setCanFill(true);
 		tank.setCanDrain(true);

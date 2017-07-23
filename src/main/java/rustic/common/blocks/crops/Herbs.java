@@ -7,6 +7,7 @@ import java.util.Set;
 
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.Blocks;
 import net.minecraft.init.MobEffects;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -62,6 +63,7 @@ public class Herbs {
 				return Item.getItemFromBlock(this);
 			}
 		};
+		Blocks.FIRE.setFireInfo(BLOOD_ORCHID, 60, 100);
 		CHAMOMILE = new BlockHerbBase("chamomile", false) {
 			@Override
 			public EnumPlantType getPlantType(IBlockAccess world, BlockPos pos) {
@@ -73,6 +75,7 @@ public class Herbs {
 				return Item.getItemFromBlock(this);
 			}
 		};
+		Blocks.FIRE.setFireInfo(CHAMOMILE, 60, 100);
 		CLOUDSBLUFF_CROP = new BlockHerbBase("cloudsbluff", true) {
 			@Override
 			public EnumPlantType getPlantType(IBlockAccess world, BlockPos pos) {
@@ -84,6 +87,7 @@ public class Herbs {
 				return CLOUDSBLUFF;
 			}
 		};
+		Blocks.FIRE.setFireInfo(CLOUDSBLUFF_CROP, 60, 100);
 		COHOSH = new BlockHerbBase("cohosh", false) {
 			@Override
 			public EnumPlantType getPlantType(IBlockAccess world, BlockPos pos) {
@@ -95,6 +99,7 @@ public class Herbs {
 				return Item.getItemFromBlock(this);
 			}
 		};
+		Blocks.FIRE.setFireInfo(COHOSH, 60, 100);
 		CORE_ROOT_CROP = new BlockHerbBase("core_root", true) {
 			@Override
 			public EnumPlantType getPlantType(IBlockAccess world, BlockPos pos) {
@@ -106,6 +111,7 @@ public class Herbs {
 				return CORE_ROOT;
 			}
 		};
+		Blocks.FIRE.setFireInfo(CORE_ROOT_CROP, 60, 100);
 		DEATHSTALK = new BlockHerbBase("deathstalk_mushroom", false) {
 			@Override
 			public EnumPlantType getPlantType(IBlockAccess world, BlockPos pos) {
@@ -128,6 +134,7 @@ public class Herbs {
 				return GINSENG;
 			}
 		};
+		Blocks.FIRE.setFireInfo(GINSENG_CROP, 60, 100);
 		HORSETAIL = new BlockHerbBase("horsetail", false) {
 			@Override
 			public EnumPlantType getPlantType(IBlockAccess world, BlockPos pos) {
@@ -139,6 +146,7 @@ public class Herbs {
 				return Item.getItemFromBlock(this);
 			}
 		};
+		Blocks.FIRE.setFireInfo(HORSETAIL, 60, 100);
 		MARSH_MALLOW_CROP = new BlockHerbBase("marsh_mallow", true) {
 			@Override
 			public EnumPlantType getPlantType(IBlockAccess world, BlockPos pos) {
@@ -150,6 +158,7 @@ public class Herbs {
 				return MARSH_MALLOW;
 			}
 		};
+		Blocks.FIRE.setFireInfo(MARSH_MALLOW_CROP, 60, 100);
 		MOONCAP = new BlockHerbBase("mooncap_mushroom", false) {
 			@Override
 			public EnumPlantType getPlantType(IBlockAccess world, BlockPos pos) {
@@ -177,6 +186,7 @@ public class Herbs {
 				return Item.getItemFromBlock(this);
 			}
 		};
+		Blocks.FIRE.setFireInfo(WIND_THISTLE, 60, 100);
 		
 		CLOUDSBLUFF = new ItemHerbEdible(CLOUDSBLUFF_CROP, 2, 0.2F) {
 			@Override

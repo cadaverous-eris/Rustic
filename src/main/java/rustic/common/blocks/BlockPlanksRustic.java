@@ -14,6 +14,7 @@ import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
@@ -61,6 +62,7 @@ public class BlockPlanksRustic extends BlockBase {
 
 		register(item);
 
+		Blocks.FIRE.setFireInfo(this, 5, 20);
 	}
 
 	@Override

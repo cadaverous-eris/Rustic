@@ -11,6 +11,7 @@ import net.minecraft.block.properties.PropertyInteger;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.init.Blocks;
 import net.minecraft.util.BlockRenderLayer;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.AxisAlignedBB;
@@ -44,6 +45,8 @@ public class BlockGrapeStem extends BlockBase implements IGrowable, IPlantable {
 		setCreativeTab(Rustic.farmingTab);
 		this.setTickRandomly(true);
 		this.setDefaultState(this.blockState.getBaseState().withProperty(AGE, 0));
+		
+		Blocks.FIRE.setFireInfo(this, 20, 100);
 	}
 
 	public int getMaxAge() {

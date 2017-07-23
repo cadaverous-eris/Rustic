@@ -216,7 +216,7 @@ public class ModFluids {
 					}
 				} else {
 					for (PotionEffect effect : player.getActivePotionEffects()) {
-						if (effect.getPotion().isBeneficial()) {
+						if (!effect.getPotion().isBadEffect()) {
 							if (effect.getAmplifier() > 0) {
 								player.removePotionEffect(effect.getPotion());
 								player.addPotionEffect(new PotionEffect(effect.getPotion(), effect.getDuration(), effect.getAmplifier() - 1, effect.getIsAmbient(), effect.doesShowParticles()));

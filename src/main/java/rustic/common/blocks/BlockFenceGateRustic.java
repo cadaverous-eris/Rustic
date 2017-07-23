@@ -17,6 +17,7 @@ import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.client.renderer.block.statemap.StateMap;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemBlock;
 import net.minecraft.util.EnumFacing;
@@ -44,6 +45,8 @@ public class BlockFenceGateRustic extends BlockFenceGate {
 		setHardness(2F);
 		setSoundType(state.getBlock().getSoundType());
 		setCreativeTab(Rustic.decorTab);
+		
+		Blocks.FIRE.setFireInfo(this, 5, 20);
 	}
 
 	@SideOnly(Side.CLIENT)

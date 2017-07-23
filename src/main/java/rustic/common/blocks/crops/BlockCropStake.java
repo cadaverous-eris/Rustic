@@ -5,6 +5,7 @@ import net.minecraft.block.material.MapColor;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumFacing;
@@ -36,6 +37,8 @@ public class BlockCropStake extends BlockBase {
 		setResistance(5F);
 		setCreativeTab(Rustic.farmingTab);
 		setSoundType(SoundType.WOOD);
+		
+		Blocks.FIRE.setFireInfo(this, 5, 20);
 	}
 
 	@Override

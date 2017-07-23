@@ -3,6 +3,7 @@ package rustic.common.blocks;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.Minecraft;
+import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
@@ -239,6 +240,22 @@ public class ModBlocks {
 					.setBlockSoundType(SoundType.WOOD);
 			PAINTED_WOOD_BLACK = ((BlockBase) new BlockBase(Material.WOOD, "painted_wood_black").setHardness(2.0F))
 					.setBlockSoundType(SoundType.WOOD);
+			Blocks.FIRE.setFireInfo(PAINTED_WOOD_WHITE, 5, 20);
+			Blocks.FIRE.setFireInfo(PAINTED_WOOD_ORANGE, 5, 20);
+			Blocks.FIRE.setFireInfo(PAINTED_WOOD_MAGENTA, 5, 20);
+			Blocks.FIRE.setFireInfo(PAINTED_WOOD_LIGHT_BLUE, 5, 20);
+			Blocks.FIRE.setFireInfo(PAINTED_WOOD_YELLOW, 5, 20);
+			Blocks.FIRE.setFireInfo(PAINTED_WOOD_LIME, 5, 20);
+			Blocks.FIRE.setFireInfo(PAINTED_WOOD_PINK, 5, 20);
+			Blocks.FIRE.setFireInfo(PAINTED_WOOD_GRAY, 5, 20);
+			Blocks.FIRE.setFireInfo(PAINTED_WOOD_SILVER, 5, 20);
+			Blocks.FIRE.setFireInfo(PAINTED_WOOD_CYAN, 5, 20);
+			Blocks.FIRE.setFireInfo(PAINTED_WOOD_PURPLE, 5, 20);
+			Blocks.FIRE.setFireInfo(PAINTED_WOOD_BLUE, 5, 20);
+			Blocks.FIRE.setFireInfo(PAINTED_WOOD_BROWN, 5, 20);
+			Blocks.FIRE.setFireInfo(PAINTED_WOOD_GREEN, 5, 20);
+			Blocks.FIRE.setFireInfo(PAINTED_WOOD_RED, 5, 20);
+			Blocks.FIRE.setFireInfo(PAINTED_WOOD_BLACK, 5, 20);
 		}
 		GARGOYLE = new BlockGargoyle();
 		CABINET = new BlockCabinet();
@@ -266,16 +283,22 @@ public class ModBlocks {
 		OLIVE_SLAB = new BlockSlabBase(Material.WOOD, "olive_slab", OLIVE_DOUBLESLAB, SoundType.WOOD);
 		OLIVE_DOUBLESLAB.setSlab(OLIVE_SLAB);
 		OLIVE_SLAB_ITEM = new ItemBlockSlabBase(OLIVE_SLAB, OLIVE_DOUBLESLAB);
+		Blocks.FIRE.setFireInfo(OLIVE_DOUBLESLAB, 5, 20);
+		Blocks.FIRE.setFireInfo(OLIVE_SLAB, 5, 20);
 		IRONWOOD_DOUBLESLAB = new BlockDoubleSlabBase(Material.WOOD, "ironwood_doubleslab", SoundType.WOOD);
 		IRONWOOD_SLAB = new BlockSlabBase(Material.WOOD, "ironwood_slab", IRONWOOD_DOUBLESLAB, SoundType.WOOD);
 		IRONWOOD_DOUBLESLAB.setSlab(IRONWOOD_SLAB);
 		IRONWOOD_SLAB_ITEM = new ItemBlockSlabBase(IRONWOOD_SLAB, IRONWOOD_DOUBLESLAB);
+		Blocks.FIRE.setFireInfo(IRONWOOD_DOUBLESLAB, 5, 20);
+		Blocks.FIRE.setFireInfo(IRONWOOD_SLAB, 5, 20);
 		OLIVE_STAIRS = new BlockStairsBase(
 				PLANKS.getDefaultState().withProperty(BlockPlanksRustic.VARIANT, BlockPlanksRustic.EnumType.OLIVE),
 				"stairs_olive");
+		Blocks.FIRE.setFireInfo(OLIVE_STAIRS, 5, 20);
 		IRONWOOD_STAIRS = new BlockStairsBase(
 				PLANKS.getDefaultState().withProperty(BlockPlanksRustic.VARIANT, BlockPlanksRustic.EnumType.IRONWOOD),
 				"stairs_ironwood");
+		Blocks.FIRE.setFireInfo(IRONWOOD_STAIRS, 5, 20);
 		CONDENSER = new BlockCondenser();
 		RETORT = new BlockRetort("retort");
 		CONDENSER_ADVANCED = new BlockCondenserAdvanced();

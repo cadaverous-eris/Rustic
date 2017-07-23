@@ -12,6 +12,7 @@ import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.BlockRenderLayer;
@@ -35,6 +36,8 @@ public class BlockChair extends BlockBase {
 		setHardness(1F);
 		this.setDefaultState(this.blockState.getBaseState().withProperty(FACING, EnumFacing.NORTH));
 		setSoundType(SoundType.WOOD);
+		
+		Blocks.FIRE.setFireInfo(this, 5, 20);
 	}
 	
 	public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos) {

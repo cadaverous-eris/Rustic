@@ -7,13 +7,13 @@ import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Items;
+import net.minecraft.init.MobEffects;
 import net.minecraft.init.PotionTypes;
 import net.minecraft.item.EnumAction;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.potion.PotionType;
-import net.minecraft.potion.PotionUtils;
 import net.minecraft.stats.StatList;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.EnumActionResult;
@@ -25,6 +25,7 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import rustic.common.crafting.CondenserRecipe;
 import rustic.common.crafting.Recipes;
+import rustic.common.util.ElixirUtils;
 import rustic.core.ClientProxy;
 import rustic.core.Rustic;
 
@@ -49,7 +50,9 @@ public class ItemElixir extends ItemBase implements IColoredItem {
 	@Override
 	@SideOnly(Side.CLIENT)
 	public ItemStack getDefaultInstance() {
-		return PotionUtils.addPotionToItemStack(super.getDefaultInstance(), PotionTypes.HEALING);
+		ItemStack stack = super.getDefaultInstance();
+		ElixirUtils.addEffect(new PotionEffect(MobEffects.INSTANT_HEALTH, 1, 0), stack);
+		return stack;
 	}
 
 	@Override
@@ -61,7 +64,7 @@ public class ItemElixir extends ItemBase implements IColoredItem {
 		}
 
 		if (!worldIn.isRemote) {
-			for (PotionEffect potioneffect : PotionUtils.getEffectsFromStack(stack)) {
+			for (PotionEffect potioneffect : ElixirUtils.getEffects(stack)) {
 				if (potioneffect.getPotion().isInstant()) {
 					potioneffect.getPotion().affectEntity(entityplayer, entityplayer, entityLiving,
 							potioneffect.getAmplifier(), 1.0D);
@@ -104,7 +107,7 @@ public class ItemElixir extends ItemBase implements IColoredItem {
 	public String getItemStackDisplayName(ItemStack stack) {
 		String name = I18n.translateToLocal("rustic.elixir.prefix");
 		int i = 0;
-		List<PotionEffect> effects = PotionUtils.getEffectsFromStack(stack);
+		List<PotionEffect> effects = ElixirUtils.getEffects(stack);
 		for (PotionEffect effect : effects) {
 			name += I18n.translateToLocal(effect.getEffectName());
 			if (i < effects.size() - 1) {
@@ -118,7 +121,7 @@ public class ItemElixir extends ItemBase implements IColoredItem {
 	@Override
 	@SideOnly(Side.CLIENT)
 	public void addInformation(ItemStack stack, EntityPlayer playerIn, List<String> tooltip, boolean advanced) {
-		PotionUtils.addPotionTooltip(stack, tooltip, 1.0F);
+		ElixirUtils.addPotionTooltip(stack, tooltip, 1.0F);
 	}
 
 	@Override
@@ -128,7 +131,7 @@ public class ItemElixir extends ItemBase implements IColoredItem {
 			@Override
 			public int getColorFromItemstack(ItemStack stack, int tintIndex) {
 				if (tintIndex == 0) {
-					return PotionUtils.getColor(stack);
+					return ElixirUtils.getColor(stack);
 				}
 				return 0xFFFFFF;
 			}

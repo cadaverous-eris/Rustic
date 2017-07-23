@@ -64,6 +64,8 @@ public class BlockLeavesApple extends BlockLeaves implements IColoredBlock, IGro
 				.withProperty(DECAYABLE, true));
 		GameRegistry.register(this);
 		GameRegistry.register(new ItemBlock(this), getRegistryName());
+		
+		Blocks.FIRE.setFireInfo(this, 30, 60);
 	}
 
 	public int getMaxAge() {

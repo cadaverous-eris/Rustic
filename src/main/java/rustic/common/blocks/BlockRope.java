@@ -13,6 +13,7 @@ import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.client.renderer.block.statemap.StateMap;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumFacing;
@@ -48,6 +49,8 @@ public class BlockRope extends BlockBase {
 		setHardness(0.5F);
 		setSoundType(SoundType.CLOTH);
 		this.setDefaultState(this.blockState.getBaseState().withProperty(DANGLE, false).withProperty(AXIS, EnumFacing.Axis.Y).withProperty(SUPPORTED, false));
+		
+		Blocks.FIRE.setFireInfo(this, 20, 60);
 	}
 
 	@Override

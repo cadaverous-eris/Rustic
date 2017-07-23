@@ -72,6 +72,8 @@ public class BlockLeavesRustic extends BlockLeaves implements IColoredBlock {
 		GameRegistry.register(this);
 		GameRegistry.register(item, getRegistryName());
 		setDefaultState(this.blockState.getBaseState().withProperty(VARIANT, BlockPlanksRustic.EnumType.OLIVE).withProperty(CHECK_DECAY, true).withProperty(DECAYABLE, true));
+		
+		Blocks.FIRE.setFireInfo(this, 30, 60);
 	}
 
 	@Override

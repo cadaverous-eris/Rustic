@@ -7,6 +7,8 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.potion.PotionUtils;
 import rustic.common.items.ModItems;
+import rustic.common.util.ElixirUtils;
+
 import java.util.Arrays;
 
 public class AdvancedCondenserRecipe extends CondenserRecipe {
@@ -20,9 +22,8 @@ public class AdvancedCondenserRecipe extends CondenserRecipe {
 	}
 	
 	public AdvancedCondenserRecipe(PotionEffect effect, ItemStack modifier, ItemStack... inputs) {
-		List<PotionEffect> effects = new ArrayList<PotionEffect>();
-		effects.add(effect);
-		this.output = PotionUtils.appendEffects(new ItemStack(ModItems.ELIXER), effects);
+		this.output = new ItemStack(ModItems.ELIXIR);
+		ElixirUtils.addEffect(effect, this.output);
 		this.modifier = modifier;
 		this.inputs = Arrays.asList(inputs);
 	}

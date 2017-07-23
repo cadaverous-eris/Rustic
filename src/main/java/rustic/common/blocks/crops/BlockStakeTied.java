@@ -11,6 +11,7 @@ import net.minecraft.block.properties.PropertyBool;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.AxisAlignedBB;
@@ -40,6 +41,8 @@ public class BlockStakeTied extends BlockBase {
 		setResistance(5F);
 		setDefaultState(this.blockState.getBaseState().withProperty(NORTH,  false).withProperty(WEST, false).withProperty(SOUTH, false).withProperty(EAST,  false));
 		GameRegistry.register(this);
+		
+		Blocks.FIRE.setFireInfo(this, 15, 40);
 	}
 	
 	@Override

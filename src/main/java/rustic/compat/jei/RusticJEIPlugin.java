@@ -95,7 +95,7 @@ public class RusticJEIPlugin extends BlankModPlugin {
 	@Override
 	public void registerItemSubtypes(ISubtypeRegistry subtypeRegistry) {
 		this.subtypeRegistry = subtypeRegistry;
-		subtypeRegistry.useNbtForSubtypes(ModItems.FLUID_BOTTLE, ModItems.ELIXER);
+		subtypeRegistry.useNbtForSubtypes(ModItems.FLUID_BOTTLE, ModItems.ELIXIR);
 	}
 
 	@Override
