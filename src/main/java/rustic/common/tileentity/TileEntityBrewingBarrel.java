@@ -164,8 +164,7 @@ public class TileEntityBrewingBarrel extends TileEntity implements ITickable {
 
 	@Override
 	public boolean hasCapability(@Nonnull Capability<?> capability, @Nullable EnumFacing facing) {
-		return capability == CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY
-				|| capability == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY
+		return capability == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY
 				|| super.hasCapability(capability, facing);
 	}
 
@@ -230,15 +229,7 @@ public class TileEntityBrewingBarrel extends TileEntity implements ITickable {
 	@Override
 	@Nullable
 	public <T> T getCapability(@Nonnull Capability<T> capability, @Nullable EnumFacing facing) {
-		if (capability == CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY) {
-			if (facing == EnumFacing.UP) {
-				// return (T) input;
-			} else if (facing == EnumFacing.DOWN) {
-				// return (T) output;
-			} else {
-				// return (T) auxiliary;
-			}
-		} else if (capability == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY) {
+		if (capability == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY) {
 			return (T) externalStackHandler;
 		}
 		return super.getCapability(capability, facing);
