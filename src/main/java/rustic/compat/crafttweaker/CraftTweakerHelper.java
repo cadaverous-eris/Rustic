@@ -1,12 +1,12 @@
 package rustic.compat.crafttweaker;
 
 import mezz.jei.api.recipe.IRecipeWrapper;
-import minetweaker.MineTweakerAPI;
-import minetweaker.api.item.IIngredient;
-import minetweaker.api.item.IItemStack;
-import minetweaker.api.item.IngredientStack;
-import minetweaker.api.liquid.ILiquidStack;
-import minetweaker.api.oredict.IOreDictEntry;
+import crafttweaker.CraftTweakerAPI;
+import crafttweaker.api.item.IIngredient;
+import crafttweaker.api.item.IItemStack;
+import crafttweaker.api.item.IngredientStack;
+import crafttweaker.api.liquid.ILiquidStack;
+import crafttweaker.api.oredict.IOreDictEntry;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fml.common.Loader;
@@ -15,10 +15,10 @@ import rustic.compat.jei.RusticJEIPlugin;
 
 public class CraftTweakerHelper {
 
-	public static void postInit() {
-		MineTweakerAPI.registerClass(CrushingTub.class);
-		MineTweakerAPI.registerClass(EvaporatingBasin.class);
-		MineTweakerAPI.registerClass(Condenser.class);
+	public static void preInit() {
+		CraftTweakerAPI.registerClass(CrushingTub.class);
+		CraftTweakerAPI.registerClass(EvaporatingBasin.class);
+		CraftTweakerAPI.registerClass(Condenser.class);
 	}
 
 	public static ItemStack toStack(IItemStack iStack) {
@@ -67,5 +67,5 @@ public class CraftTweakerHelper {
 		}
 		return (FluidStack) iStack.getInternal();
 	}
-
+	
 }

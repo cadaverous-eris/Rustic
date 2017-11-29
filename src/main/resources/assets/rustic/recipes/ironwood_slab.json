@@ -1,0 +1,17 @@
+{
+  "type": "forge:ore_shaped",
+  "group": "minecraft:wooden_slab",
+  "pattern": [
+    "PPP"
+  ],
+  "key": {
+    "P": {
+		"item": "rustic:planks",
+		"data": 1
+	}
+  },
+  "result": {
+    "item": "rustic:ironwood_slab_item",
+	"count": 6
+  }
+}

@@ -1,0 +1,21 @@
+{
+	"type": "forge:ore_shaped",
+	"pattern": [
+		" I ",
+		"C C",
+		"III"
+	],
+	"key": {
+		"I": {
+			"type": "forge:ore_dict",
+			"ore": "ingotIron"
+		},
+		"C": {
+			"item": "rustic:chain"
+		}
+	},
+	"result": {
+		"item": "rustic:chandelier",
+		"count": 4
+	}
+}

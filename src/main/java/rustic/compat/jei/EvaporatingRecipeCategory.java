@@ -57,5 +57,11 @@ public class EvaporatingRecipeCategory extends BlankRecipeCategory {
 		}
 		
 	}
+	
+
+	@Override
+	public String getModName() {
+		return "Rustic";
+	}
 
 }

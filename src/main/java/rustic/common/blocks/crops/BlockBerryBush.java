@@ -12,24 +12,31 @@ import net.minecraft.block.Block;
 import net.minecraft.block.BlockPlanks;
 import net.minecraft.block.IGrowable;
 import net.minecraft.block.SoundType;
+import net.minecraft.block.BlockPlanks.EnumType;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.properties.PropertyBool;
 import net.minecraft.block.properties.PropertyEnum;
 import net.minecraft.block.properties.PropertyInteger;
+import net.minecraft.block.state.BlockFaceShape;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.client.renderer.color.IBlockColor;
+import net.minecraft.client.renderer.color.IItemColor;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.BlockRenderLayer;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.ColorizerFoliage;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
+import net.minecraft.world.biome.BiomeColorHelper;
 import net.minecraftforge.common.EnumPlantType;
 import net.minecraftforge.common.IPlantable;
 import net.minecraftforge.fml.relauncher.Side;
@@ -38,10 +45,12 @@ import rustic.common.Config;
 import rustic.common.blocks.BlockBase;
 import rustic.common.blocks.BlockPlanksRustic;
 import rustic.common.blocks.BlockRope;
+import rustic.common.blocks.IColoredBlock;
 import rustic.common.blocks.ModBlocks;
+import rustic.core.ClientProxy;
 import rustic.core.Rustic;
 
-public abstract class BlockBerryBush extends BlockBase implements IPlantable, IGrowable {
+public abstract class BlockBerryBush extends BlockBase implements IColoredBlock, IPlantable, IGrowable {
 
 	public static final PropertyBool BERRIES = PropertyBool.create("berries");
 
@@ -258,6 +267,45 @@ public abstract class BlockBerryBush extends BlockBase implements IPlantable, IG
 			return Block.EnumOffsetType.XZ;
 		}
 		return Block.EnumOffsetType.NONE;
+	}
+	
+	@Override
+	public BlockFaceShape getBlockFaceShape(IBlockAccess world, IBlockState state, BlockPos pos, EnumFacing side) {
+        return BlockFaceShape.UNDEFINED;
+    }
+	
+	@SideOnly(Side.CLIENT)
+	@Override
+	public IBlockColor getBlockColor() {
+		return new IBlockColor() {
+			@Override
+			public int colorMultiplier(IBlockState state, IBlockAccess worldIn, BlockPos pos, int tintIndex) {
+				if (worldIn != null && pos != null && tintIndex == 1) {
+					return BiomeColorHelper.getFoliageColorAtPos(worldIn, pos);
+				}
+				return ColorizerFoliage.getFoliageColorBasic();
+			}
+		};
+	}
+
+	@SideOnly(Side.CLIENT)
+	@Override
+	public IItemColor getItemColor() {
+		return new IItemColor() {
+			@Override
+			public int getColorFromItemstack(ItemStack stack, int tintIndex) {
+				IBlockState state = ((ItemBlock) stack.getItem()).getBlock().getStateFromMeta(stack.getMetadata());
+				IBlockColor blockColor = ((IColoredBlock) state.getBlock()).getBlockColor();
+				return blockColor == null ? 0xFFFFFF : blockColor.colorMultiplier(state, null, null, tintIndex);
+			}
+		};
+	}
+	
+	@SideOnly(Side.CLIENT)
+	@Override
+	public void initModel() {
+		super.initModel();
+		ClientProxy.addColoredBlock(this);
 	}
 
 }

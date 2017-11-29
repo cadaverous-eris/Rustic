@@ -90,5 +90,11 @@ public class SimpleAlchemyRecipeCategory extends BlankRecipeCategory {
 			stacks.set(4, ingredients.getOutputs(ItemStack.class).get(0));
 		}
 	}
+	
+
+	@Override
+	public String getModName() {
+		return "Rustic";
+	}
 
 }

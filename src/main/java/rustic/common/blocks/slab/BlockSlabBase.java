@@ -29,7 +29,7 @@ public class BlockSlabBase extends BlockSlab {
 		super(materialIn);
 		setRegistryName(name);
 		setUnlocalizedName(Rustic.MODID + "." + name);
-		GameRegistry.register(this);
+		GameRegistry.findRegistry(Block.class).register(this);
 		//GameRegistry.register(new ItemBlock(this), getRegistryName());
 		this.setHardness(2.0F);
 		this.useNeighborBrightness = true;
@@ -40,7 +40,7 @@ public class BlockSlabBase extends BlockSlab {
 		super(materialIn);
 		setRegistryName(name);
 		setUnlocalizedName(Rustic.MODID + "." + name);
-		GameRegistry.register(this);
+		GameRegistry.findRegistry(Block.class).register(this);
 		//GameRegistry.register(new ItemBlock(this), getRegistryName());
 		this.setHardness(2.0F);
 		this.useNeighborBrightness = true;

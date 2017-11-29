@@ -2,7 +2,10 @@ package rustic.common.items;
 
 import java.util.List;
 
+import javax.annotation.Nullable;
+
 import net.minecraft.client.renderer.color.IItemColor;
+import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
@@ -14,6 +17,7 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.potion.PotionType;
+import net.minecraft.potion.PotionUtils;
 import net.minecraft.stats.StatList;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.EnumActionResult;
@@ -38,11 +42,12 @@ public class ItemElixir extends ItemBase implements IColoredItem {
 	}
 
 	@Override
-	@SideOnly(Side.CLIENT)
-	public void getSubItems(Item itemIn, CreativeTabs tab, NonNullList<ItemStack> subItems) {
+	public void getSubItems(CreativeTabs tab, NonNullList<ItemStack> subItems) {
 		for (CondenserRecipe recipe : Recipes.condenserRecipes) {
 			if (!subItems.contains(recipe.getResult())) {
-				subItems.add(recipe.getResult());
+				if(isInCreativeTab(tab)) {
+					subItems.add(recipe.getResult());
+				}
 			}
 		}
 	}
@@ -58,10 +63,6 @@ public class ItemElixir extends ItemBase implements IColoredItem {
 	@Override
 	public ItemStack onItemUseFinish(ItemStack stack, World worldIn, EntityLivingBase entityLiving) {
 		EntityPlayer entityplayer = entityLiving instanceof EntityPlayer ? (EntityPlayer) entityLiving : null;
-
-		if (entityplayer == null || !entityplayer.capabilities.isCreativeMode) {
-			stack.shrink(1);
-		}
 
 		if (!worldIn.isRemote) {
 			for (PotionEffect potioneffect : ElixirUtils.getEffects(stack)) {
@@ -82,6 +83,10 @@ public class ItemElixir extends ItemBase implements IColoredItem {
 			if (!entityplayer.inventory.addItemStackToInventory(new ItemStack(Items.GLASS_BOTTLE))) {
 				entityplayer.dropItem(new ItemStack(Items.GLASS_BOTTLE), false);
 			}
+		}
+		
+		if (entityplayer == null || !entityplayer.capabilities.isCreativeMode) {
+			stack.shrink(1);
 		}
 
 		return stack;
@@ -120,7 +125,7 @@ public class ItemElixir extends ItemBase implements IColoredItem {
 
 	@Override
 	@SideOnly(Side.CLIENT)
-	public void addInformation(ItemStack stack, EntityPlayer playerIn, List<String> tooltip, boolean advanced) {
+	public void addInformation(ItemStack stack, @Nullable World worldIn, List<String> tooltip, ITooltipFlag flagIn) {
 		ElixirUtils.addPotionTooltip(stack, tooltip, 1.0F);
 	}
 

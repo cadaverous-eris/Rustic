@@ -1,0 +1,20 @@
+{
+	"type": "forge:ore_shaped",
+	"pattern": [
+		"PPP",
+		"P D",
+		"PPP"
+	],
+	"key": {
+		"P": {
+			"type": "forge:ore_dict",
+			"ore": "plankWood"
+		},
+		"D": {
+			"item": "minecraft:trapdoor"
+		}
+	},
+	"result": {
+		"item": "rustic:cabinet"
+	}
+}

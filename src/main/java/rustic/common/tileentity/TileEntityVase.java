@@ -22,9 +22,8 @@ import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.ItemStackHandler;
 import rustic.common.util.ItemStackHandlerRustic;
-import vazkii.quark.base.handler.IDropoffManager;
 
-public class TileEntityVase extends TileEntityLockableLoot implements IDropoffManager {
+public class TileEntityVase extends TileEntityLockableLoot {
 	
 	private ItemStackHandlerRustic itemStackHandler = new ItemStackHandlerRustic(27) {
         @Override
@@ -213,11 +212,6 @@ public class TileEntityVase extends TileEntityLockableLoot implements IDropoffMa
 	public void setLootTable(ResourceLocation file, long seed) {
 		super.setLootTable(file, seed);
 		markDirty();
-	}
-
-	@Override
-	public boolean acceptsDropoff() {
-		return true;
 	}
 
 }

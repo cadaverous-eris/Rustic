@@ -1,14 +1,18 @@
 package rustic.common.blocks;
 
+import java.util.Random;
+
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.properties.PropertyDirection;
+import net.minecraft.block.state.BlockFaceShape;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.util.BlockRenderLayer;
 import net.minecraft.util.EnumFacing;
+import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.util.Mirror;
 import net.minecraft.util.Rotation;
 import net.minecraft.util.math.AxisAlignedBB;
@@ -65,6 +69,22 @@ public class BlockLantern extends BlockBase {
 		return this.getDefaultState().withProperty(FACING, facing);
 	}
 	
+	@SideOnly(Side.CLIENT)
+	public void randomDisplayTick(IBlockState stateIn, World worldIn, BlockPos pos, Random rand) {
+		EnumFacing enumfacing = (EnumFacing) stateIn.getValue(FACING);
+		double d0 = (double) pos.getX() + 0.5D;
+		double d1 = (double) pos.getY() + 0.33D;
+		double d2 = (double) pos.getZ() + 0.5D;
+		double d3 = 0.22D;
+		double d4 = 0.27D;
+
+		if (enumfacing.getAxis().isHorizontal() || enumfacing == EnumFacing.UP) {
+			worldIn.spawnParticle(EnumParticleTypes.FLAME, d0, d1, d2, 0.0D, 0.0D, 0.0D, new int[0]);
+		} else {
+			worldIn.spawnParticle(EnumParticleTypes.FLAME, d0, d1 + 0.375D, d2, 0.0D, 0.0D, 0.0D, new int[0]);
+		}
+	}
+	
 	public IBlockState getStateFromMeta(int meta)
     {
         IBlockState iblockstate = this.getDefaultState();
@@ -94,6 +114,11 @@ public class BlockLantern extends BlockBase {
 
 	public IBlockState withMirror(IBlockState state, Mirror mirrorIn) {
 		return state.withProperty(FACING, mirrorIn.mirror((EnumFacing) state.getValue(FACING)));
+	}
+	
+	@Override
+	public BlockFaceShape getBlockFaceShape(IBlockAccess world, IBlockState state, BlockPos pos, EnumFacing side) {
+		return BlockFaceShape.UNDEFINED;
 	}
 
 }

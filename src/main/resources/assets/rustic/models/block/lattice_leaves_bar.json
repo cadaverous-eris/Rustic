@@ -1,0 +1,22 @@
+{
+    "__comment": "Model generated using MrCrayfish's Model Creator (http://mrcrayfish.com/modelcreator/)",
+    "textures": {
+        "particle": "minecraft:blocks/leaves_oak",
+        "0": "minecraft:blocks/leaves_oak"
+    },
+    "elements": [
+        {
+            "name": "Cube",
+            "from": [ 6.0, 6.0, 0.0 ], 
+            "to": [ 10.0, 10.0, 5.499999992549419 ], 
+            "faces": {
+                "north": { "texture": "#0", "uv": [ 10.0, 10.0, 14.0, 14.0 ], "tintindex": 1 },
+                "east": { "texture": "#0", "uv": [ 10.0, 6.0, 15.49999999254942, 10.0 ], "tintindex": 1 },
+                "south": { "texture": "#0", "uv": [ 2.0, 9.0, 6.0, 13.0 ], "tintindex": 1 },
+                "west": { "texture": "#0", "uv": [ 0.0, 6.0, 5.499999992549419, 10.0 ], "tintindex": 1 },
+                "up": { "texture": "#0", "uv": [ 3.0, 9.0, 7.0, 14.49999999254942 ], "tintindex": 1 },
+                "down": { "texture": "#0", "uv": [ 6.0, 1.0, 10.0, 6.499999992549419 ], "tintindex": 1 }
+            }
+        }
+    ]
+}

@@ -6,9 +6,9 @@ import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL14;
 
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.BufferBuilder;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.Tessellator;
-import net.minecraft.client.renderer.VertexBuffer;
 import net.minecraft.client.renderer.block.model.ItemCameraTransforms;
 import net.minecraft.client.renderer.GlStateManager.DestFactor;
 import net.minecraft.client.renderer.GlStateManager.SourceFactor;
@@ -29,12 +29,13 @@ import rustic.common.tileentity.TileEntityLiquidBarrel;
 
 public class CrushingTubRenderer extends TileEntitySpecialRenderer<TileEntityCrushingTub> {
 
-	int blue, green, red, alpha;
+	int blue, green, red, a;
 	int lightx, lighty;
 	double minU, minV, maxU, maxV, diffU, diffV;
 	
-	public void renderTileEntityAt(TileEntityCrushingTub te, double x, double y, double z, float partialTicks,
-			int destroyStage) {
+	@Override
+	public void render(TileEntityCrushingTub te, double x, double y, double z, float partialTicks,
+			int destroyStage, float alpha) {
 		TileEntityCrushingTub tank = (TileEntityCrushingTub)te;
 		 
         IItemHandler itemStackHandler = tank.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, null);
@@ -69,7 +70,7 @@ public class CrushingTubRenderer extends TileEntitySpecialRenderer<TileEntityCru
             blue = c & 0xFF;
             green = (c >> 8) & 0xFF;
             red = (c >> 16) & 0xFF;
-            alpha = (c >> 24) & 0xFF;
+            a = (c >> 24) & 0xFF;
            
             TextureAtlasSprite sprite = FluidClientUtil.stillTextures.get(fluid);
             diffU = maxU-minU;
@@ -92,12 +93,12 @@ public class CrushingTubRenderer extends TileEntitySpecialRenderer<TileEntityCru
             GlStateManager.blendFunc(SourceFactor.SRC_ALPHA, DestFactor.ONE_MINUS_SRC_ALPHA);
             Minecraft.getMinecraft().renderEngine.bindTexture(TextureMap.LOCATION_BLOCKS_TEXTURE);
             Tessellator tess = Tessellator.getInstance();
-            VertexBuffer buffer = tess.getBuffer();
+            BufferBuilder buffer = tess.getBuffer();
             buffer.begin(GL11.GL_QUADS, DefaultVertexFormats.POSITION_TEX_LMAP_COLOR);
-            buffer.pos(x+0.0625, y+0.0625+0.5*((float)amount/(float)capacity), z+0.0625).tex(minU, minV).lightmap(lightx,lighty).color(red,green,blue,alpha).endVertex();
-            buffer.pos(x+0.9375, y+0.0625+0.5*((float)amount/(float)capacity), z+0.0625).tex(maxU, minV).lightmap(lightx,lighty).color(red,green,blue,alpha).endVertex();
-            buffer.pos(x+0.9375, y+0.0625+0.5*((float)amount/(float)capacity), z+0.9375).tex(maxU, maxV).lightmap(lightx,lighty).color(red,green,blue,alpha).endVertex();
-            buffer.pos(x+0.0625, y+0.0625+0.5*((float)amount/(float)capacity), z+0.9375).tex(minU, maxV).lightmap(lightx,lighty).color(red,green,blue,alpha).endVertex();
+            buffer.pos(x+0.0625, y+0.0625+0.5*((float)amount/(float)capacity), z+0.0625).tex(minU, minV).lightmap(lightx,lighty).color(red,green,blue,a).endVertex();
+            buffer.pos(x+0.9375, y+0.0625+0.5*((float)amount/(float)capacity), z+0.0625).tex(maxU, minV).lightmap(lightx,lighty).color(red,green,blue,a).endVertex();
+            buffer.pos(x+0.9375, y+0.0625+0.5*((float)amount/(float)capacity), z+0.9375).tex(maxU, maxV).lightmap(lightx,lighty).color(red,green,blue,a).endVertex();
+            buffer.pos(x+0.0625, y+0.0625+0.5*((float)amount/(float)capacity), z+0.9375).tex(minU, maxV).lightmap(lightx,lighty).color(red,green,blue,a).endVertex();
             tess.draw();
            
             GlStateManager.disableAlpha();

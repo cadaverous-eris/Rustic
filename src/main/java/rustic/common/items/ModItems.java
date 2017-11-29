@@ -23,11 +23,14 @@ import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+import rustic.common.Config;
 import rustic.common.blocks.ModBlocks;
 import rustic.common.entities.EntityTomato;
 import rustic.core.Rustic;
 
 public class ModItems {
+	
+	public static ItemBook BOOK;
 
 	public static ItemBase BEE;
 	public static ItemBase HONEYCOMB;
@@ -36,7 +39,6 @@ public class ModItems {
 	public static ItemFoodBase OLIVES;
 	public static ItemFoodBase IRONBERRIES;
 	public static ItemFluidBottle FLUID_BOTTLE;
-	public static ItemBase IRON_DUST;
 	public static ItemBase IRON_DUST_TINY;
 	public static ItemElixir ELIXIR;
 	public static ItemFoodBase TOMATO;
@@ -47,6 +49,8 @@ public class ModItems {
 	public static ItemFoodBase GRAPES;
 
 	public static void init() {
+		BOOK = new ItemBook();
+		
 		BEE = new ItemBase("bee");
 		BEE.setCreativeTab(Rustic.farmingTab);
 		HONEYCOMB = new ItemBase("honeycomb");
@@ -88,8 +92,6 @@ public class ModItems {
 			}
 		};
 		FLUID_BOTTLE = new ItemFluidBottle();
-		IRON_DUST = new ItemBase("dust_iron");
-		IRON_DUST.setCreativeTab(Rustic.farmingTab);
 		IRON_DUST_TINY = new ItemBase("dust_tiny_iron");
 		IRON_DUST_TINY.setCreativeTab(Rustic.farmingTab);
 		ELIXIR = new ItemElixir();
@@ -97,7 +99,7 @@ public class ModItems {
 			@Override
 			public ActionResult<ItemStack> onItemRightClick(World worldIn, EntityPlayer playerIn, EnumHand handIn) {
 				ItemStack itemstack = playerIn.getHeldItem(handIn);
-				if (super.onItemRightClick(worldIn, playerIn, handIn).getType() == EnumActionResult.FAIL) {
+				if (playerIn.isSneaking()) {
 					if (!playerIn.capabilities.isCreativeMode) {
 						itemstack.shrink(1);
 					}
@@ -117,7 +119,9 @@ public class ModItems {
 			}
 		};
 		TOMATO_SEEDS = new ItemStakeCropSeed("tomato_seeds", ModBlocks.TOMATO_CROP);
-		MinecraftForge.addGrassSeed(new ItemStack(TOMATO_SEEDS), 15);
+		if (Config.ENABLE_SEED_DROPS) {
+			MinecraftForge.addGrassSeed(new ItemStack(TOMATO_SEEDS), 15);
+		}
 		CHILI_PEPPER = new ItemFoodBase("chili_pepper", 3, 0.4F, false) {
 			@Override
 			protected void onFoodEaten(ItemStack stack, World worldIn, EntityPlayer player) {
@@ -126,7 +130,9 @@ public class ModItems {
 			}
 		};
 		CHILI_PEPPER_SEEDS = new ItemStakeCropSeed("chili_pepper_seeds", ModBlocks.CHILI_CROP);
-		MinecraftForge.addGrassSeed(new ItemStack(CHILI_PEPPER_SEEDS), 15);
+		if (Config.ENABLE_SEED_DROPS) {
+			MinecraftForge.addGrassSeed(new ItemStack(CHILI_PEPPER_SEEDS), 15);
+		}
 		WILDBERRIES = new ItemFoodBase("wildberries", 2, 0.5F, false) {
 			@Override
 			public int getMaxItemUseDuration(ItemStack stack) {
@@ -142,6 +148,8 @@ public class ModItems {
 	}
 
 	public static void initModels() {
+		BOOK.initModel();
+		
 		BEE.initModel();
 		HONEYCOMB.initModel();
 		BEESWAX.initModel();
@@ -149,7 +157,6 @@ public class ModItems {
 		OLIVES.initModel();
 		IRONBERRIES.initModel();
 		FLUID_BOTTLE.initModel();
-		IRON_DUST.initModel();
 		IRON_DUST_TINY.initModel();
 		ELIXIR.initModel();
 		TOMATO.initModel();

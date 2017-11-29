@@ -4,6 +4,7 @@ import javax.annotation.Nonnull;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
+import net.minecraft.block.state.BlockFaceShape;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.renderer.block.model.ModelBakery;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
@@ -33,18 +34,13 @@ public class BlockFluidRustic extends BlockFluidClassic {
 		super(fluid, material);
 		setRegistryName(name);
 		setUnlocalizedName(Rustic.MODID + "." + name);
-		GameRegistry.register(this);
-		GameRegistry.register(new ItemBlock(this).setRegistryName(this.getRegistryName()));
+		GameRegistry.findRegistry(Block.class).register(this);
+		GameRegistry.findRegistry(Item.class).register(new ItemBlock(this).setRegistryName(getRegistryName()));
 		fluid.setBlock(this);
 	}
 
 	@Override
 	public boolean isOpaqueCube(IBlockState state) {
-		return false;
-	}
-
-	@Override
-	public boolean isBlockSolid(IBlockAccess world, BlockPos pos, EnumFacing side) {
 		return false;
 	}
 
@@ -205,5 +201,10 @@ public class BlockFluidRustic extends BlockFluidClassic {
 			return false;
 		}
 	}
+	
+	@Override
+	public BlockFaceShape getBlockFaceShape(IBlockAccess world, IBlockState state, BlockPos pos, EnumFacing side) {
+        return BlockFaceShape.UNDEFINED;
+    }
 
 }

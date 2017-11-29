@@ -9,6 +9,7 @@ import javax.annotation.Nullable;
 import com.google.common.base.Predicate;
 
 import net.minecraft.block.Block;
+import net.minecraft.block.BlockDoor;
 import net.minecraft.block.IGrowable;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
@@ -31,6 +32,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.BlockRenderLayer;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
+import net.minecraft.util.Rotation;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
@@ -40,41 +42,44 @@ import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.BiomeColorHelper;
 import net.minecraftforge.client.model.ModelLoader;
+import net.minecraftforge.common.property.ExtendedBlockState;
+import net.minecraftforge.common.property.IExtendedBlockState;
+import net.minecraftforge.common.property.IUnlistedProperty;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import rustic.common.blocks.BlockBase;
 import rustic.common.blocks.BlockRope;
+import rustic.common.blocks.BlockRopeBase;
 import rustic.common.blocks.IColoredBlock;
 import rustic.common.blocks.ModBlocks;
+import rustic.common.blocks.properties.UnlistedPropertyBool;
 import rustic.common.items.ModItems;
 import rustic.core.ClientProxy;
 import rustic.core.Rustic;
 
-public class BlockGrapeLeaves extends BlockBase implements IGrowable, IColoredBlock {
+public class BlockGrapeLeaves extends BlockRopeBase implements IGrowable, IColoredBlock {
 
 	public static final PropertyBool GRAPES = PropertyBool.create("grapes");
 	public static final PropertyInteger DIST = PropertyInteger.create("distance", 0, 1);
+	
 	public static final PropertyEnum<EnumFacing.Axis> AXIS = PropertyEnum.<EnumFacing.Axis>create("axis",
 			EnumFacing.Axis.class, new Predicate<EnumFacing.Axis>() {
 				public boolean apply(@Nullable EnumFacing.Axis p_apply_1_) {
 					return p_apply_1_ != EnumFacing.Axis.Y;
 				}
 			});
-	public static final PropertyBool DANGLE = PropertyBool.create("dangle");
-	public static final PropertyBool SUPPORTED = PropertyBool.create("supported");
 
 	public static final AxisAlignedBB BRANCH_Z_AABB = new AxisAlignedBB(0.1875F, 0.1875F, 0.0F, 0.8125F, 0.8125F, 1.0F);
 	public static final AxisAlignedBB BRANCH_X_AABB = new AxisAlignedBB(0.0F, 0.1875F, 0.1875F, 1.0F, 0.8125F, 0.8125F);
 
 	public BlockGrapeLeaves() {
 		super(Material.LEAVES, "grape_leaves", false);
-		GameRegistry.register(this);
+		GameRegistry.findRegistry(Block.class).register(this);
 		this.setTickRandomly(true);
 		setCreativeTab(Rustic.farmingTab);
 		setSoundType(SoundType.PLANT);
-		this.setDefaultState(this.blockState.getBaseState().withProperty(AXIS, EnumFacing.Axis.X)
-				.withProperty(DANGLE, false).withProperty(GRAPES, false).withProperty(DIST, 0));
+		this.setDefaultState(this.blockState.getBaseState().withProperty(AXIS, EnumFacing.Axis.X).withProperty(GRAPES, false).withProperty(DIST, 0));
 		
 		Blocks.FIRE.setFireInfo(this, 30, 60);
 	}
@@ -91,16 +96,13 @@ public class BlockGrapeLeaves extends BlockBase implements IGrowable, IColoredBl
 	@Override
 	public void breakBlock(World world, BlockPos pos, IBlockState state) {
 		EnumFacing.Axis axis = state.getValue(AXIS);
-		boolean supported = state.getValue(SUPPORTED);
 		super.breakBlock(world, pos, state);
-		world.setBlockState(pos, ModBlocks.ROPE.getDefaultState().withProperty(BlockRope.AXIS, axis)
-				.withProperty(BlockRope.SUPPORTED, supported), 3);
+		world.setBlockState(pos, ModBlocks.ROPE.getDefaultState().withProperty(BlockRope.AXIS, axis), 3);
 	}
 
 	@Override
 	public int damageDropped(IBlockState state) {
-		return this.getMetaFromState(state.withProperty(AXIS, EnumFacing.Axis.Z).withProperty(SUPPORTED, false)
-				.withProperty(GRAPES, false).withProperty(DIST, 0));
+		return 0;
 	}
 
 	@Override
@@ -113,106 +115,6 @@ public class BlockGrapeLeaves extends BlockBase implements IGrowable, IColoredBl
 			return true;
 		}
 		return false;
-	}
-
-	@Override
-	public void neighborChanged(IBlockState state, World worldIn, BlockPos pos, Block blockIn, BlockPos fromPos) {
-		super.neighborChanged(state, worldIn, pos, blockIn, fromPos);
-		boolean supported = isSupported(state, worldIn, pos);
-		if (supported != state.getValue(SUPPORTED)) {
-			worldIn.setBlockState(pos, state.withProperty(SUPPORTED, supported), 3);
-		}
-		this.checkAndDropBlock(worldIn, pos, state);
-	}
-
-	protected void checkAndDropBlock(World worldIn, BlockPos pos, IBlockState state) {
-		if (!this.canBlockStay(worldIn, pos, state)) {
-			this.dropBlockAsItem(worldIn, pos, state, 0);
-			worldIn.setBlockToAir(pos);
-			SoundType soundType = getSoundType(state, worldIn, pos, null);
-			worldIn.playSound(pos.getX(), pos.getY(), pos.getZ(), soundType.getBreakSound(), SoundCategory.BLOCKS,
-					(soundType.getVolume() + 1.0F) / 2.0F, soundType.getPitch() * 0.8F, true);
-		}
-	}
-
-	@SuppressWarnings("incomplete-switch")
-	public boolean canBlockStay(World world, BlockPos pos, IBlockState state) {
-		boolean canStay = state.getValue(SUPPORTED);
-		if (!canStay) {
-			boolean flag = false;
-			boolean flag1 = false;
-			if (state.getValue(AXIS) == EnumFacing.Axis.Z) {
-				IBlockState state1 = world.getBlockState(pos.north());
-				if (state1.getBlock() == ModBlocks.ROPE && state1.getValue(BlockRope.AXIS) == EnumFacing.Axis.Z) {
-					flag = true;
-				} else if (state1.getBlock() == ModBlocks.GRAPE_LEAVES && state1.getValue(AXIS) == EnumFacing.Axis.Z) {
-					flag = true;
-				}
-				state1 = world.getBlockState(pos.south());
-				if (state1.getBlock() == ModBlocks.ROPE && state1.getValue(BlockRope.AXIS) == EnumFacing.Axis.Z) {
-					flag1 = true;
-				} else if (state1.getBlock() == ModBlocks.GRAPE_LEAVES && state1.getValue(AXIS) == EnumFacing.Axis.Z) {
-					flag1 = true;
-				}
-				canStay = flag && flag1;
-			} else if (state.getValue(AXIS) == EnumFacing.Axis.X) {
-				IBlockState state1 = world.getBlockState(pos.west());
-				if (state1.getBlock() == ModBlocks.ROPE && state1.getValue(BlockRope.AXIS) == EnumFacing.Axis.X) {
-					flag = true;
-				} else if (state1.getBlock() == ModBlocks.GRAPE_LEAVES && state1.getValue(AXIS) == EnumFacing.Axis.X) {
-					flag = true;
-				}
-				state1 = world.getBlockState(pos.east());
-				if (state1.getBlock() == ModBlocks.ROPE && state1.getValue(BlockRope.AXIS) == EnumFacing.Axis.X) {
-					flag1 = true;
-				} else if (state1.getBlock() == ModBlocks.GRAPE_LEAVES && state1.getValue(AXIS) == EnumFacing.Axis.X) {
-					flag1 = true;
-				}
-				canStay = flag && flag1;
-			}
-		}
-		if (state.getValue(DIST) == 1) {
-			switch (state.getValue(AXIS)) {
-			case X:
-				return canStay && ((world.getBlockState(pos.west()).getBlock() == ModBlocks.GRAPE_LEAVES
-						&& world.getBlockState(pos.west()).getValue(DIST) == 0)
-						|| (world.getBlockState(pos.east()).getBlock() == ModBlocks.GRAPE_LEAVES
-								&& world.getBlockState(pos.east()).getValue(DIST) == 0));
-			case Z:
-				return canStay && ((world.getBlockState(pos.north()).getBlock() == ModBlocks.GRAPE_LEAVES
-						&& world.getBlockState(pos.north()).getValue(DIST) == 0)
-						|| (world.getBlockState(pos.south()).getBlock() == ModBlocks.GRAPE_LEAVES
-								&& world.getBlockState(pos.south()).getValue(DIST) == 0));
-			}
-		}
-		return canStay && world.getBlockState(pos.down()).getBlock() == ModBlocks.GRAPE_STEM
-				&& world.getBlockState(pos.down()).getValue(BlockGrapeStem.AGE) > 2;
-	}
-
-	public boolean isSupported(IBlockState state, World world, BlockPos pos) {
-		boolean supported = false;
-
-		if (state.getValue(AXIS) == EnumFacing.Axis.Z) {
-			if (world.isSideSolid(pos.north(), EnumFacing.SOUTH)
-					|| world.getBlockState(pos.north()).getBlock() == ModBlocks.STAKE_TIED) {
-				supported = true;
-			}
-			if (world.isSideSolid(pos.south(), EnumFacing.NORTH)
-					|| world.getBlockState(pos.south()).getBlock() == ModBlocks.STAKE_TIED) {
-				supported = true;
-			}
-		} else if (state.getValue(AXIS) == EnumFacing.Axis.X) {
-			if (world.isSideSolid(pos.west(), EnumFacing.EAST)
-					|| world.getBlockState(pos.west()).getBlock() == ModBlocks.STAKE_TIED) {
-				supported = true;
-			}
-			if (world.isSideSolid(pos.east(), EnumFacing.WEST)
-					|| world.getBlockState(pos.east()).getBlock() == ModBlocks.STAKE_TIED) {
-				supported = true;
-			}
-		}
-
-		return supported;
 	}
 
 	@Override
@@ -229,6 +131,11 @@ public class BlockGrapeLeaves extends BlockBase implements IGrowable, IColoredBl
 
 	@Override
 	public boolean causesSuffocation(IBlockState state) {
+		return false;
+	}
+	
+	@Override
+	public boolean isLadder(IBlockState state, IBlockAccess world, BlockPos pos, EntityLivingBase entity) {
 		return false;
 	}
 
@@ -252,11 +159,57 @@ public class BlockGrapeLeaves extends BlockBase implements IGrowable, IColoredBl
 			EntityPlayer player) {
 		return new ItemStack(ModItems.GRAPES);
 	}
+	
+	@Override
+	public void neighborChanged(IBlockState state, World worldIn, BlockPos pos, Block blockIn, BlockPos fromPos) {
+		EnumFacing dir = null;
+		if (fromPos.getX() != pos.getX()) {
+			dir = (fromPos.getX() - pos.getX()) < 0 ? EnumFacing.WEST : EnumFacing.EAST;
+		} else if (fromPos.getY() != pos.getY()) {
+			dir = (fromPos.getY() - pos.getY()) < 0 ? EnumFacing.DOWN : EnumFacing.UP;
+		} else if (fromPos.getZ() != pos.getZ()) {
+			dir = (fromPos.getZ() - pos.getZ()) < 0 ? EnumFacing.NORTH : EnumFacing.SOUTH;
+		}
+		if (dir != null) {
+			if ((state.getValue(AXIS) == dir.getAxis())
+					&& worldIn.isAirBlock(fromPos)) {
+				if (dir == EnumFacing.DOWN) {
+					this.dropBlock(worldIn, pos, state);
+				} else if (!this.isBlockSupported(worldIn, pos, state)) {
+					this.dropBlock(worldIn, pos, state);
+				}
+			}
+		}
+	}
+	
+	@Override
+	public boolean isSideSupported(World world, BlockPos pos, IBlockState state, EnumFacing facing) {
+		IBlockState testState = world.getBlockState(pos.offset(facing));
+		
+		boolean isSame = testState.getBlock() == state.getBlock() && (testState.getValue(AXIS) == state.getValue(AXIS));
+		boolean isRope = testState.getBlock() == ModBlocks.ROPE && state.getValue(AXIS) == testState.getValue(BlockRope.AXIS);
+		boolean isSideSolid = world.isSideSolid(pos.offset(facing), facing.getOpposite(), false);
+		boolean isTiedStake = testState.getBlock() == ModBlocks.STAKE_TIED;
+		
+		return isSame || isRope || isSideSolid || isTiedStake;
+	}
+	
+	@Override
+	public boolean isBlockSupported(World world, BlockPos pos, IBlockState state) {
+		if (state.getValue(AXIS) == EnumFacing.Axis.X) {
+			return this.isSideSupported(world, pos, state, EnumFacing.WEST) && this.isSideSupported(world, pos, state, EnumFacing.EAST);
+		} else if (state.getValue(AXIS) == EnumFacing.Axis.Z) {
+			return this.isSideSupported(world, pos, state, EnumFacing.NORTH) && this.isSideSupported(world, pos, state, EnumFacing.SOUTH);
+		}
+		return false;
+	}
 
 	@Override
 	public void updateTick(World worldIn, BlockPos pos, IBlockState state, Random rand) {
 		super.updateTick(worldIn, pos, state, rand);
-		checkAndDropBlock(worldIn, pos, state);
+		if (!this.isBlockSupported(worldIn, pos, state)) {
+			this.dropBlock(worldIn, pos, state);
+		}
 
 		if (worldIn.getLightFromNeighbors(pos.up()) >= 9) {
 			int i = state.getValue(DIST);
@@ -364,9 +317,8 @@ public class BlockGrapeLeaves extends BlockBase implements IGrowable, IColoredBl
 
 	private void spreadToValidRope(World world, BlockPos origPos, BlockPos newPos, IBlockState state) {
 		EnumFacing.Axis axis = world.getBlockState(newPos).getValue(BlockRope.AXIS);
-		boolean supported = world.getBlockState(newPos).getValue(BlockRope.SUPPORTED);
 		world.setBlockState(newPos,
-				getDefaultState().withProperty(AXIS, axis).withProperty(SUPPORTED, supported).withProperty(DIST, 1), 3);
+				getDefaultState().withProperty(AXIS, axis).withProperty(DIST, 1), 3);
 	}
 
 	@Override
@@ -374,10 +326,30 @@ public class BlockGrapeLeaves extends BlockBase implements IGrowable, IColoredBl
 	public BlockRenderLayer getBlockLayer() {
 		return BlockRenderLayer.CUTOUT;
 	}
-
+	
 	@Override
 	protected BlockStateContainer createBlockState() {
-		return new BlockStateContainer(this, new IProperty[] { AXIS, DANGLE, SUPPORTED, DIST, GRAPES });
+		return new BlockStateContainer(this, new IProperty[] { AXIS, DANGLE, DIST, GRAPES });
+	}
+	
+	@Override
+	public IBlockState getActualState(IBlockState state, IBlockAccess world, BlockPos pos) {
+		if (world.getBlockState(pos.down()).getBlock() instanceof BlockRope
+				&& world.getBlockState(pos.down()).getValue(BlockRope.AXIS) == EnumFacing.Axis.Y) {
+			return state.withProperty(DANGLE, true);
+		}
+		return state.withProperty(DANGLE, false);
+	}
+	
+	@Override
+	public IBlockState getStateForPlacement(World worldIn, BlockPos pos, EnumFacing facing, float hitX, float hitY,
+			float hitZ, int meta, EntityLivingBase placer) {
+		return this.getDefaultState();
+	}
+	
+	@Override
+	public boolean canPlaceBlockOnSide(World world, BlockPos pos, EnumFacing side) {
+		return false;
 	}
 
 	@Override
@@ -400,20 +372,13 @@ public class BlockGrapeLeaves extends BlockBase implements IGrowable, IColoredBl
 			dist = 1;
 		}
 
-		i = meta & 4;
-
-		if (i > 0) {
-			supported = true;
-		}
-
 		i = meta & 8;
 
 		if (i > 0) {
 			grapes = true;
 		}
 
-		return this.getDefaultState().withProperty(AXIS, enumfacing$axis).withProperty(DIST, dist)
-				.withProperty(SUPPORTED, true).withProperty(GRAPES, grapes);
+		return this.getDefaultState().withProperty(AXIS, enumfacing$axis).withProperty(DIST, dist).withProperty(GRAPES, grapes);
 	}
 
 	@Override
@@ -431,10 +396,6 @@ public class BlockGrapeLeaves extends BlockBase implements IGrowable, IColoredBl
 			i |= 2;
 		}
 
-		if (state.getValue(SUPPORTED)) {
-			i |= 4;
-		}
-
 		if (state.getValue(GRAPES)) {
 			i |= 8;
 		}
@@ -443,18 +404,23 @@ public class BlockGrapeLeaves extends BlockBase implements IGrowable, IColoredBl
 	}
 
 	@Override
-	public IBlockState getActualState(IBlockState state, IBlockAccess world, BlockPos pos) {
-		if (world.getBlockState(pos.down()).getBlock() instanceof BlockRope
-				&& world.getBlockState(pos.down()).getValue(BlockRope.AXIS) == EnumFacing.Axis.Y) {
-			return state.withProperty(DANGLE, true);
-		}
-		return state.withProperty(DANGLE, false);
-	}
+	public IBlockState withRotation(IBlockState state, Rotation rot) {
+		switch (rot) {
+		case COUNTERCLOCKWISE_90:
+		case CLOCKWISE_90:
 
-	@SideOnly(Side.CLIENT)
-	public void initModel() {
-		ModelLoader.setCustomStateMapper(this, (new StateMap.Builder()).ignore(new IProperty[] { SUPPORTED }).build());
-		ClientProxy.addColoredBlock(this);
+			switch ((EnumFacing.Axis) state.getValue(AXIS)) {
+			case X:
+				return state.withProperty(AXIS, EnumFacing.Axis.Z);
+			case Z:
+				return state.withProperty(AXIS, EnumFacing.Axis.X);
+			default:
+				return state;
+			}
+
+		default:
+			return state;
+		}
 	}
 
 	@SideOnly(Side.CLIENT)
@@ -475,6 +441,12 @@ public class BlockGrapeLeaves extends BlockBase implements IGrowable, IColoredBl
 	@Override
 	public IItemColor getItemColor() {
 		return null;
+	}
+	
+	@Override
+	@SideOnly(Side.CLIENT)
+	public void initModel() {
+		
 	}
 
 }

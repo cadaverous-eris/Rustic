@@ -10,12 +10,19 @@ import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.properties.PropertyBool;
+import net.minecraft.block.state.BlockFaceShape;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.client.renderer.block.model.ModelResourceLocation;
+import net.minecraft.client.renderer.block.statemap.IStateMapper;
+import net.minecraft.client.renderer.block.statemap.StateMap;
+import net.minecraft.client.renderer.color.IBlockColor;
+import net.minecraft.client.renderer.color.IItemColor;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.BlockRenderLayer;
 import net.minecraft.util.EnumFacing;
@@ -24,12 +31,21 @@ import net.minecraft.util.Mirror;
 import net.minecraft.util.Rotation;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.ColorizerFoliage;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
+import net.minecraft.world.biome.BiomeColorHelper;
+import net.minecraftforge.client.model.ModelLoader;
+import net.minecraftforge.common.property.ExtendedBlockState;
+import net.minecraftforge.common.property.IExtendedBlockState;
+import net.minecraftforge.common.property.IUnlistedProperty;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+import rustic.common.blocks.BlockPlanksRustic.EnumType;
+import rustic.common.blocks.properties.UnlistedPropertyBool;
+import rustic.core.ClientProxy;
 
-public class BlockLattice extends BlockBase {
+public class BlockLattice extends BlockBase implements IColoredBlock {
 
 	public static final AxisAlignedBB BASE_AABB = new AxisAlignedBB(.375f, .375f, .375f, .625f, .625f, .625f);
 	public static final AxisAlignedBB NORTH_AABB = new AxisAlignedBB(.4375f, .4375f, .4375f, .5625f, .5625f, 0f);
@@ -39,19 +55,15 @@ public class BlockLattice extends BlockBase {
 	public static final AxisAlignedBB UP_AABB = new AxisAlignedBB(.4375f, .5625f, .4375f, .5625f, 1f, .5625f);
 	public static final AxisAlignedBB DOWN_AABB = new AxisAlignedBB(.4375f, 0f, .4375f, .5625f, .4375f, .5625f);
 
-	public static final PropertyBool N = PropertyBool.create("n");
-	public static final PropertyBool E = PropertyBool.create("e");
-	public static final PropertyBool S = PropertyBool.create("s");
-	public static final PropertyBool W = PropertyBool.create("w");
-	public static final PropertyBool U = PropertyBool.create("u");
-	public static final PropertyBool D = PropertyBool.create("d");
+	public static final UnlistedPropertyBool[] CONNECTIONS = new UnlistedPropertyBool[] {
+		new UnlistedPropertyBool("down"),
+		new UnlistedPropertyBool("up"),
+		new UnlistedPropertyBool("north"),
+		new UnlistedPropertyBool("south"),
+		new UnlistedPropertyBool("west"),
+		new UnlistedPropertyBool("east")
+	};
 	public static final PropertyBool LEAVES = PropertyBool.create("leaves");
-	public static final PropertyBool LEAVES_NORTH = PropertyBool.create("leaves_north");
-	public static final PropertyBool LEAVES_EAST = PropertyBool.create("leaves_east");
-	public static final PropertyBool LEAVES_SOUTH = PropertyBool.create("leaves_south");
-	public static final PropertyBool LEAVES_WEST = PropertyBool.create("leaves_west");
-	public static final PropertyBool LEAVES_UP = PropertyBool.create("leaves_up");
-	public static final PropertyBool LEAVES_DOWN = PropertyBool.create("leaves_down");
 
 	public BlockLattice(Material mat, String name) {
 		super(mat, name);
@@ -61,34 +73,26 @@ public class BlockLattice extends BlockBase {
 
 	public void addCollisionBoxToList(IBlockState state, World worldIn, BlockPos pos, AxisAlignedBB entityBox,
 			List<AxisAlignedBB> collidingBoxes, @Nullable Entity entityIn, boolean p_185477_7_) {
-		if (!p_185477_7_) {
-			state = state.getActualState(worldIn, pos);
-		}
+		IExtendedBlockState	extendedState = (IExtendedBlockState) getExtendedState(state, worldIn, pos);
 
 		addCollisionBoxToList(pos, entityBox, collidingBoxes, BASE_AABB);
-
-		if (((Boolean) state.getValue(N)).booleanValue()) {
-			addCollisionBoxToList(pos, entityBox, collidingBoxes, NORTH_AABB);
+		if (extendedState.getValue(CONNECTIONS[0])) {
+			addCollisionBoxToList(pos, entityBox, collidingBoxes, DOWN_AABB);
 		}
-
-		if (((Boolean) state.getValue(E)).booleanValue()) {
-			addCollisionBoxToList(pos, entityBox, collidingBoxes, EAST_AABB);
-		}
-
-		if (((Boolean) state.getValue(S)).booleanValue()) {
-			addCollisionBoxToList(pos, entityBox, collidingBoxes, SOUTH_AABB);
-		}
-
-		if (((Boolean) state.getValue(W)).booleanValue()) {
-			addCollisionBoxToList(pos, entityBox, collidingBoxes, WEST_AABB);
-		}
-
-		if (((Boolean) state.getValue(U)).booleanValue()) {
+		if (extendedState.getValue(CONNECTIONS[1])) {
 			addCollisionBoxToList(pos, entityBox, collidingBoxes, UP_AABB);
 		}
-
-		if (((Boolean) state.getValue(D)).booleanValue()) {
-			addCollisionBoxToList(pos, entityBox, collidingBoxes, DOWN_AABB);
+		if (extendedState.getValue(CONNECTIONS[2])) {
+			addCollisionBoxToList(pos, entityBox, collidingBoxes, NORTH_AABB);
+		}
+		if (extendedState.getValue(CONNECTIONS[3])) {
+			addCollisionBoxToList(pos, entityBox, collidingBoxes, SOUTH_AABB);
+		}
+		if (extendedState.getValue(CONNECTIONS[4])) {
+			addCollisionBoxToList(pos, entityBox, collidingBoxes, WEST_AABB);
+		}
+		if (extendedState.getValue(CONNECTIONS[5])) {
+			addCollisionBoxToList(pos, entityBox, collidingBoxes, EAST_AABB);
 		}
 	}
 
@@ -101,28 +105,49 @@ public class BlockLattice extends BlockBase {
 		double y2 = 0.625;
 		double z2 = 0.625;
 		
-		state = state.getActualState(source, pos);
+		IExtendedBlockState extendedState = (IExtendedBlockState) getExtendedState(state, source, pos);
 
-		if (((Boolean) state.getValue(U)).booleanValue()) {
-			y2 = 1;
-		}
-		if (((Boolean) state.getValue(D)).booleanValue()) {
+		if (extendedState.getValue(CONNECTIONS[0])) {
 			y1 = 0;
 		}
-		if (((Boolean) state.getValue(N)).booleanValue()) {
+		if (extendedState.getValue(CONNECTIONS[1])) {
+			y2 = 1;
+		}
+		if (extendedState.getValue(CONNECTIONS[2])) {
 			z1 = 0;
 		}
-		if (((Boolean) state.getValue(S)).booleanValue()) {
+		if (extendedState.getValue(CONNECTIONS[3])) {
 			z2 = 1;
 		}
-		if (((Boolean) state.getValue(W)).booleanValue()) {
+		if (extendedState.getValue(CONNECTIONS[4])) {
 			x1 = 0;
 		}
-		if (((Boolean) state.getValue(E)).booleanValue()) {
+		if (extendedState.getValue(CONNECTIONS[5])) {
 			x2 = 1;
 		}
 
 		return new AxisAlignedBB(x1, y1, z1, x2, y2, z2);
+	}
+	
+	@Override
+	public boolean isPassable(IBlockAccess worldIn, BlockPos pos) {
+		return true;
+	}
+	
+	@Override
+	public IBlockState getExtendedState(IBlockState state, IBlockAccess world, BlockPos pos) {
+		IExtendedBlockState extendedState = (IExtendedBlockState) state;
+		for (int i = 0; i < CONNECTIONS.length; i++) {
+			boolean connected = getConnection(world, pos, EnumFacing.getFront(i));
+			extendedState = extendedState.withProperty(CONNECTIONS[i], connected);
+		}
+		return extendedState;
+	}
+	
+	private boolean getConnection(IBlockAccess world, BlockPos pos, EnumFacing facing) {
+		IBlockState state = world.getBlockState(pos.offset(facing));
+		Block block = state.getBlock();
+		return world.isSideSolid(pos.offset(facing), facing.getOpposite(), false) || block instanceof BlockLattice || (block instanceof BlockChain && state.getValue(BlockChain.AXIS) == facing.getAxis()) || (block instanceof BlockLantern && facing.getAxis() == EnumFacing.Axis.Y && state.getValue(BlockLantern.FACING) == facing);
 	}
 
 	@Override
@@ -130,7 +155,7 @@ public class BlockLattice extends BlockBase {
 			EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
 		ItemStack heldItem = playerIn.getHeldItem(hand);
 		if (Block.getBlockFromItem(heldItem.getItem()) != null && Block.getBlockFromItem(heldItem.getItem()) instanceof BlockLeaves) {
-			worldIn.setBlockState(pos, state.withProperty(LEAVES, true));
+			worldIn.setBlockState(pos, state.withProperty(LEAVES, true), 3);
 			playerIn.getHeldItem(hand).shrink(1);
 			return true;
 		}
@@ -164,71 +189,48 @@ public class BlockLattice extends BlockBase {
 		return iblockstate;
 	}
 
-	public IBlockState getActualState(IBlockState state, IBlockAccess worldIn, BlockPos pos) {
-		IBlockState stateTemp = worldIn.getBlockState(pos.north());
-		Block blockTemp = stateTemp.getBlock();
-		boolean nSolid = blockTemp.isSideSolid(stateTemp, worldIn, pos, EnumFacing.SOUTH)
-				|| blockTemp instanceof BlockLattice || (blockTemp instanceof BlockChain && stateTemp.getValue(BlockChain.AXIS) == EnumFacing.Axis.Z);
-		stateTemp = worldIn.getBlockState(pos.east());
-		blockTemp = stateTemp.getBlock();
-		boolean eSolid = blockTemp.isSideSolid(stateTemp, worldIn, pos, EnumFacing.WEST)
-				|| blockTemp instanceof BlockLattice || (blockTemp instanceof BlockChain && stateTemp.getValue(BlockChain.AXIS) == EnumFacing.Axis.X);
-		stateTemp = worldIn.getBlockState(pos.south());
-		blockTemp = stateTemp.getBlock();
-		boolean sSolid = blockTemp.isSideSolid(stateTemp, worldIn, pos, EnumFacing.NORTH)
-				|| blockTemp instanceof BlockLattice || (blockTemp instanceof BlockChain && stateTemp.getValue(BlockChain.AXIS) == EnumFacing.Axis.Z);
-		stateTemp = worldIn.getBlockState(pos.west());
-		blockTemp = stateTemp.getBlock();
-		boolean wSolid = blockTemp.isSideSolid(stateTemp, worldIn, pos, EnumFacing.EAST)
-				|| blockTemp instanceof BlockLattice || (blockTemp instanceof BlockChain && stateTemp.getValue(BlockChain.AXIS) == EnumFacing.Axis.X);
-		stateTemp = worldIn.getBlockState(pos.up());
-		blockTemp = stateTemp.getBlock();
-		boolean uSolid = blockTemp.isSideSolid(stateTemp, worldIn, pos, EnumFacing.DOWN)
-				|| blockTemp instanceof BlockLattice || (blockTemp instanceof BlockChain && stateTemp.getValue(BlockChain.AXIS) == EnumFacing.Axis.Y) || blockTemp instanceof BlockLantern;
-		stateTemp = worldIn.getBlockState(pos.down());
-		blockTemp = stateTemp.getBlock();
-		boolean dSolid = blockTemp.isSideSolid(stateTemp, worldIn, pos, EnumFacing.UP)
-				|| blockTemp instanceof BlockLattice || (blockTemp instanceof BlockChain && stateTemp.getValue(BlockChain.AXIS) == EnumFacing.Axis.Y) || blockTemp instanceof BlockLantern;
-		boolean leaves = state.getValue(LEAVES);
-
-		return state.withProperty(N, nSolid).withProperty(LEAVES_NORTH, nSolid && leaves).withProperty(E, eSolid)
-				.withProperty(LEAVES_EAST, eSolid && leaves).withProperty(S, sSolid)
-				.withProperty(LEAVES_SOUTH, sSolid && leaves).withProperty(W, wSolid)
-				.withProperty(LEAVES_WEST, wSolid && leaves).withProperty(U, uSolid)
-				.withProperty(LEAVES_UP, uSolid && leaves).withProperty(D, dSolid)
-				.withProperty(LEAVES_DOWN, dSolid && leaves);
-	}
-
+	@Override
 	protected BlockStateContainer createBlockState() {
-		return new BlockStateContainer(this, new IProperty[] { N, E, S, W, U, D, LEAVES, LEAVES_NORTH, LEAVES_EAST,
-				LEAVES_SOUTH, LEAVES_WEST, LEAVES_UP, LEAVES_DOWN });
+		return new ExtendedBlockState(this, new IProperty[] { LEAVES }, new IUnlistedProperty[] { CONNECTIONS[0], CONNECTIONS[1], CONNECTIONS[2],
+				CONNECTIONS[3], CONNECTIONS[4], CONNECTIONS[5] });
+	}
+	
+	@Override
+	public void initModel() {
+		super.initModel();
+		ClientProxy.addColoredBlock(this);
+	}
+	
+	@SideOnly(Side.CLIENT)
+	@Override
+	public IBlockColor getBlockColor() {
+		return new IBlockColor() {
+			@Override
+			public int colorMultiplier(IBlockState state, IBlockAccess worldIn, BlockPos pos, int tintIndex) {
+				if (worldIn != null && pos != null && tintIndex == 1) {
+					return BiomeColorHelper.getFoliageColorAtPos(worldIn, pos);
+				}
+				return ColorizerFoliage.getFoliageColorBasic();
+			}
+		};
 	}
 
-	public IBlockState withRotation(IBlockState state, Rotation rot) {
-		switch (rot) {
-		case CLOCKWISE_180:
-			return state.withProperty(N, state.getValue(S)).withProperty(E, state.getValue(W))
-					.withProperty(S, state.getValue(N)).withProperty(W, state.getValue(E));
-		case COUNTERCLOCKWISE_90:
-			return state.withProperty(N, state.getValue(E)).withProperty(E, state.getValue(S))
-					.withProperty(S, state.getValue(W)).withProperty(W, state.getValue(N));
-		case CLOCKWISE_90:
-			return state.withProperty(N, state.getValue(W)).withProperty(E, state.getValue(N))
-					.withProperty(S, state.getValue(E)).withProperty(W, state.getValue(S));
-		default:
-			return state;
-		}
+	@SideOnly(Side.CLIENT)
+	@Override
+	public IItemColor getItemColor() {
+		return new IItemColor() {
+			@Override
+			public int getColorFromItemstack(ItemStack stack, int tintIndex) {
+				IBlockState state = ((ItemBlock) stack.getItem()).getBlock().getStateFromMeta(stack.getMetadata());
+				IBlockColor blockColor = ((IColoredBlock) state.getBlock()).getBlockColor();
+				return blockColor == null ? 0xFFFFFF : blockColor.colorMultiplier(state, null, null, tintIndex);
+			}
+		};
 	}
-
-	public IBlockState withMirror(IBlockState state, Mirror mirrorIn) {
-		switch (mirrorIn) {
-		case LEFT_RIGHT:
-			return state.withProperty(N, state.getValue(S)).withProperty(S, state.getValue(N));
-		case FRONT_BACK:
-			return state.withProperty(E, state.getValue(W)).withProperty(W, state.getValue(E));
-		default:
-			return super.withMirror(state, mirrorIn);
-		}
+	
+	@Override
+	public BlockFaceShape getBlockFaceShape(IBlockAccess world, IBlockState state, BlockPos pos, EnumFacing side) {
+		return BlockFaceShape.UNDEFINED;
 	}
 
 }

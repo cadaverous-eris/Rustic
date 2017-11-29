@@ -7,6 +7,7 @@ import javax.annotation.Nullable;
 import net.minecraft.block.ITileEntityProvider;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
+import net.minecraft.block.state.BlockFaceShape;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.entity.Entity;
@@ -109,6 +110,14 @@ public class BlockCrushingTub extends BlockBase implements ITileEntityProvider {
 		ModelLoader.setCustomModelResourceLocation(Item.getItemFromBlock(this), 0,
 				new ModelResourceLocation(getRegistryName(), "inventory"));
 		ClientRegistry.bindTileEntitySpecialRenderer(TileEntityCrushingTub.class, new CrushingTubRenderer());
+	}
+	
+	@Override
+	public BlockFaceShape getBlockFaceShape(IBlockAccess world, IBlockState state, BlockPos pos, EnumFacing side) {
+		if (side == EnumFacing.DOWN) {
+			return BlockFaceShape.SOLID;
+		}
+		return BlockFaceShape.UNDEFINED;
 	}
 
 }

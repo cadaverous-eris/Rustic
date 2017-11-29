@@ -89,12 +89,6 @@ public class TileEntityCondenserAdvanced extends TileFluidHandler implements ITi
 
 	public TileEntityCondenserAdvanced() {
 		super();
-		tank = new FluidTank(capacity) {
-			@Override
-			protected void onContentsChanged() {
-				markDirty();
-			}
-		};
 		tank.setTileEntity(this);
 		tank.setCanFill(true);
 		tank.setCanDrain(true);
@@ -281,10 +275,10 @@ public class TileEntityCondenserAdvanced extends TileFluidHandler implements ITi
 		ItemStack heldItem = player.getHeldItem(hand);
 		if (heldItem != ItemStack.EMPTY) {
 			if ((heldItem.getItem() instanceof ItemBucket || heldItem.getItem() instanceof UniversalBucket)) {
-				FluidActionResult didFill = FluidUtil.interactWithFluidHandler(heldItem,
-						this.getCapability(CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY, side), player);
-				if (didFill.success) {
-					player.setHeldItem(hand, didFill.getResult());
+				boolean didFill = FluidUtil.interactWithFluidHandler(player, hand,
+						this.getCapability(CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY, side));
+				if (didFill) {
+					//player.setHeldItem(hand, didFill.getResult());
 					this.world.addBlockEvent(this.pos, this.getBlockType(), 1, 0);
 					getWorld().notifyBlockUpdate(pos, state, state, 3);
 					this.world.notifyNeighborsOfStateChange(this.pos, this.getBlockType(), true);

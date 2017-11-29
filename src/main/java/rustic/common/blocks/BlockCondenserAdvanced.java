@@ -9,6 +9,7 @@ import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.properties.PropertyBool;
 import net.minecraft.block.properties.PropertyDirection;
+import net.minecraft.block.state.BlockFaceShape;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.EntityLivingBase;
@@ -210,6 +211,17 @@ public class BlockCondenserAdvanced extends BlockBase implements ITileEntityProv
 			return false;
 		}
 		return true;
+	}
+	
+	@Override
+	public BlockFaceShape getBlockFaceShape(IBlockAccess world, IBlockState state, BlockPos pos, EnumFacing side) {
+		if (state.getValue(BOTTOM)) {
+			return BlockFaceShape.SOLID;
+		}
+		if (side == EnumFacing.UP) {
+			return BlockFaceShape.CENTER_BIG;
+		}
+		return BlockFaceShape.UNDEFINED;
 	}
 
 }

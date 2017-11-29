@@ -88,4 +88,9 @@ public class BrewingRecipeCategory extends BlankRecipeCategory {
 		fluid.set(2, auxList);
 	}
 
+	@Override
+	public String getModName() {
+		return "Rustic";
+	}
+
 }

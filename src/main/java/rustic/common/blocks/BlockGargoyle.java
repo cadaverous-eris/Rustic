@@ -1,6 +1,7 @@
 package rustic.common.blocks;
 
 import net.minecraft.block.material.Material;
+import net.minecraft.block.state.BlockFaceShape;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.util.BlockRenderLayer;
@@ -39,4 +40,12 @@ public class BlockGargoyle extends BlockRotatable {
 		return false;
 	}
 
+	@Override
+	public BlockFaceShape getBlockFaceShape(IBlockAccess world, IBlockState state, BlockPos pos, EnumFacing side) {
+		if (side == EnumFacing.DOWN) {
+			return BlockFaceShape.SOLID;
+		}
+		return BlockFaceShape.UNDEFINED;
+	}
+	
 }

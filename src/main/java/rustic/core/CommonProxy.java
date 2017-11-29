@@ -9,20 +9,25 @@ import rustic.client.renderer.LayerIronSkin;
 import rustic.common.Config;
 import rustic.common.blocks.ModBlocks;
 import rustic.common.blocks.fluids.ModFluids;
+import rustic.common.book.BookManager;
 import rustic.common.crafting.Recipes;
 import rustic.common.entities.ModEntities;
 import rustic.common.items.ItemFluidBottle;
 import rustic.common.items.ModItems;
 import rustic.common.network.PacketHandler;
 import rustic.common.potions.PotionsRustic;
+import rustic.common.util.DispenseRope;
 import rustic.common.world.WorldGeneratorRustic;
+import net.minecraft.block.BlockDispenser;
 import net.minecraft.client.renderer.entity.Render;
 import net.minecraft.client.renderer.entity.RenderLivingBase;
 import net.minecraft.entity.Entity;
+import net.minecraft.item.Item;
 import net.minecraft.potion.PotionType;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
 import net.minecraftforge.common.config.Configuration;
+import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fml.client.registry.IRenderFactory;
 import net.minecraftforge.fml.client.registry.RenderingRegistry;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
@@ -39,7 +44,6 @@ public class CommonProxy {
 		
 		PacketHandler.registerMessages();
 		
-		
 		File directory = event.getModConfigurationDirectory();
         config = new Configuration(new File(directory.getPath(), "rustic.cfg"));
         Config.readConfig();
@@ -51,7 +55,7 @@ public class CommonProxy {
         
         PotionsRustic.init();
 
-        Recipes.init();
+        Recipes.initOres();
         
         GameRegistry.registerWorldGenerator(new WorldGeneratorRustic(), 0);
         
@@ -67,6 +71,9 @@ public class CommonProxy {
             config.save();
         }
     	
+    	BlockDispenser.DISPENSE_BEHAVIOR_REGISTRY.putObject(Item.getItemFromBlock(ModBlocks.ROPE), DispenseRope.getInstance());
+    	
+    	BookManager.init();
     }
     
     private void initFluidBottle() {
@@ -76,7 +83,10 @@ public class CommonProxy {
     	ItemFluidBottle.addFluid(ModFluids.GRAPE_JUICE);
     	ItemFluidBottle.addFluid(ModFluids.APPLE_JUICE);
     	ItemFluidBottle.addFluid(ModFluids.ALE_WORT);
-    	ItemFluidBottle.addFluid(ModFluids.HONEY);
+    	ItemFluidBottle.addFluid(FluidRegistry.getFluid(ModFluids.HONEY.getName()));
+    	if (FluidRegistry.isFluidRegistered("for.honey")) {
+    		ItemFluidBottle.addFluid(FluidRegistry.getFluid("for.honey"));
+    	}
     	
     	ItemFluidBottle.addFluid(ModFluids.ALE);
     	ItemFluidBottle.addFluid(ModFluids.CIDER);

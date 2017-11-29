@@ -1,0 +1,23 @@
+{
+	"type": "forge:ore_shaped",
+	"pattern": [
+		" O ",
+		"IBI",
+		" I "
+	],
+	"key": {
+		"O": {
+			"item": "rustic:olives"
+		},
+		"I": {
+			"type": "forge:ore_dict",
+			"ore": "nuggetIron"
+		},
+		"B": {
+			"item": "minecraft:book"
+		}
+	},
+	"result": {
+		"item": "rustic:book"
+	}
+}

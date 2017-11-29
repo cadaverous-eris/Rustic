@@ -46,7 +46,7 @@ public class LayerIronSkin<T extends ModelBase> implements LayerRenderer<EntityL
 			GlStateManager.scale(1.001 * renderScale, 0.999 * renderScale, 0.999 * renderScale);
 			this.model.setModelAttributes(this.renderer.getMainModel());
 			this.model.setLivingAnimations(entityLivingBaseIn, limbSwing, limbSwingAmount, partialTicks);
-			Minecraft.getMinecraft().entityRenderer.func_191514_d(true);
+			Minecraft.getMinecraft().entityRenderer.setupFogColor(true);
 			if (model instanceof ModelPlayer) {
 				ModelPlayer modelPlayer = (ModelPlayer) model;
 				modelPlayer.bipedBody.isHidden = true;
@@ -65,7 +65,7 @@ public class LayerIronSkin<T extends ModelBase> implements LayerRenderer<EntityL
 			} else {
 				this.model.render(entityLivingBaseIn, limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch, scale / renderScale);
 			}
-			Minecraft.getMinecraft().entityRenderer.func_191514_d(false);
+			Minecraft.getMinecraft().entityRenderer.setupFogColor(false);
 			GlStateManager.matrixMode(5890);
 			GlStateManager.color(1, 1, 1, 1);
 			GlStateManager.loadIdentity();

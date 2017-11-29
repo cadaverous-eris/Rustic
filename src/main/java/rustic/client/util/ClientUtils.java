@@ -2,8 +2,8 @@ package rustic.client.util;
 
 import org.lwjgl.opengl.GL11;
 
+import net.minecraft.client.renderer.BufferBuilder;
 import net.minecraft.client.renderer.Tessellator;
-import net.minecraft.client.renderer.VertexBuffer;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 
 public class ClientUtils {
@@ -18,7 +18,7 @@ public class ClientUtils {
         alpha = (color >> 24) & 0xFF;
 		
 		Tessellator tessellator = Tessellator.getInstance();
-		VertexBuffer vertexBuffer = tessellator.getBuffer();
+		BufferBuilder vertexBuffer = tessellator.getBuffer();
 		
 		vertexBuffer.begin(GL11.GL_QUADS, DefaultVertexFormats.POSITION_TEX_COLOR);
 		vertexBuffer.pos(x,  y + height,  0).tex(minU, maxV).color(red, green, blue, alpha).endVertex();

@@ -1,0 +1,11 @@
+{
+	"type": "forge:ore_shapeless",
+	"ingredients": [
+		{
+			"item": "rustic:grapes"
+		}
+	],
+	"result": {
+		"item": "rustic:grape_stem"
+	}
+}

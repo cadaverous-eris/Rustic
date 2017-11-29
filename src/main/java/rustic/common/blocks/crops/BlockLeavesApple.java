@@ -62,8 +62,8 @@ public class BlockLeavesApple extends BlockLeaves implements IColoredBlock, IGro
 		setCreativeTab(Rustic.farmingTab);
 		setDefaultState(this.blockState.getBaseState().withProperty(AGE, 0).withProperty(CHECK_DECAY, true)
 				.withProperty(DECAYABLE, true));
-		GameRegistry.register(this);
-		GameRegistry.register(new ItemBlock(this), getRegistryName());
+		GameRegistry.findRegistry(Block.class).register(this);
+		GameRegistry.findRegistry(Item.class).register(new ItemBlock(this).setRegistryName(getRegistryName()));
 		
 		Blocks.FIRE.setFireInfo(this, 30, 60);
 	}

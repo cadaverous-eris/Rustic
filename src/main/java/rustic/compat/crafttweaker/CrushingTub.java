@@ -4,11 +4,11 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-import minetweaker.IUndoableAction;
-import minetweaker.MineTweakerAPI;
-import minetweaker.api.item.IIngredient;
-import minetweaker.api.item.IItemStack;
-import minetweaker.api.liquid.ILiquidStack;
+import crafttweaker.IAction;
+import crafttweaker.CraftTweakerAPI;
+import crafttweaker.api.item.IIngredient;
+import crafttweaker.api.item.IItemStack;
+import crafttweaker.api.liquid.ILiquidStack;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.fluids.FluidStack;
 import rustic.common.crafting.CrushingTubRecipe;
@@ -24,10 +24,10 @@ public class CrushingTub {
 	public static void addRecipe(ILiquidStack output, IItemStack byproduct, IItemStack input) {
 		CrushingTubRecipe r = new CrushingTubRecipe(CraftTweakerHelper.toFluidStack(output),
 				CraftTweakerHelper.toStack(input), CraftTweakerHelper.toStack(byproduct));
-		MineTweakerAPI.apply(new Add(r));
+		CraftTweakerAPI.apply(new Add(r));
 	}
 
-	private static class Add implements IUndoableAction {
+	private static class Add implements IAction {
 		private final CrushingTubRecipe recipe;
 
 		public Add(CrushingTubRecipe recipe) {
@@ -37,18 +37,6 @@ public class CrushingTub {
 		@Override
 		public void apply() {
 			Recipes.crushingTubRecipes.add(recipe);
-			MineTweakerAPI.getIjeiRecipeRegistry().addRecipe(recipe);
-		}
-
-		@Override
-		public boolean canUndo() {
-			return true;
-		}
-
-		@Override
-		public void undo() {
-			Recipes.crushingTubRecipes.remove(recipe);
-			MineTweakerAPI.getIjeiRecipeRegistry().removeRecipe(recipe);
 		}
 
 		@Override
@@ -56,28 +44,18 @@ public class CrushingTub {
 			return "Adding Crushing Tub Recipe for Fluid " + recipe.getResult().getLocalizedName();
 		}
 
-		@Override
-		public String describeUndo() {
-			return "Removing Crushing Tub Recipe for Fluid " + recipe.getResult().getLocalizedName();
-		}
-
-		@Override
-		public Object getOverrideKey() {
-			return null;
-		}
 	}
 
 	@ZenMethod
 	public static void removeRecipe(ILiquidStack output, IItemStack input) {
-		if (CraftTweakerHelper.toFluidStack(output) != null && CraftTweakerHelper.toStack(input) != ItemStack.EMPTY)
-			MineTweakerAPI
+		if (CraftTweakerHelper.toFluidStack(output) != null && !CraftTweakerHelper.toStack(input).isEmpty())
+			CraftTweakerAPI
 					.apply(new RemoveFluid(CraftTweakerHelper.toFluidStack(output), CraftTweakerHelper.toStack(input)));
 	}
 
-	private static class RemoveFluid implements IUndoableAction {
+	private static class RemoveFluid implements IAction {
 		private final FluidStack output;
 		private final ItemStack input;
-		List<CrushingTubRecipe> removedRecipes = new ArrayList<CrushingTubRecipe>();
 
 		public RemoveFluid(FluidStack output, ItemStack input) {
 			this.output = output;
@@ -91,8 +69,6 @@ public class CrushingTub {
 				CrushingTubRecipe r = it.next();
 				if (r != null && r.getResult() != null && r.getResult().isFluidEqual(output)) {
 					if (r.getInput().isItemEqual(input)) {
-						removedRecipes.add(r);
-						MineTweakerAPI.getIjeiRecipeRegistry().removeRecipe(r);
 						it.remove();
 					}
 				}
@@ -100,34 +76,10 @@ public class CrushingTub {
 		}
 
 		@Override
-		public void undo() {
-			if (removedRecipes != null)
-				for (CrushingTubRecipe recipe : removedRecipes)
-					if (recipe != null) {
-						Recipes.crushingTubRecipes.add(recipe);
-						MineTweakerAPI.getIjeiRecipeRegistry().addRecipe(recipe);
-					}
-		}
-
-		@Override
 		public String describe() {
 			return "Removing Crushing Tub Recipes for Fluid " + output.getLocalizedName();
 		}
 
-		@Override
-		public String describeUndo() {
-			return "Re-Adding Crushing Tub Recipes for Fluid " + output.getLocalizedName();
-		}
-
-		@Override
-		public Object getOverrideKey() {
-			return null;
-		}
-
-		@Override
-		public boolean canUndo() {
-			return true;
-		}
 	}
 
 }

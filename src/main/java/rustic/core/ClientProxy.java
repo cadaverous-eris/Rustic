@@ -37,6 +37,7 @@ import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import rustic.client.models.FluidBottleModel;
+import rustic.client.models.LatticeModel;
 import rustic.client.renderer.LayerIronSkin;
 import rustic.client.renderer.LiquidBarrelRenderer;
 import rustic.common.blocks.IColoredBlock;
@@ -56,6 +57,7 @@ public class ClientProxy extends CommonProxy {
 	@Override
 	public void preInit(FMLPreInitializationEvent event) {
 		super.preInit(event);
+		ModelLoaderRegistry.registerLoader(new LatticeModel.LatticeModelLoader());
 		ModelLoaderRegistry.registerLoader(FluidBottleModel.LoaderFluidBottle.INSTANCE);
 		ModFluids.initModels();
 		ModBlocks.initModels();
@@ -66,12 +68,12 @@ public class ClientProxy extends CommonProxy {
 	@Override
 	public void init(FMLInitializationEvent event) {
 		super.init(event);
-		initColorizer();
 	}
 
 	@Override
 	public void postInit(FMLPostInitializationEvent event) {
-
+		super.postInit(event);
+		
 		Collection<Render<? extends Entity>> renderers = Minecraft.getMinecraft().getRenderManager().entityRenderMap
 				.values();
 		Collection<RenderPlayer> playerRenderers = Minecraft.getMinecraft().getRenderManager().getSkinMap().values();
@@ -86,6 +88,8 @@ public class ClientProxy extends CommonProxy {
 		for (RenderPlayer renderPlayer : playerRenderers) {
 			renderPlayer.addLayer(new LayerIronSkin(renderPlayer, renderPlayer.getMainModel()));
 		}
+		
+		initColorizer();
 
 	}
 

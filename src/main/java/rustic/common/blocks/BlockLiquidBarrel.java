@@ -3,12 +3,16 @@ package rustic.common.blocks;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.annotation.Nullable;
+
 import net.minecraft.block.ITileEntityProvider;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
+import net.minecraft.block.state.BlockFaceShape;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
+import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
@@ -55,7 +59,8 @@ public class BlockLiquidBarrel extends BlockBase implements ITileEntityProvider 
 	}
 	
 	@Override
-	public void addInformation(ItemStack stack, EntityPlayer player, List<String> tooltip, boolean advanced) {
+	@SideOnly(Side.CLIENT)
+	public void addInformation(ItemStack stack, @Nullable World player, List<String> tooltip, ITooltipFlag advanced) {
 		super.addInformation(stack, player, tooltip, advanced);
 		NBTTagCompound nbttagcompound = stack.getTagCompound();
 		
@@ -118,5 +123,28 @@ public class BlockLiquidBarrel extends BlockBase implements ITileEntityProvider 
         ModelLoader.setCustomModelResourceLocation(Item.getItemFromBlock(this), 0, new ModelResourceLocation(getRegistryName(), "inventory"));
         ClientRegistry.bindTileEntitySpecialRenderer(TileEntityLiquidBarrel.class, new LiquidBarrelRenderer());
     }
+	
+	@Override
+	public BlockFaceShape getBlockFaceShape(IBlockAccess world, IBlockState state, BlockPos pos, EnumFacing side) {
+		return BlockFaceShape.UNDEFINED;
+	}
+	
+	@Override
+	public void fillWithRain(World worldIn, BlockPos pos) {
+		float f = worldIn.getBiome(pos).getFloatTemperature(pos);
+		
+        if (worldIn.getBiomeProvider().getTemperatureAtHeight(f, pos.getY()) >= 0.15F) {
+        	TileEntity te = worldIn.getTileEntity(pos);
+        	
+        	if (te != null && te instanceof TileEntityLiquidBarrel) {
+        		TileEntityLiquidBarrel telb = (TileEntityLiquidBarrel) te;
+        		FluidStack fluid = new FluidStack(FluidRegistry.WATER, 50);
+        		
+        		if (telb.getTank().canFillFluidType(fluid)) {
+        			telb.getTank().fill(fluid, true);
+        		}
+        	}
+        }
+	}
 
 }

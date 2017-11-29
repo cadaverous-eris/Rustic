@@ -1,13 +1,18 @@
 package rustic.core;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.NonNullList;
 import net.minecraftforge.common.ForgeModContainer;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.capabilities.ICapabilityProvider;
+import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fluids.FluidStack;
@@ -22,9 +27,11 @@ import net.minecraftforge.fml.common.SidedProxy;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
+import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import rustic.client.EventHandlerClient;
+import rustic.common.Config;
 import rustic.common.EventHandlerCommon;
 import rustic.common.blocks.ModBlocks;
 import rustic.common.blocks.fluids.FluidBooze;
@@ -32,13 +39,15 @@ import rustic.common.blocks.fluids.ModFluids;
 import rustic.common.crafting.Recipes;
 import rustic.common.items.ModItems;
 import rustic.common.potions.EventHandlerPotions;
+import rustic.compat.Compat;
 import rustic.compat.crafttweaker.CraftTweakerHelper;
 
-@Mod(modid = Rustic.MODID, name = Rustic.NAME, version = Rustic.VERSION, useMetadata = true)
+@Mod(modid = Rustic.MODID, name = Rustic.NAME, version = Rustic.VERSION, dependencies = Rustic.DEPENDENCIES)
 public class Rustic {
 	public static final String MODID = "rustic";
 	public static final String NAME = "Rustic";
-	public static final String VERSION = "0.3.13";
+	public static final String VERSION = "0.4.2.1";
+	public static final String DEPENDENCIES = "";
 
 	@SidedProxy(clientSide = "rustic.core.ClientProxy", serverSide = "rustic.core.CommonProxy")
 	public static CommonProxy proxy;
@@ -77,7 +86,7 @@ public class Rustic {
 				}
 				for (CreativeTabs tab : item.getCreativeTabs()) {
 					if (tab == this) {
-						item.getSubItems(item, this, p_78018_1_);
+						item.getSubItems(this, p_78018_1_);
 					}
 				}
 			}
@@ -91,10 +100,6 @@ public class Rustic {
 					ItemStack filled = fluidHandler.getContainer();
 					p_78018_1_.add(filled);
 				}
-			}
-
-			if (this.getRelevantEnchantmentTypes() != null) {
-				this.addEnchantmentBooksToList(p_78018_1_, this.getRelevantEnchantmentTypes());
 			}
 		}
 	};
@@ -114,6 +119,8 @@ public class Rustic {
 
 	@Mod.Instance
 	public static Rustic instance;
+	
+	public static final Logger logger = LogManager.getLogger(MODID);
 
 	static {
 		FluidRegistry.enableUniversalBucket();
@@ -126,7 +133,18 @@ public class Rustic {
 		
 		MinecraftForge.EVENT_BUS.register(new EventHandlerPotions());
 		
+		MinecraftForge.EVENT_BUS.register(this);
+		
 		proxy.preInit(event);
+		
+		if(Loader.isModLoaded("crafttweaker")) {
+			CraftTweakerHelper.preInit();
+		}
+	}
+	
+	@SubscribeEvent
+	public void initRecipes(RegistryEvent.Register<IRecipe> event) {
+		Recipes.init();
 	}
 
 	@EventHandler
@@ -137,8 +155,9 @@ public class Rustic {
 	@EventHandler
 	public void postInit(FMLPostInitializationEvent event) {
 		proxy.postInit(event);
-		if(Loader.isModLoaded("crafttweaker")) {
-			CraftTweakerHelper.postInit();
+		
+		if (Loader.isModLoaded("forestry") && Config.ENABLE_FORESTRY_COMPAT) {
+			Compat.doForestryCompat();
 		}
 	}
 }

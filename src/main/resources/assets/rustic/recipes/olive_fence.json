@@ -1,0 +1,22 @@
+{
+  "type": "forge:ore_shaped",
+  "group": "minecraft:wooden_fence",
+  "pattern": [
+    "PSP",
+    "PSP"
+  ],
+  "key": {
+    "S": {
+		"type": "forge:ore_dict",
+		"ore": "stickWood"
+    },
+    "P": {
+		"item": "rustic:planks",
+		"data": 0
+	}
+  },
+  "result": {
+    "item": "rustic:fence_olive",
+	"count": 3
+  }
+}

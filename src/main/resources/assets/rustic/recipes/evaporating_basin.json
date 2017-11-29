@@ -1,0 +1,15 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "# #",
+    " # "
+  ],
+  "key": {
+    "#": {
+        "item": "minecraft:hardened_clay"
+    }
+  },
+  "result": {
+    "item": "rustic:evaporating_basin"
+  }
+}

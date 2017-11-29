@@ -11,6 +11,7 @@ import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.nbt.NBTTagByte;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.NonNullList;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
 import net.minecraftforge.common.ForgeHooks;
 import net.minecraftforge.fluids.FluidStack;
@@ -19,7 +20,7 @@ import rustic.common.Config;
 import rustic.common.blocks.fluids.ModFluids;
 import rustic.common.items.ModItems;
 
-public class RecipeOliveOil implements IRecipe {
+public class RecipeOliveOil extends net.minecraftforge.registries.IForgeRegistryEntry.Impl<IRecipe> implements IRecipe {
 	
 	private int foodSlot = 0;
 
@@ -33,7 +34,7 @@ public class RecipeOliveOil implements IRecipe {
 				occupiedSlots.add(i);
 			}
 		}
-		if (numStacks != getRecipeSize()) {
+		if (numStacks != 2) {
 			return false;
 		}
 		ItemStack foodStack = ItemStack.EMPTY;
@@ -79,11 +80,6 @@ public class RecipeOliveOil implements IRecipe {
 	}
 
 	@Override
-	public int getRecipeSize() {
-		return 2;
-	}
-
-	@Override
 	public ItemStack getRecipeOutput() {
 		return ItemStack.EMPTY;
 	}
@@ -92,6 +88,11 @@ public class RecipeOliveOil implements IRecipe {
 	public NonNullList<ItemStack> getRemainingItems(InventoryCrafting inv) {
 		NonNullList items = NonNullList.<ItemStack>withSize(inv.getSizeInventory(), ItemStack.EMPTY);
 		return items;
+	}
+
+	@Override
+	public boolean canFit(int width, int height) {
+		return width <= 3 && height <= 3;
 	}
 
 }

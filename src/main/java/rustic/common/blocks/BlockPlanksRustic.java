@@ -59,7 +59,7 @@ public class BlockPlanksRustic extends BlockBase {
 		};
 		item.setHasSubtypes(true);
 		item.setMaxDamage(0);
-
+		item.setRegistryName(this.getRegistryName());
 		register(item);
 
 		Blocks.FIRE.setFireInfo(this, 5, 20);
@@ -81,10 +81,10 @@ public class BlockPlanksRustic extends BlockBase {
 		return ((BlockPlanksRustic.EnumType) state.getValue(VARIANT)).getMetadata();
 	}
 
-	@SideOnly(Side.CLIENT)
-	public void getSubBlocks(Item itemIn, CreativeTabs tab, NonNullList<ItemStack> list) {
+	@Override
+	public void getSubBlocks(CreativeTabs tab, NonNullList<ItemStack> list) {
 		for (BlockPlanksRustic.EnumType blockplanks$enumtype : BlockPlanksRustic.EnumType.values()) {
-			list.add(new ItemStack(itemIn, 1, blockplanks$enumtype.getMetadata()));
+			list.add(new ItemStack(Item.getItemFromBlock(this), 1, blockplanks$enumtype.getMetadata()));
 		}
 	}
 

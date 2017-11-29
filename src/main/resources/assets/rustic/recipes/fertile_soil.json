@@ -1,0 +1,16 @@
+{
+	"type": "forge:ore_shapeless",
+	"ingredients": [
+		{
+			"item": "minecraft:dye",
+			"data": 15
+		},
+		{
+			"item": "minecraft:dirt",
+			"data": 0
+		}
+	],
+	"result": {
+		"item": "rustic:fertile_soil"
+	}
+}

@@ -1,0 +1,17 @@
+{
+	"type": "forge:ore_shaped",
+	"pattern": [
+		"P",
+		"P",
+		"P"
+	],
+	"key": {
+		"P": {
+			"type": "forge:ore_dict",
+			"ore": "plankWood"
+		}
+	},
+	"result": {
+		"item": "rustic:crop_stake"
+	}
+}

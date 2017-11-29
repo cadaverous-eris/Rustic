@@ -23,8 +23,9 @@ public class CabinetRenderer extends TileEntitySpecialRenderer<TileEntityCabinet
 	private final ModelCabinetDouble doubleCabinet = new ModelCabinetDouble(false);
 	private final ModelCabinetDouble doubleCabinetM = new ModelCabinetDouble(true);
 
-	public void renderTileEntityAt(TileEntityCabinet te, double x, double y, double z, float partialTicks,
-			int destroyStage) {
+	@Override
+	public void render(TileEntityCabinet te, double x, double y, double z, float partialTicks,
+			int destroyStage, float alpha) {
 		GlStateManager.enableDepth();
 		GlStateManager.depthFunc(515);
 		GlStateManager.depthMask(true);

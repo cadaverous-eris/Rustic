@@ -16,11 +16,11 @@ import rustic.core.Rustic;
 public class BlockFenceRustic extends BlockFence {
 
 	public BlockFenceRustic(IBlockState state, String name) {
-		super(state.getMaterial(), state.getMapColor());
+		super(state.getMaterial(), state.getMaterial().getMaterialMapColor());
 		setRegistryName(name);
 		setUnlocalizedName(Rustic.MODID + "." + name);
-		GameRegistry.register(this);
-		GameRegistry.register(new ItemBlock(this), getRegistryName());
+		GameRegistry.findRegistry(Block.class).register(this);
+		GameRegistry.findRegistry(Item.class).register(new ItemBlock(this).setRegistryName(getRegistryName()));
 		setHardness(2F);
 		setCreativeTab(Rustic.decorTab);
 		setSoundType(state.getBlock().getSoundType());

@@ -2,6 +2,7 @@ package rustic.common.blocks.crops;
 
 import java.util.Random;
 
+import net.minecraft.block.Block;
 import net.minecraft.block.BlockBush;
 import net.minecraft.block.BlockLeaves;
 import net.minecraft.block.BlockOldLeaf;
@@ -58,8 +59,8 @@ public class BlockSaplingApple extends BlockBush implements IGrowable {
 		super();
 		setRegistryName("sapling_apple");
 		setUnlocalizedName(Rustic.MODID + "." + "sapling_apple");
-		GameRegistry.register(this);
-		GameRegistry.register(new ItemBlock(this), getRegistryName());
+		GameRegistry.findRegistry(Block.class).register(this);
+		GameRegistry.findRegistry(Item.class).register(new ItemBlock(this).setRegistryName(getRegistryName()));
 		setCreativeTab(Rustic.farmingTab);
 		setDefaultState(this.blockState.getBaseState().withProperty(STAGE, Integer.valueOf(0)));
 		setSoundType(SoundType.PLANT);

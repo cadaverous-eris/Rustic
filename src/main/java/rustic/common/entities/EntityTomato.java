@@ -47,7 +47,7 @@ public class EntityTomato extends EntityThrowable {
 
 	@Override
 	protected void onImpact(RayTraceResult result) {
-		if (result.entityHit != null) {
+		if (result.entityHit != null && !result.entityHit.equals(this.getThrower())) {
 			int i = 0;
 
 			result.entityHit.attackEntityFrom(DamageSource.causeThrownDamage(this, this.getThrower()), (float) i);
@@ -59,12 +59,14 @@ public class EntityTomato extends EntityThrowable {
 			}
 		}
 
-		this.world.playSound((EntityPlayer) null, this.posX, this.posY, this.posZ, SoundEvents.ENTITY_SLIME_HURT,
-				SoundCategory.NEUTRAL, 0.5F, 0.4F / (this.world.rand.nextFloat() * 0.4F + 0.8F));
+		if (result.entityHit == null || !result.entityHit.equals(this.getThrower())) {
+			this.world.playSound((EntityPlayer) null, this.posX, this.posY, this.posZ, SoundEvents.ENTITY_SLIME_HURT,
+					SoundCategory.NEUTRAL, 0.5F, 0.4F / (this.world.rand.nextFloat() * 0.4F + 0.8F));
 
-		if (!this.world.isRemote) {
-			this.world.setEntityState(this, (byte) 3);
-			this.setDead();
+			if (!this.world.isRemote) {
+				this.world.setEntityState(this, (byte) 3);
+				this.setDead();
+			}
 		}
 	}
 

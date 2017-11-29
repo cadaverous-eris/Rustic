@@ -1,8 +1,8 @@
 {
     "__comment": "Model generated using MrCrayfish's Model Creator (http://mrcrayfish.com/modelcreator/)",
     "textures": {
-        "0": "rustic:blocks/lattice_leaves",
-	"particle": "rustic:blocks/lattice_leaves"
+        "0": "minecraft:blocks/leaves_oak",
+		"particle": "minecraft:blocks/leaves_oak"
     },
     "elements": [
         {
@@ -10,12 +10,12 @@
             "from": [ 5.499999992549419, 5.499999992549419, 5.499999992549419 ], 
             "to": [ 10.49999999254942, 10.49999999254942, 10.49999999254942 ], 
             "faces": {
-                "north": { "texture": "#0", "uv": [ 5.0, 5.0, 10.0, 10.0 ] },
-                "east": { "texture": "#0", "uv": [ 5.0, 5.0, 10.0, 10.0 ] },
-                "south": { "texture": "#0", "uv": [ 5.0, 5.0, 10.0, 10.0 ] },
-                "west": { "texture": "#0", "uv": [ 5.0, 5.0, 10.0, 10.0 ] },
-                "up": { "texture": "#0", "uv": [ 5.0, 5.0, 10.0, 10.0 ] },
-                "down": { "texture": "#0", "uv": [ 5.0, 5.0, 10.0, 10.0 ] }
+                "north": { "texture": "#0", "uv": [ 5.0, 5.0, 10.0, 10.0 ], "tintindex": 1 },
+                "east": { "texture": "#0", "uv": [ 5.0, 5.0, 10.0, 10.0 ], "tintindex": 1 },
+                "south": { "texture": "#0", "uv": [ 5.0, 5.0, 10.0, 10.0 ], "tintindex": 1 },
+                "west": { "texture": "#0", "uv": [ 5.0, 5.0, 10.0, 10.0 ], "tintindex": 1 },
+                "up": { "texture": "#0", "uv": [ 5.0, 5.0, 10.0, 10.0 ], "tintindex": 1 },
+                "down": { "texture": "#0", "uv": [ 5.0, 5.0, 10.0, 10.0 ], "tintindex": 1 }
             }
         }
     ]
