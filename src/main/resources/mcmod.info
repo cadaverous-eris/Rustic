@@ -1,13 +1,13 @@
 [
 {
-  "modid": "examplemod",
-  "name": "Example Mod",
-  "description": "Example placeholder mod.",
+  "modid": "rustic",
+  "name": "Rustic",
+  "description": "A medieval themed Minecraft mod based around decoration, exploration, and agriculture.",
   "version": "${version}",
   "mcversion": "${mcversion}",
-  "url": "",
+  "url": "https://github.com/the-realest-stu/Rustic",
   "updateUrl": "",
-  "authorList": ["ExampleDude"],
+  "authorList": ["the-realest-stu"],
   "credits": "The Forge and FML guys, for making this example",
   "logoFile": "",
   "screenshots": [],
