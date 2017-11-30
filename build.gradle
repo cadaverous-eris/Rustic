@@ -10,6 +10,64 @@ buildscript {
 apply plugin: 'net.minecraftforge.gradle.forge'
 //Only edit below this line, the above code adds and enables the necessary things for Forge to be setup.
 
+repositories {
+    maven { // JEI & Tinkers
+        name 'DVS1 Maven FS'
+        url 'http://dvs1.progwml6.com/files/maven'
+    }
+	maven { // CraftTweaker
+        name 'jared maven'
+        url "http://maven.blamejared.com/"
+    }
+    maven { // TOP
+        name 'tterrag maven'
+        url "http://maven.tterrag.com/"
+    }
+	maven { // HWYLA
+		url "http://tehnut.info/maven"
+	}
+    maven {
+        name "CoFH"
+        url "http://maven.covers1624.net"
+    }
+	maven {
+        name "AppleCore"
+		url "http://www.ryanliptak.com/maven/"
+	}
+    maven {
+        name "CurseForge"
+        url "https://minecraft.curseforge.com/api/maven/"
+    }
+    maven {
+        name "IC2 Forestry"
+        url "http://maven.ic2.player.to/"
+    }
+}
+
+
+configurations {
+    provided
+    shade
+    compile.extendsFrom shade
+}
+
+idea {
+    module {
+        scopes.PROVIDED.plus += [configurations.provided]
+    }
+}
+
+jar {
+    configurations.shade.each { dep ->
+        from(project.zipTree(dep)) {
+            exclude 'META-INF', 'META-INF/**'
+        }
+    }
+
+    from sourceSets.api.output
+}
+
+apply from: 'dependencies.gradle'
 
 version = "0.4.3"
 group = "com.mangoose.rustic"
@@ -24,28 +82,8 @@ minecraft {
     version = "1.12.1-14.22.1.2478"
     runDir = "run"
     
-    mappings = "snapshot_20170624"
+    mappings = "snapshot_20170726"
     // makeObfSourceJar = false // an Srg named sources jar is made by default. uncomment this to disable.
-}
-
-repositories {
-    maven { // JEI & Tinkers
-        name 'DVS1 Maven FS'
-        url 'http://dvs1.progwml6.com/files/maven'
-    }
-	maven { // CraftTweaker
-        name 'jared maven'
-        url "http://maven.blamejared.com/"
-    }
-	maven { // HWYLA
-		url "http://tehnut.info/maven"
-	}
-}
-
-dependencies {
-    deobfCompile "mezz.jei:jei_1.12.1:4.7.8.91"
-	deobfCompile "CraftTweaker2:CraftTweaker2-MC1120-Main:1.12-4.0.4.250"
-	compile files('libs/')
 }
 
 processResources {
