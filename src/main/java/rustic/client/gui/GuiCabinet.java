@@ -1,5 +1,6 @@
 package rustic.client.gui;
 
+import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiTextField;
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.entity.player.InventoryPlayer;
@@ -9,10 +10,12 @@ import rustic.common.tileentity.ContainerCabinet;
 import rustic.common.tileentity.TileEntityCabinet;
 import rustic.compat.Compat;
 import rustic.core.Rustic;
+import vazkii.quark.api.IChestButtonCallback;
 import vazkii.quark.api.IItemSearchBar;
 
 @Optional.Interface(modid = Compat.QUARK, iface = "vazkii.quark.api.IItemSearchBar", striprefs = true)
-public class GuiCabinet extends GuiContainer implements IItemSearchBar {
+@Optional.Interface(modid = Compat.QUARK, iface = "vazkii.quark.api.IChestButtonCallback", striprefs = true)
+public class GuiCabinet extends GuiContainer implements IItemSearchBar, IChestButtonCallback {
 
 	public static final int WIDTH = 176;
     public static final int HEIGHT = 166;
@@ -54,4 +57,9 @@ public class GuiCabinet extends GuiContainer implements IItemSearchBar {
 	public void onSearchBarAdded(GuiTextField guiTextField) {
 		guiTextField.y++;
 	}
+
+    @Override
+    public boolean onAddChestButton(GuiButton guiButton, int i) {
+        return true;
+    }
 }
