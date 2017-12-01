@@ -74,8 +74,10 @@ public class RecipeOliveOil extends net.minecraftforge.registries.IForgeRegistry
 		if (foodStack.isEmpty() || !(foodStack.getItem() instanceof ItemFood)) {
 			return ItemStack.EMPTY;
 		}
-		ItemStack returnStack = new ItemStack(foodStack.getItem(), 1);
-		returnStack.setTagInfo("oiled", new NBTTagByte((byte) 0));
+		ItemStack returnStack = new ItemStack(foodStack.getItem(), 1, foodStack.getItemDamage());
+		NBTTagCompound amendedTag = foodStack.getTagCompound().copy();
+		amendedTag.setTag("oiled", new NBTTagByte((byte) 0));
+		returnStack.setTagCompound(amendedTag);
 		return returnStack;
 	}
 
