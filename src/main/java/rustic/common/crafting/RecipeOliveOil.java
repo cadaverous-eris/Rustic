@@ -21,7 +21,7 @@ import rustic.common.blocks.fluids.ModFluids;
 import rustic.common.items.ModItems;
 
 public class RecipeOliveOil extends net.minecraftforge.registries.IForgeRegistryEntry.Impl<IRecipe> implements IRecipe {
-	
+
 	private int foodSlot = 0;
 
 	@Override
@@ -64,7 +64,7 @@ public class RecipeOliveOil extends net.minecraftforge.registries.IForgeRegistry
 		if (foodStack.hasTagCompound() && foodStack.getTagCompound().hasKey("oiled")) {
 			return false;
 		}
-		
+
 		return true;
 	}
 
@@ -75,7 +75,12 @@ public class RecipeOliveOil extends net.minecraftforge.registries.IForgeRegistry
 			return ItemStack.EMPTY;
 		}
 		ItemStack returnStack = new ItemStack(foodStack.getItem(), 1, foodStack.getItemDamage());
-		NBTTagCompound amendedTag = foodStack.getTagCompound().copy();
+		NBTTagCompound amendedTag = foodStack.getTagCompound();
+		if (amendedTag == null) {
+		    amendedTag = new NBTTagCompound();
+		} else {
+		    amendedTag = amendedTag.copy();
+		}
 		amendedTag.setTag("oiled", new NBTTagByte((byte) 0));
 		returnStack.setTagCompound(amendedTag);
 		return returnStack;
