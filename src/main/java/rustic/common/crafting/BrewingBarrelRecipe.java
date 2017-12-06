@@ -5,6 +5,7 @@ import java.util.Random;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraftforge.fluids.FluidStack;
+import rustic.common.Config;
 import rustic.common.blocks.fluids.FluidBooze;
 
 public class BrewingBarrelRecipe {
@@ -58,7 +59,12 @@ public class BrewingBarrelRecipe {
 			FluidStack out = output.copy();
 			if (output.getFluid() instanceof FluidBooze && aux.tag != null && aux.tag.hasKey(FluidBooze.QUALITY_NBT_KEY)) {
 				float auxQuality = aux.tag.getFloat(FluidBooze.QUALITY_NBT_KEY);
-				float quality = Math.max(Math.min((((rand.nextInt(6) - 1 + (int) (100 * auxQuality)) / 100F)), 1), 0);
+				if (Config.MAX_BREW_QUALITY_CHANGE < Config.MIN_BREW_QUALITY_CHANGE) {
+					Config.MAX_BREW_QUALITY_CHANGE = Config.MIN_BREW_QUALITY_CHANGE;
+				}
+				int brewQualityChange = rand.nextInt(Config.MAX_BREW_QUALITY_CHANGE - Config.MIN_BREW_QUALITY_CHANGE + 1)
+						+ Config.MIN_BREW_QUALITY_CHANGE;
+				float quality = Math.max(Math.min(( (brewQualityChange + (int) (100 * auxQuality)) / 100F), 1), 0);
 				if (out.tag == null) {
 					out.tag = new NBTTagCompound();
 				}
