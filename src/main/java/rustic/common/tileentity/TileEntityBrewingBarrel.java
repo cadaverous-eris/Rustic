@@ -32,6 +32,7 @@ import net.minecraftforge.fluids.capability.ItemFluidContainer;
 import net.minecraftforge.fluids.capability.templates.FluidHandlerItemStack;
 import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.ItemStackHandler;
+import rustic.common.Config;
 import rustic.common.blocks.fluids.FluidBooze;
 import rustic.common.crafting.BrewingBarrelRecipe;
 import rustic.common.crafting.Recipes;
@@ -458,7 +459,7 @@ public class TileEntityBrewingBarrel extends TileEntity implements ITickable {
 	}
 
 	public int getMaxBrewTime() {
-		return 12000;
+		return Config.MAX_BREW_TIME;
 	}
 
 }

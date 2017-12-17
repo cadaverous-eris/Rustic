@@ -54,6 +54,9 @@ public class Config {
 	public static boolean GRAPE_DROP_NEEDS_TOOL;
 	public static List<String> GRAPE_TOOL_WHITELIST = new ArrayList<String>();
 	public static boolean ENABLE_SEED_DROPS;
+	public static int MIN_BREW_QUALITY_CHANGE;
+	public static int MAX_BREW_QUALITY_CHANGE;
+	public static int MAX_BREW_TIME;
 
 	public static void readConfig() {
 		Configuration cfg = CommonProxy.config;
@@ -108,7 +111,10 @@ public class Config {
 		GRAPE_DROP_NEEDS_TOOL = cfg.getBoolean("Grapeseed Drops Require Tool", CATEGORY_GENERAL, false, "with this value set to true, vines will only drop grape seeds when broken with tools from the whitelist");
 		GRAPE_TOOL_WHITELIST = Arrays.asList(cfg.getStringList("Grapeseed Tool Whitelist", CATEGORY_GENERAL, new String[] {"minecraft:iron_hoe", "minecraft:diamond_hoe"}, "add an item's registry name to this list to allow vines to drop grape seeds when broken with it\nput each item name on a new line, don't use commas\n"));
 		ENABLE_SEED_DROPS = cfg.getBoolean("Enable Seed Drops", CATEGORY_GENERAL, true, "set this to false to prevent any of Rustic's seeds from dropping from grass or vines");
-		
+		MIN_BREW_QUALITY_CHANGE = cfg.getInt("Minimum Increase To Brew Quality", CATEGORY_GENERAL, -50, -1, 50, "the minimum amount of increase that booze culture will provide to the new brew, in percent");
+		MAX_BREW_QUALITY_CHANGE = cfg.getInt("Maximum Increase To Brew Quality", CATEGORY_GENERAL, -50, 4, 50, "the maximum amount of increase that booze culture will provide to the new brew, in percent");
+		MAX_BREW_TIME = cfg.getInt("Maximum Brew Time", CATEGORY_GENERAL, 1200, 12000, 120000, "how long it should take for a brewing barrel to finish a brew, in ticks");
+
 		PROPERTY_ORDER_GENERAL.add("Flesh Smelting");
 		PROPERTY_ORDER_GENERAL.add("Enable Olive Oiling");
 		PROPERTY_ORDER_GENERAL.add("Olive Oil Food Blacklist");
@@ -118,6 +124,9 @@ public class Config {
 		PROPERTY_ORDER_GENERAL.add("Enable Seed Drops");
 		PROPERTY_ORDER_GENERAL.add("Grapeseed Drops Require Tool");
 		PROPERTY_ORDER_GENERAL.add("Grapeseed Tool Whitelist");
+		PROPERTY_ORDER_GENERAL.add("Minimum Increase To Brew Quality");
+		PROPERTY_ORDER_GENERAL.add("Maximum Increase To Brew Quality");
+		PROPERTY_ORDER_GENERAL.add("Maximum Brew Time");
 		PROPERTY_ORDER_GENERAL.add("Enable Slate");
 		PROPERTY_ORDER_GENERAL.add("Enable Stone Pillars");
 		PROPERTY_ORDER_GENERAL.add("Enable Clay Walls");
