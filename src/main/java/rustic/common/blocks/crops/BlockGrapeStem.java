@@ -8,6 +8,7 @@ import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.properties.PropertyInteger;
+import net.minecraft.block.state.BlockFaceShape;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.EntityLivingBase;
@@ -99,9 +100,8 @@ public class BlockGrapeStem extends BlockBase implements IGrowable, IPlantable {
 						rand.nextInt((int) (25.0F / f) + 1) == 0)) {
 
 					EnumFacing.Axis axis = worldIn.getBlockState(pos.up()).getValue(BlockRope.AXIS);
-					boolean support = worldIn.getBlockState(pos.up()).getValue(BlockRope.SUPPORTED);
 					worldIn.setBlockState(pos.up(),
-							ModBlocks.GRAPE_LEAVES.getDefaultState().withProperty(BlockGrapeLeaves.AXIS, axis).withProperty(BlockGrapeLeaves.DIST, 0).withProperty(BlockGrapeLeaves.SUPPORTED, support), 3);
+							ModBlocks.GRAPE_LEAVES.getDefaultState().withProperty(BlockGrapeLeaves.AXIS, axis).withProperty(BlockGrapeLeaves.DIST, 0), 3);
 					net.minecraftforge.common.ForgeHooks.onCropsGrowPost(worldIn, pos, state,
 							worldIn.getBlockState(pos));
 				}
@@ -177,5 +177,10 @@ public class BlockGrapeStem extends BlockBase implements IGrowable, IPlantable {
 	public IBlockState getPlant(IBlockAccess world, BlockPos pos) {
 		return getDefaultState();
 	}
+	
+	@Override
+	public BlockFaceShape getBlockFaceShape(IBlockAccess world, IBlockState state, BlockPos pos, EnumFacing side) {
+        return BlockFaceShape.UNDEFINED;
+    }
 
 }

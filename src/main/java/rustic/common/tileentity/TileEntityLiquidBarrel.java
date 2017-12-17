@@ -93,9 +93,8 @@ public class TileEntityLiquidBarrel extends TileFluidHandler {
 			if (heldItem.getItem() instanceof ItemBucket || heldItem.getItem() instanceof UniversalBucket) {
 				FluidStack f = FluidUtil.getFluidContained(heldItem);
 				if ((f != null && !f.getFluid().isGaseous() && !(f.getFluid().getTemperature() > MAX_TEMP)) || f == null) {
-					FluidActionResult didFill = FluidUtil.interactWithFluidHandler(heldItem, this.getCapability(CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY, side), player);
-					if (didFill.success) {
-						player.setHeldItem(hand, didFill.getResult());
+					boolean didFill = FluidUtil.interactWithFluidHandler(player, hand, this.getCapability(CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY, side));
+					if (didFill) {
 						this.world.addBlockEvent(this.pos, this.getBlockType(), 1, 0);
 						getWorld().notifyBlockUpdate(pos, state, state, 3);
 						this.world.notifyNeighborsOfStateChange(this.pos, this.getBlockType(), true);

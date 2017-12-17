@@ -2,11 +2,15 @@ package rustic.common.world;
 
 import java.util.Random;
 
+import com.google.common.base.Predicate;
+
+import net.minecraft.block.BlockStone;
+import net.minecraft.block.state.IBlockState;
+import net.minecraft.init.Blocks;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.DimensionType;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldType;
-import net.minecraft.world.chunk.IChunkGenerator;
 import net.minecraft.world.chunk.IChunkProvider;
 import net.minecraft.world.gen.feature.WorldGenBlockBlob;
 import net.minecraft.world.gen.feature.WorldGenMinable;
@@ -18,7 +22,9 @@ import rustic.common.blocks.ModBlocks;
 
 public class WorldGeneratorRustic implements IWorldGenerator {
 
-	private WorldGenMinable slate = (!Config.ENABLE_SLATE) ? null : new WorldGenMinable(ModBlocks.SLATE.getDefaultState(), Config.SLATE_VEIN_SIZE);
+	private WorldGenMinable slate = (!Config.ENABLE_SLATE) ? null
+			: (Config.NETHER_SLATE) ? new WorldGenMinable(ModBlocks.SLATE.getDefaultState(), Config.SLATE_VEIN_SIZE, new NetherPredicate())
+					: new WorldGenMinable(ModBlocks.SLATE.getDefaultState(), Config.SLATE_VEIN_SIZE);
 	private WorldGenBeehive beehives = new WorldGenBeehive();
 	private WorldGenAllTrees trees = new WorldGenAllTrees();
 	private WorldGenSurfaceHerbs surfaceHerbs = new WorldGenSurfaceHerbs();
@@ -27,12 +33,13 @@ public class WorldGeneratorRustic implements IWorldGenerator {
 	private WorldGenWildberries wildberries = new WorldGenWildberries();
 
 	@Override
-	public void generate(Random random, int chunkX, int chunkZ, World world, IChunkGenerator chunkGenerator,
-			IChunkProvider chunkProvider) {
+	public void generate(Random random, int chunkX, int chunkZ, World world,
+			net.minecraft.world.gen.IChunkGenerator chunkGenerator, IChunkProvider chunkProvider) {
 		BlockPos chunkCenter = new BlockPos(chunkX * 16 + 8, world.getHeight(chunkX * 16 + 8, chunkZ * 16 + 8),
 				chunkZ * 16 + 8);
 
-		if (world.provider.getDimensionType() == DimensionType.OVERWORLD && (world.getWorldType() != WorldType.FLAT || world.getWorldInfo().getGeneratorOptions().contains("decoration"))) {
+		if (world.provider.getDimensionType() == DimensionType.OVERWORLD && (world.getWorldType() != WorldType.FLAT
+				|| world.getWorldInfo().getGeneratorOptions().contains("decoration"))) {
 
 			if (random.nextFloat() < Config.WILDBERRY_GEN_CHANCE) {
 				wildberries.generate(world, random, chunkCenter);
@@ -51,7 +58,7 @@ public class WorldGeneratorRustic implements IWorldGenerator {
 				beehives.generate(world, random, chunkCenter);
 			}
 
-			if (Config.ENABLE_SLATE) {
+			if (Config.ENABLE_SLATE && !Config.NETHER_SLATE) {
 				for (int i = 0; i < Config.SLATE_VEINS_PER_CHUNK; i++) {
 					int x = chunkX * 16 + random.nextInt(16);
 					int y = random.nextInt(80) + 4;
@@ -65,7 +72,27 @@ public class WorldGeneratorRustic implements IWorldGenerator {
 				netherHerbs.generate(world, random, chunkCenter);
 			}
 
+			if (Config.ENABLE_SLATE && Config.NETHER_SLATE) {
+				for (int i = 0; i < Config.SLATE_VEINS_PER_CHUNK; i++) {
+					int x = chunkX * 16 + random.nextInt(16);
+					int y = random.nextInt(112) + 8;
+					int z = chunkZ * 16 + random.nextInt(16);
+					slate.generate(world, random, new BlockPos(x, y, z));
+				}
+			}
+
 		}
+	}
+
+	static class NetherPredicate implements Predicate<IBlockState> {
+		
+		private NetherPredicate() {}
+
+		@Override
+		public boolean apply(IBlockState state) {
+			return (state != null && state.getBlock() == Blocks.NETHERRACK);
+		}
+		
 	}
 
 }

@@ -1,0 +1,24 @@
+{
+	"type": "forge:ore_shaped",
+	"group": "rustic:condenser",
+	"pattern": [
+		" B ",
+		"BEB",
+		"BIB"
+	],
+	"key": {
+		"B": {
+			"item": "minecraft:netherbrick"
+		},
+		"E": {
+			"item": "minecraft:bucket"
+		},
+		"I": {
+			"item": "minecraft:iron_block",
+			"data": 0
+		}
+	},
+	"result": {
+		"item": "rustic:condenser_advanced"
+	}
+}

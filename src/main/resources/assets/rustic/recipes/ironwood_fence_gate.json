@@ -1,0 +1,21 @@
+{
+  "type": "forge:ore_shaped",
+  "group": "minecraft:wooden_fence_gate",
+  "pattern": [
+    "SPS",
+    "SPS"
+  ],
+  "key": {
+    "S": {
+		"type": "forge:ore_dict",
+		"ore": "stickWood"
+    },
+    "P": {
+		"item": "rustic:planks",
+		"data": 1
+	}
+  },
+  "result": {
+    "item": "rustic:fence_gate_ironwood"
+  }
+}

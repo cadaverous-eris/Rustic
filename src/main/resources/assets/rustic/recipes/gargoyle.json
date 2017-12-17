@@ -1,0 +1,24 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "PRP",
+    "SSS"
+  ],
+  "key": {
+    "P": {
+		"item": "minecraft:stone_pressure_plate"
+	},
+	"R": {
+		"item": "minecraft:stone",
+		"data": 0
+	},
+	"S": {
+		"item": "minecraft:stone_slab",
+		"data": 0
+	}
+  },
+  "result": {
+    "item": "rustic:gargoyle",
+	"count": 2
+  }
+}

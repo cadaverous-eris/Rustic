@@ -13,6 +13,7 @@ public class PacketHandler {
     
     public static void registerMessages() {
     	INSTANCE.registerMessage(MessageShameFX.MessageHolder.class, MessageShameFX.class, id++, Side.CLIENT);
+    	INSTANCE.registerMessage(MessageVaseMeta.MessageHolder.class, MessageVaseMeta.class, id++, Side.SERVER);
     }
 
 }

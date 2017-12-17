@@ -1,5 +1,6 @@
 package rustic.common.blocks;
 
+import net.minecraft.block.Block;
 import net.minecraft.block.BlockStairs;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
@@ -18,8 +19,8 @@ public class BlockStairsBase extends BlockStairs {
 		//super(mat);
 		setRegistryName(name);
 		setUnlocalizedName(Rustic.MODID + "." + name);
-		GameRegistry.register(this);
-		GameRegistry.register(new ItemBlock(this), getRegistryName());
+		GameRegistry.findRegistry(Block.class).register(this);
+		GameRegistry.findRegistry(Item.class).register(new ItemBlock(this).setRegistryName(getRegistryName()));
 		this.setCreativeTab(Rustic.decorTab);
 	}
 	

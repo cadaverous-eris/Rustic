@@ -1,0 +1,7 @@
+{
+    "parent": "block/door_bottom",
+    "textures": {
+        "bottom": "rustic:blocks/door_ironwood_lower",
+        "top": "rustic:blocks/door_ironwood_upper"
+    }
+}

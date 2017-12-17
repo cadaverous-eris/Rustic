@@ -22,9 +22,6 @@ import net.minecraft.client.gui.Gui;
 import net.minecraft.client.gui.GuiIngame;
 import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.renderer.GlStateManager;
-import net.minecraft.client.renderer.RenderGlobal;
-import net.minecraft.client.renderer.Tessellator;
-import net.minecraft.client.renderer.VertexBuffer;
 import net.minecraft.client.renderer.block.model.IBakedModel;
 import net.minecraft.client.renderer.entity.Render;
 import net.minecraft.client.renderer.entity.RenderLivingBase;
@@ -41,6 +38,7 @@ import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.monster.EntityCreeper;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
+import net.minecraft.entity.projectile.EntityArrow;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.init.MobEffects;
@@ -48,8 +46,10 @@ import net.minecraft.init.PotionTypes;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.Item;
+import net.minecraft.item.Item.ToolMaterial;
 import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemFood;
+import net.minecraft.item.ItemHoe;
 import net.minecraft.item.ItemSoup;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
@@ -84,10 +84,12 @@ import net.minecraftforge.event.entity.living.LivingEvent;
 import net.minecraftforge.event.entity.living.LivingEvent.LivingJumpEvent;
 import net.minecraftforge.event.entity.living.LivingEvent.LivingUpdateEvent;
 import net.minecraftforge.event.entity.living.PotionColorCalculationEvent;
+import net.minecraftforge.event.entity.player.EntityItemPickupEvent;
 import net.minecraftforge.event.entity.player.ItemTooltipEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.event.world.BlockEvent;
 import net.minecraftforge.event.world.ChunkEvent;
+import net.minecraftforge.event.world.GetCollisionBoxesEvent;
 import net.minecraftforge.fluids.BlockFluidBase;
 import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidActionResult;
@@ -111,71 +113,48 @@ import rustic.common.blocks.ModBlocks;
 import rustic.common.blocks.fluids.FluidBooze;
 import rustic.common.items.ItemFluidBottle;
 import rustic.common.items.ModItems;
-import rustic.common.network.MessageTEUpdate;
 import rustic.common.network.PacketHandler;
 import rustic.common.potions.PotionsRustic;
 import rustic.common.tileentity.ITileEntitySyncable;
-import rustic.common.util.GenericUtil;
+import rustic.common.util.GenericUtils;
+import rustic.core.Rustic;
 
 public class EventHandlerCommon {
-	
+
 	private Random rand = new Random();
 
-	public static Map<BlockPos, TileEntity> toUpdate = new HashMap<BlockPos, TileEntity>();
-
-	public static void markTEForUpdate(BlockPos pos, TileEntity tile) {
-		if (!toUpdate.containsKey(pos)) {
-			toUpdate.put(pos, tile);
-		} else {
-			toUpdate.replace(pos, tile);
-		}
-	}
-
-	// @SubscribeEvent
-	// public void onLivingUpdateEvent(LivingUpdateEvent event) {
-	//
-	// }
-
-	/*
-	@SubscribeEvent
-	public void onGrassDropEvent(BlockEvent.HarvestDropsEvent event) {
-		if (event.getState().getBlock() == Blocks.TALLGRASS) {
-			if (rand.nextInt(20) == 0) {
-				try {
-					event.getDrops().add(new ItemStack(ModItems.TOMATO_SEEDS));
-				} catch (UnsupportedOperationException e) {
-					
-				}
-			} else if (rand.nextInt(20) == 0) {
-				try {
-					event.getDrops().add(new ItemStack(ModItems.CHILI_PEPPER_SEEDS));
-				} catch (UnsupportedOperationException e) {
-					
-				}
-			}
-		}
-	}
-	*/
-	
 	@SubscribeEvent
 	public void onOliveOilCraftingEvent(PlayerEvent.ItemCraftedEvent event) {
 		if (event.player != null) {
-			if (!event.crafting.isEmpty() && event.crafting.getItem() instanceof ItemFood && event.crafting.hasTagCompound() && event.crafting.getTagCompound().hasKey("oiled")) {
+			if (!event.crafting.isEmpty() && event.crafting.getItem() instanceof ItemFood
+					&& event.crafting.hasTagCompound() && event.crafting.getTagCompound().hasKey("oiled")) {
 				if (!event.player.inventory.addItemStackToInventory(new ItemStack(Items.GLASS_BOTTLE))) {
 					event.player.dropItem(new ItemStack(Items.GLASS_BOTTLE), false);
 				}
 			}
 		}
 	}
-	
+
 	@SubscribeEvent
 	public void onVineDropEvent(BlockEvent.HarvestDropsEvent event) {
 		if (event.getState().getBlock() == Blocks.VINE) {
-			if (rand.nextInt(20) == 0) {
+			boolean tryDrop = false;
+			if (Config.ENABLE_SEED_DROPS) {
+				if (!Config.GRAPE_DROP_NEEDS_TOOL) {
+					tryDrop = true;
+				} else if (event.getHarvester() != null && !event.getHarvester().getHeldItemMainhand().isEmpty()) {
+					ItemStack stack = event.getHarvester().getHeldItemMainhand();
+					String itemName = stack.getItem().getRegistryName().toString();
+					if (Config.GRAPE_TOOL_WHITELIST.contains(itemName)) {
+						tryDrop = true;
+					}
+				}
+			}
+			if (tryDrop && rand.nextInt(10) == 0) {
 				try {
 					event.getDrops().add(new ItemStack(ModBlocks.GRAPE_STEM));
 				} catch (UnsupportedOperationException e) {
-					
+
 				}
 			}
 		}
@@ -208,40 +187,13 @@ public class EventHandlerCommon {
 	}
 
 	@SubscribeEvent
-	public void onFoodTooltip(ItemTooltipEvent event) {
-		ItemStack stack = event.getItemStack();
-		if (!stack.isEmpty() && stack.getItem() instanceof ItemFood && stack.hasTagCompound()
-				&& stack.getTagCompound().hasKey("oiled")) {
-			event.getToolTip().add(
-					TextFormatting.DARK_GREEN + "" + TextFormatting.ITALIC + I18n.format("tooltip.rustic.olive_oil"));
-		}
-	}
-	
-	@SubscribeEvent
-	public void onBoozeTooltip(ItemTooltipEvent event) {
-		ItemStack stack = event.getItemStack();
-		if (!stack.isEmpty()) {
-			if (stack.getItem() instanceof ItemFluidContainer) {
-				FluidStack fluid = FluidUtil.getFluidContained(stack);
-				if (fluid != null && fluid.getFluid() != null && fluid.getFluid() instanceof FluidBooze) {
-					if (fluid.tag != null && fluid.tag.hasKey(FluidBooze.QUALITY_NBT_KEY, 5)) {
-						float quality = fluid.tag.getFloat(FluidBooze.QUALITY_NBT_KEY);
-						event.getToolTip().add(
-								TextFormatting.GOLD + "" + I18n.format("tooltip.rustic.quality") + quality);
-					}
-				}
-			}
-		}
-	}
-
-	@SubscribeEvent
 	public void onPlayerUseGlassBottle(PlayerInteractEvent.RightClickBlock event) {
 		if (event.getItemStack().getItem().equals(Items.GLASS_BOTTLE)) {
 			EntityPlayer player = event.getEntityPlayer();
 			BlockPos pos = event.getPos();
 			ItemStack stack = event.getItemStack();
 			World world = event.getWorld();
-			RayTraceResult raytraceresult = GenericUtil.rayTrace(world, player, true);
+			RayTraceResult raytraceresult = GenericUtils.rayTrace(world, player, true);
 			BlockPos pos2 = raytraceresult.getBlockPos();
 			if (player.canPlayerEdit(pos2, event.getFace(), stack)
 					&& player.canPlayerEdit(pos2.offset(raytraceresult.sideHit), raytraceresult.sideHit, stack)) {
@@ -277,7 +229,8 @@ public class EventHandlerCommon {
 							player.playSound(SoundEvents.ITEM_BUCKET_FILL, 1.0F, 1.0F);
 							stack.shrink(1);
 							ItemStack bottlestack = new ItemStack(ModItems.FLUID_BOTTLE, 1);
-							NBTTagCompound fluidTag = new FluidStack(fill.getFluid(), 1000).writeToNBT(new NBTTagCompound());
+							NBTTagCompound fluidTag = new FluidStack(fill.getFluid(), 1000)
+									.writeToNBT(new NBTTagCompound());
 							NBTTagCompound tag = new NBTTagCompound();
 							tag.setTag(ItemFluidBottle.FLUID_NBT_KEY, fluidTag);
 							bottlestack.setTagCompound(tag);
@@ -290,7 +243,8 @@ public class EventHandlerCommon {
 							player.addStat(StatList.getObjectUseStats(stack.getItem()));
 							player.playSound(SoundEvents.ITEM_BUCKET_FILL, 1.0F, 1.0F);
 							stack.shrink(1);
-							ItemStack bottlestack = PotionUtils.addPotionToItemStack(new ItemStack(Items.POTIONITEM), PotionTypes.WATER);
+							ItemStack bottlestack = PotionUtils.addPotionToItemStack(new ItemStack(Items.POTIONITEM),
+									PotionTypes.WATER);
 							if (!player.inventory.addItemStackToInventory(bottlestack)) {
 								player.dropItem(bottlestack, false);
 							}
@@ -301,36 +255,5 @@ public class EventHandlerCommon {
 			}
 		}
 	}
-
-	/*
-	@SubscribeEvent
-	public void onWorldTick(TickEvent.WorldTickEvent event) {
-		if (!event.world.isRemote) {
-			List<TileEntity> tiles = event.world.loadedTileEntityList;
-			NBTTagList list = new NBTTagList();
-			for (TileEntity t : tiles) {
-				if (t instanceof ITileEntitySyncable) {
-					if (((ITileEntitySyncable) t).needsUpdate()) {
-						((ITileEntitySyncable) t).clean();
-						if (!event.world.isRemote) {
-							list.appendTag(t.getUpdateTag());
-						}
-					}
-				}
-			}
-			for (TileEntity t : toUpdate.values()) {
-				if (!event.world.isRemote) {
-					list.appendTag(t.getUpdateTag());
-				}
-			}
-			if (!list.hasNoTags()) {
-				NBTTagCompound tag = new NBTTagCompound();
-				tag.setTag("data", list);
-				PacketHandler.INSTANCE.sendToAll(new MessageTEUpdate(tag));
-			}
-			toUpdate.clear();
-		}
-	}
-	*/
 
 }

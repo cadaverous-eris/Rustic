@@ -1,0 +1,19 @@
+{
+  "type": "forge:ore_shaped",
+  "group": "minecraft:bed",
+  "pattern": [
+    "##",
+    "##",
+	"##"
+  ],
+  "key": {
+    "#": {
+      "item": "rustic:planks",
+      "data": 1
+    }
+  },
+  "result": {
+    "item": "rustic:ironwood_door",
+	"count": 3
+  }
+}

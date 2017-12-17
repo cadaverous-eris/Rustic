@@ -4,10 +4,10 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-import minetweaker.IUndoableAction;
-import minetweaker.MineTweakerAPI;
-import minetweaker.api.item.IItemStack;
-import minetweaker.api.liquid.ILiquidStack;
+import crafttweaker.IAction;
+import crafttweaker.CraftTweakerAPI;
+import crafttweaker.api.item.IItemStack;
+import crafttweaker.api.liquid.ILiquidStack;
 import net.minecraft.item.ItemStack;
 import net.minecraft.potion.PotionEffect;
 import net.minecraftforge.fml.common.Loader;
@@ -29,17 +29,17 @@ public class Condenser {
 	public static void addRecipe(IItemStack output, IItemStack input1, IItemStack input2) {
 		CondenserRecipe r = new BasicCondenserRecipe(CraftTweakerHelper.toStack(output),
 				CraftTweakerHelper.toStack(input1), CraftTweakerHelper.toStack(input2));
-		MineTweakerAPI.apply(new Add(r));
+		CraftTweakerAPI.apply(new Add(r));
 	}
 
 	@ZenMethod
 	public static void addRecipe(IItemStack output, IItemStack modifier, IItemStack[] inputs) {
 		CondenserRecipe r = new AdvancedCondenserRecipe(CraftTweakerHelper.toStack(output),
 				CraftTweakerHelper.toStack(modifier), CraftTweakerHelper.toStacks(inputs));
-		MineTweakerAPI.apply(new Add(r));
+		CraftTweakerAPI.apply(new Add(r));
 	}
 
-	private static class Add implements IUndoableAction {
+	private static class Add implements IAction {
 		private final CondenserRecipe recipe;
 
 		public Add(CondenserRecipe recipe) {
@@ -49,18 +49,6 @@ public class Condenser {
 		@Override
 		public void apply() {
 			Recipes.condenserRecipes.add(recipe);
-			MineTweakerAPI.getIjeiRecipeRegistry().addRecipe(recipe);
-		}
-
-		@Override
-		public boolean canUndo() {
-			return true;
-		}
-
-		@Override
-		public void undo() {
-			Recipes.condenserRecipes.remove(recipe);
-			MineTweakerAPI.getIjeiRecipeRegistry().removeRecipe(recipe);
 		}
 
 		@Override
@@ -68,26 +56,16 @@ public class Condenser {
 			return "Adding Alchemy Recipe for Item " + recipe.getResult().getDisplayName();
 		}
 
-		@Override
-		public String describeUndo() {
-			return "Removing Alchemy Recipe for Item " + recipe.getResult().getDisplayName();
-		}
-
-		@Override
-		public Object getOverrideKey() {
-			return null;
-		}
 	}
 
 	@ZenMethod
 	public static void removeRecipe(IItemStack output) {
-		if (CraftTweakerHelper.toStack(output) != ItemStack.EMPTY)
-			MineTweakerAPI.apply(new Remove(CraftTweakerHelper.toStack(output)));
+		if (!CraftTweakerHelper.toStack(output).isEmpty())
+			CraftTweakerAPI.apply(new Remove(CraftTweakerHelper.toStack(output)));
 	}
 
-	private static class Remove implements IUndoableAction {
+	private static class Remove implements IAction {
 		private final ItemStack output;
-		List<CondenserRecipe> removedRecipes = new ArrayList<CondenserRecipe>();
 
 		public Remove(ItemStack output) {
 			this.output = output;
@@ -100,23 +78,27 @@ public class Condenser {
 			while (it.hasNext()) {
 				CondenserRecipe r = it.next();
 				List<PotionEffect> rEffects = ElixirUtils.getEffects(r.getResult());
-				if (r != null && r.getResult() != null && r.getResult().isItemEqual(output)
-						&& (effects.equals(rEffects))) {
-					removedRecipes.add(r);
-					MineTweakerAPI.getIjeiRecipeRegistry().removeRecipe(r);
-					it.remove();
+				if (r != null && r.getResult() != null && r.getResult().isItemEqual(output)) {
+					boolean matches = true;
+					for (PotionEffect pe : effects) {
+						boolean hasMatch = false;
+						for (PotionEffect pe1 : rEffects) {
+							if (pe.getPotion() == pe1.getPotion() && pe.getAmplifier() == pe1.getAmplifier()
+									&& pe.getDuration() == pe1.getDuration()) {
+								hasMatch = true;
+								break;
+							}
+						}
+						if (!hasMatch) {
+							matches = false;
+							break;
+						}
+					}
+					if (effects.equals(rEffects)) {
+						it.remove();
+					}
 				}
 			}
-		}
-
-		@Override
-		public void undo() {
-			if (removedRecipes != null)
-				for (CondenserRecipe recipe : removedRecipes)
-					if (recipe != null) {
-						Recipes.condenserRecipes.add(recipe);
-						MineTweakerAPI.getIjeiRecipeRegistry().addRecipe(recipe);
-					}
 		}
 
 		@Override
@@ -124,20 +106,6 @@ public class Condenser {
 			return "Removing Condenser Recipes for Item " + output.getDisplayName();
 		}
 
-		@Override
-		public String describeUndo() {
-			return "Re-Adding Condenser Recipes for Item " + output.getDisplayName();
-		}
-
-		@Override
-		public Object getOverrideKey() {
-			return null;
-		}
-
-		@Override
-		public boolean canUndo() {
-			return true;
-		}
 	}
 
 }

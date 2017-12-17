@@ -152,8 +152,8 @@ public class TileEntityApiary extends TileEntity implements ITickable {
 		}
 
 		if (numBees > 0 && !this.getWorld().isRemote) {
-			reproductionTime = (int) (Config.BEE_REPRODUCTION_MULTIPLIER * (800F / ((numBees / 20F) + 1F)));
-			productionTime = (int) (Config.BEE_HONEYCOMB_MULTIPLIER * (400F / ((numBees / 20F) + 1F)));
+			reproductionTime = (int) (Config.BEE_REPRODUCTION_MULTIPLIER * (1600F / ((numBees / 20F) + 1F)));
+			productionTime = (int) (Config.BEE_HONEYCOMB_MULTIPLIER * (800F / ((numBees / 20F) + 1F)));
 
 			reproductionTimer++;
 			productionTimer++;
@@ -172,7 +172,7 @@ public class TileEntityApiary extends TileEntity implements ITickable {
 				}
 			}
 
-			if (Config.BEE_GROWTH_MULTIPLIER != 0 && random.nextInt((int) (1024F / (numBees * Config.BEE_GROWTH_MULTIPLIER))) == 0) {
+			if (Config.BEE_GROWTH_MULTIPLIER != 0 && random.nextInt((int) (2048F / (numBees * Config.BEE_GROWTH_MULTIPLIER))) == 0) {
 				int randX = random.nextInt(9) - 4;
 				int randZ = random.nextInt(9) - 4;
 				int x = this.getPos().getX();

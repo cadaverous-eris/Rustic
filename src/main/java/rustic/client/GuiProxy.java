@@ -13,7 +13,9 @@ import rustic.client.gui.GuiCabinetDouble;
 import rustic.client.gui.GuiCondenser;
 import rustic.client.gui.GuiCondenserAdvanced;
 import rustic.client.gui.GuiVase;
+import rustic.client.gui.book.GuiBook;
 import rustic.common.blocks.BlockCabinet;
+import rustic.common.items.ItemBook;
 import rustic.common.tileentity.ContainerApiary;
 import rustic.common.tileentity.ContainerBarrel;
 import rustic.common.tileentity.ContainerBrewingBarrel;
@@ -50,6 +52,9 @@ public class GuiProxy implements IGuiHandler {
 			return new ContainerCondenserAdvanced(player.inventory, (TileEntityCondenserAdvanced) te);
 		} else if (te instanceof TileEntityBrewingBarrel) {
 			return new ContainerBrewingBarrel(player.inventory, (TileEntityBrewingBarrel) te);
+		}
+		if (ID == ItemBook.GUI_ID) {
+			
 		}
 		return null;
 	}
@@ -88,6 +93,9 @@ public class GuiProxy implements IGuiHandler {
 			return new GuiCondenserAdvanced(new ContainerCondenserAdvanced(player.inventory, (TileEntityCondenserAdvanced) te), player.inventory);
 		} else if (te instanceof TileEntityBrewingBarrel) {
 			return new GuiBrewingBarrel(new ContainerBrewingBarrel(player.inventory, (TileEntityBrewingBarrel) te), player.inventory);
+		}
+		if (ID == ItemBook.GUI_ID) {
+			return new GuiBook();
 		}
 		return null;
 	}

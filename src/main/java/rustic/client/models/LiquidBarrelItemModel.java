@@ -17,12 +17,11 @@ import net.minecraft.client.renderer.block.model.ItemTransformVec3f;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.util.EnumFacing;
-import net.minecraftforge.client.model.IPerspectiveAwareModel;
 import net.minecraftforge.common.model.TRSRTransformation;
 import rustic.common.blocks.BlockLiquidBarrel;
 import rustic.common.blocks.ModBlocks;
 
-public class LiquidBarrelItemModel implements IPerspectiveAwareModel {
+public class LiquidBarrelItemModel implements IBakedModel {
 	
 	private IBakedModel baseLiquidBarrelModel;
 	private LiquidBarrelItemOverrideList liquidBarrelItemOverrideList;
@@ -70,8 +69,8 @@ public class LiquidBarrelItemModel implements IPerspectiveAwareModel {
 
 	@Override
 	public Pair<? extends IBakedModel, Matrix4f> handlePerspective(TransformType cameraTransformType) {
-		if (baseLiquidBarrelModel instanceof IPerspectiveAwareModel) {
-			 Matrix4f matrix4f = ((IPerspectiveAwareModel)baseLiquidBarrelModel).handlePerspective(cameraTransformType).getRight();
+		if (baseLiquidBarrelModel instanceof IBakedModel) {
+			 Matrix4f matrix4f = ((IBakedModel)baseLiquidBarrelModel).handlePerspective(cameraTransformType).getRight();
 			 return Pair.of(this, matrix4f);
 		}
 		ItemCameraTransforms itemCameraTransforms = baseLiquidBarrelModel.getItemCameraTransforms();

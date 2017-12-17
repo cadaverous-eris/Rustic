@@ -1,0 +1,19 @@
+{
+  "type": "forge:ore_shaped",
+  "group": "minecraft:wooden_stairs",
+  "pattern": [
+	"P  ",
+	"PP ",
+    "PPP"
+  ],
+  "key": {
+    "P": {
+		"item": "rustic:planks",
+		"data": 0
+	}
+  },
+  "result": {
+    "item": "rustic:stairs_olive",
+	"count": 4
+  }
+}

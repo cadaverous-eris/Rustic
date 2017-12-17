@@ -96,9 +96,9 @@ public class TileEntityCrushingTub extends TileFluidHandler {
 		ItemStack heldItem = player.getHeldItem(hand);
 		if (heldItem != ItemStack.EMPTY) {
 			if ((heldItem.getItem() instanceof ItemBucket || heldItem.getItem() instanceof UniversalBucket) && FluidUtil.getFluidContained(heldItem) == null) {
-				FluidActionResult didFill = FluidUtil.interactWithFluidHandler(heldItem, this.getCapability(CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY, side), player);
-				if (didFill.success) {
-					player.setHeldItem(hand, didFill.getResult());
+				boolean didFill = FluidUtil.interactWithFluidHandler(player, hand, this.getCapability(CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY, side));
+				if (didFill) {
+					//player.setHeldItem(hand, didFill.getResult());
 					this.world.addBlockEvent(this.pos, this.getBlockType(), 1, 0);
 					getWorld().notifyBlockUpdate(pos, state, state, 3);
 					this.world.notifyNeighborsOfStateChange(this.pos, this.getBlockType(), true);

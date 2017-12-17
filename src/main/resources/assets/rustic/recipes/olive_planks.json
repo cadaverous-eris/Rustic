@@ -1,0 +1,15 @@
+{
+	"type": "forge:ore_shapeless",
+	"group": "minecraft:planks",
+	"ingredients": [
+		{
+			"item": "rustic:log",
+			"data": 0
+		}
+	],
+	"result": {
+		"item": "rustic:planks",
+		"data": 0,
+		"count": 4
+	}
+}

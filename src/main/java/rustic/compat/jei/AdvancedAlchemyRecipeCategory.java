@@ -102,4 +102,10 @@ public class AdvancedAlchemyRecipeCategory extends BlankRecipeCategory {
 		}
 	}
 	
+
+	@Override
+	public String getModName() {
+		return "Rustic";
+	}
+	
 }

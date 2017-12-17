@@ -6,6 +6,7 @@ import java.util.Random;
 
 import javax.annotation.Nullable;
 
+import net.minecraft.block.Block;
 import net.minecraft.block.BlockLeaves;
 import net.minecraft.block.BlockLog;
 import net.minecraft.block.BlockPlanks;
@@ -69,8 +70,9 @@ public class BlockLeavesRustic extends BlockLeaves implements IColoredBlock {
 		};
 		item.setHasSubtypes(true);
 		item.setMaxDamage(0);
-		GameRegistry.register(this);
-		GameRegistry.register(item, getRegistryName());
+		item.setRegistryName(getRegistryName());
+		GameRegistry.findRegistry(Block.class).register(this);
+		GameRegistry.findRegistry(Item.class).register(item);
 		setDefaultState(this.blockState.getBaseState().withProperty(VARIANT, BlockPlanksRustic.EnumType.OLIVE).withProperty(CHECK_DECAY, true).withProperty(DECAYABLE, true));
 		
 		Blocks.FIRE.setFireInfo(this, 30, 60);
@@ -176,11 +178,10 @@ public class BlockLeavesRustic extends BlockLeaves implements IColoredBlock {
 	}
 
 	@Override
-	@SideOnly(Side.CLIENT)
-	public void getSubBlocks(Item item, CreativeTabs tab, NonNullList<ItemStack> list) {
+	public void getSubBlocks(CreativeTabs tab, NonNullList<ItemStack> list) {
 		for (BlockPlanksRustic.EnumType blockplanks$enumtype : BlockPlanksRustic.EnumType.values()) {
 			if (blockplanks$enumtype.getMetadata() < 4) {
-				list.add(new ItemStack(item, 1, blockplanks$enumtype.getMetadata()));
+				list.add(new ItemStack(Item.getItemFromBlock(this), 1, blockplanks$enumtype.getMetadata()));
 			}
 		}
 	}

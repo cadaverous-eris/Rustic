@@ -33,7 +33,7 @@ public class BlockDoubleSlabBase extends BlockSlab {
 		super(materialIn);
 		setRegistryName(name);
 		setUnlocalizedName(Rustic.MODID + "." + name);
-		GameRegistry.register(this);
+		GameRegistry.findRegistry(Block.class).register(this);
 		//GameRegistry.register(new ItemBlock(this), getRegistryName());
 		this.setHardness(2.0F);
 	}
@@ -42,7 +42,7 @@ public class BlockDoubleSlabBase extends BlockSlab {
 		super(materialIn);
 		setRegistryName(name);
 		setUnlocalizedName(Rustic.MODID + "." + name);
-		GameRegistry.register(this);
+		GameRegistry.findRegistry(Block.class).register(this);
 		//GameRegistry.register(new ItemBlock(this), getRegistryName());
 		this.setHardness(2.0F);
 		setSoundType(sound);

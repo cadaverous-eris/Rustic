@@ -4,6 +4,8 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
+import java.util.function.Function;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -12,8 +14,6 @@ import javax.vecmath.Vector3f;
 
 import org.apache.commons.lang3.tuple.Pair;
 
-import com.google.common.base.Function;
-import com.google.common.base.Optional;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.ImmutableSet;
@@ -39,12 +39,10 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
 import net.minecraftforge.client.model.ICustomModelLoader;
 import net.minecraftforge.client.model.IModel;
-import net.minecraftforge.client.model.IModelCustomData;
-import net.minecraftforge.client.model.IPerspectiveAwareModel;
-import net.minecraftforge.client.model.IRetexturableModel;
 import net.minecraftforge.client.model.ItemLayerModel;
 import net.minecraftforge.client.model.ItemTextureQuadConverter;
 import net.minecraftforge.client.model.ModelDynBucket;
+import net.minecraftforge.client.model.PerspectiveMapWrapper;
 import net.minecraftforge.client.model.SimpleModelState;
 import net.minecraftforge.common.ForgeVersion;
 import net.minecraftforge.common.model.IModelPart;
@@ -60,7 +58,7 @@ import rustic.common.blocks.fluids.ModFluids;
 import rustic.common.items.ModItems;
 import rustic.core.Rustic;
 
-public class FluidBottleModel implements IModel, IModelCustomData, IRetexturableModel {
+public class FluidBottleModel implements IModel {
 
 	public static final ModelResourceLocation LOCATION = new ModelResourceLocation(
 			new ResourceLocation(Rustic.MODID, "fluid_bottle"), "inventory");
@@ -133,10 +131,9 @@ public class FluidBottleModel implements IModel, IModelCustomData, IRetexturable
 	public IBakedModel bake(IModelState state, VertexFormat format,
 			Function<ResourceLocation, TextureAtlasSprite> bakedTextureGetter) {
 
-		ImmutableMap<TransformType, TRSRTransformation> transformMap = IPerspectiveAwareModel.MapWrapper
-				.getTransforms(state);
+		ImmutableMap<TransformType, TRSRTransformation> transformMap = PerspectiveMapWrapper.getTransforms(state);
 
-		TRSRTransformation transform = state.apply(Optional.<IModelPart>absent()).or(TRSRTransformation.identity());
+		TRSRTransformation transform = state.apply(Optional.empty()).orElse(TRSRTransformation.identity());
 		TextureAtlasSprite fluidSprite = null;
 		ImmutableList.Builder<BakedQuad> builder = ImmutableList.builder();
 
@@ -231,7 +228,7 @@ public class FluidBottleModel implements IModel, IModelCustomData, IRetexturable
 		}
 	}
 
-	private static final class BakedFluidBottle implements IPerspectiveAwareModel {
+	private static final class BakedFluidBottle implements IBakedModel {
 
 		private final FluidBottleModel parent;
 		private final Map<String, IBakedModel> cache;
@@ -258,7 +255,7 @@ public class FluidBottleModel implements IModel, IModelCustomData, IRetexturable
 
 		@Override
 		public Pair<? extends IBakedModel, Matrix4f> handlePerspective(TransformType cameraTransformType) {
-			return IPerspectiveAwareModel.MapWrapper.handlePerspective(this, (ImmutableMap<TransformType, TRSRTransformation>) this.transforms, cameraTransformType);
+			return PerspectiveMapWrapper.handlePerspective(this, transforms, cameraTransformType);
 		}
 		
 		private static ImmutableMap<TransformType, TRSRTransformation> itemTransforms() {

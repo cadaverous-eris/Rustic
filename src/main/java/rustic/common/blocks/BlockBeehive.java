@@ -12,6 +12,7 @@ import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.properties.PropertyDirection;
+import net.minecraft.block.state.BlockFaceShape;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
@@ -39,27 +40,19 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 import rustic.common.items.ModItems;
 import rustic.core.Rustic;
 
-public class BlockBeehive extends Block {
+public class BlockBeehive extends BlockBase {
 
 	public static final PropertyDirection FACING = PropertyDirection.create("facing", EnumFacing.Plane.HORIZONTAL);
 	protected static final AxisAlignedBB BEEHIVE_AABB = new AxisAlignedBB(0.125D, 0.0D, 0.125D, 0.875D, 1D, 0.875D);
 
 	public BlockBeehive() {
-		super(Material.GOURD);
-		setRegistryName("beehive");
-		setUnlocalizedName(Rustic.MODID + ".beehive");
+		super(Material.GOURD, "beehive");
 		this.setHardness(0.5F);
-		GameRegistry.register(this);
-		GameRegistry.register(new ItemBlock(this), getRegistryName());
 		this.setDefaultState(this.blockState.getBaseState().withProperty(FACING, EnumFacing.NORTH));
 		this.setCreativeTab(Rustic.farmingTab);
 		setSoundType(SoundType.SLIME);
 	}
-
-	public void initModel() {
-		ModelLoader.setCustomModelResourceLocation(Item.getItemFromBlock(this), 0, new ModelResourceLocation(getRegistryName().toString(), "inventory"));
-	}
-
+	
 	public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos) {
 		return BEEHIVE_AABB;
 	}
@@ -144,5 +137,10 @@ public class BlockBeehive extends Block {
 	public IBlockState withMirror(IBlockState state, Mirror mirrorIn) {
 		return state.withRotation(mirrorIn.toRotation((EnumFacing) state.getValue(FACING)));
 	}
+	
+	@Override
+	public BlockFaceShape getBlockFaceShape(IBlockAccess world, IBlockState state, BlockPos pos, EnumFacing side) {
+		return (side == EnumFacing.UP || side == EnumFacing.DOWN) ? BlockFaceShape.CENTER_BIG : BlockFaceShape.UNDEFINED;
+    }
 
 }

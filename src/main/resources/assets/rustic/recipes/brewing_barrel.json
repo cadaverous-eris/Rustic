@@ -1,0 +1,25 @@
+{
+	"type": "forge:ore_shaped",
+	"pattern": [
+		"PIP",
+		"S S",
+		"PIP"
+	],
+	"key": {
+		"P": {
+			"type": "forge:ore_dict",
+			"ore": "plankWood"
+		},
+		"S": {
+			"type": "forge:ore_dict",
+			"ore": "slabWood"
+		},
+		"I": {
+			"type": "forge:ore_dict",
+			"ore": "ingotIron"
+		}
+	},
+	"result": {
+		"item": "rustic:brewing_barrel"
+	}
+}

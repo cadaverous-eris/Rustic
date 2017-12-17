@@ -4,10 +4,10 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-import minetweaker.IUndoableAction;
-import minetweaker.MineTweakerAPI;
-import minetweaker.api.item.IItemStack;
-import minetweaker.api.liquid.ILiquidStack;
+import crafttweaker.CraftTweakerAPI;
+import crafttweaker.IAction;
+import crafttweaker.api.item.IItemStack;
+import crafttweaker.api.liquid.ILiquidStack;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.fluids.FluidStack;
 import rustic.common.crafting.CrushingTubRecipe;
@@ -23,10 +23,10 @@ public class EvaporatingBasin {
 	public static void addRecipe(IItemStack output, ILiquidStack input) {
 		EvaporatingBasinRecipe r = new EvaporatingBasinRecipe(CraftTweakerHelper.toStack(output),
 				CraftTweakerHelper.toFluidStack(input));
-		MineTweakerAPI.apply(new Add(r));
+		CraftTweakerAPI.apply(new Add(r));
 	}
 
-	private static class Add implements IUndoableAction {
+	private static class Add implements IAction {
 		private final EvaporatingBasinRecipe recipe;
 
 		public Add(EvaporatingBasinRecipe recipe) {
@@ -36,18 +36,6 @@ public class EvaporatingBasin {
 		@Override
 		public void apply() {
 			Recipes.evaporatingRecipes.add(recipe);
-			MineTweakerAPI.getIjeiRecipeRegistry().addRecipe(recipe);
-		}
-
-		@Override
-		public boolean canUndo() {
-			return true;
-		}
-
-		@Override
-		public void undo() {
-			Recipes.evaporatingRecipes.remove(recipe);
-			MineTweakerAPI.getIjeiRecipeRegistry().removeRecipe(recipe);
 		}
 
 		@Override
@@ -55,26 +43,16 @@ public class EvaporatingBasin {
 			return "Adding Evaporating Recipe for Item " + recipe.getResult().getDisplayName();
 		}
 
-		@Override
-		public String describeUndo() {
-			return "Removing Evaporating Recipe for Item " + recipe.getResult().getDisplayName();
-		}
-
-		@Override
-		public Object getOverrideKey() {
-			return null;
-		}
 	}
 
 	@ZenMethod
 	public static void removeRecipe(IItemStack output) {
-		if (CraftTweakerHelper.toStack(output) != ItemStack.EMPTY)
-			MineTweakerAPI.apply(new Remove(CraftTweakerHelper.toStack(output)));
+		if (!CraftTweakerHelper.toStack(output).isEmpty())
+			CraftTweakerAPI.apply(new Remove(CraftTweakerHelper.toStack(output)));
 	}
 
-	private static class Remove implements IUndoableAction {
+	private static class Remove implements IAction {
 		private final ItemStack output;
-		List<EvaporatingBasinRecipe> removedRecipes = new ArrayList<EvaporatingBasinRecipe>();
 
 		public Remove(ItemStack output) {
 			this.output = output;
@@ -86,21 +64,9 @@ public class EvaporatingBasin {
 			while (it.hasNext()) {
 				EvaporatingBasinRecipe r = it.next();
 				if (r != null && r.getResult() != null && r.getResult().isItemEqual(output)) {
-					removedRecipes.add(r);
-					MineTweakerAPI.getIjeiRecipeRegistry().removeRecipe(r);
 					it.remove();
 				}
 			}
-		}
-
-		@Override
-		public void undo() {
-			if (removedRecipes != null)
-				for (EvaporatingBasinRecipe recipe : removedRecipes)
-					if (recipe != null) {
-						Recipes.evaporatingRecipes.add(recipe);
-						MineTweakerAPI.getIjeiRecipeRegistry().addRecipe(recipe);
-					}
 		}
 
 		@Override
@@ -108,20 +74,6 @@ public class EvaporatingBasin {
 			return "Removing Evaporating Recipes for Item " + output.getDisplayName();
 		}
 
-		@Override
-		public String describeUndo() {
-			return "Re-Adding Evaporating Recipes for Item " + output.getDisplayName();
-		}
-
-		@Override
-		public Object getOverrideKey() {
-			return null;
-		}
-
-		@Override
-		public boolean canUndo() {
-			return true;
-		}
 	}
 
 }

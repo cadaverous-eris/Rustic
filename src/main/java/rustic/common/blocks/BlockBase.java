@@ -18,8 +18,7 @@ public class BlockBase extends Block {
 		super(mat);
 		setRegistryName(name);
 		setUnlocalizedName(Rustic.MODID + "." + name);
-		GameRegistry.register(this);
-		GameRegistry.register(new ItemBlock(this), getRegistryName());
+		register();
 		setHardness(1F);
 		setCreativeTab(Rustic.decorTab);
 	}
@@ -31,18 +30,17 @@ public class BlockBase extends Block {
 		setHardness(1F);
 		setCreativeTab(Rustic.decorTab);
 		if (register) {
-			GameRegistry.register(this);
-			GameRegistry.register(new ItemBlock(this), getRegistryName());
+			register();
 		}
 	}
 	
-	public void register(ItemBlock item) {
-		GameRegistry.register(this);
-		GameRegistry.register(item, getRegistryName());
+	public void register(Item item) {
+		GameRegistry.findRegistry(Block.class).register(this);
+		GameRegistry.findRegistry(Item.class).register(item);
 	}
 	
 	public void register() {
-		register(new ItemBlock(this));
+		register(new ItemBlock(this).setRegistryName(getRegistryName()));
 	}
 	
 	public void initModel() {

@@ -6,6 +6,7 @@ import java.util.List;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
+import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.renderer.ItemMeshDefinition;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
@@ -17,6 +18,7 @@ import net.minecraft.init.Items;
 import net.minecraft.init.PotionTypes;
 import net.minecraft.item.EnumAction;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.potion.PotionEffect;
@@ -71,7 +73,7 @@ public class ItemFluidBottle extends ItemFluidContainer {
 		setRegistryName("fluid_bottle");
 		setUnlocalizedName(Rustic.MODID + "." + "fluid_bottle");
 		setCreativeTab(Rustic.farmingTab);
-		GameRegistry.register(this);
+		GameRegistry.findRegistry(Item.class).register(this);
 		empty = new ItemStack(Items.GLASS_BOTTLE);
 	}
 
@@ -159,7 +161,7 @@ public class ItemFluidBottle extends ItemFluidContainer {
 
 	public ActionResult<ItemStack> onItemRightClick(World worldIn, EntityPlayer playerIn, EnumHand handIn) {
 		playerIn.setActiveHand(handIn);
-		//System.out.println(playerIn.getHeldItem(handIn).getTagCompound());
+		System.out.println(playerIn.getHeldItem(handIn).getTagCompound());
 		return new ActionResult(EnumActionResult.SUCCESS, playerIn.getHeldItem(handIn));
 	}
 
@@ -199,23 +201,25 @@ public class ItemFluidBottle extends ItemFluidContainer {
 		return I18n.translateToLocalFormatted(unloc + ".name", fluidStack.getLocalizedName());
 	}
 
-	@SideOnly(Side.CLIENT)
-	public void getSubItems(Item itemIn, CreativeTabs tab, NonNullList<ItemStack> subItems) {
-		for (Fluid fluid : VALID_FLUIDS) {
-			ItemStack stack = getFilledBottle(fluid);
-			if (fluid instanceof FluidBooze) {
-				if (stack.hasTagCompound() && stack.getTagCompound().hasKey(FluidHandlerItemStack.FLUID_NBT_KEY)) {
-					NBTTagCompound fluidTag = stack.getTagCompound()
-							.getCompoundTag(FluidHandlerItemStack.FLUID_NBT_KEY);
-					if (!fluidTag.hasKey("Tag")) {
-						fluidTag.setTag("Tag", new NBTTagCompound());
-					}
-					if (!fluidTag.getCompoundTag("Tag").hasKey(FluidBooze.QUALITY_NBT_KEY)) {
-						fluidTag.getCompoundTag("Tag").setFloat(FluidBooze.QUALITY_NBT_KEY, 0.75F);
+	@Override
+	public void getSubItems(CreativeTabs tab, NonNullList<ItemStack> subItems) {
+		if (isInCreativeTab(tab)) {
+			for (Fluid fluid : VALID_FLUIDS) {
+				ItemStack stack = getFilledBottle(fluid);
+				if (fluid instanceof FluidBooze) {
+					if (stack.hasTagCompound() && stack.getTagCompound().hasKey(FluidHandlerItemStack.FLUID_NBT_KEY)) {
+						NBTTagCompound fluidTag = stack.getTagCompound()
+								.getCompoundTag(FluidHandlerItemStack.FLUID_NBT_KEY);
+						if (!fluidTag.hasKey("Tag")) {
+							fluidTag.setTag("Tag", new NBTTagCompound());
+						}
+						if (!fluidTag.getCompoundTag("Tag").hasKey(FluidBooze.QUALITY_NBT_KEY)) {
+							fluidTag.getCompoundTag("Tag").setFloat(FluidBooze.QUALITY_NBT_KEY, 0.75F);
+						}
 					}
 				}
+				subItems.add(stack);
 			}
-			subItems.add(stack);
 		}
 	}
 

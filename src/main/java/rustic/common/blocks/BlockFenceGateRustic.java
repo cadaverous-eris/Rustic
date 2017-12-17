@@ -40,8 +40,8 @@ public class BlockFenceGateRustic extends BlockFenceGate {
 		super(BlockPlanks.EnumType.OAK);
 		setRegistryName(name);
 		setUnlocalizedName(Rustic.MODID + "." + name);
-		GameRegistry.register(this);
-		GameRegistry.register(new ItemBlock(this), getRegistryName());
+		GameRegistry.findRegistry(Block.class).register(this);
+		GameRegistry.findRegistry(Item.class).register(new ItemBlock(this).setRegistryName(getRegistryName()));
 		setHardness(2F);
 		setSoundType(state.getBlock().getSoundType());
 		setCreativeTab(Rustic.decorTab);

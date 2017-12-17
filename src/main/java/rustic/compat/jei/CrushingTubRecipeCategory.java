@@ -64,5 +64,11 @@ public class CrushingTubRecipeCategory extends BlankRecipeCategory {
 			stacks.set(2, ingredients.getOutputs(ItemStack.class).get(0));
 		}
 	}
+	
+
+	@Override
+	public String getModName() {
+		return "Rustic";
+	}
 
 }

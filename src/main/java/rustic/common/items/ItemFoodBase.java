@@ -1,6 +1,9 @@
 package rustic.common.items;
 
+import net.minecraft.block.Block;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemFood;
 import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.fml.common.registry.GameRegistry;
@@ -13,7 +16,7 @@ public class ItemFoodBase extends ItemFood {
 		setRegistryName(name);
 		setUnlocalizedName(Rustic.MODID + "." + name);
 		setCreativeTab(Rustic.farmingTab);
-		GameRegistry.register(this);
+		GameRegistry.findRegistry(Item.class).register(this);
 		initFood();
 	}
 	

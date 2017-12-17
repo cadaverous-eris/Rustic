@@ -4,14 +4,18 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
+import net.minecraft.block.Block;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.properties.PropertyBool;
+import net.minecraft.block.state.BlockFaceShape;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.AxisAlignedBB;
@@ -40,7 +44,7 @@ public class BlockStakeTied extends BlockBase {
 		setHardness(1F);
 		setResistance(5F);
 		setDefaultState(this.blockState.getBaseState().withProperty(NORTH,  false).withProperty(WEST, false).withProperty(SOUTH, false).withProperty(EAST,  false));
-		GameRegistry.register(this);
+		GameRegistry.findRegistry(Block.class).register(this);
 		
 		Blocks.FIRE.setFireInfo(this, 15, 40);
 	}
@@ -151,5 +155,10 @@ public class BlockStakeTied extends BlockBase {
 			EntityPlayer player) {
 		return new ItemStack(ModBlocks.ROPE);
 	}
+	
+	@Override
+	public BlockFaceShape getBlockFaceShape(IBlockAccess world, IBlockState state, BlockPos pos, EnumFacing side) {
+        return side != EnumFacing.UP && side != EnumFacing.DOWN ? BlockFaceShape.MIDDLE_POLE : BlockFaceShape.CENTER;
+    }
 	
 }

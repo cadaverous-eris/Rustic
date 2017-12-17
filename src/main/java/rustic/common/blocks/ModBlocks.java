@@ -1,16 +1,23 @@
 package rustic.common.blocks;
 
+import net.minecraft.block.Block;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.Minecraft;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemBlock;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
 import net.minecraftforge.common.EnumPlantType;
+import net.minecraftforge.event.RegistryEvent;
+import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.registry.GameRegistry;
+import net.minecraftforge.fml.common.registry.GameRegistry.ObjectHolder;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+import net.minecraftforge.registries.IForgeRegistry;
 import rustic.common.Config;
 import rustic.common.blocks.crops.BlockAppleSeeds;
 import rustic.common.blocks.crops.BlockBerryBush;
@@ -141,6 +148,8 @@ public class ModBlocks {
 	public static BlockAppleSeeds APPLE_SEEDS;
 	public static BlockSaplingApple APPLE_SAPLING;
 	public static BlockLeavesApple APPLE_LEAVES;
+	public static BlockDoorRustic DOOR_OLIVE;
+	public static BlockDoorRustic DOOR_IRONWOOD;
 
 	public static void init() {
 		if (Config.ENABLE_PILLARS) {
@@ -337,7 +346,7 @@ public class ModBlocks {
 				return ModItems.WILDBERRIES;
 			}
 		};
-		ROPE = new BlockRope(Material.CLOTH, "rope", true);
+		ROPE = new BlockRope("rope");
 		STAKE_TIED = new BlockStakeTied();
 		GRAPE_STEM = new BlockGrapeStem();
 		GRAPE_LEAVES = new BlockGrapeLeaves();
@@ -345,6 +354,8 @@ public class ModBlocks {
 		APPLE_SEEDS = new BlockAppleSeeds();
 		APPLE_SAPLING = new BlockSaplingApple();
 		APPLE_LEAVES = new BlockLeavesApple();
+		DOOR_OLIVE = new BlockDoorRustic(Material.WOOD, "olive_door");
+		DOOR_IRONWOOD = new BlockDoorRustic(Material.WOOD, "ironwood_door");
 
 		Herbs.init();
 
@@ -476,6 +487,8 @@ public class ModBlocks {
 		APPLE_SEEDS.initModel();
 		APPLE_SAPLING.initModel();
 		APPLE_LEAVES.initModel();
+		DOOR_OLIVE.initModel();
+		DOOR_IRONWOOD.initModel();
 
 		Herbs.initModels();
 	}

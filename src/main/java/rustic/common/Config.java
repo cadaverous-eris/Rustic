@@ -14,39 +14,46 @@ public class Config {
 	private final static String CATEGORY_GENERAL = "all.general";
 	private final static String CATEGORY_BEES = "all.bees";
 	private final static String CATEGORY_WORLD = "all.world";
+	private final static String CATEGORY_COMPAT = "all.compat";
 
 	private final static List<String> PROPERTY_ORDER_GENERAL = new ArrayList<String>();
 	private final static List<String> PROPERTY_ORDER_BEES = new ArrayList<String>();
 	private final static List<String> PROPERTY_ORDER_WORLD = new ArrayList<String>();
+	private final static List<String> PROPERTY_ORDER_COMPAT = new ArrayList<String>();
 
-	public static float IRONWOOD_GEN_CHANCE = 0.015F;
-	public static float OLIVE_GEN_CHANCE = 0.06F;
-	public static int MAX_IRONWOOD_GEN_ATTEMPTS = 4;
-	public static int MAX_OLIVE_GEN_ATTEMPTS = 5;
-	public static float BEEHIVE_GEN_CHANCE = 0.03F;
-	public static int MAX_BEEHIVE_ATTEMPTS = 3;
-	public static int SLATE_VEINS_PER_CHUNK = 5;
-	public static int SLATE_VEIN_SIZE = 33;
-	public static float BEE_GROWTH_MULTIPLIER = 1.0F;
-	public static float BEE_REPRODUCTION_MULTIPLIER = 1.0F;
-	public static float BEE_HONEYCOMB_MULTIPLIER = 1.0F;
-	public static boolean FLESH_SMELTING = true;
-	public static boolean TOUGHNESS_HUD = true;
-	public static boolean EXTRA_ARMOR_HUD = true;
-	public static float HERB_GEN_CHANCE = 0.125F;
-	public static int MAX_HERB_ATTEMPTS = 8;
-	public static float WILDBERRY_GEN_CHANCE = 0.05F;
-	public static int MAX_WILDBERRY_ATTEMPTS = 4;
-	public static boolean OFFSET_WILDBERRY_BUSHES = true;
-	public static boolean ENABLE_SLATE = true;
-	public static boolean ENABLE_PILLARS = true;
-	public static boolean ENABLE_CLAY_WALLS = true;
-	public static boolean ENABLE_PAINTED_WOOD = true;
-	public static boolean ENABLE_TABLES = true;
-	public static boolean ENABLE_CHAIRS = true;
-	public static boolean ENABLE_LATTICE = true;
+	public static float IRONWOOD_GEN_CHANCE;
+	public static float OLIVE_GEN_CHANCE;
+	public static int MAX_IRONWOOD_GEN_ATTEMPTS;
+	public static int MAX_OLIVE_GEN_ATTEMPTS;
+	public static float BEEHIVE_GEN_CHANCE;
+	public static int MAX_BEEHIVE_ATTEMPTS;
+	public static boolean NETHER_SLATE;
+	public static int SLATE_VEINS_PER_CHUNK;
+	public static int SLATE_VEIN_SIZE;
+	public static float BEE_GROWTH_MULTIPLIER;
+	public static float BEE_REPRODUCTION_MULTIPLIER;
+	public static float BEE_HONEYCOMB_MULTIPLIER;
+	public static boolean FLESH_SMELTING;
+	public static boolean TOUGHNESS_HUD;
+	public static boolean EXTRA_ARMOR_HUD;
+	public static float HERB_GEN_CHANCE;
+	public static int MAX_HERB_ATTEMPTS;
+	public static float WILDBERRY_GEN_CHANCE;
+	public static int MAX_WILDBERRY_ATTEMPTS;
+	public static boolean OFFSET_WILDBERRY_BUSHES;
+	public static boolean ENABLE_SLATE;
+	public static boolean ENABLE_PILLARS;
+	public static boolean ENABLE_CLAY_WALLS;
+	public static boolean ENABLE_PAINTED_WOOD;
+	public static boolean ENABLE_TABLES;
+	public static boolean ENABLE_CHAIRS;
+	public static boolean ENABLE_LATTICE;
 	public static List<String> OLIVE_OIL_BLACKLIST = new ArrayList<String>();
-	public static boolean ENABLE_OLIVE_OILING = true;
+	public static boolean ENABLE_OLIVE_OILING;
+	public static boolean ENABLE_FORESTRY_COMPAT;
+	public static boolean GRAPE_DROP_NEEDS_TOOL;
+	public static List<String> GRAPE_TOOL_WHITELIST = new ArrayList<String>();
+	public static boolean ENABLE_SEED_DROPS;
 
 	public static void readConfig() {
 		Configuration cfg = CommonProxy.config;
@@ -66,9 +73,11 @@ public class Config {
 		cfg.addCustomCategoryComment(CATEGORY_GENERAL, "General Options");
 		cfg.addCustomCategoryComment(CATEGORY_WORLD, "World Generation Options");
 		cfg.addCustomCategoryComment(CATEGORY_BEES, "Bee Related Options");
+		cfg.addCustomCategoryComment(CATEGORY_COMPAT, "Mod Compatability Related Options");
 
 		BEEHIVE_GEN_CHANCE = cfg.getFloat("Beehive Generation Chance", CATEGORY_BEES, 0.03F, 0, 1F, "chance for beehives to try to generate in a chunk");
 		MAX_BEEHIVE_ATTEMPTS = cfg.getInt("Max Beehive Generation Attempts", CATEGORY_BEES, 3, 0, 128, "maximum number of times the generator will attempt to place a beehive in a chunk");
+		NETHER_SLATE = cfg.getBoolean("Nether Slate", CATEGORY_WORLD, false, "if set to true, slate will generate in the nether instead of the overworld");
 		SLATE_VEINS_PER_CHUNK = cfg.getInt("Slate Veins Per Chunk", CATEGORY_WORLD, 5, 0, 128, "number of times the generator will try to place a slate vein per chunk");
 		SLATE_VEIN_SIZE = cfg.getInt("Slate Vein Size", CATEGORY_WORLD, 33, 0, 100, "number of blocks per slate vein");
 		BEE_GROWTH_MULTIPLIER = cfg.getFloat("Bee Crop Boost Multiplier", CATEGORY_BEES, 1F, 0F, 10F, "higher values increase the frequency with which apiaries forcibly age a crop");
@@ -93,8 +102,12 @@ public class Config {
 		ENABLE_TABLES = cfg.getBoolean("Enable Tables", CATEGORY_GENERAL, true, "enable/disable all table blocks");
 		ENABLE_CHAIRS = cfg.getBoolean("Enable Chairs", CATEGORY_GENERAL, true, "enable/disable all chair blocks");
 		ENABLE_LATTICE = cfg.getBoolean("Enable Lattice", CATEGORY_GENERAL, true, "enable/disable lattice blocks");
-		OLIVE_OIL_BLACKLIST = Arrays.asList(cfg.getStringList("Olive Oil Food Blacklist", CATEGORY_GENERAL, new String[0], "add registry names of items to this list to prevent them from being craftable with olive oil\nput each item name on a new line, don't use commas\n"));
+		OLIVE_OIL_BLACKLIST = Arrays.asList(cfg.getStringList("Olive Oil Food Blacklist", CATEGORY_GENERAL, new String[0], "add an item's registry name to this list to prevent it from being craftable with olive oil\nput each item name on a new line, don't use commas\n"));
 		ENABLE_OLIVE_OILING = cfg.getBoolean("Enable Olive Oiling", CATEGORY_GENERAL, true, "enable/disable the ability to add olive oil to food");
+		ENABLE_FORESTRY_COMPAT = cfg.getBoolean("Enable Forestry Compat", CATEGORY_COMPAT, true, "with this enabled, Rustic will automatically add recipes for some of Forestry's machines using Rustic's fluids");
+		GRAPE_DROP_NEEDS_TOOL = cfg.getBoolean("Grapeseed Drops Require Tool", CATEGORY_GENERAL, false, "with this value set to true, vines will only drop grape seeds when broken with tools from the whitelist");
+		GRAPE_TOOL_WHITELIST = Arrays.asList(cfg.getStringList("Grapeseed Tool Whitelist", CATEGORY_GENERAL, new String[] {"minecraft:iron_hoe", "minecraft:diamond_hoe"}, "add an item's registry name to this list to allow vines to drop grape seeds when broken with it\nput each item name on a new line, don't use commas\n"));
+		ENABLE_SEED_DROPS = cfg.getBoolean("Enable Seed Drops", CATEGORY_GENERAL, true, "set this to false to prevent any of Rustic's seeds from dropping from grass or vines");
 		
 		PROPERTY_ORDER_GENERAL.add("Flesh Smelting");
 		PROPERTY_ORDER_GENERAL.add("Enable Olive Oiling");
@@ -102,6 +115,9 @@ public class Config {
 		PROPERTY_ORDER_GENERAL.add("Extra Armor HUD");
 		PROPERTY_ORDER_GENERAL.add("Armor Toughness HUD");
 		PROPERTY_ORDER_GENERAL.add("Wildberry Bush Offset");
+		PROPERTY_ORDER_GENERAL.add("Enable Seed Drops");
+		PROPERTY_ORDER_GENERAL.add("Grapeseed Drops Require Tool");
+		PROPERTY_ORDER_GENERAL.add("Grapeseed Tool Whitelist");
 		PROPERTY_ORDER_GENERAL.add("Enable Slate");
 		PROPERTY_ORDER_GENERAL.add("Enable Stone Pillars");
 		PROPERTY_ORDER_GENERAL.add("Enable Clay Walls");
@@ -109,6 +125,7 @@ public class Config {
 		PROPERTY_ORDER_GENERAL.add("Enable Tables");
 		PROPERTY_ORDER_GENERAL.add("Enable Chairs");
 		PROPERTY_ORDER_GENERAL.add("Enable Lattice");
+		PROPERTY_ORDER_WORLD.add("Nether Slate");
 		PROPERTY_ORDER_WORLD.add("Slate Veins Per Chunk");
 		PROPERTY_ORDER_WORLD.add("Slate Vein Size");
 		PROPERTY_ORDER_WORLD.add("Olive Tree Generation Chance");
@@ -124,10 +141,12 @@ public class Config {
 		PROPERTY_ORDER_BEES.add("Bee Reproduction Multiplier");
 		PROPERTY_ORDER_BEES.add("Bee Honeycomb Multiplier");
 		PROPERTY_ORDER_BEES.add("Bee Crop Boost Multiplier");
+		PROPERTY_ORDER_COMPAT.add("Enable Forestry Compat");
 
 		cfg.setCategoryPropertyOrder(CATEGORY_GENERAL, PROPERTY_ORDER_GENERAL);
 		cfg.setCategoryPropertyOrder(CATEGORY_BEES, PROPERTY_ORDER_BEES);
 		cfg.setCategoryPropertyOrder(CATEGORY_WORLD, PROPERTY_ORDER_WORLD);
+		cfg.setCategoryPropertyOrder(CATEGORY_COMPAT,  PROPERTY_ORDER_COMPAT);
 	}
 
 }

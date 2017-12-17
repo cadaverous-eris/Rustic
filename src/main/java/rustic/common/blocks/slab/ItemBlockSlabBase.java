@@ -7,6 +7,7 @@ import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.EntityEquipmentSlot;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumActionResult;
@@ -31,7 +32,7 @@ public class ItemBlockSlabBase extends ItemBlock {
 		this.doubleSlab = doubleSlab;
 		setRegistryName(block.getRegistryName() + "_item");
 		tab = Rustic.decorTab;
-		GameRegistry.register(this);
+		GameRegistry.findRegistry(Item.class).register(this);
 	}
 
 	@SideOnly(Side.CLIENT)

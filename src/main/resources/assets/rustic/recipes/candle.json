@@ -1,0 +1,25 @@
+{
+	"type": "forge:ore_shaped",
+	"pattern": [
+		"S",
+		"W",
+		"I"
+	],
+	"key": {
+		"I": {
+			"type": "forge:ore_dict",
+			"ore": "ingotIron"
+		},
+		"W": {
+			"type": "forge:ore_dict",
+			"ore": "wax"
+		},
+		"S": {
+			"item": "minecraft:string"
+		}
+	},
+	"result": {
+		"item": "rustic:candle",
+		"count": 4
+	}
+}

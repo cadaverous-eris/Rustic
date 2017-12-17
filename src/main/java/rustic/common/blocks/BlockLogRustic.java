@@ -1,5 +1,6 @@
 package rustic.common.blocks;
 
+import net.minecraft.block.Block;
 import net.minecraft.block.BlockLog;
 import net.minecraft.block.BlockPlanks;
 import net.minecraft.block.material.Material;
@@ -48,8 +49,9 @@ public class BlockLogRustic extends BlockLog {
 		};
 		item.setHasSubtypes(true);
 		item.setMaxDamage(0);
-		GameRegistry.register(this);
-		GameRegistry.register(item, getRegistryName());
+		item.setRegistryName(this.getRegistryName());
+		GameRegistry.findRegistry(Block.class).register(this);
+		GameRegistry.findRegistry(Item.class).register(item);
 		setDefaultState(this.blockState.getBaseState().withProperty(VARIANT, BlockPlanksRustic.EnumType.OLIVE).withProperty(LOG_AXIS, BlockLog.EnumAxis.Y));
 		
 		Blocks.FIRE.setFireInfo(this, 5, 5);
@@ -70,11 +72,11 @@ public class BlockLogRustic extends BlockLog {
 		return this.getStateFromMeta(meta).withProperty(LOG_AXIS, BlockLog.EnumAxis.fromFacingAxis(facing.getAxis()));
 	}
 
-	@SideOnly(Side.CLIENT)
-	public void getSubBlocks(Item itemIn, CreativeTabs tab, NonNullList<ItemStack> list) {
+	@Override
+	public void getSubBlocks(CreativeTabs tab, NonNullList<ItemStack> list) {
 		for (BlockPlanksRustic.EnumType blockplanks$enumtype : BlockPlanksRustic.EnumType.values()) {
 			if (blockplanks$enumtype.getMetadata() < 4) {
-				list.add(new ItemStack(itemIn, 1, blockplanks$enumtype.getMetadata()));
+				list.add(new ItemStack(Item.getItemFromBlock(this), 1, blockplanks$enumtype.getMetadata()));
 			}
 		}
 	}

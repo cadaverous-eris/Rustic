@@ -1,0 +1,25 @@
+{
+	"type": "forge:ore_shaped",
+	"pattern": [
+		"P P",
+		"I I",
+		"SSS"
+	],
+	"key": {
+		"P": {
+			"type": "forge:ore_dict",
+			"ore": "plankWood"
+		},
+		"S": {
+			"type": "forge:ore_dict",
+			"ore": "slabWood"
+		},
+		"I": {
+			"type": "forge:ore_dict",
+			"ore": "ingotIron"
+		}
+	},
+	"result": {
+		"item": "rustic:crushing_tub"
+	}
+}

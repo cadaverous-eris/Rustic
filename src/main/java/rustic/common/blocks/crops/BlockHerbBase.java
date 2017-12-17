@@ -10,6 +10,7 @@ import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.properties.PropertyInteger;
+import net.minecraft.block.state.BlockFaceShape;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
@@ -18,6 +19,7 @@ import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
@@ -45,9 +47,9 @@ public abstract class BlockHerbBase extends BlockBush implements IGrowable, IPla
 		super();
 		setRegistryName(name);
 		setUnlocalizedName(Rustic.MODID + "." + name);
-		GameRegistry.register(this);
+		GameRegistry.findRegistry(Block.class).register(this);
 		if (!hasItemBlock) {
-			GameRegistry.register(new ItemBlock(this), getRegistryName());
+			GameRegistry.findRegistry(Item.class).register(new ItemHerbBase(this).setRegistryName(getRegistryName()));
 		}
 		setHardness(0F);
 		this.setTickRandomly(true);
@@ -180,6 +182,32 @@ public abstract class BlockHerbBase extends BlockBush implements IGrowable, IPla
 	public ItemStack getPickBlock(IBlockState state, RayTraceResult target, World world, BlockPos pos,
 			EntityPlayer player) {
 		return new ItemStack(getHerb());
+	}
+	
+	@Override
+	public BlockFaceShape getBlockFaceShape(IBlockAccess world, IBlockState state, BlockPos pos, EnumFacing side) {
+        return BlockFaceShape.UNDEFINED;
+    }
+	
+	public static class ItemHerbBase extends ItemBlock implements IPlantable {
+
+		private final BlockHerbBase herbBlock;
+		
+		public ItemHerbBase(BlockHerbBase block) {
+			super(block);
+			this.herbBlock = block;
+		}
+
+		@Override
+		public EnumPlantType getPlantType(IBlockAccess world, BlockPos pos) {
+			return herbBlock.getPlantType(world, pos);
+		}
+
+		@Override
+		public IBlockState getPlant(IBlockAccess world, BlockPos pos) {
+			return herbBlock.getPlant(world, pos);
+		}
+		
 	}
 
 }

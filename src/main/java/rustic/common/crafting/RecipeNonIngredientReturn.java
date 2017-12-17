@@ -6,12 +6,13 @@ import net.minecraft.init.Items;
 import net.minecraft.inventory.InventoryCrafting;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.NonNullList;
+import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.oredict.ShapelessOreRecipe;
 
 public class RecipeNonIngredientReturn extends ShapelessOreRecipe {
 
-	public RecipeNonIngredientReturn(ItemStack result, Object... recipe) {
-		super(result, recipe);
+	public RecipeNonIngredientReturn(ResourceLocation group, ItemStack result, Object... recipe) {
+		super(group, result, recipe);
 	}
 	
 	@Override

@@ -7,11 +7,13 @@ import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.properties.PropertyDirection;
+import net.minecraft.block.state.BlockFaceShape;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.Blocks;
 import net.minecraft.inventory.InventoryHelper;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemBlock;
@@ -24,6 +26,7 @@ import net.minecraft.util.EnumHand;
 import net.minecraft.util.Mirror;
 import net.minecraft.util.Rotation;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.fml.common.registry.GameRegistry;
@@ -32,18 +35,14 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 import rustic.common.tileentity.TileEntityApiary;
 import rustic.core.Rustic;
 
-public class BlockApiary extends Block implements ITileEntityProvider {
+public class BlockApiary extends BlockBase implements ITileEntityProvider {
 	
 	public static final int GUI_ID = 0;
 	public static final PropertyDirection FACING = PropertyDirection.create("facing", EnumFacing.Plane.HORIZONTAL);
 
 	public BlockApiary() {
-		super(Material.WOOD);
-		setRegistryName("apiary");
-		setUnlocalizedName(Rustic.MODID + ".apiary");
+		super(Material.WOOD, "apiary");
 		this.setHardness(1F);
-		GameRegistry.register(this);
-		GameRegistry.register(new ItemBlock(this), getRegistryName());
 		this.setDefaultState(this.blockState.getBaseState().withProperty(FACING, EnumFacing.NORTH));
 		this.setCreativeTab(Rustic.farmingTab);
 		setSoundType(SoundType.WOOD);
@@ -124,5 +123,10 @@ public class BlockApiary extends Block implements ITileEntityProvider {
 	public IBlockState withMirror(IBlockState state, Mirror mirrorIn) {
 		return state.withRotation(mirrorIn.toRotation((EnumFacing) state.getValue(FACING)));
 	}
+	
+	@Override
+	public BlockFaceShape getBlockFaceShape(IBlockAccess world, IBlockState state, BlockPos pos, EnumFacing side) {
+		return (side == EnumFacing.UP || side == EnumFacing.DOWN) ? BlockFaceShape.SOLID : BlockFaceShape.UNDEFINED;
+    }
 
 }

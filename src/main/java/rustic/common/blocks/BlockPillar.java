@@ -30,24 +30,16 @@ import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-public class BlockPillar extends Block {
+public class BlockPillar extends BlockBase {
 
 	public static final PropertyEnum<EnumFacing.Axis> AXIS = PropertyEnum.<EnumFacing.Axis>create("axis",
 			EnumFacing.Axis.class);
 
 	public BlockPillar(String type) {
-		super(Material.ROCK);
-		setRegistryName(type + "_pillar");
-		setUnlocalizedName(Rustic.MODID + "." + type + "_pillar");
+		super(Material.ROCK, type + "_pillar");
 		this.setHardness(2.0F);
 		this.setDefaultState(this.blockState.getBaseState().withProperty(AXIS, EnumFacing.Axis.Y));
-		GameRegistry.register(this);
-		GameRegistry.register(new ItemBlock(this), getRegistryName());
 		this.setCreativeTab(Rustic.decorTab);
-	}
-		
-	public void initModel() {
-		ModelLoader.setCustomModelResourceLocation(Item.getItemFromBlock(this), 0, new ModelResourceLocation(getRegistryName().toString(),"inventory"));
 	}
 	
 	@Override

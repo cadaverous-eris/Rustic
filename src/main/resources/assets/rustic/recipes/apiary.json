@@ -1,0 +1,21 @@
+{
+	"type": "forge:ore_shaped",
+	"pattern": [
+		"LLL",
+		"P P",
+		"LLL"
+	],
+	"key": {
+		"P": {
+			"type": "forge:ore_dict",
+			"ore": "plankWood"
+		},
+		"L": {
+			"type": "forge:ore_dict",
+			"ore": "logWood"
+		}
+	},
+	"result": {
+		"item": "rustic:apiary"
+	}
+}

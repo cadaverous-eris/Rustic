@@ -5,10 +5,10 @@ import java.util.Random;
 import org.lwjgl.opengl.GL11;
 
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.BufferBuilder;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.RenderHelper;
 import net.minecraft.client.renderer.Tessellator;
-import net.minecraft.client.renderer.VertexBuffer;
 import net.minecraft.client.renderer.GlStateManager.DestFactor;
 import net.minecraft.client.renderer.GlStateManager.SourceFactor;
 import net.minecraft.client.renderer.block.model.ItemCameraTransforms;
@@ -30,8 +30,9 @@ public class EvaporatingBasinRenderer extends TileEntitySpecialRenderer<TileEnti
 	int lightx, lighty;
 	double minU, minV, maxU, maxV, diffU, diffV;
 	
-	public void renderTileEntityAt(TileEntityEvaporatingBasin te, double x, double y, double z, float partialTicks,
-			int destroyStage) {
+	@Override
+	public void render(TileEntityEvaporatingBasin te, double x, double y, double z, float partialTicks,
+			int destroyStage, float a) {
 		TileEntityEvaporatingBasin tank = (TileEntityEvaporatingBasin)te;
 		 
         IItemHandler itemStackHandler = tank.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, null);
@@ -89,7 +90,7 @@ public class EvaporatingBasinRenderer extends TileEntitySpecialRenderer<TileEnti
             GlStateManager.blendFunc(SourceFactor.SRC_ALPHA, DestFactor.ONE_MINUS_SRC_ALPHA);
             Minecraft.getMinecraft().renderEngine.bindTexture(TextureMap.LOCATION_BLOCKS_TEXTURE);
             Tessellator tess = Tessellator.getInstance();
-            VertexBuffer buffer = tess.getBuffer();
+            BufferBuilder buffer = tess.getBuffer();
             buffer.begin(GL11.GL_QUADS, DefaultVertexFormats.POSITION_TEX_LMAP_COLOR);
             buffer.pos(x+0.1875, y+0.0625+0.1875*((float)amount/(float)capacity), z+0.1875).tex(minU, minV).lightmap(lightx,lighty).color(red,green,blue,alpha).endVertex();
             buffer.pos(x+0.8125, y+0.0625+0.1875*((float)amount/(float)capacity), z+0.1875).tex(maxU, minV).lightmap(lightx,lighty).color(red,green,blue,alpha).endVertex();
