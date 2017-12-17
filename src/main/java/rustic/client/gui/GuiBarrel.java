@@ -1,13 +1,21 @@
 package rustic.client.gui;
 
+import net.minecraft.client.gui.GuiButton;
+import net.minecraft.client.gui.GuiTextField;
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.util.ResourceLocation;
+import net.minecraftforge.fml.common.Optional;
 import rustic.common.tileentity.ContainerBarrel;
 import rustic.common.tileentity.TileEntityBarrel;
+import rustic.compat.Compat;
 import rustic.core.Rustic;
+import vazkii.quark.api.IChestButtonCallback;
+import vazkii.quark.api.IItemSearchBar;
 
-public class GuiBarrel extends GuiContainer {
+@Optional.Interface(modid = Compat.QUARK, iface = "vazkii.quark.api.IItemSearchBar", striprefs = true)
+@Optional.Interface(modid = Compat.QUARK, iface = "vazkii.quark.api.IChestButtonCallback", striprefs = true)
+public class GuiBarrel extends GuiContainer implements IItemSearchBar, IChestButtonCallback {
 
 	public static final int WIDTH = 176;
     public static final int HEIGHT = 166;
@@ -45,4 +53,13 @@ public class GuiBarrel extends GuiContainer {
         drawTexturedModalRect(guiLeft, guiTop, 0, 0, xSize, ySize);
 	}
 
+	@Override
+	public void onSearchBarAdded(GuiTextField guiTextField) {
+		guiTextField.y++;
+	}
+
+    @Override
+    public boolean onAddChestButton(GuiButton guiButton, int i) {
+        return true;
+    }
 }

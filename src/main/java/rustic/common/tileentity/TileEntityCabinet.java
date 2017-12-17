@@ -37,6 +37,7 @@ import net.minecraft.world.WorldServer;
 import net.minecraft.world.storage.loot.LootContext;
 import net.minecraft.world.storage.loot.LootTable;
 import net.minecraftforge.common.capabilities.Capability;
+import net.minecraftforge.fml.common.Optional;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import net.minecraftforge.items.CapabilityItemHandler;
@@ -46,8 +47,11 @@ import rustic.common.blocks.BlockCabinet;
 import rustic.common.blocks.ModBlocks;
 import rustic.common.inventory.DoubleCabinetItemHandler;
 import rustic.common.util.ItemStackHandlerRustic;
+import rustic.compat.Compat;
+import vazkii.quark.api.IDropoffManager;
 
-public class TileEntityCabinet extends TileEntityLockableLoot implements ITickable {
+@Optional.Interface(modid = Compat.QUARK, iface = "vazkii.quark.api.IDropoffManager", striprefs = true)
+public class TileEntityCabinet extends TileEntityLockableLoot implements ITickable, IDropoffManager {
 
 	public float lidAngle = 0;
 	public float prevLidAngle = 0;
@@ -427,4 +431,8 @@ public class TileEntityCabinet extends TileEntityLockableLoot implements ITickab
 		markDirty();
 	}
 
+	@Override
+	public boolean acceptsDropoff(EntityPlayer entityPlayer) {
+		return canInteractWith(entityPlayer);
+	}
 }

@@ -18,12 +18,16 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.common.capabilities.Capability;
+import net.minecraftforge.fml.common.Optional;
 import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.ItemStackHandler;
 import rustic.common.util.ItemStackHandlerRustic;
+import rustic.compat.Compat;
 import rustic.core.Rustic;
+import vazkii.quark.api.IDropoffManager;
 
-public class TileEntityBarrel extends TileEntityLockableLoot {
+@Optional.Interface(modid = Compat.QUARK, iface = "vazkii.quark.api.IDropoffManager", striprefs = true)
+public class TileEntityBarrel extends TileEntityLockableLoot implements IDropoffManager {
 	
 	private ItemStackHandlerRustic itemStackHandler = new ItemStackHandlerRustic(27) {
         @Override
@@ -214,4 +218,8 @@ public class TileEntityBarrel extends TileEntityLockableLoot {
 		markDirty();
 	}
 
+	@Override
+	public boolean acceptsDropoff(EntityPlayer entityPlayer) {
+		return canInteractWith(entityPlayer);
+	}
 }

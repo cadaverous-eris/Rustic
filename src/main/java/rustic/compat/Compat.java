@@ -13,6 +13,7 @@ import rustic.common.items.ModItems;
 import rustic.core.Rustic;
 
 public class Compat {
+	public static final String QUARK = "quark";
 
 	@Optional.Method(modid = "forestry")
 	public static void doForestryCompat() {
