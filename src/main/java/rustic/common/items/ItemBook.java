@@ -14,7 +14,7 @@ public class ItemBook extends ItemBase {
 	
 	public ItemBook() {
 		super("book");
-		setMaxStackSize(0);
+		setMaxStackSize(1);
 		setMaxDamage(0);
 		setCreativeTab(Rustic.decorTab);
 	}

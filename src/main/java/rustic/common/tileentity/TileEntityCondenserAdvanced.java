@@ -89,6 +89,12 @@ public class TileEntityCondenserAdvanced extends TileFluidHandler implements ITi
 
 	public TileEntityCondenserAdvanced() {
 		super();
+		tank = new FluidTank(capacity) {
+			@Override
+			protected void onContentsChanged() {
+				markDirty();
+			}
+		};
 		tank.setTileEntity(this);
 		tank.setCanFill(true);
 		tank.setCanDrain(true);
@@ -356,7 +362,7 @@ public class TileEntityCondenserAdvanced extends TileFluidHandler implements ITi
 			return false;
 		}
 
-		if (this.getAmount() <= 125) {
+		if (this.getAmount() < 125) {
 			return false;
 		}
 

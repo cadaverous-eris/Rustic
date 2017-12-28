@@ -126,6 +126,11 @@ public class TileEntityBrewingBarrel extends TileEntity implements ITickable {
 			brewTime = tag.getInteger("brewTime");
 		}
 	}
+	
+	@Override
+	public boolean shouldRefresh(World world, BlockPos pos, IBlockState oldState, IBlockState newState) {
+		return oldState.getBlock() != newState.getBlock();
+	}
 
 	@Override
 	public NBTTagCompound getUpdateTag() {

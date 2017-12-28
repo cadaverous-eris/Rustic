@@ -194,6 +194,7 @@ public class EventHandlerCommon {
 			ItemStack stack = event.getItemStack();
 			World world = event.getWorld();
 			RayTraceResult raytraceresult = GenericUtils.rayTrace(world, player, true);
+			if (raytraceresult == null || raytraceresult.getBlockPos() == null) return;
 			BlockPos pos2 = raytraceresult.getBlockPos();
 			if (player.canPlayerEdit(pos2, event.getFace(), stack)
 					&& player.canPlayerEdit(pos2.offset(raytraceresult.sideHit), raytraceresult.sideHit, stack)) {

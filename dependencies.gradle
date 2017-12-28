@@ -1,7 +1,7 @@
 dependencies {
-    provided 'inventory-tweaks:InventoryTweaks:1.63'
+    provided 'inventory-tweaks:InventoryTweaks:1.63:api'
     deobfCompile "mezz.jei:jei_1.12.1:4.7.8.91"
     provided "quark:Quark:r1.2:101"
     compile "CraftTweaker2:CraftTweaker2-API:4.0.10.298"
-    deobfCompile "net.sengir.forestry:forestry_1.12.1:5.5.5.196"
+    deobfCompile "net.sengir.forestry:forestry_1.12.2:5.5.6.197"
 }

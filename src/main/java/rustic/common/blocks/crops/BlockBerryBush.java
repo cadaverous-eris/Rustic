@@ -86,7 +86,7 @@ public abstract class BlockBerryBush extends BlockBase implements IColoredBlock,
 					net.minecraftforge.common.ForgeHooks.onCropsGrowPost(worldIn, pos, state,
 							worldIn.getBlockState(pos));
 				}
-			} else {
+			}/* else {
 				float f = getGrowthChance(this, worldIn, pos);
 
 				if (numNeighbors(worldIn, pos) < 2 && net.minecraftforge.common.ForgeHooks.onCropsGrowPre(worldIn, pos,
@@ -95,7 +95,7 @@ public abstract class BlockBerryBush extends BlockBase implements IColoredBlock,
 					net.minecraftforge.common.ForgeHooks.onCropsGrowPost(worldIn, pos, state,
 							worldIn.getBlockState(pos));
 				}
-			}
+			}*/
 		}
 	}
 
@@ -154,8 +154,10 @@ public abstract class BlockBerryBush extends BlockBase implements IColoredBlock,
 			EnumFacing side, float hitX, float hitY, float hitZ) {
 		if (state.getValue(BERRIES)) {
 			world.setBlockState(pos, state.withProperty(BERRIES, false), 3);
-			state.getBlock().spawnAsEntity(world, pos.offset(side),
-					new ItemStack(getBerries()));
+			ItemStack stack = new ItemStack(getBerries());
+			if (!player.addItemStackToInventory(stack)) {
+			    Block.spawnAsEntity(world, pos.offset(player.getHorizontalFacing().getOpposite()), stack);
+			}
 			return true;
 		}
 		return false;
@@ -293,7 +295,7 @@ public abstract class BlockBerryBush extends BlockBase implements IColoredBlock,
 	public IItemColor getItemColor() {
 		return new IItemColor() {
 			@Override
-			public int getColorFromItemstack(ItemStack stack, int tintIndex) {
+			public int colorMultiplier(ItemStack stack, int tintIndex) {
 				IBlockState state = ((ItemBlock) stack.getItem()).getBlock().getStateFromMeta(stack.getMetadata());
 				IBlockColor blockColor = ((IColoredBlock) state.getBlock()).getBlockColor();
 				return blockColor == null ? 0xFFFFFF : blockColor.colorMultiplier(state, null, null, tintIndex);

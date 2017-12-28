@@ -337,7 +337,7 @@ public class TileEntityCondenser extends TileFluidHandler implements ITickable {
 			return false;
 		}
 
-		if (this.getAmount() <= 125) {
+		if (this.getAmount() < 125) {
 			return false;
 		}
 

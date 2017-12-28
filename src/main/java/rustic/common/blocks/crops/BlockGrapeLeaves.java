@@ -440,13 +440,20 @@ public class BlockGrapeLeaves extends BlockRopeBase implements IGrowable, IColor
 	@SideOnly(Side.CLIENT)
 	@Override
 	public IItemColor getItemColor() {
-		return null;
+		return new IItemColor() {
+			@Override
+			public int colorMultiplier(ItemStack stack, int tintIndex) {
+				IBlockState state = ((ItemBlock) stack.getItem()).getBlock().getStateFromMeta(stack.getMetadata());
+				IBlockColor blockColor = ((IColoredBlock) state.getBlock()).getBlockColor();
+				return blockColor == null ? 0xFFFFFF : blockColor.colorMultiplier(state, null, null, tintIndex);
+			}
+		};
 	}
 	
 	@Override
 	@SideOnly(Side.CLIENT)
 	public void initModel() {
-		
+		ClientProxy.addColoredBlock(this);
 	}
 
 }

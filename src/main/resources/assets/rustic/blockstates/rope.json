@@ -1,6 +1,6 @@
 {
     "forge_marker": 1,
-    "defaults": {},
+    "defaults": { "model": "rustic:rope_horizontal" },
     "variants": {
         "axis": {
             "y": { "model": "rustic:rope" },

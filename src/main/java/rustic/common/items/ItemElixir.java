@@ -134,7 +134,7 @@ public class ItemElixir extends ItemBase implements IColoredItem {
 	public IItemColor getItemColor() {
 		return new IItemColor() {
 			@Override
-			public int getColorFromItemstack(ItemStack stack, int tintIndex) {
+			public int colorMultiplier(ItemStack stack, int tintIndex) {
 				if (tintIndex == 0) {
 					return ElixirUtils.getColor(stack);
 				}

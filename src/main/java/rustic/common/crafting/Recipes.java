@@ -108,10 +108,13 @@ public class Recipes {
 		OreDictionary.registerOre("listAllberry", new ItemStack(ModItems.GRAPES));
 		OreDictionary.registerOre("listAllberry", new ItemStack(ModItems.IRONBERRIES));
 		OreDictionary.registerOre("listAllberry", new ItemStack(ModItems.WILDBERRIES));
+		OreDictionary.registerOre("listAllfruit", new ItemStack(ModItems.WILDBERRIES));
 		OreDictionary.registerOre("cropWildberry", new ItemStack(ModItems.WILDBERRIES));
 		OreDictionary.registerOre("cropGrape", new ItemStack(ModItems.GRAPES));
 		OreDictionary.registerOre("cropChilipepper", new ItemStack(ModItems.CHILI_PEPPER));
+		OreDictionary.registerOre("listAllpepper", new ItemStack(ModItems.CHILI_PEPPER));
 		OreDictionary.registerOre("cropTomato", new ItemStack(ModItems.TOMATO));
+		OreDictionary.registerOre("listAllveggie", new ItemStack(ModItems.TOMATO));
 
 		for (int i = 0; i < BlockPlanksRustic.EnumType.values().length; i++) {
 			IBlockState state = ModBlocks.LOG.getDefaultState().withProperty(BlockLogRustic.VARIANT,
@@ -142,6 +145,8 @@ public class Recipes {
 
 		OreDictionary.registerOre("wax", new ItemStack(ModItems.BEESWAX));
 		OreDictionary.registerOre("wax", new ItemStack(ModItems.TALLOW));
+		OreDictionary.registerOre("tallow", new ItemStack(ModItems.BEESWAX));
+		OreDictionary.registerOre("tallow", new ItemStack(ModItems.TALLOW));
 
 		OreDictionary.registerOre("dustTinyIron", new ItemStack(ModItems.IRON_DUST_TINY));
 		

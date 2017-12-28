@@ -108,7 +108,7 @@ public class ModItems {
 							0.4F / (itemRand.nextFloat() * 0.4F + 0.8F));
 					if (!worldIn.isRemote) {
 						EntityTomato entitytomato = new EntityTomato(worldIn, playerIn);
-						entitytomato.setHeadingFromThrower(playerIn, playerIn.rotationPitch, playerIn.rotationYaw,
+						entitytomato.shoot(playerIn, playerIn.rotationPitch, playerIn.rotationYaw,
 								0.0F, 1.5F, 1.0F);
 						worldIn.spawnEntity(entitytomato);
 					}

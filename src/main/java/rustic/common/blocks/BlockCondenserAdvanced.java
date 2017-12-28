@@ -131,8 +131,8 @@ public class BlockCondenserAdvanced extends BlockBase implements ITileEntityProv
 	@Override
 	public void breakBlock(World worldIn, BlockPos pos, IBlockState state) {
 		if (state.getValue(BOTTOM)) {
-			if (worldIn.getTileEntity(pos) != null && worldIn.getTileEntity(pos) instanceof TileEntityCondenser) {
-				((TileEntityCondenser) worldIn.getTileEntity(pos)).breakBlock(worldIn, pos, state);
+			if (worldIn.getTileEntity(pos) != null && worldIn.getTileEntity(pos) instanceof TileEntityCondenserAdvanced) {
+				((TileEntityCondenserAdvanced) worldIn.getTileEntity(pos)).breakBlock(worldIn, pos, state);
 				worldIn.removeTileEntity(pos);
 			}
 		}

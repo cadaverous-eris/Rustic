@@ -285,7 +285,7 @@ public class BlockLeavesApple extends BlockLeaves implements IColoredBlock, IGro
 	public IItemColor getItemColor() {
 		return new IItemColor() {
 			@Override
-			public int getColorFromItemstack(ItemStack stack, int tintIndex) {
+			public int colorMultiplier(ItemStack stack, int tintIndex) {
 				IBlockState state = ((ItemBlock) stack.getItem()).getBlock().getStateFromMeta(stack.getMetadata());
 				IBlockColor blockColor = ((IColoredBlock) state.getBlock()).getBlockColor();
 				return blockColor == null ? 0xFFFFFF : blockColor.colorMultiplier(state, null, null, tintIndex);
