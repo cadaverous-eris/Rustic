@@ -69,7 +69,7 @@ jar {
 
 apply from: 'dependencies.gradle'
 
-version = "0.4.5"
+version = "0.4.6"
 group = "com.mangoose.rustic"
 archivesBaseName = "rustic"
 
