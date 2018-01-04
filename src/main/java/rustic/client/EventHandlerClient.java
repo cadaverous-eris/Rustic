@@ -46,6 +46,7 @@ import net.minecraftforge.client.event.RenderBlockOverlayEvent;
 import net.minecraftforge.client.event.RenderBlockOverlayEvent.OverlayType;
 import net.minecraftforge.client.event.RenderGameOverlayEvent;
 import net.minecraftforge.client.event.TextureStitchEvent;
+import net.minecraftforge.common.ForgeHooks;
 import net.minecraftforge.fluids.BlockFluidBase;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.FluidUtil;
@@ -284,6 +285,10 @@ public class EventHandlerClient {
 				GlStateManager.enableBlend();
 
 				int armorLevel = viewEntity.getTotalArmorValue();
+
+				if (viewEntity instanceof EntityPlayer) {
+					armorLevel = ForgeHooks.getTotalArmorValue((EntityPlayer) viewEntity);
+				}
 
 				int armorRows = MathHelper.ceil(armorLevel / 20.0F);
 				int rowHeight = Math.min(Math.max(10 - (armorRows - 2), 3), 10);
