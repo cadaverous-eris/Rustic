@@ -1,0 +1,23 @@
+{
+    "forge_marker": 1,
+    "defaults": { "model": "rustic:grape_leaves_0" },
+    "variants": {
+		"distance": {
+            0: { "submodel": { "stem": { "model": "rustic:grape_stem_top" } } },
+            1: { "model": "rustic:grape_leaves_1" }
+		},
+        "axis": {
+            "z": { "submodel": { "rope": { "model": "rustic:rope_horizontal" }, "vine": { "model": "rustic:grape_vine" } } },
+            "x": { "submodel": { "rope": { "model": "rustic:rope_horizontal" }, "vine": { "model": "rustic:grape_vine" } }, "y": 90 }
+        },
+        "dangle": {
+            "true": { "submodel": { "dangle": { "model": "rustic:rope_dangle" }, "knot": {"model": "rustic:rope_knot"} } },
+            "false": {}
+        },
+		"grapes": {
+            "true": { "submodel": { "grapes": { "model": "rustic:grapes" } } },
+            "false": {}
+		},
+        "inventory": []
+    }
+}

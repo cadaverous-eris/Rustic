@@ -1,0 +1,16 @@
+{
+    "forge_marker": 1,
+    "defaults": { "model": "rustic:rope_horizontal" },
+    "variants": {
+        "axis": {
+            "y": { "model": "rustic:rope" },
+            "z": { "model": "rustic:rope_horizontal" },
+            "x": { "model": "rustic:rope_horizontal", "y": 90 }
+        },
+        "dangle": {
+            "true": { "submodel": { "dangle": { "model": "rustic:rope_dangle" }, "knot": {"model": "rustic:rope_knot"} } },
+            "false": {}
+        },
+	"inventory": []
+    }
+}

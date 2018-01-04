@@ -1,16 +1,9 @@
 {
-    "forge_marker": 1,
-    "defaults": { "model": "rustic:chain" },
-    "variants": {
-        "axis": {
-            "y": {  },
-            "z": { "model": "rustic:chain_horizontal" },
-            "x": { "model": "rustic:chain_horizontal", "y": 90 }
-        },
-        "dangle": {
-            "true": { "submodel": { "dangle": { "model": "rustic:chain_dangle" } } },
-            "false": {}
-        },
-	"inventory": []
-    }
+    "multipart": [
+        { "when": { "axis": "x" }, "apply": { "model": "rustic:chain_horizontal", "y": 90 } },
+        { "when": { "axis": "y" }, "apply": { "model": "rustic:chain" } },
+        { "when": { "axis": "z" }, "apply": { "model": "rustic:chain_horizontal" } },
+        { "when": { "axis": "x", "dangle": "true" }, "apply": { "model": "rustic:chain_dangle", "y": 90 } },
+        { "when": { "axis": "y|z", "dangle": "true" }, "apply": { "model": "rustic:chain_dangle" } }
+    ]
 }
