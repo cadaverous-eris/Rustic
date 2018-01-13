@@ -46,7 +46,7 @@ import rustic.compat.crafttweaker.CraftTweakerHelper;
 public class Rustic {
 	public static final String MODID = "rustic";
 	public static final String NAME = "Rustic";
-	public static final String VERSION = "0.4.6";
+	public static final String VERSION = "0.4.7";
 	public static final String DEPENDENCIES = "";
 
 	@SidedProxy(clientSide = "rustic.core.ClientProxy", serverSide = "rustic.core.CommonProxy")
