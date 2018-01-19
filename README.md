@@ -6,6 +6,6 @@ Rustic is a medieval themed Minecraft mod based around decoration, exploration, 
 ![The Almanac](./almanac.png)
 
 
-## Links
+### Links
 - [Wiki](https://github.com/the-realest-stu/Rustic/wiki)
 - [Downloads](https://minecraft.curseforge.com/projects/rustic/files)
