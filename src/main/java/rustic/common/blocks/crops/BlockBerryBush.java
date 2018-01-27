@@ -25,6 +25,7 @@ import net.minecraft.client.renderer.color.IBlockColor;
 import net.minecraft.client.renderer.color.IItemColor;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
+import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
@@ -78,10 +79,10 @@ public abstract class BlockBerryBush extends BlockBase implements IColoredBlock,
 		if (worldIn.getLightFromNeighbors(pos.up()) >= 9) {
 
 			if (!state.getValue(BERRIES)) {
-				float f = getGrowthChance(this, worldIn, pos);
+				float f = 2f;
 
 				if (net.minecraftforge.common.ForgeHooks.onCropsGrowPre(worldIn, pos, state,
-						rand.nextInt((int) (25.0F / f) + 1) == 0)) {
+						rand.nextInt((int) (40.0F / f) + 1) == 0)) {
 					worldIn.setBlockState(pos, state.withProperty(BERRIES, true), 3);
 					net.minecraftforge.common.ForgeHooks.onCropsGrowPost(worldIn, pos, state,
 							worldIn.getBlockState(pos));
@@ -97,10 +98,6 @@ public abstract class BlockBerryBush extends BlockBase implements IColoredBlock,
 				}
 			}*/
 		}
-	}
-
-	protected static float getGrowthChance(Block blockIn, World worldIn, BlockPos pos) {
-		return 2F;
 	}
 
 	protected int numNeighbors(World world, BlockPos pos) {
@@ -152,7 +149,9 @@ public abstract class BlockBerryBush extends BlockBase implements IColoredBlock,
 	@Override
 	public boolean onBlockActivated(World world, BlockPos pos, IBlockState state, EntityPlayer player, EnumHand hand,
 			EnumFacing side, float hitX, float hitY, float hitZ) {
-		if (state.getValue(BERRIES)) {
+		ItemStack heldItem = player.getHeldItem(hand);
+		
+		if (state.getValue(BERRIES) && !(!heldItem.isEmpty() && heldItem.getItem() == Items.DYE && heldItem.getMetadata() == 15)) {
 			world.setBlockState(pos, state.withProperty(BERRIES, false), 3);
 			ItemStack stack = new ItemStack(getBerries());
 			if (!player.addItemStackToInventory(stack)) {
@@ -249,7 +248,7 @@ public abstract class BlockBerryBush extends BlockBase implements IColoredBlock,
 
 	@Override
 	public boolean canGrow(World worldIn, BlockPos pos, IBlockState state, boolean isClient) {
-		return !state.getValue(BERRIES);
+		return true;
 	}
 
 	@Override
@@ -259,7 +258,11 @@ public abstract class BlockBerryBush extends BlockBase implements IColoredBlock,
 
 	@Override
 	public void grow(World worldIn, Random rand, BlockPos pos, IBlockState state) {
-		worldIn.setBlockState(pos, state.withProperty(BERRIES, true), 3);
+		if (state.getValue(BERRIES)) {
+			this.growOutward(worldIn, pos, rand);
+		} else {
+			worldIn.setBlockState(pos, state.withProperty(BERRIES, true), 3);
+		}
 	}
 
 	@Override

@@ -24,7 +24,7 @@ public class CrushingTubRecipe {
 	}
 	
 	public boolean matches(ItemStack in) {
-		return (in.getItem().equals(this.input.getItem()) && in.getMetadata() == this.input.getMetadata()) && ItemStack.areItemStackTagsEqual(in, this.input);
+		return (in.getItem().equals(this.input.getItem()) && in.getMetadata() == this.input.getMetadata());
 	}
 	
 	public ItemStack getInput() {

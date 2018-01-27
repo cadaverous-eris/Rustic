@@ -30,7 +30,7 @@ public class BlockFertileSoil extends BlockBase {
 		IBlockState plant = plantable.getPlant(world, pos.offset(direction));
         net.minecraftforge.common.EnumPlantType plantType = plantable.getPlantType(world, pos.offset(direction));
 		switch (plantType) {
-            case Desert: return false;
+            case Desert: return true;
             case Nether: return false;
             case Crop:   return true;
             case Cave:   return true;
