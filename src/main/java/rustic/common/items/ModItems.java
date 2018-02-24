@@ -120,7 +120,7 @@ public class ModItems {
 		};
 		TOMATO_SEEDS = new ItemStakeCropSeed("tomato_seeds", ModBlocks.TOMATO_CROP);
 		if (Config.ENABLE_SEED_DROPS) {
-			MinecraftForge.addGrassSeed(new ItemStack(TOMATO_SEEDS), 15);
+			MinecraftForge.addGrassSeed(new ItemStack(TOMATO_SEEDS), Config.SEED_DROP_RATE);
 		}
 		CHILI_PEPPER = new ItemFoodBase("chili_pepper", 3, 0.4F, false) {
 			@Override
@@ -131,7 +131,7 @@ public class ModItems {
 		};
 		CHILI_PEPPER_SEEDS = new ItemStakeCropSeed("chili_pepper_seeds", ModBlocks.CHILI_CROP);
 		if (Config.ENABLE_SEED_DROPS) {
-			MinecraftForge.addGrassSeed(new ItemStack(CHILI_PEPPER_SEEDS), 15);
+			MinecraftForge.addGrassSeed(new ItemStack(CHILI_PEPPER_SEEDS), Config.SEED_DROP_RATE);
 		}
 		WILDBERRIES = new ItemFoodBase("wildberries", 2, 0.5F, false) {
 			@Override
