@@ -36,11 +36,9 @@ import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.EntityAITempt;
-import net.minecraft.entity.ai.EntityAITasks.EntityAITaskEntry;
 import net.minecraft.entity.monster.EntityCreeper;
 import net.minecraft.entity.passive.EntityAnimal;
 import net.minecraft.entity.passive.EntityChicken;
-import net.minecraft.entity.passive.EntityCow;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.entity.projectile.EntityArrow;
@@ -265,12 +263,9 @@ public class EventHandlerCommon {
 	@SubscribeEvent
 	public void onSeedInteractEvent(PlayerInteractEvent.EntityInteract event) {
 		
-		System.out.println("Interact event triggered!");
-
-		Entity targetEntity = event.getTarget();
-		if (targetEntity instanceof EntityChicken) {
+		if (event.getTarget() instanceof EntityChicken) {
 			ItemStack equippedItem = event.getEntityPlayer().getHeldItem(event.getHand());
-			EntityAnimal targetAnimal = (EntityAnimal) targetEntity;
+			EntityAnimal targetAnimal = (EntityAnimal) event.getTarget();
 
 			if (equippedItem != null && 
 			(equippedItem.getItem() == ModItems.TOMATO_SEEDS || equippedItem.getItem() == ModItems.CHILI_PEPPER_SEEDS) &&
