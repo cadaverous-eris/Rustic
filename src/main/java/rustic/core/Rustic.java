@@ -80,7 +80,8 @@ public class Rustic {
 		@Override
 		@SideOnly(Side.CLIENT)
 		public void displayAllRelevantItems(NonNullList<ItemStack> p_78018_1_) {
-			for (Item item : Item.REGISTRY) {
+			for (Object obj : Item.REGISTRY) {
+				Item item = (Item) obj;
 				if (item == null) {
 					continue;
 				}
