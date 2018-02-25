@@ -24,6 +24,7 @@ import net.minecraft.world.WorldServer;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidActionResult;
+import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.FluidTank;
 import net.minecraftforge.fluids.FluidUtil;
@@ -95,7 +96,7 @@ public class TileEntityCrushingTub extends TileFluidHandler {
 			EnumFacing side, float hitX, float hitY, float hitZ) {
 		ItemStack heldItem = player.getHeldItem(hand);
 		if (heldItem != ItemStack.EMPTY) {
-			if ((heldItem.getItem() instanceof ItemBucket || heldItem.getItem() instanceof UniversalBucket) && FluidUtil.getFluidContained(heldItem) == null) {
+			if ((FluidUtil.getFluidHandler(heldItem) != null || heldItem.getItem() instanceof ItemBucket || heldItem.getItem() instanceof UniversalBucket) && FluidUtil.getFluidContained(heldItem) == null) {
 				boolean didFill = FluidUtil.interactWithFluidHandler(player, hand, this.getCapability(CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY, side));
 				if (didFill) {
 					//player.setHeldItem(hand, didFill.getResult());

@@ -7,7 +7,9 @@ import java.util.Arrays;
 import java.util.List;
 
 import net.minecraft.item.Item;
+import net.minecraftforge.common.config.ConfigCategory;
 import net.minecraftforge.common.config.Configuration;
+import net.minecraftforge.common.config.Property;
 
 public class Config {
 
@@ -57,6 +59,9 @@ public class Config {
 	public static int MIN_BREW_QUALITY_CHANGE;
 	public static int MAX_BREW_QUALITY_CHANGE;
 	public static int MAX_BREW_TIME;
+	public static boolean ENABLE_BOTTLE_EMPTYING;
+	public static List<Integer> OVERWORLD_GENERATION_WHITELIST = new ArrayList<Integer>();
+	public static List<Integer> NETHER_GENERATION_WHITELIST = new ArrayList<Integer>();
 
 	public static void readConfig() {
 		Configuration cfg = CommonProxy.config;
@@ -111,10 +116,15 @@ public class Config {
 		GRAPE_DROP_NEEDS_TOOL = cfg.getBoolean("Grapeseed Drops Require Tool", CATEGORY_GENERAL, false, "with this value set to true, vines will only drop grape seeds when broken with tools from the whitelist");
 		GRAPE_TOOL_WHITELIST = Arrays.asList(cfg.getStringList("Grapeseed Tool Whitelist", CATEGORY_GENERAL, new String[] {"minecraft:iron_hoe", "minecraft:diamond_hoe"}, "add an item's registry name to this list to allow vines to drop grape seeds when broken with it\nput each item name on a new line, don't use commas\n"));
 		ENABLE_SEED_DROPS = cfg.getBoolean("Enable Seed Drops", CATEGORY_GENERAL, true, "set this to false to prevent any of Rustic's seeds from dropping from grass or vines");
-		MIN_BREW_QUALITY_CHANGE = cfg.getInt("Minimum Increase To Brew Quality", CATEGORY_GENERAL, 1, -50, 50, "the minimum amount of increase that booze culture will provide to the new brew, in percent");
+		MIN_BREW_QUALITY_CHANGE = cfg.getInt("Minimum Increase To Brew Quality", CATEGORY_GENERAL, -1, -50, 50, "the minimum amount of increase that booze culture will provide to the new brew, in percent");
 		MAX_BREW_QUALITY_CHANGE = cfg.getInt("Maximum Increase To Brew Quality", CATEGORY_GENERAL, 4, -50, 50, "the maximum amount of increase that booze culture will provide to the new brew, in percent");
 		MAX_BREW_TIME = cfg.getInt("Maximum Brew Time", CATEGORY_GENERAL, 12000, 1200, 120000, "how long it should take for a brewing barrel to finish a brew, in ticks");
-
+		ENABLE_BOTTLE_EMPTYING = cfg.getBoolean("Enable Bottle Emptying", CATEGORY_GENERAL, true, "set this to false if you experience any issues with Rustic's glass bottle emptying recipe");
+		List<String> overworldGenWhitelist = Arrays.asList(cfg.getStringList("Overworld Generation Dimension Whitelist", CATEGORY_WORLD, new String[] {"0"}, "add numerical dimension ids to this list to allow Rustic's overworld world gen to occur in those dimensions\ndimensions that are not listed here will not receive Rustic's overworld world generation\n"));
+		List<String> netherGenWhitelist = Arrays.asList(cfg.getStringList("Nether Generation Dimension Whitelist", CATEGORY_WORLD, new String[] {"-1"}, "add numerical dimension ids to this list to allow Rustic's nether world gen to occur in those dimensions\ndimensions that are not listed here will not receive Rustic's nether world generation\n"));
+		overworldGenWhitelist.forEach((dimId) -> {OVERWORLD_GENERATION_WHITELIST.add(Integer.parseInt(dimId));});
+		netherGenWhitelist.forEach((dimId) -> {NETHER_GENERATION_WHITELIST.add(Integer.parseInt(dimId));});
+		
 		PROPERTY_ORDER_GENERAL.add("Flesh Smelting");
 		PROPERTY_ORDER_GENERAL.add("Enable Olive Oiling");
 		PROPERTY_ORDER_GENERAL.add("Olive Oil Food Blacklist");
@@ -124,6 +134,7 @@ public class Config {
 		PROPERTY_ORDER_GENERAL.add("Enable Seed Drops");
 		PROPERTY_ORDER_GENERAL.add("Grapeseed Drops Require Tool");
 		PROPERTY_ORDER_GENERAL.add("Grapeseed Tool Whitelist");
+		PROPERTY_ORDER_GENERAL.add("Enable Bottle Emptying");
 		PROPERTY_ORDER_GENERAL.add("Minimum Increase To Brew Quality");
 		PROPERTY_ORDER_GENERAL.add("Maximum Increase To Brew Quality");
 		PROPERTY_ORDER_GENERAL.add("Maximum Brew Time");
@@ -145,6 +156,8 @@ public class Config {
 		PROPERTY_ORDER_WORLD.add("Max Herb Generation Attempts");
 		PROPERTY_ORDER_WORLD.add("Wildberry Generation Chance");
 		PROPERTY_ORDER_WORLD.add("Max Wildberry Generation Attempts");
+		PROPERTY_ORDER_WORLD.add("Overworld Generation Dimension Whitelist");
+		PROPERTY_ORDER_WORLD.add("Nether Generation Dimension Whitelist");
 		PROPERTY_ORDER_BEES.add("Beehive Generation Chance");
 		PROPERTY_ORDER_BEES.add("Max Beehive Generation Attempts");
 		PROPERTY_ORDER_BEES.add("Bee Reproduction Multiplier");
@@ -156,6 +169,27 @@ public class Config {
 		cfg.setCategoryPropertyOrder(CATEGORY_BEES, PROPERTY_ORDER_BEES);
 		cfg.setCategoryPropertyOrder(CATEGORY_WORLD, PROPERTY_ORDER_WORLD);
 		cfg.setCategoryPropertyOrder(CATEGORY_COMPAT,  PROPERTY_ORDER_COMPAT);
+		
+		// Fix config issues
+		ConfigCategory general = cfg.getCategory(CATEGORY_GENERAL);
+		if (general != null) {
+			Property minBrewQualityChange = general.get("Minimum Increase To Brew Quality");
+			Property maxBrewQualityChange = general.get("Maximum Increase To Brew Quality");
+			Property maxBrewTime = general.get("Maximum Brew Time");
+			
+			if (minBrewQualityChange != null && (minBrewQualityChange.getInt() == -50 || minBrewQualityChange.getInt() == 1)) {
+				minBrewQualityChange.setValue(-1);
+				MIN_BREW_QUALITY_CHANGE = -1;
+			}
+			if (maxBrewQualityChange != null && maxBrewQualityChange.getInt() == -50) {
+				maxBrewQualityChange.setValue(4);
+				MAX_BREW_QUALITY_CHANGE = 4;
+			}
+			if (maxBrewTime != null && maxBrewTime.getInt() == 1200) {
+				maxBrewTime.setValue(12000);
+				MAX_BREW_TIME = 12000;
+			}
+		}
 	}
 
 }

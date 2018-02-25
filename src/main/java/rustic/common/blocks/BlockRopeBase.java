@@ -47,6 +47,11 @@ public abstract class BlockRopeBase extends BlockBase {
 			EnumFacing side, float hitX, float hitY, float hitZ) {
 		ItemStack stack = player.getHeldItem(hand);
 		if (!canPlaceBlockOnSide(world, pos.offset(side), side) && stack.getItem() == Item.getItemFromBlock(this)) {
+			if (!this.isBlockSupported(world, pos, state)) {
+				this.dropBlock(world, pos, state);
+				return true;
+			}
+			
 			int yOffset = 1;
 			while (yOffset < 64 && world.getBlockState(pos.down(yOffset)).getBlock() == this) {
 				if (world.getBlockState(pos.down(yOffset)).getValue(AXIS) != EnumFacing.Axis.Y) {

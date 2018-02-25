@@ -24,6 +24,7 @@ import net.minecraftforge.common.ForgeHooks;
 import net.minecraftforge.common.ForgeModContainer;
 import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fluids.FluidStack;
+import net.minecraftforge.fluids.FluidUtil;
 import net.minecraftforge.fluids.UniversalBucket;
 import net.minecraftforge.fluids.capability.IFluidHandler;
 import net.minecraftforge.fluids.capability.wrappers.FluidBucketWrapper;
@@ -277,12 +278,13 @@ public class Recipes {
 		
 		RecipeSorter.register("rustic:shapeless_nonreturn", RecipeNonIngredientReturn.class,
 				RecipeSorter.Category.SHAPELESS, "after:minecraft:shapeless");
-		ItemStack aleWortBucket = UniversalBucket.getFilledBucket(ForgeModContainer.getInstance().universalBucket,
-				ModFluids.ALE_WORT);
+		ItemStack aleWortBucket = FluidUtil.getFilledBucket(new FluidStack(ModFluids.ALE_WORT, 1000));
 		GameRegistry.findRegistry(IRecipe.class).register(new RecipeNonIngredientReturn(null, aleWortBucket, new ItemStack(Items.BREAD),
 				new ItemStack(Items.SUGAR), new ItemStack(Items.WATER_BUCKET)).setRegistryName(new ResourceLocation(Rustic.MODID, "ale_wort")));
-		GameRegistry.findRegistry(IRecipe.class).register(
-				new RecipeNonIngredientReturn(null, new ItemStack(Items.GLASS_BOTTLE), new ItemStack(ModItems.FLUID_BOTTLE)).setRegistryName(new ResourceLocation(Rustic.MODID, "bottle_emptying")));
+		if (Config.ENABLE_BOTTLE_EMPTYING) {
+			GameRegistry.findRegistry(IRecipe.class).register(new RecipeNonIngredientReturn(null, new ItemStack(Items.GLASS_BOTTLE),
+					new ItemStack(ModItems.FLUID_BOTTLE)).setRegistryName(new ResourceLocation(Rustic.MODID, "bottle_emptying")));
+		}	
 
 		if (Config.ENABLE_OLIVE_OILING) {
 			RecipeSorter.register("rustic:olive_oil", RecipeOliveOil.class, RecipeSorter.Category.SHAPELESS,
@@ -402,7 +404,7 @@ public class Recipes {
 		brewingRecipes.add(new BrewingBarrelRecipe(new FluidStack(ModFluids.IRON_WINE, 1),
 				new FluidStack(ModFluids.IRONBERRY_JUICE, 1)));
 		brewingRecipes
-				.add(new BrewingBarrelRecipe(new FluidStack(ModFluids.MEAD, 1), new FluidStack(FluidRegistry.getFluid(ModFluids.HONEY.getName()), 1)));
+				.add(new BrewingBarrelRecipe(new FluidStack(ModFluids.MEAD, 1), new FluidStack(ModFluids.HONEY, 1)));
 		if (FluidRegistry.isFluidRegistered("for.honey")) {
 			brewingRecipes.add(new BrewingBarrelRecipe(new FluidStack(ModFluids.MEAD, 1), new FluidStack(FluidRegistry.getFluid("for.honey"), 1)));
 		}

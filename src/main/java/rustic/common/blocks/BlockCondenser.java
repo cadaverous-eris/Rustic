@@ -67,6 +67,11 @@ public class BlockCondenser extends BlockBase implements ITileEntityProvider {
 	}
 	
 	@Override
+	public int getLightOpacity(IBlockState state) {
+		return state.getValue(BOTTOM) ? super.getLightOpacity(state) : 0;
+	}
+	
+	@Override
 	public IBlockState getStateForPlacement(World worldIn, BlockPos pos, EnumFacing facing, float hitX, float hitY,
 			float hitZ, int meta, EntityLivingBase placer) {
 		return this.getDefaultState().withProperty(FACING, placer.getHorizontalFacing().getOpposite()).withProperty(BOTTOM, true);

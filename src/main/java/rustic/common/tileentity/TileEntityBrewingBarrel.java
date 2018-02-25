@@ -65,23 +65,17 @@ public class TileEntityBrewingBarrel extends TileEntity implements ITickable {
 
 		private boolean isStackAllowedInSlot(int slot, ItemStack stack) {
 			if (slot == 1) {
-				if (stack.getItem() instanceof UniversalBucket || stack.getItem() instanceof ItemFluidContainer) {
-					FluidStack fluid = stack.getCapability(CapabilityFluidHandler.FLUID_HANDLER_ITEM_CAPABILITY, null)
-							.drain(1, false);
-					return fluid == null || fluid.getFluid() == null;
-				} else {
-					return stack.getItem() == Items.GLASS_BOTTLE || stack.getItem() == Items.BUCKET;
-				}
+				return stack.getItem() == Items.GLASS_BOTTLE;
 			} else if (slot == 2) {
-				if (stack.getItem() instanceof UniversalBucket || stack.getItem() instanceof ItemFluidContainer) {
+				if (FluidUtil.getFluidHandler(stack) != null) {
 					FluidStack fluid = stack.getCapability(CapabilityFluidHandler.FLUID_HANDLER_ITEM_CAPABILITY, null)
 							.drain(1, false);
-					return fluid == null || fluid.getFluid() == null || fluid.getFluid() instanceof FluidBooze;
+					return fluid != null && fluid.getFluid() != null && fluid.getFluid() instanceof FluidBooze;
 				} else {
-					return stack.getItem() == Items.GLASS_BOTTLE || stack.getItem() == Items.BUCKET;
+					return stack.getItem() == Items.GLASS_BOTTLE;
 				}
 			} else if (slot == 0) {
-				return stack.getItem() instanceof UniversalBucket || stack.getItem() instanceof ItemFluidContainer
+				return FluidUtil.getFluidHandler(stack) != null || stack.getItem() instanceof UniversalBucket || stack.getItem() instanceof ItemFluidContainer
 						|| stack.getItem() == Items.GLASS_BOTTLE || stack.getItem() instanceof ItemBucket;
 			}
 			return false;

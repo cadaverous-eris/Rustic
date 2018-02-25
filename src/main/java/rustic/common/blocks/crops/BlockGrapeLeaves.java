@@ -190,8 +190,9 @@ public class BlockGrapeLeaves extends BlockRopeBase implements IGrowable, IColor
 		boolean isRope = testState.getBlock() == ModBlocks.ROPE && state.getValue(AXIS) == testState.getValue(BlockRope.AXIS);
 		boolean isSideSolid = world.isSideSolid(pos.offset(facing), facing.getOpposite(), false);
 		boolean isTiedStake = testState.getBlock() == ModBlocks.STAKE_TIED;
+		boolean isLattice = testState.getBlock() == ModBlocks.IRON_LATTICE;
 		
-		return isSame || isRope || isSideSolid || isTiedStake;
+		return isSame || isRope || isSideSolid || isTiedStake || isLattice;
 	}
 	
 	@Override

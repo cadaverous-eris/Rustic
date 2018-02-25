@@ -256,7 +256,7 @@ public class TileEntityCondenser extends TileFluidHandler implements ITickable {
 			EnumFacing side, float hitX, float hitY, float hitZ) {
 		ItemStack heldItem = player.getHeldItem(hand);
 		if (heldItem != ItemStack.EMPTY) {
-			if ((heldItem.getItem() instanceof ItemBucket || heldItem.getItem() instanceof UniversalBucket)) {
+			if ((FluidUtil.getFluidHandler(heldItem) != null || heldItem.getItem() instanceof ItemBucket || heldItem.getItem() instanceof UniversalBucket)) {
 				boolean didFill = FluidUtil.interactWithFluidHandler(player, hand,
 						this.getCapability(CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY, side));
 				if (didFill) {

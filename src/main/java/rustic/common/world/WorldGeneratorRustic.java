@@ -38,9 +38,8 @@ public class WorldGeneratorRustic implements IWorldGenerator {
 		BlockPos chunkCenter = new BlockPos(chunkX * 16 + 8, world.getHeight(chunkX * 16 + 8, chunkZ * 16 + 8),
 				chunkZ * 16 + 8);
 
-		if (world.provider.getDimensionType() == DimensionType.OVERWORLD && (world.getWorldType() != WorldType.FLAT
+		if (Config.OVERWORLD_GENERATION_WHITELIST.contains(world.provider.getDimension()) && (world.getWorldType() != WorldType.FLAT
 				|| world.getWorldInfo().getGeneratorOptions().contains("decoration"))) {
-
 			if (random.nextFloat() < Config.WILDBERRY_GEN_CHANCE) {
 				wildberries.generate(world, random, chunkCenter);
 			}
@@ -66,8 +65,7 @@ public class WorldGeneratorRustic implements IWorldGenerator {
 					slate.generate(world, random, new BlockPos(x, y, z));
 				}
 			}
-		} else if (world.provider.getDimensionType() == DimensionType.NETHER) {
-
+		} else if (Config.NETHER_GENERATION_WHITELIST.contains(world.provider.getDimension())) {
 			if (random.nextFloat() < Config.HERB_GEN_CHANCE) {
 				netherHerbs.generate(world, random, chunkCenter);
 			}

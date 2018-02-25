@@ -65,8 +65,9 @@ public class BlockRope extends BlockRopeBase {
 		boolean isTiedStake = testState.getBlock() == ModBlocks.STAKE_TIED;
 		boolean isGrapeLeaves = testState.getBlock() == ModBlocks.GRAPE_LEAVES
 				&& testState.getValue(BlockGrapeLeaves.AXIS) == state.getValue(AXIS);
+		boolean isLattice = testState.getBlock() == ModBlocks.IRON_LATTICE;
 
-		return isSame || isSideSolid || isTiedStake || isGrapeLeaves;
+		return isSame || isSideSolid || isTiedStake || isGrapeLeaves || isLattice;
 	}
 
 	@Override
@@ -82,8 +83,9 @@ public class BlockRope extends BlockRopeBase {
 		boolean isTiedStake = testState.getBlock() == ModBlocks.STAKE_TIED;
 		boolean isGrapeLeaves = testState.getBlock() == ModBlocks.GRAPE_LEAVES
 				&& testState.getValue(BlockGrapeLeaves.AXIS) == side.getAxis();
+		boolean isLattice = testState.getBlock() == ModBlocks.IRON_LATTICE;
 
-		return isThis || isSideSolid || isTiedStake || isGrapeLeaves;
+		return isThis || isSideSolid || isTiedStake || isGrapeLeaves || isLattice;
 	}
 
 	@Override

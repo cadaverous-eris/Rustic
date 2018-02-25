@@ -20,6 +20,7 @@ public class BlockGargoyle extends BlockRotatable {
 	public BlockGargoyle() {
 		super(Material.ROCK, "gargoyle");
 		setHardness(1.0F);
+		this.setLightOpacity(0);
 	}
 	
 	public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos) {

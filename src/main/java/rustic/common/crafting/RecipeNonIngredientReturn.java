@@ -20,7 +20,7 @@ public class RecipeNonIngredientReturn extends ShapelessOreRecipe {
 	public NonNullList<ItemStack> getRemainingItems(InventoryCrafting inv) {
 		NonNullList<ItemStack> ret = super.getRemainingItems(inv);
 		for (int i = 0; i < ret.size(); i++) {
-			if (ret.get(i).getItem() == Items.BUCKET) {
+			if (ret.get(i).getItem() == Items.BUCKET || ret.get(i).getItem() == Items.GLASS_BOTTLE) {
 				ret.set(i, ItemStack.EMPTY);
 				break;
 			}
