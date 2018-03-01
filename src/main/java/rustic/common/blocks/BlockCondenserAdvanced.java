@@ -86,6 +86,11 @@ public class BlockCondenserAdvanced extends BlockBase implements ITileEntityProv
 	}
 	
 	@Override
+	public int getLightOpacity(IBlockState state) {
+		return state.getValue(BOTTOM) ? super.getLightOpacity(state) : 0;
+	}
+	
+	@Override
 	public List<ItemStack> getDrops(IBlockAccess world, BlockPos pos, IBlockState state, int fortune){
 		return new ArrayList<ItemStack>();
 	}

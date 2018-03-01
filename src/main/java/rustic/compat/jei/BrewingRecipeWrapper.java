@@ -5,6 +5,7 @@ import java.util.List;
 
 import mezz.jei.api.ingredients.IIngredients;
 import mezz.jei.api.recipe.BlankRecipeWrapper;
+import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fluids.FluidStack;
 import rustic.common.crafting.BrewingBarrelRecipe;
 
@@ -18,7 +19,7 @@ public class BrewingRecipeWrapper extends BlankRecipeWrapper {
 
 	@Override
 	public void getIngredients(IIngredients ingredients) {
-		FluidStack in = recipe.getInput().copy();
+		FluidStack in = FluidRegistry.getFluidStack(recipe.getInput().getFluid().getName(), 1);
 		in.amount = 8000;
 		ingredients.setInput(FluidStack.class, in);
 		FluidStack out = new FluidStack(recipe.getResult(in).getFluid(), 8000);

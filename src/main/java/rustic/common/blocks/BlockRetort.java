@@ -32,6 +32,7 @@ public class BlockRetort extends BlockBase {
 	public BlockRetort(String name) {
 		super(Material.ROCK, name);
 		setHardness(2F);
+		this.setLightOpacity(0);
 		setCreativeTab(Rustic.alchemyTab);
 		setSoundType(SoundType.STONE);
 		setDefaultState(this.blockState.getBaseState().withProperty(FACING, EnumFacing.NORTH));

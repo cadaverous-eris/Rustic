@@ -17,6 +17,7 @@ public class BlockStairsBase extends BlockStairs {
 	public BlockStairsBase(IBlockState state, String name) {
 		super(state);
 		//super(mat);
+		this.setLightOpacity(0);
 		setRegistryName(name);
 		setUnlocalizedName(Rustic.MODID + "." + name);
 		GameRegistry.findRegistry(Block.class).register(this);

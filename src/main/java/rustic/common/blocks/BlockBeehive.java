@@ -51,6 +51,7 @@ public class BlockBeehive extends BlockBase {
 		this.setDefaultState(this.blockState.getBaseState().withProperty(FACING, EnumFacing.NORTH));
 		this.setCreativeTab(Rustic.farmingTab);
 		setSoundType(SoundType.SLIME);
+		this.setLightOpacity(0);
 	}
 	
 	public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos) {

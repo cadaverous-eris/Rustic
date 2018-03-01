@@ -51,6 +51,7 @@ public class BlockCrushingTub extends BlockBase implements ITileEntityProvider {
 		this.setHardness(1.5F);
 		this.setCreativeTab(Rustic.farmingTab);
 		setSoundType(SoundType.WOOD);
+		this.setLightOpacity(0);
 	}
 
 	@Override

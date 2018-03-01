@@ -46,7 +46,7 @@ import rustic.compat.crafttweaker.CraftTweakerHelper;
 public class Rustic {
 	public static final String MODID = "rustic";
 	public static final String NAME = "Rustic";
-	public static final String VERSION = "0.4.8";
+	public static final String VERSION = "0.4.9";
 	public static final String DEPENDENCIES = "";
 
 	@SidedProxy(clientSide = "rustic.core.ClientProxy", serverSide = "rustic.core.CommonProxy")
@@ -147,7 +147,7 @@ public class Rustic {
 	public void initRecipes(RegistryEvent.Register<IRecipe> event) {
 		Recipes.init();
 	}
-
+	
 	@EventHandler
 	public void init(FMLInitializationEvent event) {
 		proxy.init(event);

@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import net.minecraft.item.ItemStack;
+import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fluids.FluidStack;
 import java.util.Arrays;
 
@@ -32,7 +33,8 @@ public class CrushingTubRecipe {
 	}
 	
 	public FluidStack getResult() {
-		return this.output.copy();
+		if (this.output == null || this.output.getFluid() == null) return null;
+		return FluidRegistry.getFluidStack(this.output.getFluid().getName(), this.output.amount);
 	}
 	
 	public ItemStack getByproduct() {

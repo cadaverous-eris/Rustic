@@ -59,7 +59,7 @@ public class ContainerBrewingBarrel extends Container {
 				if (!super.isItemValid(stack)) {
 					return false;
 				}
-				return stack.getItem() instanceof UniversalBucket || stack.getItem() instanceof ItemFluidContainer || stack.getItem() == Items.GLASS_BOTTLE || stack.getItem() instanceof ItemBucket;
+				return FluidUtil.getFluidHandler(stack) != null ||  stack.getItem() instanceof UniversalBucket || stack.getItem() instanceof ItemFluidContainer || stack.getItem() == Items.GLASS_BOTTLE || stack.getItem() instanceof ItemBucket;
 			}
 		});
 		addSlotToContainer(new SlotItemHandler(itemHandler, 1, 116, 7) {
@@ -68,12 +68,7 @@ public class ContainerBrewingBarrel extends Container {
 				if (!super.isItemValid(stack)) {
 					return false;
 				}
-				if (stack.getItem() instanceof UniversalBucket || stack.getItem() instanceof ItemFluidContainer) {
-					FluidStack fluid = FluidUtil.getFluidContained(stack);
-					return fluid == null || fluid.getFluid() == null;
-				} else {
-					return stack.getItem() == Items.GLASS_BOTTLE || stack.getItem() == Items.BUCKET;
-				}
+				return stack.getItem() == Items.GLASS_BOTTLE;
 			}
 		});
 		addSlotToContainer(new SlotItemHandler(itemHandler, 2, 26, 15) {
@@ -82,11 +77,11 @@ public class ContainerBrewingBarrel extends Container {
 				if (!super.isItemValid(stack)) {
 					return false;
 				}
-				if (stack.getItem() instanceof UniversalBucket || stack.getItem() instanceof ItemFluidContainer) {
+				if (FluidUtil.getFluidHandler(stack) != null) {
 					FluidStack fluid = FluidUtil.getFluidContained(stack);
-					return fluid == null || fluid.getFluid() == null || fluid.getFluid() instanceof FluidBooze;
+					return fluid != null && fluid.getFluid() != null && fluid.getFluid() instanceof FluidBooze;
 				} else {
-					return stack.getItem() == Items.GLASS_BOTTLE || stack.getItem() == Items.BUCKET;
+					return stack.getItem() == Items.GLASS_BOTTLE;
 				}
 			}
 		});

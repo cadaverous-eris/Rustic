@@ -42,6 +42,7 @@ import net.minecraftforge.common.property.IUnlistedProperty;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import rustic.common.blocks.BlockPlanksRustic.EnumType;
+import rustic.common.blocks.crops.BlockGrapeLeaves;
 import rustic.common.blocks.properties.UnlistedPropertyBool;
 import rustic.core.ClientProxy;
 
@@ -147,7 +148,12 @@ public class BlockLattice extends BlockBase implements IColoredBlock {
 	private boolean getConnection(IBlockAccess world, BlockPos pos, EnumFacing facing) {
 		IBlockState state = world.getBlockState(pos.offset(facing));
 		Block block = state.getBlock();
-		return world.isSideSolid(pos.offset(facing), facing.getOpposite(), false) || block instanceof BlockLattice || (block instanceof BlockChain && state.getValue(BlockChain.AXIS) == facing.getAxis()) || (block instanceof BlockLantern && facing.getAxis() == EnumFacing.Axis.Y && state.getValue(BlockLantern.FACING) == facing);
+		return world.isSideSolid(pos.offset(facing), facing.getOpposite(), false) || 
+				block instanceof BlockLattice || 
+				(block instanceof BlockChain && state.getValue(BlockChain.AXIS) == facing.getAxis()) || 
+				(block instanceof BlockLantern && facing.getAxis() == EnumFacing.Axis.Y && state.getValue(BlockLantern.FACING) == facing) ||
+				(block instanceof BlockRope && state.getValue(BlockRope.AXIS) == facing.getAxis()) ||
+				(block instanceof BlockGrapeLeaves && state.getValue(BlockGrapeLeaves.AXIS) == facing.getAxis());
 	}
 
 	@Override

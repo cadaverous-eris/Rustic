@@ -33,6 +33,7 @@ public class BlockBrewingBarrel extends BlockBase implements ITileEntityProvider
 		super(Material.WOOD, "brewing_barrel");
 		setCreativeTab(Rustic.farmingTab);
 		setHardness(1.5F);
+		this.setLightOpacity(0);
 		setSoundType(SoundType.WOOD);
 		setDefaultState(this.blockState.getBaseState().withProperty(FACING, EnumFacing.NORTH));
 	}
