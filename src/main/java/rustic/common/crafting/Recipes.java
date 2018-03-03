@@ -29,6 +29,7 @@ import net.minecraftforge.fluids.UniversalBucket;
 import net.minecraftforge.fluids.capability.IFluidHandler;
 import net.minecraftforge.fluids.capability.wrappers.FluidBucketWrapper;
 import net.minecraftforge.fml.common.IFuelHandler;
+import net.minecraftforge.fml.common.Loader;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.oredict.OreDictionary;
 import net.minecraftforge.oredict.RecipeSorter;
@@ -44,6 +45,7 @@ import rustic.common.blocks.crops.Herbs;
 import rustic.common.blocks.fluids.ModFluids;
 import rustic.common.items.ModItems;
 import rustic.common.potions.PotionsRustic;
+import rustic.compat.dynamictrees.DynamicTreesCompat;
 import rustic.core.Rustic;
 
 import java.util.Arrays;
@@ -291,6 +293,11 @@ public class Recipes {
 					"after:minecraft:shapeless");
 			GameRegistry.findRegistry(IRecipe.class).register(new RecipeOliveOil().setRegistryName(new ResourceLocation(Rustic.MODID, "olive_oiling")));
 		}
+		
+		if (Loader.isModLoaded("dynamictrees")) {
+			GameRegistry.addShapelessRecipe(new ResourceLocation(Rustic.MODID, "oliveseed"), null, new ItemStack(DynamicTreesCompat.getOliveSeed()), Ingredient.fromItem(ModItems.OLIVES));
+			GameRegistry.addShapelessRecipe(new ResourceLocation(Rustic.MODID, "ironwoodseed"), null, new ItemStack(DynamicTreesCompat.getIronwoodSeed()), Ingredient.fromItem(ModItems.IRONBERRIES));
+		}
 	}
 
 	private static void addCrushingTubRecipes() {
@@ -304,8 +311,13 @@ public class Recipes {
 				new ItemStack(ModItems.WILDBERRIES)));
 		crushingTubRecipes
 				.add(new CrushingTubRecipe(new FluidStack(ModFluids.GRAPE_JUICE, 250), new ItemStack(ModItems.GRAPES)));
-		crushingTubRecipes.add(new CrushingTubRecipe(new FluidStack(ModFluids.APPLE_JUICE, 250),
+		if (!Loader.isModLoaded("dynamictrees")) {
+			crushingTubRecipes.add(new CrushingTubRecipe(new FluidStack(ModFluids.APPLE_JUICE, 250),
 				new ItemStack(Items.APPLE), new ItemStack(ModBlocks.APPLE_SEEDS)));
+		} else {
+			crushingTubRecipes.add(new CrushingTubRecipe(new FluidStack(ModFluids.APPLE_JUICE, 250),
+					new ItemStack(Items.APPLE), new ItemStack(DynamicTreesCompat.getAppleSeed())));
+		}
 		crushingTubRecipes
 				.add(new CrushingTubRecipe(new FluidStack(ModFluids.HONEY, 250), new ItemStack(ModItems.HONEYCOMB)));
 	}

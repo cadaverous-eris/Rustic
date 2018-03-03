@@ -1,0 +1,15 @@
+{
+	"forge_marker": 1,
+	"defaults": {
+		"model": "dynamictrees:sapling",
+		"textures": {
+			"log": "rustic:blocks/log_ironwood",
+			"leaves": "rustic:blocks/leaves_ironwood"
+		}
+	},
+	"variants": {
+		"normal": [{
+
+		}]
+	}
+}

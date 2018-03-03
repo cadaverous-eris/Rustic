@@ -1,0 +1,25 @@
+{
+	"forge_marker": 1,
+	"variants": {
+		"tree": {
+			"0": {
+				"model": "rustic:leaves_olive"
+			},
+			"1": {
+				"model": "rustic:leaves_ironwood"
+			},
+			"2": {
+				"model": "oak_leaves"
+			},
+			"3": {
+				"model": "oak_leaves"
+			}
+		},
+		"hydro": {
+			"1": {},
+			"2": {},
+			"3": {},
+			"4": {}
+		}
+	}
+}

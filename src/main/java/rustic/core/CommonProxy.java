@@ -18,6 +18,7 @@ import rustic.common.network.PacketHandler;
 import rustic.common.potions.PotionsRustic;
 import rustic.common.util.DispenseRope;
 import rustic.common.world.WorldGeneratorRustic;
+import rustic.compat.Compat;
 import net.minecraft.block.BlockDispenser;
 import net.minecraft.client.renderer.entity.Render;
 import net.minecraft.client.renderer.entity.RenderLivingBase;
@@ -30,6 +31,7 @@ import net.minecraftforge.common.config.Configuration;
 import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fml.client.registry.IRenderFactory;
 import net.minecraftforge.fml.client.registry.RenderingRegistry;
+import net.minecraftforge.fml.common.Loader;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
@@ -59,11 +61,19 @@ public class CommonProxy {
         
         GameRegistry.registerWorldGenerator(new WorldGeneratorRustic(), 0);
         
+        if (Loader.isModLoaded("dynamictrees")) {
+			Compat.preInitDynamicTreesCompat();
+		}
+        
     }
 
     public void init(FMLInitializationEvent event) {
     	NetworkRegistry.INSTANCE.registerGuiHandler(Rustic.instance, new GuiProxy());
     	initFluidBottle();
+    	
+    	if (Loader.isModLoaded("dynamictrees")) {
+			Compat.initDynamicTreesCompat();
+		}
     }
 
     public void postInit(FMLPostInitializationEvent event) {

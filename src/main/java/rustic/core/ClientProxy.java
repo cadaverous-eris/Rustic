@@ -33,6 +33,7 @@ import net.minecraftforge.client.ForgeHooksClient;
 import net.minecraftforge.client.MinecraftForgeClient;
 import net.minecraftforge.client.model.ModelLoaderRegistry;
 import net.minecraftforge.client.model.obj.OBJLoader;
+import net.minecraftforge.fml.common.Loader;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
@@ -48,6 +49,8 @@ import rustic.common.items.IColoredItem;
 import rustic.common.items.ModItems;
 import rustic.common.potions.PotionsRustic;
 import rustic.common.tileentity.TileEntityLiquidBarrel;
+import rustic.compat.Compat;
+import rustic.compat.dynamictrees.DynamicTreesCompat;
 
 public class ClientProxy extends CommonProxy {
 
@@ -63,11 +66,19 @@ public class ClientProxy extends CommonProxy {
 		ModBlocks.initModels();
 		ModItems.initModels();
 		ModEntities.initRenderers();
+		
+		if (Loader.isModLoaded("dynamictrees")) {
+			Compat.preInitDynamicTreesClientCompat();
+		}
 	}
 
 	@Override
 	public void init(FMLInitializationEvent event) {
 		super.init(event);
+		
+		if (Loader.isModLoaded("dynamictrees")) {
+			Compat.initDynamicTreesClientCompat();
+		}
 	}
 
 	@Override

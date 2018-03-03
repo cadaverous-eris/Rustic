@@ -10,6 +10,7 @@ import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fml.common.Optional;
 import rustic.common.blocks.ModBlocks;
 import rustic.common.items.ModItems;
+import rustic.compat.dynamictrees.DynamicTreesCompat;
 import rustic.core.Rustic;
 
 public class Compat {
@@ -224,6 +225,26 @@ public class Compat {
 
 		Rustic.logger.info("Initialized Forestry compat module");
 
+	}
+	
+	@Optional.Method(modid = "dynamictrees")
+	public static void preInitDynamicTreesCompat() {
+		DynamicTreesCompat.preInit();
+	}
+	
+	@Optional.Method(modid = "dynamictrees")
+	public static void initDynamicTreesCompat() {
+		DynamicTreesCompat.init();
+	}
+	
+	@Optional.Method(modid = "dynamictrees")
+	public static void preInitDynamicTreesClientCompat() {
+		DynamicTreesCompat.clientPreInit();
+	}
+	
+	@Optional.Method(modid = "dynamictrees")
+	public static void initDynamicTreesClientCompat() {
+		DynamicTreesCompat.clientInit();
 	}
 
 }

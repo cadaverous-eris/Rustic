@@ -17,8 +17,10 @@ import net.minecraft.world.gen.feature.WorldGenMinable;
 import net.minecraftforge.common.BiomeDictionary;
 import net.minecraftforge.common.config.ConfigManager;
 import net.minecraftforge.fml.common.IWorldGenerator;
+import net.minecraftforge.fml.common.Loader;
 import rustic.common.Config;
 import rustic.common.blocks.ModBlocks;
+import rustic.compat.dynamictrees.DynamicTreesCompat;
 
 public class WorldGeneratorRustic implements IWorldGenerator {
 
@@ -51,7 +53,7 @@ public class WorldGeneratorRustic implements IWorldGenerator {
 				caveHerbs.generate(world, random, chunkCenter);
 			}
 
-			trees.generate(world, random, chunkCenter);
+			if (!Loader.isModLoaded("dynamictrees") || !DynamicTreesCompat.replaceWorldGen()) trees.generate(world, random, chunkCenter);
 
 			if (!world.getBiome(chunkCenter).isSnowyBiome() && random.nextFloat() < Config.BEEHIVE_GEN_CHANCE) {
 				beehives.generate(world, random, chunkCenter);
