@@ -68,8 +68,7 @@ public class TileEntityBrewingBarrel extends TileEntity implements ITickable {
 				return stack.getItem() == Items.GLASS_BOTTLE;
 			} else if (slot == 2) {
 				if (FluidUtil.getFluidHandler(stack) != null) {
-					FluidStack fluid = stack.getCapability(CapabilityFluidHandler.FLUID_HANDLER_ITEM_CAPABILITY, null)
-							.drain(1, false);
+					FluidStack fluid = FluidUtil.getFluidContained(stack);
 					return fluid != null && fluid.getFluid() != null && fluid.getFluid() instanceof FluidBooze;
 				} else {
 					return stack.getItem() == Items.GLASS_BOTTLE;
