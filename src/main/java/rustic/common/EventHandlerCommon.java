@@ -35,7 +35,10 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.SharedMonsterAttributes;
+import net.minecraft.entity.ai.EntityAITempt;
 import net.minecraft.entity.monster.EntityCreeper;
+import net.minecraft.entity.passive.EntityAnimal;
+import net.minecraft.entity.passive.EntityChicken;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.entity.projectile.EntityArrow;
@@ -257,4 +260,35 @@ public class EventHandlerCommon {
 		}
 	}
 
+	@SubscribeEvent
+	public void onSeedInteractEvent(PlayerInteractEvent.EntityInteract event) {
+		
+		if (event.getTarget() instanceof EntityChicken) {
+			ItemStack equippedItem = event.getEntityPlayer().getHeldItem(event.getHand());
+			EntityAnimal targetAnimal = (EntityAnimal) event.getTarget();
+
+			if (equippedItem != null && 
+			(equippedItem.getItem() == ModItems.TOMATO_SEEDS || equippedItem.getItem() == ModItems.CHILI_PEPPER_SEEDS) &&
+			targetAnimal.getGrowingAge() >= 0 &&
+			!targetAnimal.isInLove()) {
+				EntityPlayer player = event.getEntityPlayer();
+
+				if (!player.capabilities.isCreativeMode) {
+					equippedItem.shrink(1);
+				}
+
+				targetAnimal.setInLove(player);
+			}
+		}
+	}
+
+	@SubscribeEvent
+	public void onPlayerHoldingSeeds(LivingUpdateEvent event) {
+		if (event.getEntity() instanceof EntityChicken) {
+			EntityChicken chicken = (EntityChicken) event.getEntity();
+			
+			chicken.tasks.addTask(4, new EntityAITempt(chicken,1,ModItems.CHILI_PEPPER_SEEDS,false));
+			chicken.tasks.addTask(4, new EntityAITempt(chicken,1,ModItems.TOMATO_SEEDS,false));
+		}
+	}
 }
