@@ -62,7 +62,7 @@ public class BrewingBarrelRecipe {
 				if (Config.MAX_BREW_QUALITY_CHANGE < Config.MIN_BREW_QUALITY_CHANGE) {
 					Config.MAX_BREW_QUALITY_CHANGE = Config.MIN_BREW_QUALITY_CHANGE;
 				}
-				int brewQualityChange = rand.nextInt(Math.min((Config.MAX_BREW_QUALITY_CHANGE - Config.MIN_BREW_QUALITY_CHANGE) + 1, 1)) + Config.MIN_BREW_QUALITY_CHANGE;
+				int brewQualityChange = rand.nextInt((Config.MAX_BREW_QUALITY_CHANGE - Config.MIN_BREW_QUALITY_CHANGE) + 1) + Config.MIN_BREW_QUALITY_CHANGE;
 				float quality = Math.max(Math.min(((brewQualityChange + (int) (100 * auxQuality)) / 100F), 1), 0);
 				if (out.tag == null) {
 					out.tag = new NBTTagCompound();
