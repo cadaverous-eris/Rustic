@@ -8,6 +8,8 @@ import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fml.common.Optional;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 import rustic.common.blocks.ModBlocks;
 import rustic.common.items.ModItems;
 import rustic.compat.dynamictrees.DynamicTreesCompat;
@@ -238,11 +240,13 @@ public class Compat {
 	}
 	
 	@Optional.Method(modid = "dynamictrees")
+	@SideOnly(Side.CLIENT)
 	public static void preInitDynamicTreesClientCompat() {
 		DynamicTreesCompat.clientPreInit();
 	}
 	
 	@Optional.Method(modid = "dynamictrees")
+	@SideOnly(Side.CLIENT)
 	public static void initDynamicTreesClientCompat() {
 		DynamicTreesCompat.clientInit();
 	}

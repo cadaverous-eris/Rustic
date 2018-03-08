@@ -3,6 +3,7 @@ package rustic.compat.dynamictrees;
 import java.util.List;
 import java.util.Random;
 
+import com.ferreusveritas.dynamictrees.ModConfigs;
 import com.ferreusveritas.dynamictrees.systems.dropcreators.DropCreator;
 import com.ferreusveritas.dynamictrees.trees.Species;
 
@@ -33,6 +34,14 @@ public class DropCreatorFruit extends DropCreator {
 	@Override
 	public List<ItemStack> getHarvestDrop(World world, Species species, BlockPos leafPos, Random random, List<ItemStack> dropList, int soilLife, int fortune) {
 		return getLeafDrops(world, species, leafPos, random, dropList, fortune);
+	}
+	
+	@Override
+	public List<ItemStack> getVoluntaryDrop(World world, Species species, BlockPos rootPos, Random random, List<ItemStack> dropList, int soilLife) {
+		if (soilLife <= 1 && ModConfigs.seedDropRate > random.nextFloat()) {
+			dropList.add(new ItemStack(fruit, 1, 0));
+		}
+		return dropList;
 	}
 	
 	protected List<ItemStack> getLeafDrops(IBlockAccess access, Species species, BlockPos leafPos, Random random, List<ItemStack> dropList, int fortune) {
