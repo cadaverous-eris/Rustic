@@ -4,10 +4,12 @@ import javax.annotation.Nonnull;
 
 import net.minecraft.init.Items;
 import net.minecraft.inventory.InventoryCrafting;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.NonNullList;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.oredict.ShapelessOreRecipe;
+import rustic.common.blocks.ModBlocks;
 
 public class RecipeNonIngredientReturn extends ShapelessOreRecipe {
 
@@ -20,7 +22,7 @@ public class RecipeNonIngredientReturn extends ShapelessOreRecipe {
 	public NonNullList<ItemStack> getRemainingItems(InventoryCrafting inv) {
 		NonNullList<ItemStack> ret = super.getRemainingItems(inv);
 		for (int i = 0; i < ret.size(); i++) {
-			if (ret.get(i).getItem() == Items.BUCKET || ret.get(i).getItem() == Items.GLASS_BOTTLE) {
+			if (ret.get(i).getItem() == Items.BUCKET || ret.get(i).getItem() == Items.GLASS_BOTTLE || ret.get(i).getItem() == Item.getItemFromBlock(ModBlocks.LIQUID_BARREL)) {
 				ret.set(i, ItemStack.EMPTY);
 				break;
 			}

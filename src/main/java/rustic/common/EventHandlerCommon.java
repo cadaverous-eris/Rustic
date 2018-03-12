@@ -8,6 +8,7 @@ import java.util.Random;
 
 import org.lwjgl.opengl.GL11;
 
+import com.google.common.collect.Sets;
 import com.mojang.authlib.GameProfile;
 
 import net.minecraft.block.Block;
@@ -35,7 +36,7 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.SharedMonsterAttributes;
-import net.minecraft.entity.ai.EntityAITempt;
+import net.minecraft.entity.ai.EntityAITasks.EntityAITaskEntry;
 import net.minecraft.entity.monster.EntityCreeper;
 import net.minecraft.entity.passive.EntityAnimal;
 import net.minecraft.entity.passive.EntityChicken;
@@ -114,6 +115,7 @@ import rustic.client.util.FluidClientUtil;
 import rustic.common.blocks.IAdvancedRotationPlacement;
 import rustic.common.blocks.ModBlocks;
 import rustic.common.blocks.fluids.FluidBooze;
+import rustic.common.entities.ai.EntityAITemptRustic;
 import rustic.common.items.ItemFluidBottle;
 import rustic.common.items.ModItems;
 import rustic.common.network.PacketHandler;
@@ -283,12 +285,20 @@ public class EventHandlerCommon {
 	}
 
 	@SubscribeEvent
-	public void onPlayerHoldingSeeds(LivingUpdateEvent event) {
+	public void onChickenUpdate(LivingUpdateEvent event) {
 		if (event.getEntity() instanceof EntityChicken) {
 			EntityChicken chicken = (EntityChicken) event.getEntity();
 			
-			chicken.tasks.addTask(4, new EntityAITempt(chicken,1,ModItems.CHILI_PEPPER_SEEDS,false));
-			chicken.tasks.addTask(4, new EntityAITempt(chicken,1,ModItems.TOMATO_SEEDS,false));
+			for (EntityAITaskEntry task : chicken.tasks.taskEntries) {
+				if (task.action instanceof EntityAITemptRustic) return;
+			}
+			
+			chicken.tasks.addTask(4, new EntityAITemptRustic(chicken, 1, Sets.newHashSet(
+					ModItems.CHILI_PEPPER_SEEDS,
+					ModItems.TOMATO_SEEDS,
+					Item.getItemFromBlock(ModBlocks.APPLE_SEEDS),
+					Item.getItemFromBlock(ModBlocks.GRAPE_STEM)
+			), false));
 		}
 	}
 }

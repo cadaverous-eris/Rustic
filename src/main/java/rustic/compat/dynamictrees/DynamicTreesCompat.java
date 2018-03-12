@@ -3,6 +3,8 @@ package rustic.compat.dynamictrees;
 import java.util.ArrayList;
 
 import com.ferreusveritas.dynamictrees.ModConfigs;
+import com.ferreusveritas.dynamictrees.ModItems;
+import com.ferreusveritas.dynamictrees.ModRecipes;
 import com.ferreusveritas.dynamictrees.api.TreeHelper;
 import com.ferreusveritas.dynamictrees.api.TreeRegistry;
 import com.ferreusveritas.dynamictrees.api.WorldGenRegistry;
@@ -12,6 +14,7 @@ import com.ferreusveritas.dynamictrees.api.worldgen.IBiomeSpeciesSelector;
 import com.ferreusveritas.dynamictrees.blocks.BlockDynamicLeaves;
 import com.ferreusveritas.dynamictrees.blocks.BlockDynamicSapling;
 import com.ferreusveritas.dynamictrees.blocks.LeavesProperties;
+import com.ferreusveritas.dynamictrees.items.DendroPotion.DendroPotionType;
 import com.ferreusveritas.dynamictrees.trees.Species;
 import com.ferreusveritas.dynamictrees.trees.TreeFamily;
 
@@ -24,6 +27,7 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
 import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.common.brewing.BrewingRecipeRegistry;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
@@ -137,6 +141,19 @@ public class DynamicTreesCompat {
 	
 	public static Item getAppleSeed() {
 		return TreeRegistry.findSpecies(new ResourceLocation("dynamictrees", "apple")).getSeed();
+	}
+	
+	public static void addRecipes() {
+		ItemStack oliveSeeds = oliveTree.getCommonSpecies().getSeedStack(1);
+		ItemStack ironwoodSeeds = ironwoodTree.getCommonSpecies().getSeedStack(1);
+		
+		ItemStack transformationPotion = new ItemStack(ModItems.dendroPotion, 1, DendroPotionType.TRANSFORM.getIndex());
+		
+		ModRecipes.createDirtBucketExchangeRecipes(new ItemStack(ModBlocks.SAPLING, 1, BlockPlanksRustic.EnumType.OLIVE.getMetadata()), oliveSeeds, true);
+		ModRecipes.createDirtBucketExchangeRecipes(new ItemStack(ModBlocks.SAPLING, 1, BlockPlanksRustic.EnumType.IRONWOOD.getMetadata()), ironwoodSeeds, true);
+		
+		BrewingRecipeRegistry.addRecipe(transformationPotion, oliveSeeds, ModItems.dendroPotion.setTargetTree(transformationPotion.copy(), oliveTree));
+		BrewingRecipeRegistry.addRecipe(transformationPotion, ironwoodSeeds, ModItems.dendroPotion.setTargetTree(transformationPotion.copy(), ironwoodTree));
 	}
 	
 	public static boolean replaceWorldGen() {

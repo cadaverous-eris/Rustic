@@ -125,10 +125,6 @@ public class Recipes {
 			int meta = ModBlocks.LOG.getMetaFromState(state);
 			OreDictionary.registerOre("treeWood", new ItemStack(ModBlocks.LOG, 1, meta));
 			OreDictionary.registerOre("logWood", new ItemStack(ModBlocks.LOG, 1, meta));
-			state = ModBlocks.LEAVES.getDefaultState().withProperty(BlockLeavesRustic.VARIANT,
-					BlockPlanksRustic.EnumType.byMetadata(i));
-			meta = ModBlocks.LEAVES.getMetaFromState(state);
-			OreDictionary.registerOre("treeLeaves", new ItemStack(ModBlocks.LEAVES, 1, meta));
 			state = ModBlocks.SAPLING.getDefaultState().withProperty(BlockSaplingRustic.VARIANT,
 					BlockPlanksRustic.EnumType.byMetadata(i));
 			meta = ModBlocks.SAPLING.getMetaFromState(state);
@@ -144,7 +140,8 @@ public class Recipes {
 		OreDictionary.registerOre("stairWood", new ItemStack(ModBlocks.IRONWOOD_STAIRS));
 
 		OreDictionary.registerOre("treeSapling", new ItemStack(ModBlocks.APPLE_SAPLING));
-		OreDictionary.registerOre("treeLeaves", new ItemStack(ModBlocks.APPLE_LEAVES));
+		for (int i = 0; i < 16; i++) OreDictionary.registerOre("treeLeaves", new ItemStack(ModBlocks.APPLE_LEAVES, 1, i));
+		for (int i = 0; i < 16; i++) OreDictionary.registerOre("treeLeaves", new ItemStack(ModBlocks.LEAVES, 1, i));
 
 		OreDictionary.registerOre("wax", new ItemStack(ModItems.BEESWAX));
 		OreDictionary.registerOre("wax", new ItemStack(ModItems.TALLOW));
@@ -286,7 +283,9 @@ public class Recipes {
 		if (Config.ENABLE_BOTTLE_EMPTYING) {
 			GameRegistry.findRegistry(IRecipe.class).register(new RecipeNonIngredientReturn(null, new ItemStack(Items.GLASS_BOTTLE),
 					new ItemStack(ModItems.FLUID_BOTTLE)).setRegistryName(new ResourceLocation(Rustic.MODID, "bottle_emptying")));
-		}	
+		}
+		GameRegistry.findRegistry(IRecipe.class).register(new RecipeNonIngredientReturn(null, new ItemStack(ModBlocks.LIQUID_BARREL),
+				new ItemStack(ModBlocks.LIQUID_BARREL)).setRegistryName(new ResourceLocation(Rustic.MODID, "barrel_emptying")));
 
 		if (Config.ENABLE_OLIVE_OILING) {
 			RecipeSorter.register("rustic:olive_oil", RecipeOliveOil.class, RecipeSorter.Category.SHAPELESS,
@@ -297,6 +296,8 @@ public class Recipes {
 		if (Loader.isModLoaded("dynamictrees")) {
 			GameRegistry.addShapelessRecipe(new ResourceLocation(Rustic.MODID, "oliveseed"), null, new ItemStack(DynamicTreesCompat.getOliveSeed()), Ingredient.fromItem(ModItems.OLIVES));
 			GameRegistry.addShapelessRecipe(new ResourceLocation(Rustic.MODID, "ironwoodseed"), null, new ItemStack(DynamicTreesCompat.getIronwoodSeed()), Ingredient.fromItem(ModItems.IRONBERRIES));
+			
+			DynamicTreesCompat.addRecipes();
 		}
 	}
 
