@@ -38,7 +38,7 @@ public class DropCreatorFruit extends DropCreator {
 	
 	@Override
 	public List<ItemStack> getVoluntaryDrop(World world, Species species, BlockPos rootPos, Random random, List<ItemStack> dropList, int soilLife) {
-		if (soilLife <= 1 && ModConfigs.seedDropRate > random.nextFloat()) {
+		if (soilLife <= 4 && 0.33f > random.nextFloat()) {
 			dropList.add(new ItemStack(fruit, 1, 0));
 		}
 		return dropList;

@@ -70,13 +70,16 @@ public class EvaporatingBasinRenderer extends TileEntitySpecialRenderer<TileEnti
             alpha = (c >> 24) & 0xFF;
            
             TextureAtlasSprite sprite = FluidClientUtil.stillTextures.get(fluid);
-            diffU = maxU-minU;
-            diffV = maxV-minV;
+            
+            if (sprite == null) return;
+            
+            diffU = maxU - minU;
+            diffV = maxV - minV;
            
-            minU = sprite.getMinU()+diffU*0.1875;
-            maxU = sprite.getMaxU()-diffU*0.1875;
-            minV = sprite.getMinV()+diffV*0.1875;
-            maxV = sprite.getMaxV()-diffV*0.1875;
+            minU = sprite.getMinU() + diffU * 0.1875;
+            maxU = sprite.getMaxU() - diffU * 0.1875;
+            minV = sprite.getMinV() + diffV * 0.1875;
+            maxV = sprite.getMaxV() - diffV * 0.1875;
            
             int i = getWorld().getCombinedLight(te.getPos(), fluid.getLuminosity());
             lightx = i >> 0x10 & 0xFFFF;

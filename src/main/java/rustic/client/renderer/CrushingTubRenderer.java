@@ -73,13 +73,16 @@ public class CrushingTubRenderer extends TileEntitySpecialRenderer<TileEntityCru
             a = (c >> 24) & 0xFF;
            
             TextureAtlasSprite sprite = FluidClientUtil.stillTextures.get(fluid);
-            diffU = maxU-minU;
-            diffV = maxV-minV;
+            
+            if (sprite == null) return;
+            
+            diffU = maxU - minU;
+            diffV = maxV - minV;
            
-            minU = sprite.getMinU()+diffU*0.0625;
-            maxU = sprite.getMaxU()-diffU*0.0625;
-            minV = sprite.getMinV()+diffV*0.0625;
-            maxV = sprite.getMaxV()-diffV*0.0625;
+            minU = sprite.getMinU() + diffU * 0.0625;
+            maxU = sprite.getMaxU() - diffU * 0.0625;
+            minV = sprite.getMinV() + diffV * 0.0625;
+            maxV = sprite.getMaxV() - diffV * 0.0625;
            
             int i = getWorld().getCombinedLight(te.getPos(), fluid.getLuminosity());
             lightx = i >> 0x10 & 0xFFFF;

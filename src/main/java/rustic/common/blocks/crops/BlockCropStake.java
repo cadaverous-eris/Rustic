@@ -42,7 +42,12 @@ public class BlockCropStake extends BlockBase {
 		
 		Blocks.FIRE.setFireInfo(this, 5, 20);
 	}
-
+	
+	@Override
+	public boolean isToolEffective(String type, IBlockState state) {
+		return type.equals("axe");
+	}
+	
 	@Override
 	public boolean onBlockActivated(World world, BlockPos pos, IBlockState state, EntityPlayer player, EnumHand hand,
 			EnumFacing side, float hitX, float hitY, float hitZ) {
