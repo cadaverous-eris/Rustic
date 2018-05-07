@@ -2,7 +2,6 @@ package rustic.compat.dynamictrees;
 
 import com.ferreusveritas.dynamictrees.api.TreeRegistry;
 import com.ferreusveritas.dynamictrees.trees.Species;
-import com.ferreusveritas.dynamictrees.util.CompatHelper;
 
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.item.EntityItem;
@@ -40,7 +39,7 @@ public class SaplingReplacer {
 				double y = event.getPos().getY() + 0.5;
 				double z = event.getPos().getZ() + 0.5;
 				EntityItem itemEntity = new EntityItem(event.getWorld(), x, y, z, species.getSeedStack(1));
-				CompatHelper.spawnEntity(event.getWorld(), itemEntity);
+				event.getWorld().spawnEntity(itemEntity);
 			}
 		}
 	}

@@ -142,7 +142,9 @@ public class Recipes {
 		OreDictionary.registerOre("treeSapling", new ItemStack(ModBlocks.APPLE_SAPLING));
 		for (int i = 0; i < 16; i++) OreDictionary.registerOre("treeLeaves", new ItemStack(ModBlocks.APPLE_LEAVES, 1, i));
 		for (int i = 0; i < 16; i++) OreDictionary.registerOre("treeLeaves", new ItemStack(ModBlocks.LEAVES, 1, i));
-
+		
+		OreDictionary.registerOre("slate", new ItemStack(ModBlocks.SLATE));
+		
 		OreDictionary.registerOre("wax", new ItemStack(ModItems.BEESWAX));
 		OreDictionary.registerOre("wax", new ItemStack(ModItems.TALLOW));
 		OreDictionary.registerOre("tallow", new ItemStack(ModItems.BEESWAX));
@@ -171,7 +173,7 @@ public class Recipes {
 		}
 		if (Config.ENABLE_SLATE) {
 			GameRegistry.addShapedRecipe(new ResourceLocation(Rustic.MODID, "slate_roof"), null, new ItemStack(ModBlocks.SLATE_ROOF, 4), "SS", "SS", 'S',
-					new ItemStack(ModBlocks.SLATE));
+					"slate");
 			GameRegistry.addShapedRecipe(new ResourceLocation(Rustic.MODID, "slate_roof_stairs"), null, new ItemStack(ModBlocks.SLATE_ROOF_STAIRS, 4), "S  ", "SS ", "SSS", 'S',
 					new ItemStack(ModBlocks.SLATE_ROOF));
 			GameRegistry.addShapedRecipe(new ResourceLocation(Rustic.MODID, "slate_roof_slab"), null, new ItemStack(ModBlocks.SLATE_ROOF_SLAB_ITEM, 6), "SSS", 'S',
@@ -180,7 +182,7 @@ public class Recipes {
 					new ItemStack(ModBlocks.SLATE_BRICK));
 			GameRegistry.addShapedRecipe(new ResourceLocation(Rustic.MODID, "slate_brick_slab"), null, new ItemStack(ModBlocks.SLATE_BRICK_SLAB_ITEM, 6), "SSS", 'S',
 					new ItemStack(ModBlocks.SLATE_BRICK));
-			GameRegistry.addShapedRecipe(new ResourceLocation(Rustic.MODID, "slate_tile"), null, new ItemStack(ModBlocks.SLATE_TILE), "S", 'S', new ItemStack(ModBlocks.SLATE));
+			GameRegistry.addShapedRecipe(new ResourceLocation(Rustic.MODID, "slate_tile"), null, new ItemStack(ModBlocks.SLATE_TILE), "S", 'S', "slate");
 			GameRegistry.addShapedRecipe(new ResourceLocation(Rustic.MODID, "slate_tile_1"), null, new ItemStack(ModBlocks.SLATE_TILE), "S", 'S',
 					new ItemStack(ModBlocks.SLATE_BRICK));
 			GameRegistry.addShapedRecipe(new ResourceLocation(Rustic.MODID, "slate_brick"), null, new ItemStack(ModBlocks.SLATE_BRICK, 4), "SS", "SS", 'S',

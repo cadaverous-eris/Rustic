@@ -10,13 +10,17 @@ import com.ferreusveritas.dynamictrees.api.TreeRegistry;
 import com.ferreusveritas.dynamictrees.api.WorldGenRegistry;
 import com.ferreusveritas.dynamictrees.api.client.ModelHelper;
 import com.ferreusveritas.dynamictrees.api.treedata.ILeavesProperties;
-import com.ferreusveritas.dynamictrees.api.worldgen.IBiomeSpeciesSelector;
+import com.ferreusveritas.dynamictrees.api.worldgen.BiomePropertySelectors.ISpeciesSelector;
+import com.ferreusveritas.dynamictrees.api.worldgen.BiomePropertySelectors.RandomSpeciesSelector;
 import com.ferreusveritas.dynamictrees.blocks.BlockDynamicLeaves;
 import com.ferreusveritas.dynamictrees.blocks.BlockDynamicSapling;
 import com.ferreusveritas.dynamictrees.blocks.LeavesProperties;
 import com.ferreusveritas.dynamictrees.items.DendroPotion.DendroPotionType;
 import com.ferreusveritas.dynamictrees.trees.Species;
 import com.ferreusveritas.dynamictrees.trees.TreeFamily;
+import com.ferreusveritas.dynamictrees.worldgen.BiomeDataBase;
+import com.ferreusveritas.dynamictrees.worldgen.BiomeDataBase.Operation;
+import com.ferreusveritas.dynamictrees.worldgen.TreeGenerator;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockLeaves;
@@ -28,7 +32,10 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
+import net.minecraft.world.biome.Biome;
 import net.minecraftforge.client.model.ModelLoader;
+import net.minecraftforge.common.BiomeDictionary;
+import net.minecraftforge.common.BiomeDictionary.Type;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.brewing.BrewingRecipeRegistry;
 import net.minecraftforge.fml.common.registry.GameRegistry;
@@ -40,7 +47,6 @@ import rustic.common.blocks.BlockPlanksRustic;
 import rustic.common.blocks.ModBlocks;
 import rustic.compat.dynamictrees.trees.TreeIronwood;
 import rustic.compat.dynamictrees.trees.TreeOlive;
-import rustic.compat.dynamictrees.worldgen.BiomeSpeciesSelector;
 import rustic.core.Rustic;
 
 public class DynamicTreesCompat {
@@ -127,11 +133,29 @@ public class DynamicTreesCompat {
 	}
 	
 	private static void registerBiomeHandlers() {
-		if (WorldGenRegistry.isWorldGenEnabled()) {
-			IBiomeSpeciesSelector biomeSpeciesSelector = new BiomeSpeciesSelector();
-			WorldGenRegistry.registerBiomeTreeSelector(biomeSpeciesSelector);
+		if(WorldGenRegistry.isWorldGenEnabled()) {
+			Species olive = TreeRegistry.findSpecies(new ResourceLocation(Rustic.MODID, "olive"));
+			Species ironwood = TreeRegistry.findSpecies(new ResourceLocation(Rustic.MODID, "ironwood"));
 			
-			biomeSpeciesSelector.init();
+			BiomeDataBase dbase = TreeGenerator.getTreeGenerator().biomeDataBase;
+			
+			Biome.REGISTRY.forEach(biome -> {
+				RandomSpeciesSelector selector = new RandomSpeciesSelector().add(75);
+				boolean flag = false;
+				
+				if ((!BiomeDictionary.hasType(biome, Type.SNOWY) && !BiomeDictionary.hasType(biome, Type.DEAD) && !BiomeDictionary.hasType(biome, Type.SAVANNA)) && (BiomeDictionary.hasType(biome, Type.FOREST) || BiomeDictionary.hasType(biome, Type.PLAINS) || BiomeDictionary.hasType(biome, Type.MOUNTAIN))) {
+					selector.add(olive, 1);
+					flag = true;
+				}
+				if ((!BiomeDictionary.hasType(biome, Type.DRY) && !BiomeDictionary.hasType(biome, Type.DEAD) && !BiomeDictionary.hasType(biome, Type.SAVANNA)) && (BiomeDictionary.hasType(biome, Type.FOREST) || BiomeDictionary.hasType(biome, Type.PLAINS) || BiomeDictionary.hasType(biome, Type.MOUNTAIN) || BiomeDictionary.hasType(biome, Type.SWAMP) || BiomeDictionary.hasType(biome, Type.JUNGLE))) {
+					selector.add(ironwood, 1);
+					flag = true;
+				}
+				
+				if (flag) {
+					dbase.setSpeciesSelector(biome, selector, Operation.SPLICE_BEFORE);
+				}
+			});
 		}
 	}
 	

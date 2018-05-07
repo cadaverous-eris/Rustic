@@ -105,6 +105,8 @@ import net.minecraftforge.fluids.UniversalBucket;
 import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
 import net.minecraftforge.fluids.capability.IFluidHandler;
 import net.minecraftforge.fluids.capability.ItemFluidContainer;
+import net.minecraftforge.fml.common.eventhandler.Event.Result;
+import net.minecraftforge.fml.common.eventhandler.EventPriority;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.PlayerEvent;
 import net.minecraftforge.fml.common.gameevent.TickEvent;
@@ -121,6 +123,7 @@ import rustic.common.items.ModItems;
 import rustic.common.network.PacketHandler;
 import rustic.common.potions.PotionsRustic;
 import rustic.common.tileentity.ITileEntitySyncable;
+import rustic.common.tileentity.TileEntityBrewingBarrel;
 import rustic.common.util.GenericUtils;
 import rustic.core.Rustic;
 
@@ -165,7 +168,7 @@ public class EventHandlerCommon {
 		}
 	}
 
-	@SubscribeEvent
+	@SubscribeEvent(priority = EventPriority.HIGHEST)
 	public void onItemUseTick(LivingEntityUseItemEvent.Tick event) {
 		ItemStack originalStack = event.getItem();
 		if (!originalStack.isEmpty() && originalStack.getItem() instanceof ItemSoup && originalStack.hasTagCompound()
@@ -178,7 +181,7 @@ public class EventHandlerCommon {
 		}
 	}
 
-	@SubscribeEvent
+	@SubscribeEvent(priority = EventPriority.HIGHEST)
 	public void onItemUseFinish(LivingEntityUseItemEvent.Finish event) {
 		ItemStack originalStack = event.getItem();
 		if (!originalStack.isEmpty() && originalStack.getItem() instanceof ItemFood && originalStack.hasTagCompound()
@@ -225,8 +228,13 @@ public class EventHandlerCommon {
 				} else if (state.getBlock() instanceof ITileEntityProvider && world.getTileEntity(pos) != null
 						&& world.getTileEntity(pos).hasCapability(CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY,
 								event.getFace())) {
+					if (state.getBlock() == ModBlocks.BREWING_BARREL && event.getFace() != EnumFacing.DOWN) {
+						return;
+					}
+					
 					IFluidHandler tank = world.getTileEntity(pos)
 							.getCapability(CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY, event.getFace());
+					
 					if (tank != null && tank.drain(1000, false) != null && tank.drain(1000, false).getFluid() != null) {
 						if (ItemFluidBottle.VALID_FLUIDS.contains(tank.drain(1000, false).getFluid())
 								&& tank.drain(1000, false).amount >= 1000) {
@@ -235,8 +243,7 @@ public class EventHandlerCommon {
 							player.playSound(SoundEvents.ITEM_BUCKET_FILL, 1.0F, 1.0F);
 							stack.shrink(1);
 							ItemStack bottlestack = new ItemStack(ModItems.FLUID_BOTTLE, 1);
-							NBTTagCompound fluidTag = new FluidStack(fill.getFluid(), 1000)
-									.writeToNBT(new NBTTagCompound());
+							NBTTagCompound fluidTag = fill.writeToNBT(new NBTTagCompound());
 							NBTTagCompound tag = new NBTTagCompound();
 							tag.setTag(ItemFluidBottle.FLUID_NBT_KEY, fluidTag);
 							bottlestack.setTagCompound(tag);
@@ -255,6 +262,7 @@ public class EventHandlerCommon {
 								player.dropItem(bottlestack, false);
 							}
 							event.setCanceled(true);
+							event.setUseBlock(Result.DENY);
 						}
 					}
 				}

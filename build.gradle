@@ -69,7 +69,7 @@ jar {
 
 apply from: 'dependencies.gradle'
 
-version = "1.0.3"
+version = "1.0.4"
 group = "com.mangoose.rustic"
 archivesBaseName = "rustic"
 
@@ -79,7 +79,7 @@ compileJava {
 }
 
 minecraft {
-    version = "1.12.2-14.23.1.2582"
+    version = "1.12.2-14.23.1.2594"
     runDir = "run"
     
     mappings = "snapshot_20171003"

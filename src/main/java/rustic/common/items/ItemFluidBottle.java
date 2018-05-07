@@ -161,7 +161,7 @@ public class ItemFluidBottle extends ItemFluidContainer {
 
 	public ActionResult<ItemStack> onItemRightClick(World worldIn, EntityPlayer playerIn, EnumHand handIn) {
 		playerIn.setActiveHand(handIn);
-		System.out.println(playerIn.getHeldItem(handIn).getTagCompound());
+		//System.out.println(playerIn.getHeldItem(handIn).getTagCompound());
 		return new ActionResult(EnumActionResult.SUCCESS, playerIn.getHeldItem(handIn));
 	}
 

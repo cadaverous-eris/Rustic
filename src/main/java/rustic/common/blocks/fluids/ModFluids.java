@@ -1,6 +1,7 @@
 package rustic.common.blocks.fluids;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 import net.minecraft.block.material.Material;
@@ -215,7 +216,9 @@ public class ModFluids {
 						}
 					}
 				} else {
-					for (PotionEffect effect : player.getActivePotionEffects()) {
+					PotionEffect[] effects = player.getActivePotionEffects().toArray(new PotionEffect[0]);
+					for (int i = 0; i < effects.length; i++) {
+						PotionEffect effect = effects[i];
 						if (!effect.getPotion().isBadEffect()) {
 							if (effect.getAmplifier() > 0) {
 								player.removePotionEffect(effect.getPotion());
@@ -246,7 +249,9 @@ public class ModFluids {
 						}
 					}
 				} else {
-					for (PotionEffect effect : player.getActivePotionEffects()) {
+					PotionEffect[] effects = player.getActivePotionEffects().toArray(new PotionEffect[0]);
+					for (int i = 0; i < effects.length; i++) {
+						PotionEffect effect = effects[i];
 						int durationDecrease = (int) (2400 * (Math.abs(quality - 0.5)));
 						if (!effect.getPotion().isBadEffect()) {
 							int duration = effect.getDuration() - durationDecrease;

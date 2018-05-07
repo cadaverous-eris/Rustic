@@ -13,6 +13,7 @@ import net.minecraft.util.DamageSource;
 import net.minecraftforge.event.entity.living.LivingEntityUseItemEvent;
 import net.minecraftforge.event.entity.living.LivingEvent.LivingUpdateEvent;
 import net.minecraftforge.event.entity.living.LivingHurtEvent;
+import net.minecraftforge.fml.common.eventhandler.EventPriority;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
 public class EventHandlerPotions {
@@ -37,7 +38,7 @@ public class EventHandlerPotions {
 		}
 	}
 
-	@SubscribeEvent
+	@SubscribeEvent(priority = EventPriority.HIGHEST)
 	public void onWaterBottleUse(LivingEntityUseItemEvent.Finish event) {
 		EntityLivingBase entity = event.getEntityLiving();
 		PotionEffect effect = entity.getActivePotionEffect(PotionsRustic.TIPSY);
