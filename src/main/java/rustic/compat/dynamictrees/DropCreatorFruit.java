@@ -4,9 +4,12 @@ import java.util.List;
 import java.util.Random;
 
 import com.ferreusveritas.dynamictrees.ModConfigs;
+import com.ferreusveritas.dynamictrees.api.TreeHelper;
+import com.ferreusveritas.dynamictrees.blocks.BlockBranch;
 import com.ferreusveritas.dynamictrees.systems.dropcreators.DropCreator;
 import com.ferreusveritas.dynamictrees.trees.Species;
 
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
@@ -38,8 +41,14 @@ public class DropCreatorFruit extends DropCreator {
 	
 	@Override
 	public List<ItemStack> getVoluntaryDrop(World world, Species species, BlockPos rootPos, Random random, List<ItemStack> dropList, int soilLife) {
-		if (soilLife <= 4 && 0.33f > random.nextFloat()) {
-			dropList.add(new ItemStack(fruit, 1, 0));
+		BlockPos treePos = rootPos.up();
+		IBlockState trunk = world.getBlockState(treePos);
+		BlockBranch branch = TreeHelper.getBranch(trunk);
+		
+		if (branch != null && branch.getRadius(trunk, world, treePos) >= 8) {
+			if (0.33f > random.nextFloat()) {
+				dropList.add(new ItemStack(fruit, 1, 0));
+			}
 		}
 		return dropList;
 	}

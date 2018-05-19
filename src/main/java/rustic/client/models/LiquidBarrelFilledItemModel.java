@@ -102,6 +102,10 @@ public class LiquidBarrelFilledItemModel implements IBakedModel {
 		List<BakedQuad> returnList = new ArrayList<BakedQuad>();
 		if (fluid != null) {
 			TextureAtlasSprite fluidTexture = FluidClientUtil.stillTextures.get(fluid);
+			
+			if (fluidTexture == null) {
+				return returnList;
+			}
 
 			float x1, x2, x3, x4;
 			float y1, y2, y3, y4;
