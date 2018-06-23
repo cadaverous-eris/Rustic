@@ -13,35 +13,26 @@ import net.minecraft.block.properties.PropertyBool;
 import net.minecraft.block.state.BlockFaceShape;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
-import net.minecraft.client.renderer.block.model.ModelResourceLocation;
-import net.minecraft.client.renderer.block.statemap.IStateMapper;
-import net.minecraft.client.renderer.block.statemap.StateMap;
 import net.minecraft.client.renderer.color.IBlockColor;
 import net.minecraft.client.renderer.color.IItemColor;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.init.Blocks;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.BlockRenderLayer;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
-import net.minecraft.util.Mirror;
-import net.minecraft.util.Rotation;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.ColorizerFoliage;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.BiomeColorHelper;
-import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.common.property.ExtendedBlockState;
 import net.minecraftforge.common.property.IExtendedBlockState;
 import net.minecraftforge.common.property.IUnlistedProperty;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-import rustic.common.blocks.BlockPlanksRustic.EnumType;
 import rustic.common.blocks.crops.BlockGrapeLeaves;
 import rustic.common.blocks.properties.UnlistedPropertyBool;
 import rustic.core.ClientProxy;
@@ -139,23 +130,33 @@ public class BlockLattice extends BlockBase implements IColoredBlock {
 	public IBlockState getExtendedState(IBlockState state, IBlockAccess world, BlockPos pos) {
 		IExtendedBlockState extendedState = (IExtendedBlockState) state;
 		for (int i = 0; i < CONNECTIONS.length; i++) {
-			boolean connected = getConnection(world, pos, EnumFacing.getFront(i));
+			boolean connected = canConnectTo(world, pos, EnumFacing.getFront(i));
 			extendedState = extendedState.withProperty(CONNECTIONS[i], connected);
 		}
 		return extendedState;
 	}
 	
-	private boolean getConnection(IBlockAccess world, BlockPos pos, EnumFacing facing) {
-		IBlockState state = world.getBlockState(pos.offset(facing));
+	@Override
+	public boolean canBeConnectedTo(IBlockAccess world, BlockPos pos, EnumFacing facing) {
+		return canConnectTo(world, pos.offset(facing), facing.getOpposite());
+	}
+	
+	private boolean canConnectTo(IBlockAccess world, BlockPos pos, EnumFacing facing) {
+		BlockPos deltaPos = pos.offset(facing);
+		IBlockState state = world.getBlockState(deltaPos);
 		Block block = state.getBlock();
-		return world.isSideSolid(pos.offset(facing), facing.getOpposite(), false) || 
+		BlockFaceShape blockfaceshape = state.getBlockFaceShape(world, deltaPos, facing.getOpposite());
+		
+		return	
+				//world.isSideSolid(pos.offset(facing), facing.getOpposite(), false) || 
 				block instanceof BlockLattice || 
 				(block instanceof BlockChain && state.getValue(BlockChain.AXIS) == facing.getAxis()) || 
-				(block instanceof BlockLantern && facing.getAxis() == EnumFacing.Axis.Y && state.getValue(BlockLantern.FACING) == facing) ||
-				(block instanceof BlockRope && state.getValue(BlockRope.AXIS) == facing.getAxis()) ||
-				(block instanceof BlockGrapeLeaves && state.getValue(BlockGrapeLeaves.AXIS) == facing.getAxis());
+				(block instanceof BlockLantern && facing.getAxis() == EnumFacing.Axis.Y && state.getValue(BlockLantern.FACING) == facing) || 
+				(block instanceof BlockRope && state.getValue(BlockRope.AXIS) == facing.getAxis()) || 
+				(block instanceof BlockGrapeLeaves && state.getValue(BlockGrapeLeaves.AXIS) == facing.getAxis()) || 
+				((blockfaceshape != BlockFaceShape.BOWL) && (blockfaceshape != BlockFaceShape.UNDEFINED));
 	}
-
+	
 	@Override
 	public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn,
 			EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
@@ -237,7 +238,8 @@ public class BlockLattice extends BlockBase implements IColoredBlock {
 	
 	@Override
 	public BlockFaceShape getBlockFaceShape(IBlockAccess world, IBlockState state, BlockPos pos, EnumFacing side) {
-		return BlockFaceShape.UNDEFINED;
+		return BlockFaceShape.CENTER_SMALL;
+		//return BlockFaceShape.UNDEFINED;
 	}
 
 }

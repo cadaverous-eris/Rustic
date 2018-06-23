@@ -14,10 +14,7 @@ import net.minecraft.block.properties.PropertyDirection;
 import net.minecraft.block.state.BlockFaceShape;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
-import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemBlock;
 import net.minecraft.util.BlockRenderLayer;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumParticleTypes;
@@ -27,11 +24,8 @@ import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
-import net.minecraftforge.client.model.ModelLoader;
-import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-import rustic.core.Rustic;
 
 public class BlockCandle extends BlockBase {
 
@@ -40,16 +34,11 @@ public class BlockCandle extends BlockBase {
 			return p_apply_1_ != EnumFacing.DOWN;
 		}
 	});
-	protected static final AxisAlignedBB STANDING_AABB = new AxisAlignedBB(0.4000000059604645D, 0.0D,
-			0.4000000059604645D, 0.6000000238418579D, 0.9375D, 0.6000000238418579D);
-	protected static final AxisAlignedBB CANDLE_NORTH_AABB = new AxisAlignedBB(0.3499999940395355D, 0.0D,
-			0.699999988079071D, 0.6499999761581421D, 0.800000011920929D, 1.0D);
-	protected static final AxisAlignedBB CANDLE_SOUTH_AABB = new AxisAlignedBB(0.3499999940395355D, 0.0D, 0.0D,
-			0.6499999761581421D, 0.800000011920929D, 0.30000001192092896D);
-	protected static final AxisAlignedBB CANDLE_WEST_AABB = new AxisAlignedBB(0.699999988079071D, 0.0D,
-			0.3499999940395355D, 1.0D, 0.800000011920929D, 0.6499999761581421D);
-	protected static final AxisAlignedBB CANDLE_EAST_AABB = new AxisAlignedBB(0.0D, 0.0D, 0.3499999940395355D,
-			0.30000001192092896D, 0.800000011920929D, 0.6499999761581421D);
+	protected static final AxisAlignedBB STANDING_AABB = new AxisAlignedBB(0.4, 0.0, 0.4, 0.6, 0.9375, 0.6);
+	protected static final AxisAlignedBB CANDLE_NORTH_AABB = new AxisAlignedBB(0.35, 0.0, 0.7, 0.65, 0.8, 1.0);
+	protected static final AxisAlignedBB CANDLE_SOUTH_AABB = new AxisAlignedBB(0.35, 0.0, 0.0, 0.65, 0.8, 0.3);
+	protected static final AxisAlignedBB CANDLE_WEST_AABB = new AxisAlignedBB(0.7, 0.0, 0.35, 1.0, 0.8, 0.65);
+	protected static final AxisAlignedBB CANDLE_EAST_AABB = new AxisAlignedBB(0.0D, 0.0, 0.35, 0.3, 0.8, 0.65);
 
 	public BlockCandle() {
 		super(Material.CIRCUITS, "candle");
@@ -71,7 +60,14 @@ public class BlockCandle extends BlockBase {
 
 	private boolean canPlaceOn(World worldIn, BlockPos pos) {
 		IBlockState state = worldIn.getBlockState(pos);
-		if (state.isSideSolid(worldIn, pos, EnumFacing.UP)) {
+		BlockFaceShape faceShape = state.getBlockFaceShape(worldIn, pos, EnumFacing.UP);
+		
+		if (
+			faceShape == BlockFaceShape.SOLID ||
+			faceShape == BlockFaceShape.CENTER ||
+			faceShape == BlockFaceShape.CENTER_BIG ||
+			faceShape == BlockFaceShape.CENTER_SMALL
+		) {
 			return true;
 		} else {
 			return state.getBlock().canPlaceTorchOnTop(state, worldIn, pos);
@@ -183,8 +179,8 @@ public class BlockCandle extends BlockBase {
 		double d0 = (double) pos.getX() + 0.5D;
 		double d1 = (double) pos.getY() + 0.7D;
 		double d2 = (double) pos.getZ() + 0.5D;
-		double d3 = 0.22D;
-		double d4 = 0.27D;
+		//double d3 = 0.22D;
+		//double d4 = 0.27D;
 
 		if (enumfacing.getAxis().isHorizontal()) {
 			EnumFacing enumfacing1 = enumfacing.getOpposite();
@@ -270,7 +266,7 @@ public class BlockCandle extends BlockBase {
 
 	@Override
 	public BlockFaceShape getBlockFaceShape(IBlockAccess world, IBlockState state, BlockPos pos, EnumFacing side) {
-		return BlockFaceShape.UNDEFINED;
+		return side == EnumFacing.DOWN ? BlockFaceShape.CENTER_SMALL : BlockFaceShape.UNDEFINED;
 	}
 
 }
