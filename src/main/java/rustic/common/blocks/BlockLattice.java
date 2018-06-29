@@ -148,13 +148,16 @@ public class BlockLattice extends BlockBase implements IColoredBlock {
 		BlockFaceShape blockfaceshape = state.getBlockFaceShape(world, deltaPos, facing.getOpposite());
 		
 		return	
-				//world.isSideSolid(pos.offset(facing), facing.getOpposite(), false) || 
-				block instanceof BlockLattice || 
-				(block instanceof BlockChain && state.getValue(BlockChain.AXIS) == facing.getAxis()) || 
-				(block instanceof BlockLantern && facing.getAxis() == EnumFacing.Axis.Y && state.getValue(BlockLantern.FACING) == facing) || 
-				(block instanceof BlockRope && state.getValue(BlockRope.AXIS) == facing.getAxis()) || 
-				(block instanceof BlockGrapeLeaves && state.getValue(BlockGrapeLeaves.AXIS) == facing.getAxis()) || 
-				((blockfaceshape != BlockFaceShape.BOWL) && (blockfaceshape != BlockFaceShape.UNDEFINED));
+			(block instanceof BlockLattice) || 
+			(block instanceof BlockChain && state.getValue(BlockChain.AXIS) == facing.getAxis()) || 
+			(block instanceof BlockLantern && facing.getAxis() == EnumFacing.Axis.Y && state.getValue(BlockLantern.FACING) == facing) || 
+			(block instanceof BlockRope && state.getValue(BlockRope.AXIS) == facing.getAxis()) || 
+			(block instanceof BlockGrapeLeaves && state.getValue(BlockGrapeLeaves.AXIS) == facing.getAxis()) || 
+			(	
+				(blockfaceshape != BlockFaceShape.BOWL) && //Don't connect to the tops of hoppers and cauldrons
+				(blockfaceshape != BlockFaceShape.UNDEFINED) && //Don't connect to anything with an undefined face shape
+				!Block.isExceptBlockForAttachWithPiston(block) //Don't connect to Leaves, Glass, Ice, Pistons etc.
+			);
 	}
 	
 	@Override
