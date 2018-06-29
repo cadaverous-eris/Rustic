@@ -1,14 +1,9 @@
 package rustic.common.crafting;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import net.minecraft.item.ItemStack;
-import net.minecraft.potion.PotionEffect;
-import net.minecraft.potion.PotionType;
-import net.minecraft.potion.PotionUtils;
-import rustic.common.items.ModItems;
 
 public abstract class CondenserRecipe {
 

@@ -4,7 +4,6 @@ import net.minecraft.client.gui.GuiButton;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import rustic.client.gui.book.GuiBook;
-import rustic.core.Rustic;
 
 public abstract class BookPage {
 	

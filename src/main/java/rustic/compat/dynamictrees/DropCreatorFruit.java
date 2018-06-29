@@ -3,7 +3,6 @@ package rustic.compat.dynamictrees;
 import java.util.List;
 import java.util.Random;
 
-import com.ferreusveritas.dynamictrees.ModConfigs;
 import com.ferreusveritas.dynamictrees.api.TreeHelper;
 import com.ferreusveritas.dynamictrees.blocks.BlockBranch;
 import com.ferreusveritas.dynamictrees.systems.dropcreators.DropCreator;

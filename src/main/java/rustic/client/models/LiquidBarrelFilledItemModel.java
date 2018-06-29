@@ -1,7 +1,5 @@
 package rustic.client.models;
 
-import java.awt.Color;
-import java.nio.ByteOrder;
 import java.util.ArrayList;
 import java.util.List;
 

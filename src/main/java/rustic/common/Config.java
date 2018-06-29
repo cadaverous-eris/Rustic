@@ -1,15 +1,13 @@
 package rustic.common;
 
-import rustic.core.CommonProxy;
-
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import net.minecraft.item.Item;
 import net.minecraftforge.common.config.ConfigCategory;
 import net.minecraftforge.common.config.Configuration;
 import net.minecraftforge.common.config.Property;
+import rustic.core.CommonProxy;
 
 public class Config {
 

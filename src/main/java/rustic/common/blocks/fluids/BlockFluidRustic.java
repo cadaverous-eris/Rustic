@@ -6,9 +6,6 @@ import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.BlockFaceShape;
 import net.minecraft.block.state.IBlockState;
-import net.minecraft.client.renderer.block.model.ModelBakery;
-import net.minecraft.client.renderer.block.model.ModelResourceLocation;
-import net.minecraft.client.renderer.block.statemap.StateMapperBase;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemBlock;
@@ -21,8 +18,6 @@ import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.fluids.BlockFluidBase;
 import net.minecraftforge.fluids.BlockFluidClassic;
 import net.minecraftforge.fluids.Fluid;
-import net.minecraftforge.fluids.FluidStack;
-import net.minecraftforge.fluids.IFluidBlock;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
@@ -60,8 +55,7 @@ public class BlockFluidRustic extends BlockFluidClassic {
 
 		FluidStateMapper stateMapper = new FluidStateMapper(this.stack.getFluid());
 
-		final ModelResourceLocation modelResourceLocation = new ModelResourceLocation(Rustic.MODID + ":block_fluid",
-				stack.getFluid().getName());
+		//final ModelResourceLocation modelResourceLocation = new ModelResourceLocation(Rustic.MODID + ":block_fluid", stack.getFluid().getName());
 
 		ModelLoader.registerItemVariants(item);
 		ModelLoader.setCustomMeshDefinition(item, stateMapper);

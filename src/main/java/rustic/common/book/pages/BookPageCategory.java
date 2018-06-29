@@ -5,6 +5,7 @@ import java.util.List;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
+import net.minecraft.client.gui.Gui;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.RenderHelper;
@@ -17,7 +18,6 @@ import rustic.common.book.BookCategory;
 import rustic.common.book.BookEntry;
 import rustic.common.book.BookEntryCategory;
 import rustic.common.book.BookPage;
-import rustic.common.book.pages.BookPageCategories.CategoryButton;
 
 public class BookPageCategory extends BookPage {
 	
@@ -33,7 +33,7 @@ public class BookPageCategory extends BookPage {
 	@Override
 	public void drawScreen(GuiBook gui, int mouseX, int mouseY, float partialTicks) {
 		int y = gui.guiTop + 12;
-		int x = gui.guiLeft + (gui.WIDTH / 2);
+		int x = gui.guiLeft + (GuiBook.WIDTH / 2);
 		
 		gui.drawCenteredText(TextFormatting.UNDERLINE + "" + TextFormatting.BOLD + I18n.translateToLocal(category.getName()), x, y, 0x000000);
 	}
@@ -45,7 +45,7 @@ public class BookPageCategory extends BookPage {
 		int x = gui.guiLeft + 14;
 		int y = gui.guiTop + 24;
 		for (BookEntry entry : this.entries) {
-			gui.getButtonList().add(new EntryLinkButton(gui.nextButtonID(), x, y, gui.WIDTH - 16 - 14, gui.getFontRenderer(), entry));
+			gui.getButtonList().add(new EntryLinkButton(gui.nextButtonID(), x, y, GuiBook.WIDTH - 16 - 14, gui.getFontRenderer(), entry));
 			y += (gui.getFontRenderer().FONT_HEIGHT + 2);
 		}
 	}
@@ -91,7 +91,7 @@ public class BookPageCategory extends BookPage {
 						this.ticksHovered++;
 					}
 					int rectWidth = Math.min(ticksHovered * 10, width);
-					this.drawRect(x, y, x + rectWidth, y + height, 0x40000000);
+					Gui.drawRect(x, y, x + rectWidth, y + height, 0x40000000);
 				} else {
 					this.ticksHovered = 0;
 				}

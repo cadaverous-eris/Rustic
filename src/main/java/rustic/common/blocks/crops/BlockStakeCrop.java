@@ -4,8 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-import javax.annotation.Nullable;
-
 import net.minecraft.block.Block;
 import net.minecraft.block.IGrowable;
 import net.minecraft.block.SoundType;
@@ -19,9 +17,7 @@ import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
-import net.minecraft.init.Items;
 import net.minecraft.item.Item;
-import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.BlockRenderLayer;
 import net.minecraft.util.EnumFacing;
@@ -253,7 +249,7 @@ public class BlockStakeCrop extends BlockBase implements IGrowable, IPlantable {
 			EnumFacing side, float hitX, float hitY, float hitZ) {
 		if (state.getValue(AGE) >= getMaxAge()) {
 			world.setBlockState(pos, state.withProperty(AGE, getMaxAge() - 1), 2);
-			state.getBlock().spawnAsEntity(world, pos.offset(side), new ItemStack(getCrop()));
+			Block.spawnAsEntity(world, pos.offset(side), new ItemStack(getCrop()));
 			return true;
 		}
 		return false;

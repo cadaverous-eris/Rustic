@@ -1,29 +1,18 @@
 package rustic.common.tileentity;
 
-import java.lang.reflect.Field;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Random;
-
 import javax.annotation.Nullable;
 
-import net.minecraft.block.BlockChest;
+import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.inventory.Container;
-import net.minecraft.inventory.ContainerChest;
-import net.minecraft.inventory.IInventory;
-import net.minecraft.inventory.InventoryLargeChest;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.nbt.NBTTagFloat;
 import net.minecraft.nbt.NBTTagInt;
 import net.minecraft.network.NetworkManager;
 import net.minecraft.network.play.server.SPacketUpdateTileEntity;
-import net.minecraft.tileentity.TileEntity;
-import net.minecraft.tileentity.TileEntityLockable;
 import net.minecraft.tileentity.TileEntityLockableLoot;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ITickable;
@@ -33,16 +22,12 @@ import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
-import net.minecraft.world.WorldServer;
-import net.minecraft.world.storage.loot.LootContext;
-import net.minecraft.world.storage.loot.LootTable;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.fml.common.Optional;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.IItemHandler;
-import net.minecraftforge.items.ItemStackHandler;
 import rustic.common.blocks.BlockCabinet;
 import rustic.common.blocks.ModBlocks;
 import rustic.common.inventory.DoubleCabinetItemHandler;
@@ -71,7 +56,7 @@ public class TileEntityCabinet extends TileEntityLockableLoot implements ITickab
 	@SideOnly(Side.CLIENT)
 	@Override
 	public AxisAlignedBB getRenderBoundingBox() {
-		IBlockState state = world.getBlockState(pos);
+		//IBlockState state = world.getBlockState(pos);
 		if (world.getBlockState(pos.up()).getBlock() == ModBlocks.CABINET && world.getBlockState(pos.up()).getPropertyKeys().contains(BlockCabinet.TOP) && world.getBlockState(pos.up()).getValue(BlockCabinet.TOP)) {
 			return new AxisAlignedBB(pos.getX(), pos.getY(), pos.getZ(), pos.getX() + 1D, pos.getY() + 2D, pos.getZ() + 1D);
 		}
@@ -89,7 +74,7 @@ public class TileEntityCabinet extends TileEntityLockableLoot implements ITickab
 			
 			int recordedUsers = numPlayersUsing;
 			this.numPlayersUsing = 0;
-			float f = 5.0F;
+			//float f = 5.0F;
 
 			for (EntityPlayer entityplayer : this.world.getEntitiesWithinAABB(EntityPlayer.class,
 					new AxisAlignedBB((double) ((float) i - 5.0F), (double) ((float) j - 5.0F),
@@ -117,7 +102,7 @@ public class TileEntityCabinet extends TileEntityLockableLoot implements ITickab
 		}
 
 		this.prevLidAngle = this.lidAngle;
-		float f1 = 0.1F;
+		//float f1 = 0.1F;
 
 		if (this.numPlayersUsing > 0 && this.lidAngle == 0.0F) {
 			this.world.playSound((EntityPlayer) null, i + 0.5D, j + 0.5D, k + 0.5D, SoundEvents.BLOCK_CHEST_OPEN,
@@ -137,7 +122,7 @@ public class TileEntityCabinet extends TileEntityLockableLoot implements ITickab
 				this.lidAngle = 1.0F;
 			}
 
-			float f3 = 0.5F;
+			//float f3 = 0.5F;
 
 			if (this.lidAngle < 0.5F && f2 >= 0.5F) {
 				this.world.playSound((EntityPlayer) null, i + 0.5D, j + 0.5D, k + 0.5D, SoundEvents.BLOCK_CHEST_CLOSE,
@@ -262,7 +247,7 @@ public class TileEntityCabinet extends TileEntityLockableLoot implements ITickab
 			this.fillWithLoot((EntityPlayer)null);
 			for (int i = 0; i < itemStackHandler.getSlots(); i++) {
 				if (itemStackHandler.getStackInSlot(i) != null) {
-					state.getBlock().spawnAsEntity(world, pos, itemStackHandler.getStackInSlot(i));
+					Block.spawnAsEntity(world, pos, itemStackHandler.getStackInSlot(i));
 				}
 			}
 		}

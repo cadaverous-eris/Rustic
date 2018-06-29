@@ -1,7 +1,5 @@
 package rustic.common.blocks.slab;
 
-import javax.annotation.Nonnull;
-
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockSlab;
 import net.minecraft.block.SoundType;
@@ -11,9 +9,7 @@ import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.item.Item;
-import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.EnumFacing;
 import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.fml.relauncher.Side;
@@ -23,7 +19,7 @@ import rustic.core.Rustic;
 public class BlockSlabBase extends BlockSlab {
 
 	public Item itemBlock = null;
-	private Block doubleSlab;
+	//private Block doubleSlab;
 
 	public BlockSlabBase(Material materialIn, String name, Block block) {
 		super(materialIn);
@@ -33,7 +29,7 @@ public class BlockSlabBase extends BlockSlab {
 		//GameRegistry.register(new ItemBlock(this), getRegistryName());
 		this.setHardness(2.0F);
 		this.useNeighborBrightness = true;
-		this.doubleSlab = block;
+		//this.doubleSlab = block;
 	}
 	
 	public BlockSlabBase(Material materialIn, String name, Block block, SoundType sound) {
@@ -44,7 +40,7 @@ public class BlockSlabBase extends BlockSlab {
 		//GameRegistry.register(new ItemBlock(this), getRegistryName());
 		this.setHardness(2.0F);
 		this.useNeighborBrightness = true;
-		this.doubleSlab = block;
+		//this.doubleSlab = block;
 		this.setSoundType(sound);
 	}
 

@@ -19,9 +19,7 @@ import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.fml.client.registry.ClientRegistry;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-import rustic.client.renderer.CrushingTubRenderer;
 import rustic.client.renderer.EvaporatingBasinRenderer;
-import rustic.common.tileentity.TileEntityCrushingTub;
 import rustic.common.tileentity.TileEntityEvaporatingBasin;
 import rustic.core.Rustic;
 

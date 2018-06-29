@@ -1,6 +1,5 @@
 package rustic.common.blocks;
 
-import net.minecraft.block.BlockLiquid;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
@@ -27,7 +26,7 @@ public class BlockFertileSoil extends BlockBase {
 	@Override
 	public boolean canSustainPlant(IBlockState state, IBlockAccess world, BlockPos pos, EnumFacing direction,
 			net.minecraftforge.common.IPlantable plantable) {
-		IBlockState plant = plantable.getPlant(world, pos.offset(direction));
+		//IBlockState plant = plantable.getPlant(world, pos.offset(direction));
         net.minecraftforge.common.EnumPlantType plantType = plantable.getPlantType(world, pos.offset(direction));
 		switch (plantType) {
             case Desert: return true;

@@ -3,8 +3,8 @@ package rustic.common.tileentity;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
+import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
-import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
@@ -16,7 +16,6 @@ import net.minecraft.network.play.server.SPacketUpdateTileEntity;
 import net.minecraft.tileentity.TileEntityFurnace;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
-import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.util.ITickable;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.SoundEvent;
@@ -25,27 +24,19 @@ import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TextComponentTranslation;
 import net.minecraft.world.World;
-import net.minecraft.world.WorldServer;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.fluids.Fluid;
-import net.minecraftforge.fluids.FluidActionResult;
 import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.FluidTank;
 import net.minecraftforge.fluids.FluidUtil;
 import net.minecraftforge.fluids.UniversalBucket;
 import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
-import net.minecraftforge.fluids.capability.ItemFluidContainer;
 import net.minecraftforge.fluids.capability.TileFluidHandler;
 import net.minecraftforge.items.CapabilityItemHandler;
-import net.minecraftforge.items.IItemHandler;
-import net.minecraftforge.items.IItemHandlerModifiable;
-import net.minecraftforge.items.ItemHandlerHelper;
 import net.minecraftforge.items.ItemStackHandler;
 import rustic.common.blocks.BlockCondenser;
-import rustic.common.blocks.BlockRetort;
 import rustic.common.blocks.ModBlocks;
-import rustic.common.crafting.AdvancedCondenserRecipe;
 import rustic.common.crafting.BasicCondenserRecipe;
 import rustic.common.crafting.CondenserRecipe;
 import rustic.common.crafting.Recipes;
@@ -245,7 +236,7 @@ public class TileEntityCondenser extends TileFluidHandler implements ITickable {
 		if (internalStackHandler != null && !world.isRemote) {
 			for (int i = 0; i < internalStackHandler.getSlots(); i++) {
 				if (internalStackHandler.getStackInSlot(i) != null) {
-					state.getBlock().spawnAsEntity(world, pos, internalStackHandler.getStackInSlot(i));
+					Block.spawnAsEntity(world, pos, internalStackHandler.getStackInSlot(i));
 				}
 			}
 		}

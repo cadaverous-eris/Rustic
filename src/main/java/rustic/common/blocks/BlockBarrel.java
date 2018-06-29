@@ -3,7 +3,6 @@ package rustic.common.blocks;
 import net.minecraft.block.ITileEntityProvider;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
-import net.minecraft.block.properties.PropertyInteger;
 import net.minecraft.block.state.BlockFaceShape;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.EntityLivingBase;
@@ -20,8 +19,6 @@ import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import rustic.common.tileentity.TileEntityBarrel;
-import rustic.common.tileentity.TileEntityCabinet;
-import rustic.common.tileentity.TileEntityVase;
 import rustic.core.Rustic;
 
 public class BlockBarrel extends BlockBase implements ITileEntityProvider {

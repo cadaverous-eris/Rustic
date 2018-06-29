@@ -1,11 +1,19 @@
 package rustic.core;
 
 import java.io.File;
-import java.lang.reflect.Field;
-import java.util.Map;
 
+import net.minecraft.block.BlockDispenser;
+import net.minecraft.item.Item;
+import net.minecraft.world.World;
+import net.minecraftforge.common.config.Configuration;
+import net.minecraftforge.fluids.FluidRegistry;
+import net.minecraftforge.fml.common.Loader;
+import net.minecraftforge.fml.common.event.FMLInitializationEvent;
+import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
+import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
+import net.minecraftforge.fml.common.network.NetworkRegistry;
+import net.minecraftforge.fml.common.registry.GameRegistry;
 import rustic.client.GuiProxy;
-import rustic.client.renderer.LayerIronSkin;
 import rustic.common.Config;
 import rustic.common.blocks.ModBlocks;
 import rustic.common.blocks.fluids.ModFluids;
@@ -19,24 +27,6 @@ import rustic.common.potions.PotionsRustic;
 import rustic.common.util.DispenseRope;
 import rustic.common.world.WorldGeneratorRustic;
 import rustic.compat.Compat;
-import net.minecraft.block.BlockDispenser;
-import net.minecraft.client.renderer.entity.Render;
-import net.minecraft.client.renderer.entity.RenderLivingBase;
-import net.minecraft.entity.Entity;
-import net.minecraft.item.Item;
-import net.minecraft.potion.PotionType;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.world.World;
-import net.minecraftforge.common.config.Configuration;
-import net.minecraftforge.fluids.FluidRegistry;
-import net.minecraftforge.fml.client.registry.IRenderFactory;
-import net.minecraftforge.fml.client.registry.RenderingRegistry;
-import net.minecraftforge.fml.common.Loader;
-import net.minecraftforge.fml.common.event.FMLInitializationEvent;
-import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
-import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
-import net.minecraftforge.fml.common.network.NetworkRegistry;
-import net.minecraftforge.fml.common.registry.GameRegistry;
 
 public class CommonProxy {
 	

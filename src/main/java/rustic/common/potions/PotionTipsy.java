@@ -3,8 +3,6 @@ package rustic.common.potions;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.init.MobEffects;
 import net.minecraft.potion.PotionEffect;
-import rustic.common.network.MessageShameFX;
-import rustic.common.network.PacketHandler;
 
 public class PotionTipsy extends PotionBase {
 	

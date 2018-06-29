@@ -2,6 +2,7 @@ package rustic.common.tileentity;
 
 import javax.annotation.Nullable;
 
+import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
@@ -10,7 +11,6 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.NetworkManager;
 import net.minecraft.network.play.server.SPacketUpdateTileEntity;
-import net.minecraft.tileentity.TileEntity;
 import net.minecraft.tileentity.TileEntityLockableLoot;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.NonNullList;
@@ -20,10 +20,8 @@ import net.minecraft.world.World;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.fml.common.Optional;
 import net.minecraftforge.items.CapabilityItemHandler;
-import net.minecraftforge.items.ItemStackHandler;
 import rustic.common.util.ItemStackHandlerRustic;
 import rustic.compat.Compat;
-import rustic.core.Rustic;
 import vazkii.quark.api.IDropoffManager;
 
 @Optional.Interface(modid = Compat.QUARK, iface = "vazkii.quark.api.IDropoffManager", striprefs = true)
@@ -88,7 +86,7 @@ public class TileEntityBarrel extends TileEntityLockableLoot implements IDropoff
 			this.fillWithLoot((EntityPlayer)null);
 			for (int i = 0; i < itemStackHandler.getSlots(); i ++){
 				if (itemStackHandler.getStackInSlot(i) != null){
-					state.getBlock().spawnAsEntity(world, pos, itemStackHandler.getStackInSlot(i));
+					Block.spawnAsEntity(world, pos, itemStackHandler.getStackInSlot(i));
 				}
 			}
 		}

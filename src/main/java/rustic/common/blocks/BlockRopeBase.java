@@ -20,11 +20,7 @@ import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
-import net.minecraftforge.common.property.ExtendedBlockState;
-import net.minecraftforge.common.property.IExtendedBlockState;
-import net.minecraftforge.common.property.IUnlistedProperty;
 import rustic.common.blocks.crops.BlockGrapeLeaves;
-import rustic.common.blocks.properties.UnlistedPropertyBool;
 
 public abstract class BlockRopeBase extends BlockBase {
 
@@ -166,7 +162,7 @@ public abstract class BlockRopeBase extends BlockBase {
 	@Override
 	public IBlockState getStateFromMeta(int meta) {
 		EnumFacing.Axis enumfacing$axis = EnumFacing.Axis.Y;
-		boolean supported = false;
+		//boolean supported = false;
 		int i = meta & 3;
 
 		if (i == 0) {

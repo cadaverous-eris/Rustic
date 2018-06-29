@@ -1,7 +1,5 @@
 package rustic.client;
 
-import java.util.Random;
-
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
@@ -9,35 +7,28 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.EntityPlayerSP;
 import net.minecraft.client.gui.Gui;
 import net.minecraft.client.gui.GuiIngame;
-import net.minecraft.client.gui.ScaledResolution;
 import net.minecraft.client.renderer.BufferBuilder;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.block.model.IBakedModel;
-import net.minecraft.client.renderer.block.model.ModelResourceLocation;
-import net.minecraft.client.renderer.texture.TextureAtlasSprite;
-import net.minecraft.client.renderer.texture.TextureMap;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemFood;
 import net.minecraft.item.ItemStack;
-import net.minecraft.network.play.client.CPacketHeldItemChange;
 import net.minecraft.util.EnumFacing;
+import net.minecraft.util.EnumFacing.Axis;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.EnumFacing.Axis;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.util.text.TextFormatting;
-import net.minecraft.world.World;
 import net.minecraftforge.client.GuiIngameForge;
 import net.minecraftforge.client.event.DrawBlockHighlightEvent;
 import net.minecraftforge.client.event.ModelBakeEvent;
@@ -45,33 +36,27 @@ import net.minecraftforge.client.event.MouseEvent;
 import net.minecraftforge.client.event.RenderBlockOverlayEvent;
 import net.minecraftforge.client.event.RenderBlockOverlayEvent.OverlayType;
 import net.minecraftforge.client.event.RenderGameOverlayEvent;
+import net.minecraftforge.client.event.RenderGameOverlayEvent.ElementType;
 import net.minecraftforge.client.event.TextureStitchEvent;
 import net.minecraftforge.common.ForgeHooks;
-import net.minecraftforge.fluids.BlockFluidBase;
+import net.minecraftforge.event.entity.player.ItemTooltipEvent;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.FluidUtil;
 import net.minecraftforge.fluids.capability.ItemFluidContainer;
-import net.minecraftforge.client.event.RenderGameOverlayEvent.ElementType;
-import net.minecraftforge.event.entity.player.ItemTooltipEvent;
-import net.minecraftforge.fml.common.Loader;
-import net.minecraftforge.fml.common.eventhandler.EventPriority;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import rustic.client.models.BookBakedModel;
-import rustic.client.models.FluidBottleModel;
 import rustic.client.models.LiquidBarrelItemModel;
 import rustic.client.util.FluidClientUtil;
 import rustic.common.Config;
 import rustic.common.blocks.BlockVase;
 import rustic.common.blocks.IAdvancedRotationPlacement;
 import rustic.common.blocks.ModBlocks;
-import rustic.common.blocks.fluids.BlockFluidRustic;
 import rustic.common.blocks.fluids.FluidBooze;
 import rustic.common.blocks.fluids.ModFluids;
 import rustic.common.network.MessageVaseMeta;
 import rustic.common.network.PacketHandler;
-import rustic.core.Rustic;
 
 public class EventHandlerClient {
 
@@ -92,7 +77,7 @@ public class EventHandlerClient {
 	public static ResourceLocation HONEY_OVERLAY = new ResourceLocation(
 			"rustic:textures/blocks/fluids/honey_overlay.png");
 
-	private Random rand = new Random();
+	//private Random rand = new Random();
 
 	@SideOnly(Side.CLIENT)
 	@SubscribeEvent
@@ -385,12 +370,14 @@ public class EventHandlerClient {
 				GlStateManager.DestFactor.ONE_MINUS_SRC_ALPHA, GlStateManager.SourceFactor.ONE,
 				GlStateManager.DestFactor.ZERO);
 		GlStateManager.pushMatrix();
+		/*
 		float f1 = 4.0F;
 		float f2 = -1.0F;
 		float f3 = 1.0F;
 		float f4 = -1.0F;
 		float f5 = 1.0F;
 		float f6 = -0.5F;
+		*/
 		float f7 = -Minecraft.getMinecraft().player.rotationYaw / 64.0F;
 		float f8 = Minecraft.getMinecraft().player.rotationPitch / 64.0F;
 		vertexbuffer.begin(7, DefaultVertexFormats.POSITION_TEX);

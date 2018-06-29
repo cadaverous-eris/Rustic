@@ -3,21 +3,16 @@ package rustic.common.world;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
-import java.util.Set;
 
-import net.minecraft.block.state.IBlockState;
-import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.gen.feature.WorldGenerator;
 import net.minecraftforge.common.BiomeDictionary;
+import net.minecraftforge.common.BiomeDictionary.Type;
 import rustic.common.Config;
 import rustic.common.blocks.ModBlocks;
 import rustic.common.blocks.crops.BlockBerryBush;
-import rustic.common.blocks.crops.BlockHerbBase;
-
-import static net.minecraftforge.common.BiomeDictionary.Type;
 
 public class WorldGenWildberries extends WorldGenerator {
 	
@@ -60,7 +55,7 @@ public class WorldGenWildberries extends WorldGenerator {
 	}
 	
 	private boolean generateBush(World world, Random rand, BlockPos pos) {
-		IBlockState state = world.getBlockState(pos.down());
+		//IBlockState state = world.getBlockState(pos.down());
 		if (ModBlocks.WILDBERRY_BUSH.canPlaceBlockAt(world, pos)) {
 			world.setBlockState(pos, ModBlocks.WILDBERRY_BUSH.getDefaultState().withProperty(BlockBerryBush.BERRIES, true));
 			return true;

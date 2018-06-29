@@ -18,7 +18,6 @@ import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.util.EnumFacing;
 import net.minecraftforge.common.model.TRSRTransformation;
-import rustic.common.blocks.BlockLiquidBarrel;
 import rustic.common.blocks.ModBlocks;
 
 public class LiquidBarrelItemModel implements IBakedModel {

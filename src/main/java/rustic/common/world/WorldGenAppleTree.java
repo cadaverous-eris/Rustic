@@ -9,9 +9,6 @@ import net.minecraft.init.Blocks;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraft.world.gen.feature.WorldGenAbstractTree;
-import rustic.common.blocks.BlockLeavesRustic;
-import rustic.common.blocks.BlockLogRustic;
-import rustic.common.blocks.BlockPlanksRustic;
 import rustic.common.blocks.ModBlocks;
 import rustic.common.blocks.crops.BlockLeavesApple;
 

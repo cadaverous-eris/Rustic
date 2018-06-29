@@ -1,12 +1,8 @@
 package rustic.client.renderer;
 
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockChest;
 import net.minecraft.client.model.ModelBase;
-import net.minecraft.client.model.ModelChest;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
-import net.minecraft.tileentity.TileEntityChest;
 import net.minecraft.util.ResourceLocation;
 import rustic.client.models.ModelCabinet;
 import rustic.client.models.ModelCabinetDouble;
@@ -29,7 +25,6 @@ public class CabinetRenderer extends TileEntitySpecialRenderer<TileEntityCabinet
 		GlStateManager.enableDepth();
 		GlStateManager.depthFunc(515);
 		GlStateManager.depthMask(true);
-		int i;
 
 		if (te.hasWorld() && te.getWorld().getBlockState(te.getPos()).getBlock() == ModBlocks.CABINET && !te.getWorld().getBlockState(te.getPos()).getValue(BlockCabinet.TOP)) {
 

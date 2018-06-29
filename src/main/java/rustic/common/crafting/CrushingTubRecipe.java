@@ -1,12 +1,8 @@
 package rustic.common.crafting;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fluids.FluidStack;
-import java.util.Arrays;
 
 public class CrushingTubRecipe {
 

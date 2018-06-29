@@ -1,6 +1,5 @@
 package rustic.common.items;
 
-import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import rustic.common.blocks.crops.BlockStakeCrop;
 import rustic.core.Rustic;
