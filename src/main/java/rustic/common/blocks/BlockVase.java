@@ -62,7 +62,10 @@ public class BlockVase extends BlockBase implements ITileEntityProvider {
 	}
 
 	public void breakBlock(World worldIn, BlockPos pos, IBlockState state) {
-		((TileEntityVase) worldIn.getTileEntity(pos)).breakBlock(worldIn, pos, state);
+		TileEntity tileentity = worldIn.getTileEntity(pos);
+		if(tileentity instanceof TileEntityVase) {
+			((TileEntityVase) tileentity).breakBlock(worldIn, pos, state);
+		}
 		worldIn.removeTileEntity(pos);
 		super.breakBlock(worldIn, pos, state);
 	}
