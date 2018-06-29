@@ -1,12 +1,10 @@
 package rustic.common.book.pages;
 
-import org.lwjgl.opengl.GL11;
-
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
+import net.minecraft.client.gui.Gui;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.renderer.GlStateManager;
-import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraft.util.text.translation.I18n;
 import net.minecraftforge.fml.relauncher.Side;
@@ -16,7 +14,6 @@ import rustic.common.book.BookCategory;
 import rustic.common.book.BookEntryCategory;
 import rustic.common.book.BookManager;
 import rustic.common.book.BookPage;
-import rustic.core.Rustic;
 
 public class BookPageCategories extends BookPage {
 	
@@ -27,7 +24,7 @@ public class BookPageCategories extends BookPage {
 	@Override
 	public void drawScreen(GuiBook gui, int mouseX, int mouseY, float partialTicks) {
 		int y = gui.guiTop + 12;
-		int x = gui.guiLeft + (gui.WIDTH / 2);
+		int x = gui.guiLeft + (GuiBook.WIDTH / 2);
 		
 		gui.drawCenteredText(TextFormatting.UNDERLINE + "" + TextFormatting.BOLD + I18n.translateToLocal(BookManager.categories_entry.getName()), x, y, 0x000000);
 	}
@@ -35,7 +32,7 @@ public class BookPageCategories extends BookPage {
 	@Override
 	public void onOpened(GuiBook gui) {
 		int y = gui.guiTop + 28;
-		int x = gui.guiLeft + (gui.WIDTH / 2) - 16;
+		int x = gui.guiLeft + (GuiBook.WIDTH / 2) - 16;
 		
 		for (BookCategory category : BookManager.categories) {
 			gui.getButtonList().add(new CategoryButton(gui.nextButtonID(), x, y, 32, gui.getFontRenderer(), category));
@@ -97,7 +94,7 @@ public class BookPageCategories extends BookPage {
 	            }
 	            
 				mc.getTextureManager().bindTexture(category.getIcon());
-				this.drawModalRectWithCustomSizedTexture(x, y, 0, frame * 32F, 32, 32, 32F, 256F);
+				Gui.drawModalRectWithCustomSizedTexture(x, y, 0, frame * 32F, 32, 32, 32F, 256F);
 				
 				GlStateManager.color(1F, 1F, 1F, 1F);
 				GlStateManager.disableBlend();

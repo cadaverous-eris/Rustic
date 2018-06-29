@@ -8,17 +8,11 @@ import javax.annotation.Nullable;
 import com.google.common.base.Objects;
 
 import net.minecraft.block.Block;
-import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.tileentity.TileEntityChest;
-import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
-import net.minecraftforge.items.CapabilityItemHandler;
-import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.IItemHandlerModifiable;
-import net.minecraftforge.items.VanillaDoubleChestItemHandler;
 import rustic.common.blocks.BlockCabinet;
 import rustic.common.tileentity.TileEntityCabinet;
 

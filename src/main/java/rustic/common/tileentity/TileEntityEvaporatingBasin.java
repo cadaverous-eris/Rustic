@@ -3,16 +3,15 @@ package rustic.common.tileentity;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
+import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.init.SoundEvents;
 import net.minecraft.item.ItemBucket;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.NetworkManager;
 import net.minecraft.network.play.server.SPacketUpdateTileEntity;
-import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.ITickable;
@@ -22,7 +21,6 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.fluids.Fluid;
-import net.minecraftforge.fluids.FluidActionResult;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.FluidTank;
 import net.minecraftforge.fluids.FluidUtil;
@@ -207,7 +205,7 @@ public class TileEntityEvaporatingBasin extends TileFluidHandler implements ITic
 		if (itemStackHandler != null && !world.isRemote) {
 			for (int i = 0; i < itemStackHandler.getSlots(); i++) {
 				if (itemStackHandler.getStackInSlot(i) != null) {
-					state.getBlock().spawnAsEntity(world, pos, itemStackHandler.getStackInSlot(i));
+					Block.spawnAsEntity(world, pos, itemStackHandler.getStackInSlot(i));
 				}
 			}
 		}

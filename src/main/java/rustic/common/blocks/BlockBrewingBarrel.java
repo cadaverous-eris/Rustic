@@ -18,9 +18,7 @@ import net.minecraft.util.Rotation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
-import rustic.common.tileentity.TileEntityBarrel;
 import rustic.common.tileentity.TileEntityBrewingBarrel;
-import rustic.common.tileentity.TileEntityCondenser;
 import rustic.core.Rustic;
 
 public class BlockBrewingBarrel extends BlockBase implements ITileEntityProvider {

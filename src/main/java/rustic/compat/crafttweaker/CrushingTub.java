@@ -1,19 +1,15 @@
 package rustic.compat.crafttweaker;
 
-import java.util.ArrayList;
 import java.util.Iterator;
-import java.util.List;
 
-import crafttweaker.IAction;
 import crafttweaker.CraftTweakerAPI;
-import crafttweaker.api.item.IIngredient;
+import crafttweaker.IAction;
 import crafttweaker.api.item.IItemStack;
 import crafttweaker.api.liquid.ILiquidStack;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.fluids.FluidStack;
 import rustic.common.crafting.CrushingTubRecipe;
 import rustic.common.crafting.Recipes;
-import rustic.compat.jei.CrushingTubRecipeWrapper;
 import stanhebben.zenscript.annotations.ZenClass;
 import stanhebben.zenscript.annotations.ZenMethod;
 

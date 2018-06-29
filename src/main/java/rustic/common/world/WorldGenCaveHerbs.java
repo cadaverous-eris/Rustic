@@ -1,17 +1,12 @@
 package rustic.common.world;
 
 import java.util.Random;
-import java.util.Set;
 
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
-import net.minecraft.world.biome.Biome;
-import net.minecraft.world.chunk.IChunkProvider;
 import net.minecraft.world.gen.feature.WorldGenerator;
-import net.minecraftforge.common.BiomeDictionary;
-import net.minecraftforge.fml.common.IWorldGenerator;
 import rustic.common.Config;
 import rustic.common.blocks.crops.BlockHerbBase;
 import rustic.common.blocks.crops.Herbs;
@@ -20,7 +15,7 @@ public class WorldGenCaveHerbs extends WorldGenerator {
 
 	@Override
 	public boolean generate(World world, Random rand, BlockPos pos) {
-		Biome biome = world.getBiome(pos);
+		//Biome biome = world.getBiome(pos);
 
 		BlockHerbBase herb = Herbs.getRandomCaveHerb(rand);
 

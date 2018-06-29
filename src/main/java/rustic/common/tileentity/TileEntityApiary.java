@@ -8,7 +8,6 @@ import net.minecraft.block.Block;
 import net.minecraft.block.IGrowable;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.inventory.ISidedInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
@@ -16,15 +15,12 @@ import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ITickable;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.ITextComponent;
-import net.minecraft.util.text.TextComponentString;
 import net.minecraft.util.text.TextComponentTranslation;
 import net.minecraft.world.World;
 import net.minecraftforge.common.IPlantable;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.items.CapabilityItemHandler;
-import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.ItemStackHandler;
-import net.minecraftforge.items.wrapper.SidedInvWrapper;
 import rustic.common.Config;
 import rustic.common.items.ModItems;
 
@@ -125,14 +121,14 @@ public class TileEntityApiary extends TileEntity implements ITickable {
 		if (beeItemStackHandler != null && !world.isRemote) {
 			for (int i = 0; i < beeItemStackHandler.getSlots(); i++) {
 				if (beeItemStackHandler.getStackInSlot(i) != null) {
-					state.getBlock().spawnAsEntity(world, pos, beeItemStackHandler.getStackInSlot(i));
+					Block.spawnAsEntity(world, pos, beeItemStackHandler.getStackInSlot(i));
 				}
 			}
 		}
 		if (honeyCombItemStackHandler != null && !world.isRemote) {
 			for (int i = 0; i < honeyCombItemStackHandler.getSlots(); i++) {
 				if (honeyCombItemStackHandler.getStackInSlot(i) != null) {
-					state.getBlock().spawnAsEntity(world, pos, honeyCombItemStackHandler.getStackInSlot(i));
+					Block.spawnAsEntity(world, pos, honeyCombItemStackHandler.getStackInSlot(i));
 				}
 			}
 		}

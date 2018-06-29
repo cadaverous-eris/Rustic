@@ -1,7 +1,6 @@
 package rustic.client.gui;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import org.lwjgl.opengl.GL11;
@@ -10,7 +9,6 @@ import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.text.TextComponentString;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraftforge.fluids.FluidStack;
 import rustic.client.util.FluidClientUtil;
@@ -26,12 +24,12 @@ public class GuiBrewingBarrel extends GuiContainer {
 	private static final ResourceLocation background = new ResourceLocation(Rustic.MODID, "textures/gui/brewing_barrel.png");
 
 	private TileEntityBrewingBarrel te;
-	private IInventory playerInv;
+	//private IInventory playerInv;
 	
 	public GuiBrewingBarrel(ContainerBrewingBarrel container, IInventory playerInv) {
 		super(container);
 		
-		this.playerInv = playerInv;
+		//this.playerInv = playerInv;
 		this.te = container.getTile();
 		xSize = WIDTH;
 		ySize = HEIGHT;

@@ -2,7 +2,6 @@ package rustic.common.crafting;
 
 import java.util.Random;
 
-import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraftforge.fluids.FluidStack;
 import rustic.common.Config;

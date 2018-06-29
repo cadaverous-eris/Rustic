@@ -7,6 +7,7 @@ import java.util.Set;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
+import net.minecraft.client.gui.Gui;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.RenderHelper;
@@ -17,8 +18,6 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 import rustic.client.gui.book.GuiBook;
 import rustic.common.book.BookEntry;
 import rustic.common.book.BookPage;
-import rustic.common.book.pages.BookPageCategory.EntryLinkButton;
-import rustic.core.Rustic;
 
 public class BookPageText extends BookPage {
 
@@ -35,9 +34,9 @@ public class BookPageText extends BookPage {
 	@Override
 	public void drawScreen(GuiBook gui, int mouseX, int mouseY, float partialTicks) {
 		int y = gui.guiTop + 12;
-		int x = gui.guiLeft + (gui.WIDTH / 2);
+		int x = gui.guiLeft + (GuiBook.WIDTH / 2);
 		
-		int maxY = gui.guiTop + gui.HEIGHT - 19;
+		int maxY = gui.guiTop + GuiBook.HEIGHT - 19;
 		
 		gui.drawCenteredText(TextFormatting.UNDERLINE + "" + TextFormatting.BOLD + I18n.translateToLocal(entry.getName()), x, y, 0x000000);
 		y += gui.getFontRenderer().FONT_HEIGHT + 4;
@@ -49,7 +48,7 @@ public class BookPageText extends BookPage {
 		for (int i = 0; i < this.textKeys.size(); i++) {
 			String text = I18n.translateToLocal(this.textKeys.get(i));
 			int increment = (int) ((gui.getFontRenderer().FONT_HEIGHT + 2) * textScale);
-			List<String> lines = gui.getFontRenderer().listFormattedStringToWidth(text, (int) ((gui.WIDTH - 32) / textScale));
+			List<String> lines = gui.getFontRenderer().listFormattedStringToWidth(text, (int) ((GuiBook.WIDTH - 32) / textScale));
 			for (String line : lines) {
 				if (y + increment > maxY) {
 					break;
@@ -65,10 +64,10 @@ public class BookPageText extends BookPage {
 			String text = TextFormatting.UNDERLINE + I18n.translateToLocal("book.rustic.label.related_entries");
 			int textWidth = gui.getFontRenderer().getStringWidth(text);
 			GlStateManager.color(1F, 1F, 1F, 1F);
-			gui.mc.getTextureManager().bindTexture(gui.BOOK_BACKGROUND);
-			gui.drawTexturedModalRect(gui.guiLeft + gui.WIDTH, gui.guiTop + 10, (146 - 10) - (textWidth + 2), 210, (textWidth + 2) + 10, 16);
+			gui.mc.getTextureManager().bindTexture(GuiBook.BOOK_BACKGROUND);
+			gui.drawTexturedModalRect(gui.guiLeft + GuiBook.WIDTH, gui.guiTop + 10, (146 - 10) - (textWidth + 2), 210, (textWidth + 2) + 10, 16);
 			
-			gui.getFontRenderer().drawString(text, gui.guiLeft + gui.WIDTH + 2, gui.guiTop + 10 + 4, 0x000000);
+			gui.getFontRenderer().drawString(text, gui.guiLeft + GuiBook.WIDTH + 2, gui.guiTop + 10 + 4, 0x000000);
 		}
 	}
 	
@@ -78,7 +77,7 @@ public class BookPageText extends BookPage {
 		
 		gui.addNavButtons();
 		
-		int x = gui.guiLeft + gui.WIDTH;
+		int x = gui.guiLeft + GuiBook.WIDTH;
 		int y = gui.guiTop + 10 + 16 + 2;
 		
 		int i = 0;
@@ -157,7 +156,7 @@ public class BookPageText extends BookPage {
 					}
 				}
 				mc.getTextureManager().bindTexture(GuiBook.BOOK_BACKGROUND);
-				this.drawModalRectWithCustomSizedTexture(x, y, 146 - this.width, 226, this.width, this.height, 256F, 256F);
+				Gui.drawModalRectWithCustomSizedTexture(x, y, 146 - this.width, 226, this.width, this.height, 256F, 256F);
 				
 				text = this.fontRenderer.trimStringToWidth(text, this.width - BASE_WIDTH, true);
 				textWidth = this.fontRenderer.getStringWidth(text);

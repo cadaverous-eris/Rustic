@@ -1,11 +1,8 @@
 package rustic.common.world;
 
 import java.util.Random;
-import java.util.Set;
 
-import net.minecraft.init.Blocks;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.DimensionType;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.gen.feature.WorldGenerator;

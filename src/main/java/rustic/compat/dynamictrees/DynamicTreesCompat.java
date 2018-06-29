@@ -10,7 +10,6 @@ import com.ferreusveritas.dynamictrees.api.TreeRegistry;
 import com.ferreusveritas.dynamictrees.api.WorldGenRegistry;
 import com.ferreusveritas.dynamictrees.api.client.ModelHelper;
 import com.ferreusveritas.dynamictrees.api.treedata.ILeavesProperties;
-import com.ferreusveritas.dynamictrees.api.worldgen.BiomePropertySelectors.ISpeciesSelector;
 import com.ferreusveritas.dynamictrees.api.worldgen.BiomePropertySelectors.RandomSpeciesSelector;
 import com.ferreusveritas.dynamictrees.blocks.BlockDynamicLeaves;
 import com.ferreusveritas.dynamictrees.blocks.BlockDynamicSapling;
@@ -113,9 +112,9 @@ public class DynamicTreesCompat {
 			ModelHelper.regColorHandler(leaves, new IBlockColor() {
 				@Override
 				public int colorMultiplier(IBlockState state, IBlockAccess worldIn, BlockPos pos, int tintIndex) {
-					boolean inWorld = worldIn != null && pos != null;
+					//boolean inWorld = worldIn != null && pos != null;
+					//IBlockState primLeaves = leaves.getProperties(state).getPrimitiveLeaves();
 					
-					IBlockState primLeaves = leaves.getProperties(state).getPrimitiveLeaves();
 					Block block = state.getBlock();
 
 					if(TreeHelper.isLeaves(block)) {

@@ -9,7 +9,6 @@ import javax.annotation.Nullable;
 import com.google.common.base.Predicate;
 
 import net.minecraft.block.Block;
-import net.minecraft.block.BlockDoor;
 import net.minecraft.block.IGrowable;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
@@ -19,21 +18,17 @@ import net.minecraft.block.properties.PropertyEnum;
 import net.minecraft.block.properties.PropertyInteger;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
-import net.minecraft.client.renderer.block.model.ModelResourceLocation;
-import net.minecraft.client.renderer.block.statemap.StateMap;
 import net.minecraft.client.renderer.color.IBlockColor;
 import net.minecraft.client.renderer.color.IItemColor;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.BlockRenderLayer;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.Rotation;
-import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.RayTraceResult;
@@ -41,19 +36,13 @@ import net.minecraft.world.ColorizerFoliage;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.BiomeColorHelper;
-import net.minecraftforge.client.model.ModelLoader;
-import net.minecraftforge.common.property.ExtendedBlockState;
-import net.minecraftforge.common.property.IExtendedBlockState;
-import net.minecraftforge.common.property.IUnlistedProperty;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-import rustic.common.blocks.BlockBase;
 import rustic.common.blocks.BlockRope;
 import rustic.common.blocks.BlockRopeBase;
 import rustic.common.blocks.IColoredBlock;
 import rustic.common.blocks.ModBlocks;
-import rustic.common.blocks.properties.UnlistedPropertyBool;
 import rustic.common.items.ModItems;
 import rustic.core.ClientProxy;
 import rustic.core.Rustic;
@@ -110,8 +99,7 @@ public class BlockGrapeLeaves extends BlockRopeBase implements IGrowable, IColor
 			EnumFacing side, float hitX, float hitY, float hitZ) {
 		if (state.getValue(GRAPES)) {
 			world.setBlockState(pos, state.withProperty(GRAPES, false), 3);
-			state.getBlock().spawnAsEntity(world, pos.offset(side),
-					new ItemStack(ModItems.GRAPES, world.rand.nextInt(2) + 1));
+			Block.spawnAsEntity(world, pos.offset(side), new ItemStack(ModItems.GRAPES, world.rand.nextInt(2) + 1));
 			return true;
 		}
 		return false;
@@ -356,7 +344,7 @@ public class BlockGrapeLeaves extends BlockRopeBase implements IGrowable, IColor
 	@Override
 	public IBlockState getStateFromMeta(int meta) {
 		EnumFacing.Axis enumfacing$axis = EnumFacing.Axis.X;
-		boolean supported = false;
+		//boolean supported = false;
 		int dist = 0;
 		boolean grapes = false;
 		int i = meta & 1;

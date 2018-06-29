@@ -13,14 +13,12 @@ import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.text.translation.I18n;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import rustic.common.book.BookEntry;
 import rustic.common.book.BookEntryCategory;
 import rustic.common.book.BookManager;
 import rustic.common.book.BookPage;
-import rustic.common.network.PacketHandler;
 import rustic.core.Rustic;
 
 @SideOnly(Side.CLIENT)

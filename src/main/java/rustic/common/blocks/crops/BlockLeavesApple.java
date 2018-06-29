@@ -44,10 +44,8 @@ import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-import rustic.common.blocks.BlockPlanksRustic;
 import rustic.common.blocks.IColoredBlock;
 import rustic.common.blocks.ModBlocks;
-import rustic.common.items.ModItems;
 import rustic.core.ClientProxy;
 import rustic.core.Rustic;
 
@@ -130,7 +128,7 @@ public class BlockLeavesApple extends BlockLeaves implements IColoredBlock, IGro
 			EnumFacing side, float hitX, float hitY, float hitZ) {
 		if (state.getValue(AGE) >= getMaxAge()) {
 			world.setBlockState(pos, state.withProperty(AGE, 0), 3);
-			state.getBlock().spawnAsEntity(world, pos.offset(side), new ItemStack(Items.APPLE));
+			Block.spawnAsEntity(world, pos.offset(side), new ItemStack(Items.APPLE));
 			return true;
 		}
 		return false;

@@ -1,24 +1,18 @@
 package rustic.compat.crafttweaker;
 
-import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-import crafttweaker.IAction;
 import crafttweaker.CraftTweakerAPI;
+import crafttweaker.IAction;
 import crafttweaker.api.item.IItemStack;
-import crafttweaker.api.liquid.ILiquidStack;
 import net.minecraft.item.ItemStack;
 import net.minecraft.potion.PotionEffect;
-import net.minecraftforge.fml.common.Loader;
 import rustic.common.crafting.AdvancedCondenserRecipe;
 import rustic.common.crafting.BasicCondenserRecipe;
 import rustic.common.crafting.CondenserRecipe;
-import rustic.common.crafting.EvaporatingBasinRecipe;
 import rustic.common.crafting.Recipes;
 import rustic.common.util.ElixirUtils;
-import rustic.compat.jei.AdvancedAlchemyRecipeWrapper;
-import rustic.compat.jei.RusticJEIPlugin;
 import stanhebben.zenscript.annotations.ZenClass;
 import stanhebben.zenscript.annotations.ZenMethod;
 
@@ -79,7 +73,7 @@ public class Condenser {
 				CondenserRecipe r = it.next();
 				List<PotionEffect> rEffects = ElixirUtils.getEffects(r.getResult());
 				if (r != null && r.getResult() != null && r.getResult().isItemEqual(output)) {
-					boolean matches = true;
+					//boolean matches = true;
 					for (PotionEffect pe : effects) {
 						boolean hasMatch = false;
 						for (PotionEffect pe1 : rEffects) {
@@ -90,7 +84,7 @@ public class Condenser {
 							}
 						}
 						if (!hasMatch) {
-							matches = false;
+							//matches = false;
 							break;
 						}
 					}

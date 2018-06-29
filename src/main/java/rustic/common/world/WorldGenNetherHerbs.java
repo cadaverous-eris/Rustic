@@ -1,14 +1,12 @@
 package rustic.common.world;
 
 import java.util.Random;
-import java.util.Set;
 
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraft.world.gen.feature.WorldGenerator;
-import net.minecraftforge.common.BiomeDictionary;
 import rustic.common.Config;
 import rustic.common.blocks.crops.BlockHerbBase;
 import rustic.common.blocks.crops.Herbs;

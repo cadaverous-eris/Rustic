@@ -1,6 +1,5 @@
 package rustic.common.tileentity;
 
-import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import invtweaks.api.container.ChestContainer;
@@ -12,7 +11,6 @@ import net.minecraft.item.ItemStack;
 import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.SlotItemHandler;
-import rustic.common.items.ModItems;
 
 @ChestContainer
 public class ContainerVase extends Container {

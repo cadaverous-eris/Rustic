@@ -1,19 +1,8 @@
 package rustic.common.potions;
 
-import net.minecraft.client.Minecraft;
 import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.item.Item;
-import net.minecraft.potion.Potion;
-import net.minecraft.util.EnumParticleTypes;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.world.World;
-import net.minecraft.world.WorldServer;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
-import rustic.common.items.ModItems;
 import rustic.common.network.MessageShameFX;
 import rustic.common.network.PacketHandler;
-import rustic.core.Rustic;
 
 public class PotionShame extends PotionBase {
 

@@ -5,20 +5,14 @@ import java.util.Random;
 import io.netty.buffer.ByteBuf;
 import net.minecraft.client.Minecraft;
 import net.minecraft.item.Item;
-import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.nbt.NBTTagList;
-import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumParticleTypes;
-import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
-import net.minecraftforge.common.util.Constants;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessageHandler;
 import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import rustic.common.items.ModItems;
-import rustic.common.tileentity.ITileEntitySyncable;
 
 public class MessageShameFX implements IMessage {
 
@@ -84,23 +78,23 @@ public class MessageShameFX implements IMessage {
 			if (world.isRemote) {
 				for (int i = 0; i < message.num; i++) {
 					double x = message.x + message.xVel;
-					double y = message.y + (message.height * message.rand.nextDouble()) + message.yVel;
+					double y = message.y + (message.height * MessageShameFX.rand.nextDouble()) + message.yVel;
 					double z = message.z + message.zVel;
-					switch (message.rand.nextInt(4)) {
+					switch (MessageShameFX.rand.nextInt(4)) {
 					case 3:
-						x += message.width * (message.rand.nextDouble() - 0.5);
+						x += message.width * (MessageShameFX.rand.nextDouble() - 0.5);
 						z -= message.width * 0.5;
 						break;
 					case 2:
-						x += message.width * (message.rand.nextDouble() - 0.5);
+						x += message.width * (MessageShameFX.rand.nextDouble() - 0.5);
 						z += message.width * 0.5;
 						break;
 					case 1:
-						z += message.width * (message.rand.nextDouble() - 0.5);
+						z += message.width * (MessageShameFX.rand.nextDouble() - 0.5);
 						x -= message.width * 0.5;
 						break;
 					default:
-						z += message.width * (message.rand.nextDouble() - 0.5);
+						z += message.width * (MessageShameFX.rand.nextDouble() - 0.5);
 						x += message.width * 0.5;
 						break;
 					}

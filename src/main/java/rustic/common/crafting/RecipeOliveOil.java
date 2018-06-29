@@ -5,15 +5,12 @@ import java.util.List;
 
 import net.minecraft.inventory.InventoryCrafting;
 import net.minecraft.item.ItemFood;
-import net.minecraft.item.ItemSoup;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.nbt.NBTTagByte;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.NonNullList;
-import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
-import net.minecraftforge.common.ForgeHooks;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.FluidUtil;
 import rustic.common.Config;
@@ -42,7 +39,7 @@ public class RecipeOliveOil extends net.minecraftforge.registries.IForgeRegistry
 		for (int i : occupiedSlots) {
 			ItemStack tempStack = inv.getStackInSlot(i);
 			if (tempStack.getItem() instanceof ItemFood && foodStack.isEmpty()) {
-				boolean flag = false;
+				//boolean flag = false;
 				for (String itemName : Config.OLIVE_OIL_BLACKLIST) {
 					if (itemName.equals(tempStack.getItem().getRegistryName().toString())) {
 						return false;

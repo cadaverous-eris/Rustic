@@ -7,13 +7,12 @@ import net.minecraft.block.SoundType;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.dispenser.BehaviorDefaultDispenseItem;
 import net.minecraft.dispenser.IBlockSource;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.tileentity.TileEntityDispenser;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
+import rustic.common.blocks.BlockRopeBase;
 import rustic.common.blocks.ModBlocks;
 
 public class DispenseRope extends BehaviorDefaultDispenseItem {
@@ -27,7 +26,7 @@ public class DispenseRope extends BehaviorDefaultDispenseItem {
 
     private DispenseRope() {}
 
-    private final BehaviorDefaultDispenseItem dispenseBehavior = new BehaviorDefaultDispenseItem();
+    //private final BehaviorDefaultDispenseItem dispenseBehavior = new BehaviorDefaultDispenseItem();
 
     /**
      * Dispense the specified stack, play the dispense sound and spawn particles.
@@ -60,12 +59,12 @@ public class DispenseRope extends BehaviorDefaultDispenseItem {
     private boolean addRope(World world, BlockPos pos) {
     	int yOffset = 1;
 		for (;yOffset < 64 && world.getBlockState(pos.down(yOffset)).getBlock() == ModBlocks.ROPE; yOffset++) {
-			if (world.getBlockState(pos.down(yOffset)).getValue(ModBlocks.ROPE.AXIS) != EnumFacing.Axis.Y) {
+			if (world.getBlockState(pos.down(yOffset)).getValue(BlockRopeBase.AXIS) != EnumFacing.Axis.Y) {
 				return false;
 			}
 		}
 		if (ModBlocks.ROPE.canPlaceBlockAt(world, pos.down(yOffset))) {
-			IBlockState state = ModBlocks.ROPE.getDefaultState().withProperty(ModBlocks.ROPE.AXIS, EnumFacing.Axis.Y);
+			IBlockState state = ModBlocks.ROPE.getDefaultState().withProperty(BlockRopeBase.AXIS, EnumFacing.Axis.Y);
 			world.setBlockState(pos.down(yOffset), state, 3);
 			SoundType soundType = ModBlocks.ROPE.getSoundType(state, world, pos, null);
 			world.playSound(pos.getX(), pos.getY() - yOffset, pos.getZ(), soundType.getPlaceSound(),

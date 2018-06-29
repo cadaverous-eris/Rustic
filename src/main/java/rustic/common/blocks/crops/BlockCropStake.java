@@ -18,7 +18,6 @@ import net.minecraft.world.World;
 import rustic.common.blocks.BlockBase;
 import rustic.common.blocks.ModBlocks;
 import rustic.common.items.ItemStakeCropSeed;
-import rustic.common.tileentity.TileEntityLiquidBarrel;
 import rustic.core.Rustic;
 
 public class BlockCropStake extends BlockBase {

@@ -14,7 +14,6 @@ import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraftforge.fluids.Fluid;
 import rustic.client.util.FluidClientUtil;
-import rustic.common.tileentity.TileEntityCabinet;
 import rustic.common.tileentity.TileEntityLiquidBarrel;
 
 public class LiquidBarrelRenderer extends TileEntitySpecialRenderer<TileEntityLiquidBarrel> {
