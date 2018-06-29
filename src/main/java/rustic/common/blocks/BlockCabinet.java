@@ -80,7 +80,10 @@ public class BlockCabinet extends BlockRotatable implements ITileEntityProvider 
 	}
 
 	public void breakBlock(World worldIn, BlockPos pos, IBlockState state) {
-		((TileEntityCabinet) worldIn.getTileEntity(pos)).breakBlock(worldIn, pos, state);
+		TileEntity tileentity = worldIn.getTileEntity(pos);
+		if (tileentity instanceof TileEntityCabinet) {
+			((TileEntityCabinet) tileentity).breakBlock(worldIn, pos, state);
+		}
 		worldIn.removeTileEntity(pos);
 
 		if (worldIn.getBlockState(pos.up()).getBlock() instanceof BlockCabinet && worldIn.getBlockState(pos.up()).getValue(TOP)) {

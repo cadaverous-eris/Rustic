@@ -58,7 +58,10 @@ public class BlockApiary extends BlockBase implements ITileEntityProvider {
 	}
 
 	public void breakBlock(World worldIn, BlockPos pos, IBlockState state) {
-		((TileEntityApiary)worldIn.getTileEntity(pos)).breakBlock(worldIn,pos,state);
+		TileEntity tileentity = worldIn.getTileEntity(pos);
+		if (tileentity instanceof TileEntityApiary) {
+			((TileEntityApiary) tileentity).breakBlock(worldIn, pos, state);
+		}
 		worldIn.removeTileEntity(pos);
 		super.breakBlock(worldIn, pos, state);
 	}

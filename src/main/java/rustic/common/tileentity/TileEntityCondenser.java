@@ -105,7 +105,7 @@ public class TileEntityCondenser extends TileFluidHandler implements ITickable {
 		if (this.totalBrewTime <= 0) {
 			this.totalBrewTime = this.getBrewTime();
 		}
-		ItemStack fuelStack = (ItemStack) this.internalStackHandler.getStackInSlot(2);
+		ItemStack fuelStack = this.internalStackHandler.getStackInSlot(2);
 		if (this.isBurning() || !fuelStack.isEmpty()) {
 			if (!this.isBurning() && this.canBrew() && this.getRecipe() != null) {
 				this.condenserBurnTime = TileEntityFurnace.getItemBurnTime(fuelStack);
@@ -308,12 +308,14 @@ public class TileEntityCondenser extends TileFluidHandler implements ITickable {
 	}
 
 	public boolean canBrew() {
-		if (world.getBlockState(pos).getBlock() != ModBlocks.CONDENSER
-				|| !world.getBlockState(pos).getValue(BlockCondenser.BOTTOM)) {
+		IBlockState state = world.getBlockState(pos);
+		
+		if (state.getBlock() != ModBlocks.CONDENSER
+				|| !state.getValue(BlockCondenser.BOTTOM)) {
 			return false;
 		}
 
-		if (!((BlockCondenser) world.getBlockState(pos).getBlock()).hasRetorts(world, pos, world.getBlockState(pos))) {
+		if (!((BlockCondenser) state.getBlock()).hasRetorts(world, pos, state)) {
 			return false;
 		}
 

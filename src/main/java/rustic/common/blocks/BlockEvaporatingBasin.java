@@ -41,7 +41,10 @@ public class BlockEvaporatingBasin extends BlockBase implements ITileEntityProvi
 	
 	@Override
 	public void breakBlock(World worldIn, BlockPos pos, IBlockState state) {
-		((TileEntityEvaporatingBasin) worldIn.getTileEntity(pos)).breakBlock(worldIn, pos, state);
+		TileEntity tileentity = worldIn.getTileEntity(pos);
+		if (tileentity instanceof TileEntityEvaporatingBasin) {
+			((TileEntityEvaporatingBasin) tileentity).breakBlock(worldIn, pos, state);
+		}
 		worldIn.removeTileEntity(pos);
 		super.breakBlock(worldIn, pos, state);
 	}

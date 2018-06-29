@@ -5,6 +5,7 @@ import java.util.List;
 
 import net.minecraft.block.ITileEntityProvider;
 import net.minecraft.block.SoundType;
+import net.minecraft.block.material.EnumPushReaction;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.properties.PropertyBool;
@@ -92,6 +93,11 @@ public class BlockCondenserAdvanced extends BlockBase implements ITileEntityProv
 	public List<ItemStack> getDrops(IBlockAccess world, BlockPos pos, IBlockState state, int fortune){
 		return new ArrayList<ItemStack>();
 	}
+	
+	@Override
+	public EnumPushReaction getMobilityFlag(IBlockState state) {
+		return EnumPushReaction.BLOCK;
+    }
 
 	@Override
 	public IBlockState getStateFromMeta(int meta) {
@@ -134,8 +140,9 @@ public class BlockCondenserAdvanced extends BlockBase implements ITileEntityProv
 	@Override
 	public void breakBlock(World worldIn, BlockPos pos, IBlockState state) {
 		if (state.getValue(BOTTOM)) {
-			if (worldIn.getTileEntity(pos) != null && worldIn.getTileEntity(pos) instanceof TileEntityCondenserAdvanced) {
-				((TileEntityCondenserAdvanced) worldIn.getTileEntity(pos)).breakBlock(worldIn, pos, state);
+			TileEntity tileentity = worldIn.getTileEntity(pos);
+			if (tileentity != null && tileentity instanceof TileEntityCondenserAdvanced) {
+				((TileEntityCondenserAdvanced) tileentity).breakBlock(worldIn, pos, state);
 				worldIn.removeTileEntity(pos);
 			}
 		}

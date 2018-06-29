@@ -45,7 +45,10 @@ public class BlockBarrel extends BlockBase implements ITileEntityProvider {
 	}
 	
 	public void breakBlock(World worldIn, BlockPos pos, IBlockState state) {
-		((TileEntityBarrel)worldIn.getTileEntity(pos)).breakBlock(worldIn,pos,state);
+		TileEntity tileentity = worldIn.getTileEntity(pos);
+		if (tileentity instanceof TileEntityBarrel) {
+			((TileEntityBarrel) tileentity).breakBlock(worldIn, pos, state);
+		}
 		worldIn.removeTileEntity(pos);
 		super.breakBlock(worldIn, pos, state);
 	}

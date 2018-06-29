@@ -182,6 +182,11 @@ public abstract class BlockHerbBase extends BlockBush implements IGrowable, IPla
 	}
 	
 	@Override
+	public Item getItemDropped(IBlockState state, Random rand, int fortune) {
+        return getHerb();
+    }
+	
+	@Override
 	public BlockFaceShape getBlockFaceShape(IBlockAccess world, IBlockState state, BlockPos pos, EnumFacing side) {
         return BlockFaceShape.UNDEFINED;
     }

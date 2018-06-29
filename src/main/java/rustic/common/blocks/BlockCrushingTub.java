@@ -55,7 +55,10 @@ public class BlockCrushingTub extends BlockBase implements ITileEntityProvider {
 
 	@Override
 	public void breakBlock(World worldIn, BlockPos pos, IBlockState state) {
-		((TileEntityCrushingTub) worldIn.getTileEntity(pos)).breakBlock(worldIn, pos, state);
+		TileEntity tileentity = worldIn.getTileEntity(pos);
+		if (tileentity instanceof TileEntityCrushingTub) {
+			((TileEntityCrushingTub) tileentity).breakBlock(worldIn, pos, state);
+		}
 		worldIn.removeTileEntity(pos);
 		super.breakBlock(worldIn, pos, state);
 	}

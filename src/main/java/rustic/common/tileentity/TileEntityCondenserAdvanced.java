@@ -337,12 +337,14 @@ public class TileEntityCondenserAdvanced extends TileFluidHandler implements ITi
 	}
 
 	public boolean canBrew() {
-		if (world.getBlockState(pos).getBlock() != ModBlocks.CONDENSER_ADVANCED
-				|| !world.getBlockState(pos).getValue(BlockCondenserAdvanced.BOTTOM)) {
+		IBlockState state = world.getBlockState(pos);
+		
+		if (state.getBlock() != ModBlocks.CONDENSER_ADVANCED
+				|| !state.getValue(BlockCondenserAdvanced.BOTTOM)) {
 			return false;
 		}
 
-		if (!((BlockCondenserAdvanced) world.getBlockState(pos).getBlock()).hasRetorts(world, pos, world.getBlockState(pos))) {
+		if (!((BlockCondenserAdvanced) state.getBlock()).hasRetorts(world, pos, state)) {
 			return false;
 		}
 

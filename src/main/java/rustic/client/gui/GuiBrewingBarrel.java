@@ -79,7 +79,7 @@ public class GuiBrewingBarrel extends GuiContainer {
 			this.drawTexturedModalRect(guiLeft + 116, guiTop + 7, 176, 70, 16, 16);
 		}
 		if (te.slot2Empty()) {
-			this.drawTexturedModalRect(guiLeft + 26, guiTop + 15, 176, 54, 16, 16);
+			this.drawTexturedModalRect(guiLeft + 26, guiTop + 15, 176, 70, 16, 16);
 		}
 		
 		if (te.isBrewing()) {
