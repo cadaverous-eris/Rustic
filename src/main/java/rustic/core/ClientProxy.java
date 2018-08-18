@@ -11,6 +11,7 @@ import net.minecraft.client.particle.ParticleSmokeNormal;
 import net.minecraft.client.renderer.entity.Render;
 import net.minecraft.client.renderer.entity.RenderLivingBase;
 import net.minecraft.client.renderer.entity.RenderPlayer;
+import net.minecraft.client.resources.IReloadableResourceManager;
 import net.minecraft.entity.Entity;
 import net.minecraft.item.Item;
 import net.minecraft.util.EnumParticleTypes;
@@ -24,6 +25,7 @@ import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import rustic.client.models.FluidBottleModel;
 import rustic.client.models.LatticeModel;
 import rustic.client.renderer.LayerIronSkin;
+import rustic.client.util.ItemColorCache;
 import rustic.common.blocks.IColoredBlock;
 import rustic.common.blocks.ModBlocks;
 import rustic.common.blocks.fluids.ModFluids;
@@ -81,7 +83,10 @@ public class ClientProxy extends CommonProxy {
 		}
 		
 		initColorizer();
-
+		
+		if (Minecraft.getMinecraft().getResourceManager() instanceof IReloadableResourceManager) {
+			((IReloadableResourceManager) Minecraft.getMinecraft().getResourceManager()).registerReloadListener(ItemColorCache.INSTANCE);
+		}
 	}
 
 	public static void addColoredBlock(Block block) {

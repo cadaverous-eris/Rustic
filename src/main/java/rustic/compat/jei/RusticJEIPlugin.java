@@ -45,6 +45,8 @@ public class RusticJEIPlugin extends BlankModPlugin {
 		if (Config.ENABLE_OLIVE_OILING) {
 			reg.addRecipes(OliveOilRecipeMaker.getOliveOilRecipes(), VanillaRecipeCategoryUid.CRAFTING);
 		}
+		
+		reg.addRecipes(CabinetRecipeWrapper.getCabinetRecipes(), VanillaRecipeCategoryUid.CRAFTING);
 
 		crushingTubCat = new CrushingTubRecipeCategory(guiHelper);
 		reg.addRecipeCategories(crushingTubCat);

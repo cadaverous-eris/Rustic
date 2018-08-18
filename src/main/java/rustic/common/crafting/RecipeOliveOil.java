@@ -98,5 +98,10 @@ public class RecipeOliveOil extends net.minecraftforge.registries.IForgeRegistry
 	public boolean canFit(int width, int height) {
 		return width <= 3 && height <= 3;
 	}
+	
+	@Override
+	public boolean isDynamic() {
+        return true;
+    }
 
 }

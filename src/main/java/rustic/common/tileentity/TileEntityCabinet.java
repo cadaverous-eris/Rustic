@@ -42,6 +42,7 @@ public class TileEntityCabinet extends TileEntityLockableLoot implements ITickab
 	public float prevLidAngle = 0;
 	public int numPlayersUsing = 0;
 	private int ticksSinceSync = 0;
+	public ItemStack material = ItemStack.EMPTY;
 
 	private ItemStackHandlerRustic itemStackHandler = new ItemStackHandlerRustic (27) {
 		@Override
@@ -180,6 +181,9 @@ public class TileEntityCabinet extends TileEntityLockableLoot implements ITickab
 		if (compound.hasKey("numUsers")) {
 			numPlayersUsing = compound.getInteger("numUsers");
 		}
+		if (compound.hasKey("material")) {
+			material = new ItemStack(compound.getCompoundTag("material"));
+		}
 	}
 
 	@Override
@@ -192,6 +196,7 @@ public class TileEntityCabinet extends TileEntityLockableLoot implements ITickab
             compound.setString("CustomName", this.customName);
         }
 		compound.setTag("numUsers", new NBTTagInt(numPlayersUsing));
+		compound.setTag("material", material.serializeNBT());
 		return compound;
 	}
 
@@ -250,6 +255,17 @@ public class TileEntityCabinet extends TileEntityLockableLoot implements ITickab
 					Block.spawnAsEntity(world, pos, itemStackHandler.getStackInSlot(i));
 				}
 			}
+		}
+		if (!world.isRemote) {
+			ItemStack toDrop = new ItemStack(ModBlocks.CABINET);
+			
+			NBTTagCompound tag = new NBTTagCompound();
+			tag.setTag("material", this.material.serializeNBT());
+			toDrop.setTagCompound(tag);
+			
+			if (this.hasCustomName()) toDrop.setStackDisplayName(this.customName);
+			
+			Block.spawnAsEntity(world, pos, toDrop);
 		}
 		world.setTileEntity(pos, null);
 	}

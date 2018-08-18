@@ -118,6 +118,25 @@ public class Recipes {
 			meta = ModBlocks.PLANKS.getMetaFromState(state);
 			OreDictionary.registerOre("plankWood", new ItemStack(ModBlocks.PLANKS, 1, meta));
 		}
+		if (Config.ENABLE_PAINTED_WOOD) {
+			OreDictionary.registerOre("plankWood", new ItemStack(ModBlocks.PAINTED_WOOD_BLACK));
+			OreDictionary.registerOre("plankWood", new ItemStack(ModBlocks.PAINTED_WOOD_BLUE));
+			OreDictionary.registerOre("plankWood", new ItemStack(ModBlocks.PAINTED_WOOD_BROWN));
+			OreDictionary.registerOre("plankWood", new ItemStack(ModBlocks.PAINTED_WOOD_CYAN));
+			OreDictionary.registerOre("plankWood", new ItemStack(ModBlocks.PAINTED_WOOD_GRAY));
+			OreDictionary.registerOre("plankWood", new ItemStack(ModBlocks.PAINTED_WOOD_GREEN));
+			OreDictionary.registerOre("plankWood", new ItemStack(ModBlocks.PAINTED_WOOD_LIGHT_BLUE));
+			OreDictionary.registerOre("plankWood", new ItemStack(ModBlocks.PAINTED_WOOD_LIME));
+			OreDictionary.registerOre("plankWood", new ItemStack(ModBlocks.PAINTED_WOOD_MAGENTA));
+			OreDictionary.registerOre("plankWood", new ItemStack(ModBlocks.PAINTED_WOOD_ORANGE));
+			OreDictionary.registerOre("plankWood", new ItemStack(ModBlocks.PAINTED_WOOD_PINK));
+			OreDictionary.registerOre("plankWood", new ItemStack(ModBlocks.PAINTED_WOOD_PURPLE));
+			OreDictionary.registerOre("plankWood", new ItemStack(ModBlocks.PAINTED_WOOD_RED));
+			OreDictionary.registerOre("plankWood", new ItemStack(ModBlocks.PAINTED_WOOD_SILVER));
+			OreDictionary.registerOre("plankWood", new ItemStack(ModBlocks.PAINTED_WOOD_WHITE));
+			OreDictionary.registerOre("plankWood", new ItemStack(ModBlocks.PAINTED_WOOD_YELLOW));
+		}
+		
 		OreDictionary.registerOre("slabWood", new ItemStack(ModBlocks.OLIVE_SLAB_ITEM));
 		OreDictionary.registerOre("slabWood", new ItemStack(ModBlocks.IRONWOOD_SLAB_ITEM));
 		OreDictionary.registerOre("stairWood", new ItemStack(ModBlocks.OLIVE_STAIRS));
@@ -128,6 +147,11 @@ public class Recipes {
 		for (int i = 0; i < 16; i++) OreDictionary.registerOre("treeLeaves", new ItemStack(ModBlocks.LEAVES, 1, i));
 		
 		OreDictionary.registerOre("slate", new ItemStack(ModBlocks.SLATE));
+		OreDictionary.registerOre("slate", new ItemStack(ModBlocks.SLATE_BRICK));
+		OreDictionary.registerOre("slate", new ItemStack(ModBlocks.SLATE_TILE));
+		OreDictionary.registerOre("slate", new ItemStack(ModBlocks.SLATE_PILLAR));
+		OreDictionary.registerOre("slate", new ItemStack(ModBlocks.SLATE_ROOF));
+		OreDictionary.registerOre("slate", new ItemStack(ModBlocks.SLATE_CHISELED));
 		
 		OreDictionary.registerOre("wax", new ItemStack(ModItems.BEESWAX));
 		OreDictionary.registerOre("wax", new ItemStack(ModItems.TALLOW));
@@ -266,6 +290,11 @@ public class Recipes {
 		ItemStack aleWortBucket = FluidUtil.getFilledBucket(new FluidStack(ModFluids.ALE_WORT, 1000));
 		GameRegistry.findRegistry(IRecipe.class).register(new RecipeNonIngredientReturn(null, aleWortBucket, new ItemStack(Items.BREAD),
 				new ItemStack(Items.SUGAR), new ItemStack(Items.WATER_BUCKET)).setRegistryName(new ResourceLocation(Rustic.MODID, "ale_wort")));
+		
+		RecipeSorter.register("rustic:cabinet_recipe", RecipeCabinet.class,
+				RecipeSorter.Category.SHAPED, "after:minecraft:shapeless");
+		GameRegistry.findRegistry(IRecipe.class).register(new RecipeCabinet().setRegistryName(new ResourceLocation(Rustic.MODID, "cabinet")));
+		
 		if (Config.ENABLE_BOTTLE_EMPTYING) {
 			GameRegistry.findRegistry(IRecipe.class).register(new RecipeNonIngredientReturn(null, new ItemStack(Items.GLASS_BOTTLE),
 					new ItemStack(ModItems.FLUID_BOTTLE)).setRegistryName(new ResourceLocation(Rustic.MODID, "bottle_emptying")));

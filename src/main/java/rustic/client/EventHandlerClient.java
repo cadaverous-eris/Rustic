@@ -11,6 +11,7 @@ import net.minecraft.client.renderer.BufferBuilder;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.block.model.IBakedModel;
+import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.EntityLivingBase;
@@ -48,6 +49,7 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import rustic.client.models.BookBakedModel;
 import rustic.client.models.LiquidBarrelItemModel;
+import rustic.client.models.TEISRModel;
 import rustic.client.util.FluidClientUtil;
 import rustic.common.Config;
 import rustic.common.blocks.BlockVase;
@@ -99,6 +101,12 @@ public class EventHandlerClient {
 			IBakedModel existingModel = (IBakedModel) object;
 			BookBakedModel customModel = new BookBakedModel(existingModel);
 			event.getModelRegistry().putObject(BookBakedModel.modelResourceLocation, customModel);
+		}
+		ModelResourceLocation mrl = new ModelResourceLocation(ModBlocks.CABINET.getRegistryName(), "inventory");
+		object = event.getModelRegistry().getObject(mrl);
+		if (object instanceof IBakedModel) {
+			IBakedModel existingModel = (IBakedModel) object;
+			event.getModelRegistry().putObject(mrl, new TEISRModel(existingModel));
 		}
 	}
 

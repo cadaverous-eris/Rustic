@@ -1,5 +1,10 @@
 package rustic.common.blocks;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.annotation.Nullable;
+
 import net.minecraft.block.ITileEntityProvider;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
@@ -9,22 +14,29 @@ import net.minecraft.block.state.BlockFaceShape;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
+import net.minecraft.client.util.ITooltipFlag;
+import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumBlockRenderType;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
+import net.minecraft.util.NonNullList;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.client.model.ModelLoader;
+import net.minecraftforge.common.util.Constants;
 import net.minecraftforge.fml.client.registry.ClientRegistry;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+import net.minecraftforge.oredict.OreDictionary;
 import rustic.client.renderer.CabinetRenderer;
+import rustic.client.util.ItemColorCache;
 import rustic.common.tileentity.TileEntityCabinet;
 import rustic.core.Rustic;
 
@@ -40,6 +52,20 @@ public class BlockCabinet extends BlockRotatable implements ITileEntityProvider 
 		setHardness(2.5F);
 		setSoundType(SoundType.WOOD);
 		this.setDefaultState(this.getDefaultState().withProperty(MIRROR, false).withProperty(TOP, false).withProperty(BOTTOM, false));
+	}
+	
+	@Override
+	@SideOnly(Side.CLIENT)
+	public void addInformation(ItemStack stack, @Nullable World player, List<String> tooltip, ITooltipFlag advanced) {
+		super.addInformation(stack, player, tooltip, advanced);
+		
+		if (stack.hasTagCompound()) {
+			NBTTagCompound nbttagcompound = stack.getTagCompound();
+            if (nbttagcompound.hasKey("material", Constants.NBT.TAG_COMPOUND)) {
+            	ItemStack material = new ItemStack(nbttagcompound.getCompoundTag("material"));
+                if (!material.isEmpty()) tooltip.add(material.getDisplayName());
+            }    
+        }
 	}
 
 	@Override
@@ -79,6 +105,7 @@ public class BlockCabinet extends BlockRotatable implements ITileEntityProvider 
 		return false;
 	}
 
+	@Override
 	public void breakBlock(World worldIn, BlockPos pos, IBlockState state) {
 		TileEntity tileentity = worldIn.getTileEntity(pos);
 		if (tileentity instanceof TileEntityCabinet) {
@@ -91,6 +118,12 @@ public class BlockCabinet extends BlockRotatable implements ITileEntityProvider 
 		}
 
 		super.breakBlock(worldIn, pos, state);
+	}
+	
+	@Override
+	public List<ItemStack> getDrops(IBlockAccess world, BlockPos pos, IBlockState state, int fortune){
+		ArrayList<ItemStack> items = new ArrayList<ItemStack>();
+		return items;
 	}
 
 	@Override
@@ -124,12 +157,21 @@ public class BlockCabinet extends BlockRotatable implements ITileEntityProvider 
 
 	@Override
 	public void onBlockPlacedBy(World worldIn, BlockPos pos, IBlockState state, EntityLivingBase placer, ItemStack stack) {
-		if (stack.hasDisplayName()) {
+		if (stack.hasTagCompound()) {
 			TileEntity tileentity = worldIn.getTileEntity(pos);
 
 			if (tileentity instanceof TileEntityCabinet) {
-				((TileEntityCabinet) tileentity).setCustomName(stack.getDisplayName());
-				((TileEntityCabinet) tileentity).markDirty();
+				TileEntityCabinet te = (TileEntityCabinet) tileentity;
+				
+				if (stack.hasDisplayName()) te.setCustomName(stack.getDisplayName());
+				
+				NBTTagCompound tag = stack.getTagCompound();
+				if (tag.hasKey("material")) {
+					ItemStack material = new ItemStack(tag.getCompoundTag("material"));
+					te.material = material;
+				}
+				
+				te.markDirty();
 			}
 		}
 	}
@@ -169,6 +211,7 @@ public class BlockCabinet extends BlockRotatable implements ITileEntityProvider 
 	public void initModel() {
 		ModelLoader.setCustomModelResourceLocation(Item.getItemFromBlock(this), 0, new ModelResourceLocation(getRegistryName(), "inventory"));
 		ClientRegistry.bindTileEntitySpecialRenderer(TileEntityCabinet.class, new CabinetRenderer());
+		Item.getItemFromBlock(this).setTileEntityItemStackRenderer(new CabinetRenderer.CabinetTEISR());
 	}
 	
 	@Override
