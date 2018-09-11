@@ -371,7 +371,7 @@ public class ModBlocks {
 		Field[] declaredFields = ModBlocks.class.getDeclaredFields();
 		for (Field field : declaredFields) {
 		    if (java.lang.reflect.Modifier.isStatic(field.getModifiers())) {
-		    	if( !field.getType().isAssignableFrom(Block.class) )
+		    	if( !Block.class.isAssignableFrom(field.getType()) )
 		    		continue;
 		    	Block block;
 				try {
