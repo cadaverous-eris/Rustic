@@ -90,7 +90,7 @@ public class DynamicTreesCompat {
 	}
 	
 	public static void init() {
-		registerBiomeHandlers();
+		WorldGenRegistry.registerBiomeDataBasePopulator(new BiomeDataBasePopulator());
 	}
 	
 	@SideOnly(Side.CLIENT)
@@ -129,33 +129,6 @@ public class DynamicTreesCompat {
 		ModelHelper.regDynamicSaplingColorHandler(oliveSapling);
 		BlockDynamicSapling ironwoodSapling = (BlockDynamicSapling) ironwoodTree.getCommonSpecies().getDynamicSapling().getBlock();
 		ModelHelper.regDynamicSaplingColorHandler(ironwoodSapling);
-	}
-	
-	private static void registerBiomeHandlers() {
-		if(WorldGenRegistry.isWorldGenEnabled()) {
-			Species olive = TreeRegistry.findSpecies(new ResourceLocation(Rustic.MODID, "olive"));
-			Species ironwood = TreeRegistry.findSpecies(new ResourceLocation(Rustic.MODID, "ironwood"));
-			
-			BiomeDataBase dbase = TreeGenerator.getTreeGenerator().biomeDataBase;
-			
-			Biome.REGISTRY.forEach(biome -> {
-				RandomSpeciesSelector selector = new RandomSpeciesSelector().add(75);
-				boolean flag = false;
-				
-				if ((!BiomeDictionary.hasType(biome, Type.SNOWY) && !BiomeDictionary.hasType(biome, Type.DEAD) && !BiomeDictionary.hasType(biome, Type.SAVANNA)) && (BiomeDictionary.hasType(biome, Type.FOREST) || BiomeDictionary.hasType(biome, Type.PLAINS) || BiomeDictionary.hasType(biome, Type.MOUNTAIN))) {
-					selector.add(olive, 1);
-					flag = true;
-				}
-				if ((!BiomeDictionary.hasType(biome, Type.DRY) && !BiomeDictionary.hasType(biome, Type.DEAD) && !BiomeDictionary.hasType(biome, Type.SAVANNA)) && (BiomeDictionary.hasType(biome, Type.FOREST) || BiomeDictionary.hasType(biome, Type.PLAINS) || BiomeDictionary.hasType(biome, Type.MOUNTAIN) || BiomeDictionary.hasType(biome, Type.SWAMP) || BiomeDictionary.hasType(biome, Type.JUNGLE))) {
-					selector.add(ironwood, 1);
-					flag = true;
-				}
-				
-				if (flag) {
-					dbase.setSpeciesSelector(biome, selector, Operation.SPLICE_BEFORE);
-				}
-			});
-		}
 	}
 	
 	public static Item getOliveSeed() {
