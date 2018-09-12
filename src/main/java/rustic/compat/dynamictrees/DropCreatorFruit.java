@@ -44,7 +44,7 @@ public class DropCreatorFruit extends DropCreator {
 		IBlockState trunk = world.getBlockState(treePos);
 		BlockBranch branch = TreeHelper.getBranch(trunk);
 		
-		if (branch != null && branch.getRadius(trunk, world, treePos) >= 8) {
+		if (branch != null && branch.getRadius(trunk) >= 8) {
 			if (0.33f > random.nextFloat()) {
 				dropList.add(new ItemStack(fruit, 1, 0));
 			}
