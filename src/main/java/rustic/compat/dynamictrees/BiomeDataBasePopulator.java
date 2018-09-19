@@ -11,6 +11,7 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.biome.Biome;
 import net.minecraftforge.common.BiomeDictionary;
 import net.minecraftforge.common.BiomeDictionary.Type;
+import rustic.common.Config;
 import rustic.core.Rustic;
 
 public class BiomeDataBasePopulator implements IBiomeDataBasePopulator {
@@ -27,22 +28,21 @@ public class BiomeDataBasePopulator implements IBiomeDataBasePopulator {
 		if (olive == null) {
 			createStaticAliases();
 		}
+
+		int oliveWeight = (int) (Config.OLIVE_GEN_CHANCE * 500f);
+		int ironWeight = (int) (Config.IRONWOOD_GEN_CHANCE * 500f);
+		
+		//Reuse selectors instead of filling memory with identical objects for each biome
+		RandomSpeciesSelector oliveSelector = (oliveWeight == 0) ? null : new RandomSpeciesSelector().add(1000 - oliveWeight).add(olive, oliveWeight);
+		RandomSpeciesSelector ironSelector = (ironWeight == 0) ? null : new RandomSpeciesSelector().add(1000 - ironWeight).add(ironwood, ironWeight);
+		RandomSpeciesSelector bothSelector = (oliveWeight == 0 || ironWeight == 0) ? null : new RandomSpeciesSelector().add(1000 - (oliveWeight + ironWeight)).add(olive, oliveWeight).add(ironwood, ironWeight);
 		
 		Biome.REGISTRY.forEach(biome -> {
-			RandomSpeciesSelector selector = new RandomSpeciesSelector().add(75);
-			boolean flag = false;
+			boolean oliveSplice = (oliveSelector != null && !BiomeDictionary.hasType(biome, Type.SNOWY) && !BiomeDictionary.hasType(biome, Type.DEAD) && !BiomeDictionary.hasType(biome, Type.SAVANNA)) && (BiomeDictionary.hasType(biome, Type.FOREST) || BiomeDictionary.hasType(biome, Type.PLAINS) || BiomeDictionary.hasType(biome, Type.MOUNTAIN));
+			boolean ironSplice = (ironSelector != null && !BiomeDictionary.hasType(biome, Type.DRY) && !BiomeDictionary.hasType(biome, Type.DEAD) && !BiomeDictionary.hasType(biome, Type.SAVANNA)) && (BiomeDictionary.hasType(biome, Type.FOREST) || BiomeDictionary.hasType(biome, Type.PLAINS) || BiomeDictionary.hasType(biome, Type.MOUNTAIN) || BiomeDictionary.hasType(biome, Type.SWAMP) || BiomeDictionary.hasType(biome, Type.JUNGLE) );
 			
-			if ((!BiomeDictionary.hasType(biome, Type.SNOWY) && !BiomeDictionary.hasType(biome, Type.DEAD) && !BiomeDictionary.hasType(biome, Type.SAVANNA)) && (BiomeDictionary.hasType(biome, Type.FOREST) || BiomeDictionary.hasType(biome, Type.PLAINS) || BiomeDictionary.hasType(biome, Type.MOUNTAIN))) {
-				selector.add(olive, 1);
-				flag = true;
-			}
-			if ((!BiomeDictionary.hasType(biome, Type.DRY) && !BiomeDictionary.hasType(biome, Type.DEAD) && !BiomeDictionary.hasType(biome, Type.SAVANNA)) && (BiomeDictionary.hasType(biome, Type.FOREST) || BiomeDictionary.hasType(biome, Type.PLAINS) || BiomeDictionary.hasType(biome, Type.MOUNTAIN) || BiomeDictionary.hasType(biome, Type.SWAMP) || BiomeDictionary.hasType(biome, Type.JUNGLE))) {
-				selector.add(ironwood, 1);
-				flag = true;
-			}
-			
-			if (flag) {
-				dbase.setSpeciesSelector(biome, selector, Operation.SPLICE_BEFORE);
+			if (oliveSplice || ironSplice) {
+				dbase.setSpeciesSelector(biome, (oliveSplice && ironSplice) ? bothSelector : (ironSplice ? ironSelector : oliveSelector), Operation.SPLICE_BEFORE);
 			}
 		});
 	}
