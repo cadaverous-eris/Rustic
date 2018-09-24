@@ -3,7 +3,9 @@ package rustic.common.crafting;
 import java.util.ArrayList;
 import java.util.List;
 
+import net.minecraft.init.Blocks;
 import net.minecraft.inventory.InventoryCrafting;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemFood;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipe;
@@ -32,6 +34,14 @@ public class RecipeCabinet extends net.minecraftforge.registries.IForgeRegistryE
 		return false;
 	}
 	
+	private boolean isTrapdoor(ItemStack stack) {
+		Item item = stack.getItem();
+		if (item == Item.getItemFromBlock(Blocks.TRAPDOOR)) return true;
+		
+		int trapdoorWood = OreDictionary.getOreID("trapdoorWood");
+		return hasOre(stack, trapdoorWood);
+	}
+	
 	protected boolean isWood(ItemStack stack) {
 		if (hasOre(stack, OreDictionary.getOreID("plankWood"))) return true;
 		if (stack.getItem().getRegistryName().toString().equals("embers:sealed_planks")) return true;
@@ -58,7 +68,7 @@ public class RecipeCabinet extends net.minecraftforge.registries.IForgeRegistryE
 		int trapdoorWood = OreDictionary.getOreID("trapdoorWood");
 		ItemStack stack2 = inv.getStackInRowAndColumn(2, 1);
 		stack = inv.getStackInRowAndColumn(0, 1);
-		return (isWood(stack) && hasOre(stack2, trapdoorWood)) || (isWood(stack2) && hasOre(stack, trapdoorWood));
+		return (isWood(stack) && isTrapdoor(stack2)) || (isWood(stack2) && isTrapdoor(stack));
 	}
 
 	@Override
