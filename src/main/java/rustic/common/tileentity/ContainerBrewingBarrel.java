@@ -78,10 +78,9 @@ public class ContainerBrewingBarrel extends Container {
 				}
 				if (FluidUtil.getFluidHandler(stack) != null) {
 					FluidStack fluid = FluidUtil.getFluidContained(stack);
-					return fluid != null && fluid.getFluid() != null && fluid.getFluid() instanceof FluidBooze;
-				} else {
-					return stack.getItem() == Items.GLASS_BOTTLE;
+					if (fluid != null && fluid.getFluid() != null) return fluid.getFluid() instanceof FluidBooze;
 				}
+				return stack.getItem() == Items.GLASS_BOTTLE;
 			}
 		});
 		addSlotToContainer(new OutputSlot(itemHandler, 3, 62, 63));

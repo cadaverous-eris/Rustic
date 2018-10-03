@@ -67,10 +67,9 @@ public class TileEntityBrewingBarrel extends TileEntity implements ITickable {
 			} else if (slot == 2) {
 				if (FluidUtil.getFluidHandler(stack) != null) {
 					FluidStack fluid = FluidUtil.getFluidContained(stack);
-					return fluid != null && fluid.getFluid() != null && fluid.getFluid() instanceof FluidBooze;
-				} else {
-					return stack.getItem() == Items.GLASS_BOTTLE;
+					if (fluid != null && fluid.getFluid() != null) return fluid.getFluid() instanceof FluidBooze;
 				}
+				return stack.getItem() == Items.GLASS_BOTTLE;
 			} else if (slot == 0) {
 				return FluidUtil.getFluidHandler(stack) != null || stack.getItem() instanceof UniversalBucket || stack.getItem() instanceof ItemFluidContainer
 						|| stack.getItem() == Items.GLASS_BOTTLE || stack.getItem() instanceof ItemBucket;
@@ -257,7 +256,19 @@ public class TileEntityBrewingBarrel extends TileEntity implements ITickable {
 			ItemStack stack = internalStackHandler.getStackInSlot(0);
 			ItemStack in = stack.copy();
 			in.setCount(1);
-			if (in.hasCapability(CapabilityFluidHandler.FLUID_HANDLER_ITEM_CAPABILITY, null)) {
+			if (stack.getItem() == Items.GLASS_BOTTLE && input.getFluidAmount() > 0) {
+				ItemStack out = new ItemStack(ModItems.FLUID_BOTTLE);
+				IFluidHandlerItem fluidHandlerDummy = out
+						.getCapability(CapabilityFluidHandler.FLUID_HANDLER_ITEM_CAPABILITY, null);
+				int amount = fluidHandlerDummy.fill(input.getFluid(), true);
+				out = fluidHandlerDummy.getContainer();
+				if (amount > 0 && internalStackHandler.insertItem(3, out, true).isEmpty()) {
+					input.drain(amount, true);
+					internalStackHandler.getStackInSlot(0).shrink(1);
+					internalStackHandler.insertItem(3, out, false);
+					fluidChanged |= true;
+				}
+			} else if (in.hasCapability(CapabilityFluidHandler.FLUID_HANDLER_ITEM_CAPABILITY, null)) {
 				FluidStack fluid = FluidUtil.getFluidContained(in);
 				if (fluid != null && fluid.getFluid() != null && input.fill(fluid, false) == fluid.amount) {
 					ItemStack out = new ItemStack(in.getItem());
@@ -286,18 +297,6 @@ public class TileEntityBrewingBarrel extends TileEntity implements ITickable {
 						internalStackHandler.insertItem(3, out, false);
 						fluidChanged |= true;
 					}
-				}
-			} else if (stack.getItem() == Items.GLASS_BOTTLE && input.getFluidAmount() > 0) {
-				ItemStack out = new ItemStack(ModItems.FLUID_BOTTLE);
-				IFluidHandlerItem fluidHandlerDummy = out
-						.getCapability(CapabilityFluidHandler.FLUID_HANDLER_ITEM_CAPABILITY, null);
-				int amount = fluidHandlerDummy.fill(input.getFluid(), true);
-				out = fluidHandlerDummy.getContainer();
-				if (amount > 0 && internalStackHandler.insertItem(3, out, true).isEmpty()) {
-					input.drain(amount, true);
-					internalStackHandler.getStackInSlot(0).shrink(1);
-					internalStackHandler.insertItem(3, out, false);
-					fluidChanged |= true;
 				}
 			}
 		}
@@ -338,7 +337,25 @@ public class TileEntityBrewingBarrel extends TileEntity implements ITickable {
 			ItemStack stack = internalStackHandler.getStackInSlot(2);
 			ItemStack in = stack.copy();
 			in.setCount(1);
-			if (in.hasCapability(CapabilityFluidHandler.FLUID_HANDLER_ITEM_CAPABILITY, null)) {
+			if (stack.getItem() == Items.GLASS_BOTTLE && auxiliary.getFluidAmount() > 0) {
+				ItemStack out = new ItemStack(ModItems.FLUID_BOTTLE);
+				IFluidHandlerItem fluidHandlerDummy = out
+						.getCapability(CapabilityFluidHandler.FLUID_HANDLER_ITEM_CAPABILITY, null);
+				int amount = fluidHandlerDummy.fill(auxiliary.getFluid(), true);
+				out = fluidHandlerDummy.getContainer();
+				if (out.hasTagCompound() && out.getTagCompound().hasKey(FluidHandlerItemStack.FLUID_NBT_KEY)) {
+					NBTTagCompound fluidTag = out.getTagCompound().getCompoundTag(FluidHandlerItemStack.FLUID_NBT_KEY);
+					if (!fluidTag.hasKey("Tag") && auxiliary.getFluid().tag != null) {
+						fluidTag.setTag("Tag", auxiliary.getFluid().tag);
+					}
+				}
+				if (amount > 0 && internalStackHandler.insertItem(5, out, true).isEmpty()) {
+					auxiliary.drain(amount, true);
+					internalStackHandler.getStackInSlot(2).shrink(1);
+					internalStackHandler.insertItem(5, out, false);
+					fluidChanged |= true;
+				}
+			} else if (in.hasCapability(CapabilityFluidHandler.FLUID_HANDLER_ITEM_CAPABILITY, null)) {
 				FluidStack fluid = FluidUtil.getFluidContained(in);
 				if (fluid != null && fluid.getFluid() != null && fluid.getFluid() instanceof FluidBooze
 						&& auxiliary.fill(fluid, false) == fluid.amount) {
@@ -368,24 +385,6 @@ public class TileEntityBrewingBarrel extends TileEntity implements ITickable {
 						internalStackHandler.insertItem(5, out, false);
 						fluidChanged |= true;
 					}
-				}
-			} else if (stack.getItem() == Items.GLASS_BOTTLE && auxiliary.getFluidAmount() > 0) {
-				ItemStack out = new ItemStack(ModItems.FLUID_BOTTLE);
-				IFluidHandlerItem fluidHandlerDummy = out
-						.getCapability(CapabilityFluidHandler.FLUID_HANDLER_ITEM_CAPABILITY, null);
-				int amount = fluidHandlerDummy.fill(auxiliary.getFluid(), true);
-				out = fluidHandlerDummy.getContainer();
-				if (out.hasTagCompound() && out.getTagCompound().hasKey(FluidHandlerItemStack.FLUID_NBT_KEY)) {
-					NBTTagCompound fluidTag = out.getTagCompound().getCompoundTag(FluidHandlerItemStack.FLUID_NBT_KEY);
-					if (!fluidTag.hasKey("Tag") && auxiliary.getFluid().tag != null) {
-						fluidTag.setTag("Tag", auxiliary.getFluid().tag);
-					}
-				}
-				if (amount > 0 && internalStackHandler.insertItem(5, out, true).isEmpty()) {
-					auxiliary.drain(amount, true);
-					internalStackHandler.getStackInSlot(2).shrink(1);
-					internalStackHandler.insertItem(5, out, false);
-					fluidChanged |= true;
 				}
 			}
 		}

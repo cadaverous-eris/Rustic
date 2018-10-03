@@ -99,7 +99,8 @@ public class BlockBeehive extends BlockBase {
 	}
 
 	protected void checkAndDropBlock(World worldIn, BlockPos pos, IBlockState state) {
-		if (!this.canPlaceBlockAt(worldIn, pos)) {
+		IBlockState upState = worldIn.getBlockState(pos.up());
+		if (!(upState.getBlock() instanceof BlockLeaves)) {
 			this.dropBlockAsItem(worldIn, pos, state, 0);
 			worldIn.setBlockState(pos, Blocks.AIR.getDefaultState(), 3);
 		}
