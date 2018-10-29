@@ -38,8 +38,8 @@ public class BiomeDataBasePopulator implements IBiomeDataBasePopulator {
 		RandomSpeciesSelector bothSelector = (oliveWeight == 0 || ironWeight == 0) ? null : new RandomSpeciesSelector().add(1000 - (oliveWeight + ironWeight)).add(olive, oliveWeight).add(ironwood, ironWeight);
 		
 		Biome.REGISTRY.forEach(biome -> {
-			boolean oliveSplice = (oliveSelector != null && !BiomeDictionary.hasType(biome, Type.SNOWY) && !BiomeDictionary.hasType(biome, Type.DEAD) && !BiomeDictionary.hasType(biome, Type.SAVANNA)) && (BiomeDictionary.hasType(biome, Type.FOREST) || BiomeDictionary.hasType(biome, Type.PLAINS) || BiomeDictionary.hasType(biome, Type.MOUNTAIN));
-			boolean ironSplice = (ironSelector != null && !BiomeDictionary.hasType(biome, Type.DRY) && !BiomeDictionary.hasType(biome, Type.DEAD) && !BiomeDictionary.hasType(biome, Type.SAVANNA)) && (BiomeDictionary.hasType(biome, Type.FOREST) || BiomeDictionary.hasType(biome, Type.PLAINS) || BiomeDictionary.hasType(biome, Type.MOUNTAIN) || BiomeDictionary.hasType(biome, Type.SWAMP) || BiomeDictionary.hasType(biome, Type.JUNGLE) );
+			boolean oliveSplice = (oliveSelector != null && !BiomeDictionary.hasType(biome, Type.SPOOKY) && !BiomeDictionary.hasType(biome, Type.SNOWY) && !BiomeDictionary.hasType(biome, Type.DEAD) && !BiomeDictionary.hasType(biome, Type.SAVANNA)) && (BiomeDictionary.hasType(biome, Type.FOREST) || BiomeDictionary.hasType(biome, Type.PLAINS) || BiomeDictionary.hasType(biome, Type.MOUNTAIN));
+			boolean ironSplice = (ironSelector != null && !BiomeDictionary.hasType(biome, Type.SPOOKY) && !BiomeDictionary.hasType(biome, Type.DRY) && !BiomeDictionary.hasType(biome, Type.DEAD) && !BiomeDictionary.hasType(biome, Type.SAVANNA)) && (BiomeDictionary.hasType(biome, Type.FOREST) || BiomeDictionary.hasType(biome, Type.PLAINS) || BiomeDictionary.hasType(biome, Type.MOUNTAIN) || BiomeDictionary.hasType(biome, Type.SWAMP) || BiomeDictionary.hasType(biome, Type.JUNGLE) );
 			
 			if (oliveSplice || ironSplice) {
 				dbase.setSpeciesSelector(biome, (oliveSplice && ironSplice) ? bothSelector : (ironSplice ? ironSelector : oliveSelector), Operation.SPLICE_BEFORE);
