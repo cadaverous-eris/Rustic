@@ -10,16 +10,13 @@ import com.ferreusveritas.dynamictrees.api.TreeRegistry;
 import com.ferreusveritas.dynamictrees.api.WorldGenRegistry;
 import com.ferreusveritas.dynamictrees.api.client.ModelHelper;
 import com.ferreusveritas.dynamictrees.api.treedata.ILeavesProperties;
-import com.ferreusveritas.dynamictrees.api.worldgen.BiomePropertySelectors.RandomSpeciesSelector;
 import com.ferreusveritas.dynamictrees.blocks.BlockDynamicLeaves;
 import com.ferreusveritas.dynamictrees.blocks.BlockDynamicSapling;
+import com.ferreusveritas.dynamictrees.blocks.LeavesPaging;
 import com.ferreusveritas.dynamictrees.blocks.LeavesProperties;
 import com.ferreusveritas.dynamictrees.items.DendroPotion.DendroPotionType;
 import com.ferreusveritas.dynamictrees.trees.Species;
 import com.ferreusveritas.dynamictrees.trees.TreeFamily;
-import com.ferreusveritas.dynamictrees.worldgen.BiomeDataBase;
-import com.ferreusveritas.dynamictrees.worldgen.BiomeDataBase.Operation;
-import com.ferreusveritas.dynamictrees.worldgen.TreeGenerator;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockLeaves;
@@ -31,10 +28,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
-import net.minecraft.world.biome.Biome;
 import net.minecraftforge.client.model.ModelLoader;
-import net.minecraftforge.common.BiomeDictionary;
-import net.minecraftforge.common.BiomeDictionary.Type;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.brewing.BrewingRecipeRegistry;
 import net.minecraftforge.fml.common.registry.GameRegistry;
@@ -64,8 +58,8 @@ public class DynamicTreesCompat {
 				ModBlocks.LEAVES.getDefaultState().withProperty(BlockLeavesRustic.VARIANT, BlockPlanksRustic.EnumType.IRONWOOD),
 				new ItemStack(Item.getItemFromBlock(ModBlocks.LEAVES), 1, BlockPlanksRustic.EnumType.IRONWOOD.getMetadata()));
 		
-		TreeHelper.getLeavesBlockForSequence(Rustic.MODID, 0, oliveLeavesProperties);
-		TreeHelper.getLeavesBlockForSequence(Rustic.MODID, 1, ironwoodLeavesProperties);
+		LeavesPaging.getLeavesBlockForSequence(Rustic.MODID, 0, oliveLeavesProperties);
+		LeavesPaging.getLeavesBlockForSequence(Rustic.MODID, 1, ironwoodLeavesProperties);
 		
 		oliveTree = new TreeOlive();
 		ironwoodTree = new TreeIronwood();
