@@ -20,7 +20,7 @@ public class Compat {
 
 	@Optional.Method(modid = "forestry")
 	public static void doForestryCompat() {
-/*
+
 		if (forestry.api.fuels.FuelManager.bronzeEngineFuel != null) {
 			Fluid fluid = FluidRegistry.getFluid("honey");
 			forestry.api.fuels.FuelManager.bronzeEngineFuel.put(fluid,
@@ -226,7 +226,7 @@ public class Compat {
 		}
 
 		Rustic.logger.info("Initialized Forestry compat module");
-*/
+
 	}
 	
 	@Optional.Method(modid = "dynamictrees")
