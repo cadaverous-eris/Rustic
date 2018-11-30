@@ -11,7 +11,6 @@ import com.ferreusveritas.dynamictrees.api.WorldGenRegistry;
 import com.ferreusveritas.dynamictrees.api.client.ModelHelper;
 import com.ferreusveritas.dynamictrees.api.treedata.ILeavesProperties;
 import com.ferreusveritas.dynamictrees.blocks.BlockDynamicLeaves;
-import com.ferreusveritas.dynamictrees.blocks.BlockDynamicSapling;
 import com.ferreusveritas.dynamictrees.blocks.LeavesPaging;
 import com.ferreusveritas.dynamictrees.blocks.LeavesProperties;
 import com.ferreusveritas.dynamictrees.items.DendroPotion.DendroPotionType;
@@ -70,7 +69,7 @@ public class DynamicTreesCompat {
 		ArrayList<Block> treeBlocks = new ArrayList<>();
 		oliveTree.getRegisterableBlocks(treeBlocks);
 		ironwoodTree.getRegisterableBlocks(treeBlocks);
-		treeBlocks.addAll(TreeHelper.getLeavesMapForModId(Rustic.MODID).values());
+		treeBlocks.addAll(LeavesPaging.getLeavesMapForModId(Rustic.MODID).values());
 		blockRegistry.registerAll(treeBlocks.toArray(new Block[treeBlocks.size()]));
 		
 		ArrayList<Item> treeItems = new ArrayList<>();
@@ -95,14 +94,14 @@ public class DynamicTreesCompat {
 		ModelHelper.regModel(ironwoodTree.getCommonSpecies().getSeed());
 		ModelHelper.regModel(oliveTree);
 		ModelHelper.regModel(ironwoodTree);
-		TreeHelper.getLeavesMapForModId(Rustic.MODID).forEach((key,leaves) -> ModelLoader.setCustomStateMapper(leaves, new StateMap.Builder().ignore(BlockLeaves.DECAYABLE).build()));
+		LeavesPaging.getLeavesMapForModId(Rustic.MODID).forEach((key,leaves) -> ModelLoader.setCustomStateMapper(leaves, new StateMap.Builder().ignore(BlockLeaves.DECAYABLE).build()));
 	}
 	
 	@SideOnly(Side.CLIENT)
 	public static void clientInit() {
 		final int magenta = 0x00FF00FF; // for errors.. because magenta sucks.
 		
-		for (BlockDynamicLeaves leaves : TreeHelper.getLeavesMapForModId(Rustic.MODID).values()) {
+		for (BlockDynamicLeaves leaves : LeavesPaging.getLeavesMapForModId(Rustic.MODID).values()) {
 			ModelHelper.regColorHandler(leaves, new IBlockColor() {
 				@Override
 				public int colorMultiplier(IBlockState state, IBlockAccess worldIn, BlockPos pos, int tintIndex) {
@@ -118,11 +117,7 @@ public class DynamicTreesCompat {
 				}
 			});
 		}
-
-		BlockDynamicSapling oliveSapling = (BlockDynamicSapling) oliveTree.getCommonSpecies().getDynamicSapling().getBlock();
-		ModelHelper.regDynamicSaplingColorHandler(oliveSapling);
-		BlockDynamicSapling ironwoodSapling = (BlockDynamicSapling) ironwoodTree.getCommonSpecies().getDynamicSapling().getBlock();
-		ModelHelper.regDynamicSaplingColorHandler(ironwoodSapling);
+		
 	}
 	
 	public static Item getOliveSeed() {

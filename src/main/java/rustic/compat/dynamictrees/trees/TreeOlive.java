@@ -1,12 +1,8 @@
 package rustic.compat.dynamictrees.trees;
 
-import java.util.List;
-
-import com.ferreusveritas.dynamictrees.blocks.BlockDynamicSapling;
 import com.ferreusveritas.dynamictrees.trees.Species;
 import com.ferreusveritas.dynamictrees.trees.TreeFamily;
 
-import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
@@ -30,9 +26,7 @@ public class TreeOlive extends TreeFamily {
 			super(treeFamily.getName(), treeFamily, DynamicTreesCompat.oliveLeavesProperties);
 			
 			setBasicGrowingParameters(0.3f, 12.0f, upProbability, lowestBranchHeight, 1.0f);
-			
-			setDynamicSapling(new BlockDynamicSapling("olivesapling").getDefaultState());
-			
+						
 			envFactor(Type.COLD, 0.75f);
 			envFactor(Type.SNOWY, 0.25f);
 			envFactor(Type.HOT, 0.50f);
@@ -67,12 +61,6 @@ public class TreeOlive extends TreeFamily {
 	@Override
 	public void createSpecies() {
 		setCommonSpecies(new SpeciesOlive(this));
-	}
-	
-	@Override
-	public List<Block> getRegisterableBlocks(List<Block> blockList) {
-		blockList.add(getCommonSpecies().getDynamicSapling().getBlock());
-		return super.getRegisterableBlocks(blockList);
 	}
 	
 }

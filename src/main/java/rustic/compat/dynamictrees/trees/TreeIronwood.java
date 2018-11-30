@@ -3,7 +3,6 @@ package rustic.compat.dynamictrees.trees;
 import java.util.List;
 import java.util.function.BiFunction;
 
-import com.ferreusveritas.dynamictrees.blocks.BlockDynamicSapling;
 import com.ferreusveritas.dynamictrees.blocks.BlockSurfaceRoot;
 import com.ferreusveritas.dynamictrees.systems.featuregen.FeatureGenClearVolume;
 import com.ferreusveritas.dynamictrees.systems.featuregen.FeatureGenFlareBottom;
@@ -38,9 +37,7 @@ public class TreeIronwood extends TreeFamily {
 			super(treeFamily.getName(), treeFamily, DynamicTreesCompat.ironwoodLeavesProperties);
 			
 			setBasicGrowingParameters(0.4f, 14.0f, 4, 4, 1.0f);
-			
-			setDynamicSapling(new BlockDynamicSapling("ironwoodsapling").getDefaultState());
-			
+						
 			envFactor(Type.COLD, 0.5f);
 			envFactor(Type.DRY, 0.5f);
 			envFactor(Type.HOT, 0.75f);
@@ -97,7 +94,6 @@ public class TreeIronwood extends TreeFamily {
 	
 	@Override
 	public List<Block> getRegisterableBlocks(List<Block> blockList) {
-		blockList.add(getCommonSpecies().getDynamicSapling().getBlock());
 		blockList.add(surfaceRootBlock);
 		return super.getRegisterableBlocks(blockList);
 	}
