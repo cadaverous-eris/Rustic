@@ -50,9 +50,9 @@ public class TreeIronwood extends TreeFamily {
 			
 			//Add species features
 			addGenFeature(new FeatureGenClearVolume(6));//Clear a spot for the thick tree trunk
-			addGenFeature(new FeatureGenFlareBottom(this));//Flare the bottom
-			addGenFeature(new FeatureGenMound(this, 5));//Establish mounds
-			addGenFeature(new FeatureGenRoots(this, 11).setScaler(getRootScaler()));//Finally Generate Roots
+			addGenFeature(new FeatureGenFlareBottom());//Flare the bottom
+			addGenFeature(new FeatureGenMound(5));//Establish mounds
+			addGenFeature(new FeatureGenRoots(11).setScaler(getRootScaler()));//Finally Generate Roots
 		}
 		
 		protected BiFunction<Integer, Integer, Integer> getRootScaler() {
