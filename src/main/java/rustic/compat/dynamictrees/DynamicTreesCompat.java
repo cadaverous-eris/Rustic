@@ -8,6 +8,7 @@ import com.ferreusveritas.dynamictrees.ModRecipes;
 import com.ferreusveritas.dynamictrees.api.TreeHelper;
 import com.ferreusveritas.dynamictrees.api.TreeRegistry;
 import com.ferreusveritas.dynamictrees.api.WorldGenRegistry;
+import com.ferreusveritas.dynamictrees.api.WorldGenRegistry.BiomeDataBasePopulatorRegistryEvent;
 import com.ferreusveritas.dynamictrees.api.client.ModelHelper;
 import com.ferreusveritas.dynamictrees.api.treedata.ILeavesProperties;
 import com.ferreusveritas.dynamictrees.blocks.BlockDynamicLeaves;
@@ -30,6 +31,8 @@ import net.minecraft.world.IBlockAccess;
 import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.brewing.BrewingRecipeRegistry;
+import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
@@ -41,10 +44,16 @@ import rustic.compat.dynamictrees.trees.TreeIronwood;
 import rustic.compat.dynamictrees.trees.TreeOlive;
 import rustic.core.Rustic;
 
+@Mod.EventBusSubscriber(modid = Rustic.MODID)
 public class DynamicTreesCompat {
 	
 	public static ILeavesProperties oliveLeavesProperties, ironwoodLeavesProperties;
 	public static TreeFamily oliveTree, ironwoodTree;
+	
+	@SubscribeEvent
+	public static void registerDataBasePopulators(final BiomeDataBasePopulatorRegistryEvent event) {
+		event.register(new BiomeDataBasePopulator());
+	}
 	
 	public static void preInit() {
 		IForgeRegistry<Block> blockRegistry = GameRegistry.findRegistry(Block.class);
@@ -82,9 +91,7 @@ public class DynamicTreesCompat {
 		}
 	}
 	
-	public static void init() {
-		WorldGenRegistry.registerBiomeDataBasePopulator(new BiomeDataBasePopulator());
-	}
+	public static void init() {}
 	
 	@SideOnly(Side.CLIENT)
 	public static void clientPreInit() {
