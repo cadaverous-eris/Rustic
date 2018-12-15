@@ -67,6 +67,11 @@ public class TreeIronwood extends TreeFamily {
 			return BiomeDictionary.hasType(biome, Type.FOREST);
 		}
 		
+		@Override
+		public boolean isThick() {
+			return true;
+		}
+		
 	}
 	
 	
