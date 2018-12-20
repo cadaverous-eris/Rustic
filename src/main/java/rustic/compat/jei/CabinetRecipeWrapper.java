@@ -8,17 +8,11 @@ import com.google.common.collect.Lists;
 import mezz.jei.api.ingredients.IIngredients;
 import mezz.jei.api.recipe.wrapper.IShapedCraftingRecipeWrapper;
 import net.minecraft.init.Blocks;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.util.NonNullList;
 import net.minecraftforge.common.util.Constants;
-import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.oredict.OreDictionary;
-import rustic.common.Config;
 import rustic.common.blocks.ModBlocks;
-import rustic.core.Rustic;
-import scala.actors.threadpool.Arrays;
 
 public class CabinetRecipeWrapper implements IShapedCraftingRecipeWrapper {
 	

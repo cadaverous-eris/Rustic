@@ -1,26 +1,14 @@
 package rustic.common.crafting;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import net.minecraft.init.Blocks;
 import net.minecraft.inventory.InventoryCrafting;
 import net.minecraft.item.Item;
-import net.minecraft.item.ItemFood;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
-import net.minecraftforge.fluids.FluidStack;
-import net.minecraftforge.fluids.FluidUtil;
 import net.minecraftforge.oredict.OreDictionary;
-import net.minecraftforge.oredict.ShapedOreRecipe;
-import rustic.client.util.ItemColorCache;
-import rustic.common.Config;
 import rustic.common.blocks.ModBlocks;
-import rustic.common.blocks.fluids.ModFluids;
-import rustic.common.items.ModItems;
 
 public class RecipeCabinet extends net.minecraftforge.registries.IForgeRegistryEntry.Impl<IRecipe> implements IRecipe {
 	
@@ -65,7 +53,7 @@ public class RecipeCabinet extends net.minecraftforge.registries.IForgeRegistryE
 		stack = inv.getStackInRowAndColumn(1, 1);
 		if (!stack.isEmpty()) return false;
 
-		int trapdoorWood = OreDictionary.getOreID("trapdoorWood");
+		//int trapdoorWood = OreDictionary.getOreID("trapdoorWood");
 		ItemStack stack2 = inv.getStackInRowAndColumn(2, 1);
 		stack = inv.getStackInRowAndColumn(0, 1);
 		return (isWood(stack) && isTrapdoor(stack2)) || (isWood(stack2) && isTrapdoor(stack));
