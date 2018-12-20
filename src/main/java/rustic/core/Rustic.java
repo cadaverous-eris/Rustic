@@ -41,7 +41,7 @@ import rustic.compat.crafttweaker.CraftTweakerHelper;
 public class Rustic {
 	public static final String MODID = "rustic";
 	public static final String NAME = "Rustic";
-	public static final String VERSION = "1.0.13";
+	public static final String VERSION = "1.0.14";
 	public static final String DEPENDENCIES = "after:dynamictrees@[1.12.2-0.9.1a,);after:dynamictreesbop;before:dynamictreestc";
 
 	@SidedProxy(clientSide = "rustic.core.ClientProxy", serverSide = "rustic.core.CommonProxy")
