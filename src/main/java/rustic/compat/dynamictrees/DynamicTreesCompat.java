@@ -32,6 +32,7 @@ import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.brewing.BrewingRecipeRegistry;
 import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.fml.common.Optional;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.fml.relauncher.Side;
@@ -44,12 +45,14 @@ import rustic.compat.dynamictrees.trees.TreeIronwood;
 import rustic.compat.dynamictrees.trees.TreeOlive;
 import rustic.core.Rustic;
 
+
 @Mod.EventBusSubscriber(modid = Rustic.MODID)
 public class DynamicTreesCompat {
 	
 	public static ILeavesProperties oliveLeavesProperties, ironwoodLeavesProperties;
 	public static TreeFamily oliveTree, ironwoodTree;
-	
+
+	@Optional.Method(modid = "dynamictrees")
 	@SubscribeEvent
 	public static void registerDataBasePopulators(final BiomeDataBasePopulatorRegistryEvent event) {
 		event.register(new BiomeDataBasePopulator());
