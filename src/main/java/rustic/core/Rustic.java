@@ -36,6 +36,7 @@ import rustic.common.items.ModItems;
 import rustic.common.potions.EventHandlerPotions;
 import rustic.compat.Compat;
 import rustic.compat.crafttweaker.CraftTweakerHelper;
+import rustic.compat.dynamictrees.DynamicTreesCompat;
 
 @Mod(modid = Rustic.MODID, name = Rustic.NAME, version = Rustic.VERSION, dependencies = Rustic.DEPENDENCIES)
 public class Rustic {
@@ -133,8 +134,12 @@ public class Rustic {
 		
 		proxy.preInit(event);
 		
-		if(Loader.isModLoaded("crafttweaker")) {
+		if (Loader.isModLoaded("crafttweaker")) {
 			CraftTweakerHelper.preInit();
+		}
+		
+		if (Loader.isModLoaded("dynamictrees")) {
+			MinecraftForge.EVENT_BUS.register(DynamicTreesCompat.class);
 		}
 	}
 	

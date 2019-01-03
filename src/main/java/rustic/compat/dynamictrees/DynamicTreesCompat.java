@@ -45,8 +45,6 @@ import rustic.compat.dynamictrees.trees.TreeIronwood;
 import rustic.compat.dynamictrees.trees.TreeOlive;
 import rustic.core.Rustic;
 
-
-@Mod.EventBusSubscriber(modid = Rustic.MODID)
 public class DynamicTreesCompat {
 	
 	public static ILeavesProperties oliveLeavesProperties, ironwoodLeavesProperties;
