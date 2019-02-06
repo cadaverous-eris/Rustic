@@ -1,0 +1,28 @@
+{
+	"type": "forge:ore_shaped",
+	"pattern": [
+		"I",
+		"C",
+		"I"
+	],
+	"key": {
+		"I": {
+			"type": "forge:ore_dict",
+			"ore": "ingotGold"
+		},
+		"C": [
+			{
+				"item": "minecraft:coal",
+				"data": 0
+			},
+			{
+				"item": "minecraft:coal",
+				"data": 1
+			}
+		]
+	},
+	"result": {
+		"item": "rustic:golden_lantern",
+		"count": 4
+	}
+}

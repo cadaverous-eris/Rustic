@@ -8,14 +8,14 @@
 	"key": {
 		"I": {
 			"type": "forge:ore_dict",
-			"ore": "ingotIron"
+			"ore": "ingotGold"
 		},
 		"C": {
-			"item": "rustic:chain"
+			"item": "rustic:chain_gold"
 		}
 	},
 	"result": {
-		"item": "rustic:chandelier",
+		"item": "rustic:chandelier_gold",
 		"count": 2
 	}
 }
