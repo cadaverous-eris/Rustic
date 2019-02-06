@@ -39,7 +39,7 @@ public class BlockRope extends BlockRopeBase {
 		boolean isTiedStake = testState.getBlock() == ModBlocks.STAKE_TIED;
 		boolean isGrapeLeaves = testState.getBlock() == ModBlocks.GRAPE_LEAVES
 				&& testState.getValue(BlockGrapeLeaves.AXIS) == state.getValue(AXIS);
-		boolean isLattice = testState.getBlock() == ModBlocks.IRON_LATTICE;
+		boolean isLattice = testState.getBlock() instanceof BlockLattice;
 
 		return isSame || isSideSolid || isTiedStake || isGrapeLeaves || isLattice;
 	}
@@ -57,7 +57,7 @@ public class BlockRope extends BlockRopeBase {
 		boolean isTiedStake = testState.getBlock() == ModBlocks.STAKE_TIED;
 		boolean isGrapeLeaves = testState.getBlock() == ModBlocks.GRAPE_LEAVES
 				&& testState.getValue(BlockGrapeLeaves.AXIS) == side.getAxis();
-		boolean isLattice = testState.getBlock() == ModBlocks.IRON_LATTICE;
+		boolean isLattice = testState.getBlock() instanceof BlockLattice;
 
 		return isThis || isSideSolid || isTiedStake || isGrapeLeaves || isLattice;
 	}
@@ -104,9 +104,6 @@ public class BlockRope extends BlockRopeBase {
 	@Override
 	public BlockFaceShape getBlockFaceShape(IBlockAccess world, IBlockState state, BlockPos pos, EnumFacing side) {
 		if (state.getValue(AXIS) == side.getAxis()) {
-			return BlockFaceShape.CENTER_SMALL;
-		}
-		if (side == EnumFacing.UP && state.getValue(AXIS) != EnumFacing.Axis.Y && state.getValue(DANGLE)) {
 			return BlockFaceShape.CENTER_SMALL;
 		}
 		return BlockFaceShape.UNDEFINED;

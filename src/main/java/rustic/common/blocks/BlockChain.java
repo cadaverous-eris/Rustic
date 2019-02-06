@@ -16,7 +16,15 @@ import rustic.core.Rustic;
 public class BlockChain extends BlockRopeBase {
 
 	public BlockChain() {
-		super(Material.IRON, "chain", true);
+		this("chain");
+	}
+	
+	public BlockChain(String name) {
+		this(Material.IRON, name, true);
+	}
+	
+	public BlockChain(Material mat, String name, boolean register) {
+		super(mat, name, register);
 		this.setHardness(1F);
 		this.setCreativeTab(Rustic.decorTab);
 		setSoundType(SoundType.METAL);
@@ -33,7 +41,7 @@ public class BlockChain extends BlockRopeBase {
 		
 		boolean isSame = testState.getBlock() == state.getBlock() && ((state.getValue(AXIS) == EnumFacing.Axis.Y && facing.getAxis() == EnumFacing.Axis.Y) || testState.getValue(AXIS) == state.getValue(AXIS));
 		boolean isSideSolid = world.isSideSolid(pos.offset(facing), facing.getOpposite(), false);
-		boolean isLattice = testState.getBlock() == ModBlocks.IRON_LATTICE;
+		boolean isLattice = testState.getBlock() instanceof BlockLattice;
 		
 		return isSame || isSideSolid || isLattice;
 	}
@@ -48,7 +56,7 @@ public class BlockChain extends BlockRopeBase {
 		
 		boolean isThis = testState.getBlock() == this && testState.getValue(AXIS) == side.getAxis();
 		boolean isSideSolid = world.isSideSolid(pos.offset(side.getOpposite()), side, false);
-		boolean isLattice = testState.getBlock() == ModBlocks.IRON_LATTICE;
+		boolean isLattice = testState.getBlock() instanceof BlockLattice;
 		
 		return isThis || isSideSolid || isLattice;
 	}
@@ -62,9 +70,6 @@ public class BlockChain extends BlockRopeBase {
 	@Override
 	public BlockFaceShape getBlockFaceShape(IBlockAccess world, IBlockState state, BlockPos pos, EnumFacing side) {
 		if (state.getValue(AXIS) == side.getAxis()) {
-			return BlockFaceShape.CENTER_SMALL;
-		}
-		if (side == EnumFacing.UP && state.getValue(AXIS) != EnumFacing.Axis.Y && state.getValue(DANGLE)) {
 			return BlockFaceShape.CENTER_SMALL;
 		}
 		return BlockFaceShape.UNDEFINED;

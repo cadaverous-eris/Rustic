@@ -56,6 +56,9 @@ public class ModBlocks {
 	public static BlockChain CHAIN;
 	public static BlockCandle CANDLE;
 	public static BlockChandelier CHANDELIER;
+	public static BlockChain CHAIN_GOLD;
+	public static BlockCandle CANDLE_GOLD;
+	public static BlockChandelier CHANDELIER_GOLD;
 	public static BlockBeehive BEEHIVE;
 	public static BlockApiary APIARY;
 	public static BlockChair CHAIR_OAK;
@@ -74,6 +77,7 @@ public class ModBlocks {
 	public static BlockBarrel BARREL;
 	public static BlockLattice IRON_LATTICE;
 	public static BlockLantern IRON_LANTERN;
+	public static BlockLantern GOLDEN_LANTERN;
 	public static BlockBase PAINTED_WOOD_WHITE;
 	public static BlockBase PAINTED_WOOD_ORANGE;
 	public static BlockBase PAINTED_WOOD_MAGENTA;
@@ -152,6 +156,9 @@ public class ModBlocks {
 		CHAIN = new BlockChain();
 		CANDLE = new BlockCandle();
 		CHANDELIER = new BlockChandelier();
+		CHAIN_GOLD = new BlockChain("chain_gold");
+		CANDLE_GOLD = new BlockCandle("candle_gold");
+		CHANDELIER_GOLD = new BlockChandelier("chandelier_gold");
 		BEEHIVE = new BlockBeehive();
 		APIARY = new BlockApiary();
 		if (Config.ENABLE_SLATE) {
@@ -204,6 +211,7 @@ public class ModBlocks {
 			IRON_LATTICE = new BlockLattice(Material.IRON, "iron_lattice");
 		}
 		IRON_LANTERN = new BlockLantern(Material.IRON, "iron_lantern");
+		GOLDEN_LANTERN = new BlockLantern(Material.IRON, "golden_lantern");
 		if (Config.ENABLE_PAINTED_WOOD) {
 			PAINTED_WOOD_WHITE = ((BlockBase) new BlockBase(Material.WOOD, "painted_wood_white").setHardness(2.0F))
 					.setBlockSoundType(SoundType.WOOD);
@@ -374,6 +382,9 @@ public class ModBlocks {
 		CHAIN.initModel();
 		CANDLE.initModel();
 		CHANDELIER.initModel();
+		CHAIN_GOLD.initModel();
+		CANDLE_GOLD.initModel();
+		CHANDELIER_GOLD.initModel();
 		BEEHIVE.initModel();
 		APIARY.initModel();
 		if (Config.ENABLE_SLATE) {
@@ -422,6 +433,7 @@ public class ModBlocks {
 			IRON_LATTICE.initModel();
 		}
 		IRON_LANTERN.initModel();
+		GOLDEN_LANTERN.initModel();
 		if (Config.ENABLE_PAINTED_WOOD) {
 			PAINTED_WOOD_WHITE.initModel();
 			PAINTED_WOOD_ORANGE.initModel();

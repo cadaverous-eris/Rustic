@@ -85,8 +85,8 @@ public class Config {
 		BEEHIVE_GEN_CHANCE = cfg.getFloat("Beehive Generation Chance", CATEGORY_BEES, 0.03F, 0, 1F, "chance for beehives to try to generate in a chunk");
 		MAX_BEEHIVE_ATTEMPTS = cfg.getInt("Max Beehive Generation Attempts", CATEGORY_BEES, 3, 0, 128, "maximum number of times the generator will attempt to place a beehive in a chunk");
 		NETHER_SLATE = cfg.getBoolean("Nether Slate", CATEGORY_WORLD, false, "if set to true, slate will generate in the nether instead of the overworld");
-		SLATE_VEINS_PER_CHUNK = cfg.getInt("Slate Veins Per Chunk", CATEGORY_WORLD, 5, 0, 128, "number of times the generator will try to place a slate vein per chunk");
-		SLATE_VEIN_SIZE = cfg.getInt("Slate Vein Size", CATEGORY_WORLD, 33, 0, 100, "number of blocks per slate vein");
+		SLATE_VEINS_PER_CHUNK = cfg.getInt("Slate Veins Per Chunk", CATEGORY_WORLD, 5, 0, 30, "number of times the generator will try to place a slate vein per chunk");
+		SLATE_VEIN_SIZE = cfg.getInt("Slate Vein Size", CATEGORY_WORLD, 20, 0, 30, "number of blocks per slate vein");
 		BEE_GROWTH_MULTIPLIER = cfg.getFloat("Bee Crop Boost Multiplier", CATEGORY_BEES, 1F, 0F, 10F, "higher values increase the frequency with which apiaries forcibly age a crop");
 		BEE_REPRODUCTION_MULTIPLIER = cfg.getFloat("Bee Reproduction Multiplier", CATEGORY_BEES, 1F, 0F, 10F, "the time it takes for an apiary to produce a new bee is multiplied by this value\nLARGER numbers make bees reproduce LESS often");
 		BEE_HONEYCOMB_MULTIPLIER = cfg.getFloat("Bee Honeycomb Multiplier", CATEGORY_BEES, 1F, 0F, 10F, "the time it takes for an apiary to produce a honeycomb is multiplied by this value\nLARGER numbers make bees produce honeycomb LESS often");

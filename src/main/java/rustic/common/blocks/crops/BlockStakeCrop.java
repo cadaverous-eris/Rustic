@@ -97,6 +97,11 @@ public class BlockStakeCrop extends BlockBase implements IGrowable, IPlantable {
 	public boolean isFullCube(IBlockState state) {
 		return false;
 	}
+	
+	@Override
+	public boolean isPassable(IBlockAccess worldIn, BlockPos pos) {
+        return false;
+    }
 
 	@Override
 	@SideOnly(Side.CLIENT)

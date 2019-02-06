@@ -54,13 +54,17 @@ public class BlockCropStake extends BlockBase {
 		if (!stack.isEmpty() && stack.getItem() instanceof ItemStakeCropSeed) {
 			if (world.getBlockState(pos.down()).getBlock().canSustainPlant(world.getBlockState(pos.down()), world, pos.down(), EnumFacing.UP, ((ItemStakeCropSeed) stack.getItem()).getCrop())) {
 				world.setBlockState(pos, ((ItemStakeCropSeed) stack.getItem()).getCropState(), 3);
-				player.getHeldItem(hand).shrink(1);
+				if (!player.capabilities.isCreativeMode) {
+					player.getHeldItem(hand).shrink(1);
+				}
 				return true;
 			}
 		} else if (!stack.isEmpty() && stack.getItem() == Item.getItemFromBlock(ModBlocks.ROPE)) {
 			world.setBlockState(pos, ModBlocks.STAKE_TIED.getDefaultState(), 2);
 			world.scheduleUpdate(pos, ModBlocks.STAKE_TIED, 1);
-			player.getHeldItem(hand).shrink(1);
+			if (!player.capabilities.isCreativeMode) {
+				player.getHeldItem(hand).shrink(1);
+			}
 			return true;
 		}
 		
@@ -85,6 +89,11 @@ public class BlockCropStake extends BlockBase {
 	public AxisAlignedBB getCollisionBoundingBox(IBlockState blockState, IBlockAccess worldIn, BlockPos pos) {
 		return STAKE_AABB;
 	}
+	
+	@Override
+	public boolean isPassable(IBlockAccess worldIn, BlockPos pos) {
+        return false;
+    }
 	
 	@Override
 	public BlockFaceShape getBlockFaceShape(IBlockAccess world, IBlockState state, BlockPos pos, EnumFacing side) {

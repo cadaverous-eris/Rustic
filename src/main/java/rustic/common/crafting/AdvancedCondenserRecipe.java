@@ -39,7 +39,7 @@ public class AdvancedCondenserRecipe extends CondenserRecipe {
 			if (!this.modifier.getTagCompound().equals(mod.getTagCompound())) {
 				return false;
 			}
-		} else if ((this.modifier.hasTagCompound() && !mod.hasTagCompound()) || (!this.modifier.hasTagCompound() && mod.hasTagCompound())) {
+		} else if (this.modifier.hasTagCompound() && !mod.hasTagCompound()) {
 			return false;
 		}
 		return super.matches(mod, stacks);

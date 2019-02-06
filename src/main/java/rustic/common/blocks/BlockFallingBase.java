@@ -13,13 +13,19 @@ import rustic.core.Rustic;
 public class BlockFallingBase extends BlockFalling {
 
 	public BlockFallingBase(Material mat, String name) {
+		this(mat, name, true);
+	}
+	
+	public BlockFallingBase(Material mat, String name, boolean register) {
 		super(mat);
 		setRegistryName(name);
 		setUnlocalizedName(Rustic.MODID + "." + name);
-		GameRegistry.findRegistry(Block.class).register(this);
-		GameRegistry.findRegistry(Item.class).register(new ItemBlock(this).setRegistryName(getRegistryName()));
 		setHardness(1F);
 		setCreativeTab(Rustic.decorTab);
+		if (register) {
+			GameRegistry.findRegistry(Block.class).register(this);
+			GameRegistry.findRegistry(Item.class).register(new ItemBlock(this).setRegistryName(getRegistryName()));
+		}
 	}
 	
 	public void initModel() {

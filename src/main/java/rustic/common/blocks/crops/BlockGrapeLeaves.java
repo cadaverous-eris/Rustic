@@ -39,6 +39,7 @@ import net.minecraft.world.biome.BiomeColorHelper;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+import rustic.common.blocks.BlockLattice;
 import rustic.common.blocks.BlockRope;
 import rustic.common.blocks.BlockRopeBase;
 import rustic.common.blocks.IColoredBlock;
@@ -178,7 +179,7 @@ public class BlockGrapeLeaves extends BlockRopeBase implements IGrowable, IColor
 		boolean isRope = testState.getBlock() == ModBlocks.ROPE && state.getValue(AXIS) == testState.getValue(BlockRope.AXIS);
 		boolean isSideSolid = world.isSideSolid(pos.offset(facing), facing.getOpposite(), false);
 		boolean isTiedStake = testState.getBlock() == ModBlocks.STAKE_TIED;
-		boolean isLattice = testState.getBlock() == ModBlocks.IRON_LATTICE;
+		boolean isLattice = testState.getBlock() instanceof BlockLattice;
 		
 		return isSame || isRope || isSideSolid || isTiedStake || isLattice;
 	}

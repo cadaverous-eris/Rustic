@@ -19,9 +19,17 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 import rustic.core.Rustic;
 
 public class BlockChandelier extends BlockFallingBase {
-
+	
 	public BlockChandelier() {
-		super(Material.IRON, "chandelier");
+		this("chandelier");
+	}
+	
+	public BlockChandelier(String name) {
+		this(Material.IRON, name, true);
+	}
+	
+	public BlockChandelier(Material mat, String name, boolean register) {
+		super(mat, name, register);
 		this.setHardness(2F);
 		setSoundType(SoundType.ANVIL);
 	}
@@ -92,10 +100,7 @@ public class BlockChandelier extends BlockFallingBase {
 		if (worldIn.isSideSolid(pos.up(), EnumFacing.DOWN, false)) {
 			return true;
 		}
-		if (state.getBlock() == ModBlocks.ROPE && state.getValue(BlockRope.AXIS) == EnumFacing.Axis.Y) {
-			return true;
-		}
-		if (state.getBlock() == ModBlocks.CHAIN && state.getValue(BlockChain.AXIS) == EnumFacing.Axis.Y) {
+		if (state.getBlock() instanceof BlockRopeBase && state.getValue(BlockRopeBase.AXIS) == EnumFacing.Axis.Y) {
 			return true;
 		}
 		

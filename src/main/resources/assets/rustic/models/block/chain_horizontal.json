@@ -1,7 +1,7 @@
 {
     "__comment": "Model generated using MrCrayfish's Model Creator (http://mrcrayfish.com/modelcreator/)",
     "textures": {
-        "0": "rustic:blocks/chain",
+        "chain": "rustic:blocks/chain",
         "particle": "rustic:blocks/chain"
     },
     "elements": [
@@ -10,12 +10,12 @@
             "from": [ 7.0, 8.0, 0.0 ], 
             "to": [ 9.0, 8.0, 16.0 ], 
             "faces": {
-                "north": { "texture": "#0", "uv": [ 0.0, 0.0, 2.0, 0.0 ] },
-                "east": { "texture": "#0", "uv": [ 0.0, 0.0, 16.0, 0.0 ] },
-                "south": { "texture": "#0", "uv": [ 0.0, 0.0, 2.0, 0.0 ] },
-                "west": { "texture": "#0", "uv": [ 0.0, 0.0, 16.0, 0.0 ] },
-                "up": { "texture": "#0", "uv": [ 7.0, 0.0, 9.0, 16.0 ] },
-                "down": { "texture": "#0", "uv": [ 7.0, 0.0, 9.0, 16.0 ] }
+                "north": { "texture": "#chain", "uv": [ 0.0, 0.0, 2.0, 0.0 ] },
+                "east": { "texture": "#chain", "uv": [ 0.0, 0.0, 16.0, 0.0 ] },
+                "south": { "texture": "#chain", "uv": [ 0.0, 0.0, 2.0, 0.0 ] },
+                "west": { "texture": "#chain", "uv": [ 0.0, 0.0, 16.0, 0.0 ] },
+                "up": { "texture": "#chain", "uv": [ 7.0, 0.0, 9.0, 16.0 ] },
+                "down": { "texture": "#chain", "uv": [ 7.0, 0.0, 9.0, 16.0 ] }
             }
         },
         {
@@ -23,12 +23,12 @@
             "from": [ 8.0, 7.0, 0.0 ], 
             "to": [ 8.0, 9.0, 16.0 ], 
             "faces": {
-                "north": { "texture": "#0", "uv": [ 0.0, 0.0, 0.0, 2.0 ] },
-                "east": { "texture": "#0", "uv": [ 7.0, 0.0, 9.0, 16.0 ], "rotation": 90 },
-                "south": { "texture": "#0", "uv": [ 0.0, 0.0, 0.0, 2.0 ] },
-                "west": { "texture": "#0", "uv": [ 7.0, 0.0, 9.0, 16.0 ], "rotation": 90 },
-                "up": { "texture": "#0", "uv": [ 0.0, 0.0, 0.0, 16.0 ] },
-                "down": { "texture": "#0", "uv": [ 0.0, 0.0, 0.0, 16.0 ] }
+                "north": { "texture": "#chain", "uv": [ 0.0, 0.0, 0.0, 2.0 ] },
+                "east": { "texture": "#chain", "uv": [ 7.0, 0.0, 9.0, 16.0 ], "rotation": 90 },
+                "south": { "texture": "#chain", "uv": [ 0.0, 0.0, 0.0, 2.0 ] },
+                "west": { "texture": "#chain", "uv": [ 7.0, 0.0, 9.0, 16.0 ], "rotation": 90 },
+                "up": { "texture": "#chain", "uv": [ 0.0, 0.0, 0.0, 16.0 ] },
+                "down": { "texture": "#chain", "uv": [ 0.0, 0.0, 0.0, 16.0 ] }
             }
         }
     ]

@@ -255,5 +255,10 @@ public abstract class BlockRopeBase extends BlockBase {
 		}
 		return Y_AABB;
 	}
+	
+	@Override
+	public boolean isPassable(IBlockAccess worldIn, BlockPos pos) {
+        return false;
+    }
 
 }

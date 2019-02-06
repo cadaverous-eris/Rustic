@@ -61,7 +61,11 @@ public class BlockLattice extends BlockBase implements IColoredBlock {
 	public static final PropertyBool LEAVES = PropertyBool.create("leaves");
 
 	public BlockLattice(Material mat, String name) {
-		super(mat, name);
+		this(mat, name, true);
+	}
+	
+	public BlockLattice(Material mat, String name, boolean register) {
+		super(mat, name, register);
 		setHardness(2.0F);
 		setSoundType(SoundType.METAL);
 	}
@@ -152,13 +156,15 @@ public class BlockLattice extends BlockBase implements IColoredBlock {
 		
 		return	
 			(block instanceof BlockLattice) || 
-			(block instanceof BlockChain && state.getValue(BlockChain.AXIS) == facing.getAxis()) || 
+			(block instanceof BlockRopeBase && state.getValue(BlockRopeBase.AXIS) == facing.getAxis()) || 
 			(block instanceof BlockLantern && facing.getAxis() == EnumFacing.Axis.Y && state.getValue(BlockLantern.FACING) == facing) || 
-			(block instanceof BlockRope && state.getValue(BlockRope.AXIS) == facing.getAxis()) || 
 			(block instanceof BlockGrapeLeaves && state.getValue(BlockGrapeLeaves.AXIS) == facing.getAxis()) || 
 			(	
 				(blockfaceshape != BlockFaceShape.BOWL) && //Don't connect to the tops of hoppers and cauldrons
 				(blockfaceshape != BlockFaceShape.UNDEFINED) && //Don't connect to anything with an undefined face shape
+				(blockfaceshape != BlockFaceShape.MIDDLE_POLE) &&
+				(blockfaceshape != BlockFaceShape.MIDDLE_POLE_THIN) &&
+				(blockfaceshape != BlockFaceShape.MIDDLE_POLE_THICK) &&
 				!Block.isExceptBlockForAttachWithPiston(block) //Don't connect to Leaves, Glass, Ice, Pistons etc.
 			);
 	}

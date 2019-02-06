@@ -19,12 +19,15 @@ container.rustic.brewing_barrel=Brewing Barrel
 
 #Blocks
 tile.rustic.chain.name=Iron Chain
+tile.rustic.chain_gold.name=Golden Chain
 tile.rustic.stone_pillar.name=Stone Pillar
 tile.rustic.andesite_pillar.name=Andesite Pillar
 tile.rustic.diorite_pillar.name=Diorite Pillar
 tile.rustic.granite_pillar.name=Granite Pillar
-tile.rustic.chandelier.name=Chandelier Ring
-tile.rustic.candle.name=Candle
+tile.rustic.chandelier.name=Iron Chandelier Ring
+tile.rustic.chandelier_gold.name=Golden Chandelier Ring
+tile.rustic.candle.name=Iron Candle
+tile.rustic.candle_gold.name=Golden Candle
 tile.rustic.beehive.name=Beehive
 tile.rustic.apiary.name=Apiary
 tile.rustic.slate.name=Slate
@@ -54,6 +57,7 @@ tile.rustic.slate_chiseled.name=Chiseled Slate
 tile.rustic.barrel.name=Barrel
 tile.rustic.iron_lattice.name=Iron Lattice
 tile.rustic.iron_lantern.name=Iron Lantern
+tile.rustic.golden_lantern.name=Golden Lantern
 tile.rustic.painted_wood_white.name=White Painted Wood
 tile.rustic.painted_wood_orange.name=Orange Painted Wood
 tile.rustic.painted_wood_magenta.name=Magenta Painted Wood

@@ -39,7 +39,7 @@ public abstract class CondenserRecipe {
 								stackNotInput = false;
 								break;
 							}
-						} else if (!temp.hasTagCompound() && !stack.hasTagCompound()) {
+						} else if (!temp.hasTagCompound()) {
 							tempInputs.remove(temp);
 							stackNotInput = false;
 							break;

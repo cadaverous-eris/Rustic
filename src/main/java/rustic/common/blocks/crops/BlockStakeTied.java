@@ -67,6 +67,11 @@ public class BlockStakeTied extends BlockBase {
 	}
 	
 	@Override
+	public boolean isPassable(IBlockAccess worldIn, BlockPos pos) {
+        return false;
+    }
+	
+	@Override
 	public void breakBlock(World world, BlockPos pos, IBlockState state) {
 		super.breakBlock(world, pos, state);
 		world.setBlockState(pos, ModBlocks.CROP_STAKE.getDefaultState(), 3);

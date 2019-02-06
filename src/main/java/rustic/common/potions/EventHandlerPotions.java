@@ -19,24 +19,6 @@ public class EventHandlerPotions {
 
 	private Random rand = new Random();
 
-	// TIPSY
-
-	@SubscribeEvent
-	public void onMilkUse(LivingEntityUseItemEvent.Start event) {
-		EntityLivingBase entity = event.getEntityLiving();
-		PotionEffect effect = entity.getActivePotionEffect(PotionsRustic.TIPSY);
-		if (effect != null) {
-			if (event.getItem().getItem() == Items.MILK_BUCKET) {
-				for (PotionEffect potionEffect : entity.getActivePotionEffects()) {
-					if (potionEffect.getPotion().isBadEffect()) {
-						potionEffect.setCurativeItems(new ArrayList<ItemStack>());
-					}
-				}
-				// effect.setCurativeItems(new ArrayList<ItemStack>());
-			}
-		}
-	}
-
 	@SubscribeEvent(priority = EventPriority.HIGHEST)
 	public void onWaterBottleUse(LivingEntityUseItemEvent.Finish event) {
 		EntityLivingBase entity = event.getEntityLiving();
@@ -46,10 +28,10 @@ public class EventHandlerPotions {
 			if (stack.getItem() == Items.POTIONITEM && PotionUtils.getPotionFromItem(stack) == PotionTypes.WATER) {
 				int duration = effect.getDuration();
 				int amplifier = effect.getAmplifier();
-				if (rand.nextFloat() < 0.0625F) {
+				if (rand.nextFloat() < 0.1F) {
 					amplifier--;
 				} else {
-					duration -= rand.nextInt(1000);
+					duration -= (rand.nextInt(800) + 200);
 				}
 				entity.removePotionEffect(PotionsRustic.TIPSY);
 				if (amplifier >= 0 && duration > 0) {

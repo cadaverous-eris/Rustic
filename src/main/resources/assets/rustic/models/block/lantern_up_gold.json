@@ -1,0 +1,8 @@
+{
+    "parent": "rustic:block/lantern_up",
+    "textures": {
+        "top": "rustic:blocks/lantern_top_gold",
+				"side": "rustic:blocks/lantern_side_gold",
+				"particle": "rustic:blocks/lantern_side_gold"
+    }
+}

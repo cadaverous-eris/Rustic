@@ -30,7 +30,11 @@ public class BlockLantern extends BlockBase {
 	protected static final AxisAlignedBB DOWN_AABB = new AxisAlignedBB(0.25D, 0.375D, 0.25D, 0.75D, 1D, 0.75D);
 
 	public BlockLantern(Material mat, String name) {
-		super(mat, name);
+		this(mat, name, true);
+	}
+	
+	public BlockLantern(Material mat, String name, boolean register) {
+		super(mat, name, register);
 		this.setDefaultState(this.blockState.getBaseState().withProperty(FACING, EnumFacing.UP));
 		this.setLightLevel(1.0F);
 		setHardness(2.0F);

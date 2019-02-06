@@ -41,7 +41,15 @@ public class BlockCandle extends BlockBase {
 	protected static final AxisAlignedBB CANDLE_EAST_AABB = new AxisAlignedBB(0.0D, 0.0, 0.35, 0.3, 0.8, 0.65);
 
 	public BlockCandle() {
-		super(Material.CIRCUITS, "candle");
+		this("candle");
+	}
+	
+	public BlockCandle(String name) {
+		this(Material.CIRCUITS, name, true);
+	}
+	
+	public BlockCandle(Material mat, String name, boolean register) {
+		super(mat, name, register);
 		this.setHardness(1F);
 		this.setLightLevel(1.0F);
 		this.setDefaultState(this.blockState.getBaseState().withProperty(FACING, EnumFacing.UP));
@@ -57,6 +65,11 @@ public class BlockCandle extends BlockBase {
 	public boolean isFullCube(IBlockState state) {
 		return false;
 	}
+	
+	@Override
+	public boolean isPassable(IBlockAccess worldIn, BlockPos pos) {
+        return false;
+    }
 
 	private boolean canPlaceOn(World worldIn, BlockPos pos) {
 		IBlockState state = worldIn.getBlockState(pos);
