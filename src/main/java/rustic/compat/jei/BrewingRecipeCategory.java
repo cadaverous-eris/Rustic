@@ -15,6 +15,8 @@ import mezz.jei.api.recipe.IRecipeWrapper;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.util.ResourceLocation;
+import net.minecraftforge.fluids.Fluid;
+import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fluids.FluidStack;
 
 public class BrewingRecipeCategory extends BlankRecipeCategory {
@@ -76,11 +78,17 @@ public class BrewingRecipeCategory extends BlankRecipeCategory {
 		
 		fluid.init(2, true, 4, 32, 16, 16, 1000, true, null);
 		FluidStack aux = ingredients.getOutputs(FluidStack.class).get(0).get(0).copy();
+		FluidStack auxDummy = ingredients.getOutputs(FluidStack.class).get(0).get(0).copy();
 		aux.amount = 1000;
+		auxDummy.amount = 0;
 		List<FluidStack> auxList = new ArrayList<FluidStack>();
-		auxList.add(null);
+		auxList.add(auxDummy);
 		auxList.add(aux);
 		fluid.set(2, auxList);
+		
+		fluid.addTooltipCallback((slotIndex, input, ingredient, tooltip) -> {
+			if (slotIndex == 2 && ingredient.amount == 0) tooltip.clear();
+		});
 	}
 
 	@Override
