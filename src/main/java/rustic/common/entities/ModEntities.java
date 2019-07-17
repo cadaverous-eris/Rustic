@@ -6,6 +6,7 @@ import net.minecraftforge.fml.common.registry.EntityRegistry;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import rustic.client.renderer.RenderTomato;
+import rustic.common.blocks.BlockChair;
 import rustic.core.Rustic;
 
 public class ModEntities {
@@ -13,11 +14,13 @@ public class ModEntities {
 	public static void init() {
 		int id = 0;
 		EntityRegistry.registerModEntity(new ResourceLocation(Rustic.MODID + ":tomato"), EntityTomato.class, "tomato", id++, Rustic.instance, 64, 1, true);
+		EntityRegistry.registerModEntity(new ResourceLocation(Rustic.MODID + ":chair"), BlockChair.EntityChair.class, "chair", id++, Rustic.instance, 64, 128, false);
 	}
 	
 	@SideOnly(Side.CLIENT)
 	public static void initRenderers() {
 		RenderingRegistry.registerEntityRenderingHandler(EntityTomato.class, new RenderTomato.Factory());
+		//RenderingRegistry.registerEntityRenderingHandler(BlockChair.EntityChair.class, renderFactory);
 	}
 
 }

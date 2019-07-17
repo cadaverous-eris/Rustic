@@ -130,7 +130,7 @@ public class BlockLattice extends BlockBase implements IColoredBlock {
 	
 	@Override
 	public boolean isPassable(IBlockAccess worldIn, BlockPos pos) {
-		return true;
+		return false;
 	}
 	
 	@Override
@@ -154,19 +154,24 @@ public class BlockLattice extends BlockBase implements IColoredBlock {
 		Block block = state.getBlock();
 		BlockFaceShape blockfaceshape = state.getBlockFaceShape(world, deltaPos, facing.getOpposite());
 		
-		return	
-			(block instanceof BlockLattice) || 
-			(block instanceof BlockRopeBase && state.getValue(BlockRopeBase.AXIS) == facing.getAxis()) || 
-			(block instanceof BlockLantern && facing.getAxis() == EnumFacing.Axis.Y && state.getValue(BlockLantern.FACING) == facing) || 
-			(block instanceof BlockGrapeLeaves && state.getValue(BlockGrapeLeaves.AXIS) == facing.getAxis()) || 
-			(	
+		if (block instanceof BlockLattice) {
+			return true;
+		} else if (block instanceof BlockGrapeLeaves) {
+			return (state.getValue(BlockGrapeLeaves.AXIS) == facing.getAxis());
+		} else if (block instanceof BlockRopeBase) {
+			return (state.getValue(BlockRopeBase.AXIS) == facing.getAxis());
+		} else if (block instanceof BlockLantern) {
+			return (facing.getAxis() == EnumFacing.Axis.Y && state.getValue(BlockLantern.FACING) == facing);
+		}
+		
+		return (
 				(blockfaceshape != BlockFaceShape.BOWL) && //Don't connect to the tops of hoppers and cauldrons
 				(blockfaceshape != BlockFaceShape.UNDEFINED) && //Don't connect to anything with an undefined face shape
 				(blockfaceshape != BlockFaceShape.MIDDLE_POLE) &&
 				(blockfaceshape != BlockFaceShape.MIDDLE_POLE_THIN) &&
 				(blockfaceshape != BlockFaceShape.MIDDLE_POLE_THICK) &&
 				!Block.isExceptBlockForAttachWithPiston(block) //Don't connect to Leaves, Glass, Ice, Pistons etc.
-			);
+		);
 	}
 	
 	@Override

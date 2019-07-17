@@ -173,7 +173,7 @@ public abstract class BlockBerryBush extends BlockBase implements IColoredBlock,
 	
 	@Override
 	public boolean isPassable(IBlockAccess worldIn, BlockPos pos) {
-        return false;
+        return true;
     }
 
 	@Override
@@ -204,9 +204,11 @@ public abstract class BlockBerryBush extends BlockBase implements IColoredBlock,
 
 	@Override
 	public boolean canPlaceBlockAt(World worldIn, BlockPos pos) {
-		IBlockState soil = worldIn.getBlockState(pos.down());
+		BlockPos down = pos.down();
+		IBlockState soil = worldIn.getBlockState(down);
+		if (soil.getMaterial().isLiquid()) return false;
 		return super.canPlaceBlockAt(worldIn, pos)
-				&& soil.getBlock().canSustainPlant(soil, worldIn, pos.down(), net.minecraft.util.EnumFacing.UP, this);
+				&& soil.getBlock().canSustainPlant(soil, worldIn, down, net.minecraft.util.EnumFacing.UP, this);
 	}
 
 	protected boolean canSustainBush(IBlockState state) {

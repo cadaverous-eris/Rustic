@@ -14,6 +14,7 @@ public class PacketHandler {
     public static void registerMessages() {
     	INSTANCE.registerMessage(MessageShameFX.MessageHolder.class, MessageShameFX.class, id++, Side.CLIENT);
     	INSTANCE.registerMessage(MessageVaseMeta.MessageHolder.class, MessageVaseMeta.class, id++, Side.SERVER);
+    	INSTANCE.registerMessage(MessageDismountChair.MessageHolder.class, MessageDismountChair.class, id++, Side.SERVER);
     }
 
 }

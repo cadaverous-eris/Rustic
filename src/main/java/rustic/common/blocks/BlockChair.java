@@ -9,6 +9,7 @@ import net.minecraft.block.properties.PropertyDirection;
 import net.minecraft.block.state.BlockFaceShape;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.client.Minecraft;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
@@ -19,10 +20,14 @@ import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.Vec3i;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+import rustic.common.network.MessageDismountChair;
+import rustic.common.network.PacketHandler;
 
 public class BlockChair extends BlockBase {
 	
@@ -76,26 +81,43 @@ public class BlockChair extends BlockBase {
 	@Override
 	public boolean onBlockActivated(World world, BlockPos pos, IBlockState state, EntityPlayer player, EnumHand hand,
 			EnumFacing facing, float hitX, float hitY, float hitZ) {
-		List<Chair> chairs = world.getEntitiesWithinAABB(Chair.class, new AxisAlignedBB(pos, pos.add(1, 1, 1)));
-		if (chairs.isEmpty()) {
-			Chair chair = new Chair(world, pos);
-			world.spawnEntity(chair);
-			player.startRiding(chair);
+		if (player.getDistanceSqToCenter(pos) >= 5 || player.isSneaking() || player.isRiding()) return true;
+		if (!world.isRemote) {
+			List<EntityChair> chairs = world.getEntitiesWithinAABB(EntityChair.class, new AxisAlignedBB(pos, pos.add(1, 1, 1)));
+			if (chairs.isEmpty()) {
+				EntityChair chair = new EntityChair(world, pos, state.getValue(FACING));
+				world.spawnEntity(chair);
+				if (player.startRiding(chair)) {
+					//player.rotationYaw = chair.rotationYaw % 360.0F;
+			        //player.rotationPitch = chair.rotationPitch % 360.0F;
+					player.setPositionAndUpdate(chair.posX, chair.posY, chair.posZ);
+				}
+			}
 		}
 		return true;
 	}
 	
-	public static class Chair extends Entity {
-		public Chair(World world, BlockPos pos) {
+	public static class EntityChair extends Entity {
+		public EntityChair(World world) {
+			super(world);			
+			setSize(0F, 0F);
+		}
+		public EntityChair(World world, BlockPos pos, EnumFacing facing) {
 			super(world);
-			setPosition(pos.getX() + 0.5, pos.getY() + 0.4, pos.getZ() + 0.5);
+			if (facing != null) this.rotationYaw = facing.getHorizontalAngle();
+			Vec3i facingVec = facing.getDirectionVec();
+			double xOffset = facingVec.getX() * -0.125;
+			double zOffset = facingVec.getZ() * -0.125;
+			setPosition(pos.getX() + 0.5 + xOffset, pos.getY() + 0.4, pos.getZ() + 0.5 + zOffset);
 			setSize(0F, 0F);
 		}
 		
 		@Override
 		public void onUpdate() {
+			super.onUpdate();
+			
 			BlockPos pos = getPosition();
-			if (pos != null && !(getEntityWorld().getBlockState(pos).getBlock() instanceof BlockChair)) {
+			if (pos != null && !(world.getBlockState(pos).getBlock() instanceof BlockChair)) {
 				setDead();
 				return;
 			}
@@ -103,16 +125,43 @@ public class BlockChair extends BlockBase {
 			if (passengers.isEmpty()) {
 				setDead();
 			}
-			for(Entity e : passengers) {
-				if (e.isSneaking()) {
-					setDead();
+			if (!world.isRemote) {
+				for (int i = 0; i < passengers.size(); i++) {
+					Entity passenger = passengers.get(i);
+					if (passenger.isSneaking() || passenger.getDistanceSq(this.posX, this.posY, this.posZ) >= 1) {
+						setDead();
+					}
 				}
 			}
 		}
+		
+		@Override
+		public boolean canBeAttackedWithItem() {
+	        return false;
+	    }
 
 		@Override
 		protected void entityInit() {}
 
+		@Override
+		public void setDead() {
+			super.setDead();
+			if (world.isRemote) {
+				PacketHandler.INSTANCE.sendToServer(new MessageDismountChair());
+			}
+		}
+		
+		@Override
+		@SideOnly(Side.CLIENT)
+	    public void applyOrientationToEntity(Entity entityToUpdate) {
+			entityToUpdate.setRenderYawOffset(this.rotationYaw);
+	        float f = MathHelper.wrapDegrees(entityToUpdate.rotationYaw - this.rotationYaw);
+	        float f1 = MathHelper.clamp(f, -105.0F, 105.0F);
+	        entityToUpdate.prevRotationYaw += f1 - f;
+	        entityToUpdate.rotationYaw += f1 - f;
+	        entityToUpdate.setRotationYawHead(entityToUpdate.rotationYaw);
+	    }
+		
 		@Override
 		protected void readEntityFromNBT(NBTTagCompound compound) {}
 

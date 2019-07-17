@@ -38,8 +38,10 @@ import net.minecraftforge.client.event.RenderBlockOverlayEvent;
 import net.minecraftforge.client.event.RenderBlockOverlayEvent.OverlayType;
 import net.minecraftforge.client.event.RenderGameOverlayEvent;
 import net.minecraftforge.client.event.RenderGameOverlayEvent.ElementType;
+import net.minecraftforge.client.event.RenderLivingEvent;
 import net.minecraftforge.client.event.TextureStitchEvent;
 import net.minecraftforge.common.ForgeHooks;
+import net.minecraftforge.event.entity.living.LivingEvent.LivingUpdateEvent;
 import net.minecraftforge.event.entity.player.ItemTooltipEvent;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.FluidUtil;
@@ -52,6 +54,7 @@ import rustic.client.models.LiquidBarrelItemModel;
 import rustic.client.models.TEISRModel;
 import rustic.client.util.FluidClientUtil;
 import rustic.common.Config;
+import rustic.common.blocks.BlockChair;
 import rustic.common.blocks.BlockVase;
 import rustic.common.blocks.IAdvancedRotationPlacement;
 import rustic.common.blocks.ModBlocks;
@@ -310,6 +313,18 @@ public class EventHandlerClient {
 				GlStateManager.disableBlend();
 				Minecraft.getMinecraft().mcProfiler.endSection();
 			}
+		}
+	}
+	
+	@SideOnly(Side.CLIENT)
+	@SubscribeEvent
+	public void onUpdateSittingEntity(RenderLivingEvent.Pre event) {
+		EntityLivingBase entity = event.getEntity();
+		if (entity == Minecraft.getMinecraft().player) return;
+		
+		if (entity.isRiding() && (entity.getRidingEntity() instanceof BlockChair.EntityChair)) {
+			BlockChair.EntityChair chair = (BlockChair.EntityChair) entity.getRidingEntity();
+			entity.setRenderYawOffset(chair.rotationYaw);
 		}
 	}
 

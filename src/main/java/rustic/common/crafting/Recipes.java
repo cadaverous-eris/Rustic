@@ -146,17 +146,25 @@ public class Recipes {
 		OreDictionary.registerOre("treeLeaves", new ItemStack(ModBlocks.APPLE_LEAVES, 1, 0));
 		for (int i = 0; i < 2; i++) OreDictionary.registerOre("treeLeaves", new ItemStack(ModBlocks.LEAVES, 1, i));
 		
-		OreDictionary.registerOre("slate", new ItemStack(ModBlocks.SLATE));
-		OreDictionary.registerOre("slate", new ItemStack(ModBlocks.SLATE_BRICK));
-		OreDictionary.registerOre("slate", new ItemStack(ModBlocks.SLATE_TILE));
-		OreDictionary.registerOre("slate", new ItemStack(ModBlocks.SLATE_PILLAR));
-		OreDictionary.registerOre("slate", new ItemStack(ModBlocks.SLATE_ROOF));
-		OreDictionary.registerOre("slate", new ItemStack(ModBlocks.SLATE_CHISELED));
+		if (Config.ENABLE_SLATE) {
+			OreDictionary.registerOre("stoneSlate", new ItemStack(ModBlocks.SLATE));
+			OreDictionary.registerOre("slate", new ItemStack(ModBlocks.SLATE));
+			OreDictionary.registerOre("slate", new ItemStack(ModBlocks.SLATE_BRICK));
+			OreDictionary.registerOre("slate", new ItemStack(ModBlocks.SLATE_TILE));
+			if (Config.ENABLE_PILLARS) {
+				OreDictionary.registerOre("slate", new ItemStack(ModBlocks.SLATE_PILLAR));
+			}
+			OreDictionary.registerOre("slate", new ItemStack(ModBlocks.SLATE_ROOF));
+			OreDictionary.registerOre("slate", new ItemStack(ModBlocks.SLATE_CHISELED));
+		}
 		
 		OreDictionary.registerOre("wax", new ItemStack(ModItems.BEESWAX));
 		OreDictionary.registerOre("wax", new ItemStack(ModItems.TALLOW));
 		OreDictionary.registerOre("tallow", new ItemStack(ModItems.BEESWAX));
 		OreDictionary.registerOre("tallow", new ItemStack(ModItems.TALLOW));
+		
+		OreDictionary.registerOre("materialWaxcomb", new ItemStack(ModItems.HONEYCOMB));
+		OreDictionary.registerOre("materialHoneycomb", new ItemStack(ModItems.HONEYCOMB));
 
 		OreDictionary.registerOre("dustTinyIron", new ItemStack(ModItems.IRON_DUST_TINY));
 		

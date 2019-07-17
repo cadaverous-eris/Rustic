@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
+import net.minecraft.block.material.Material;
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.Biome;
@@ -55,9 +57,10 @@ public class WorldGenWildberries extends WorldGenerator {
 	}
 	
 	private boolean generateBush(World world, Random rand, BlockPos pos) {
-		//IBlockState state = world.getBlockState(pos.down());
+		IBlockState state = world.getBlockState(pos);
+		if (state.getMaterial().isLiquid()) return false;
 		if (ModBlocks.WILDBERRY_BUSH.canPlaceBlockAt(world, pos)) {
-			world.setBlockState(pos, ModBlocks.WILDBERRY_BUSH.getDefaultState().withProperty(BlockBerryBush.BERRIES, true));
+			world.setBlockState(pos, ModBlocks.WILDBERRY_BUSH.getDefaultState().withProperty(BlockBerryBush.BERRIES, rand.nextBoolean()));
 			return true;
 		}
 		return false;

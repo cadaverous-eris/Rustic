@@ -268,16 +268,18 @@ public class TileEntityBrewingBarrel extends TileEntity implements ITickable {
 					ItemStack out = new ItemStack(in.getItem());
 					IFluidHandlerItem fluidHandlerDummy = out
 							.getCapability(CapabilityFluidHandler.FLUID_HANDLER_ITEM_CAPABILITY, null);
-					fluidHandlerDummy.drain(input.getCapacity() - input.getFluidAmount(), true);
-					out = fluidHandlerDummy.getContainer();
-					if (out.getItem() == ForgeModContainer.getInstance().universalBucket) {
-						out = new ItemStack(Items.BUCKET);
-					}
-					if (internalStackHandler.insertItem(3, out, true).isEmpty()) {
-						input.fill(fluid, true);
-						internalStackHandler.getStackInSlot(0).shrink(1);
-						internalStackHandler.insertItem(3, out, false);
-						fluidChanged |= true;
+					if (fluidHandlerDummy != null) {
+						fluidHandlerDummy.drain(input.getCapacity() - input.getFluidAmount(), true);
+						out = fluidHandlerDummy.getContainer();
+						if (out.getItem() == ForgeModContainer.getInstance().universalBucket) {
+							out = new ItemStack(Items.BUCKET);
+						}
+						if (internalStackHandler.insertItem(3, out, true).isEmpty()) {
+							input.fill(fluid, true);
+							internalStackHandler.getStackInSlot(0).shrink(1);
+							internalStackHandler.insertItem(3, out, false);
+							fluidChanged |= true;
+						}
 					}
 				} else if ((fluid == null || fluid.getFluid() == null) && input.getFluidAmount() > 0) {
 					ItemStack out = new ItemStack(in.getItem());
