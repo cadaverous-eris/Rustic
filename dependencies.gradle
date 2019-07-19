@@ -4,4 +4,5 @@ dependencies {
     provided "quark:Quark:r1.4:122"
     compile "CraftTweaker2:CraftTweaker2-API:4.0.10.298"
     deobfCompile "net.sengir.forestry:forestry_1.12.2:5.7.0.214"
+    deobfCompile 'dynamictrees:DynamicTrees:1.12.2:0.9.5'
 }
