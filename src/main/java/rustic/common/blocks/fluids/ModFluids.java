@@ -17,6 +17,7 @@ import net.minecraft.world.World;
 import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fluids.FluidStack;
+import rustic.common.Config;
 import rustic.common.potions.PotionsRustic;
 
 public class ModFluids {
@@ -208,7 +209,7 @@ public class ModFluids {
 					float saturation = 2F * quality;
 					player.getFoodStats().addStats(1, saturation);
 					for (PotionEffect effect : player.getActivePotionEffects()) {
-						if (!effect.getPotion().isBadEffect() && effect.getAmplifier() < 2) {
+						if (!effect.getPotion().isBadEffect() && effect.getAmplifier() < Config.MAX_AMPLIFIER_WILDBERRY_WINE) {
 							player.addPotionEffect(new PotionEffect(effect.getPotion(), effect.getDuration(), effect.getAmplifier() + 1, effect.getIsAmbient(), effect.doesShowParticles()));
 						}
 					}

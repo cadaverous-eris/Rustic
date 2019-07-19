@@ -61,6 +61,7 @@ public class Config {
 	public static boolean ENABLE_BOTTLE_EMPTYING;
 	public static List<Integer> OVERWORLD_GENERATION_WHITELIST = new ArrayList<Integer>();
 	public static List<Integer> NETHER_GENERATION_WHITELIST = new ArrayList<Integer>();
+	public static int MAX_AMPLIFIER_WILDBERRY_WINE;
 
 	public static void readConfig() {
 		Configuration cfg = CommonProxy.config;
@@ -120,6 +121,7 @@ public class Config {
 		MAX_BREW_QUALITY_CHANGE = cfg.getInt("Maximum Increase To Brew Quality", CATEGORY_GENERAL, 4, -50, 50, "the maximum amount of increase that booze culture will provide to the new brew, in percent");
 		MAX_BREW_TIME = cfg.getInt("Maximum Brew Time", CATEGORY_GENERAL, 12000, 1200, 120000, "how long it should take for a brewing barrel to finish a brew, in ticks");
 		ENABLE_BOTTLE_EMPTYING = cfg.getBoolean("Enable Bottle Emptying", CATEGORY_GENERAL, true, "set this to false if you experience any issues with Rustic's glass bottle emptying recipe");
+		MAX_AMPLIFIER_WILDBERRY_WINE = cfg.getInt("Maximum Wildberry Wine Amplifier", CATEGORY_GENERAL, 2, 0, 100, "the maximum level wildberry wine will raise beneficial effects to.");
 		List<String> overworldGenWhitelist = Arrays.asList(cfg.getStringList("Overworld Generation Dimension Whitelist", CATEGORY_WORLD, new String[] {"0"}, "add numerical dimension ids to this list to allow Rustic's overworld world gen to occur in those dimensions\ndimensions that are not listed here will not receive Rustic's overworld world generation\n"));
 		List<String> netherGenWhitelist = Arrays.asList(cfg.getStringList("Nether Generation Dimension Whitelist", CATEGORY_WORLD, new String[] {"-1"}, "add numerical dimension ids to this list to allow Rustic's nether world gen to occur in those dimensions\ndimensions that are not listed here will not receive Rustic's nether world generation\n"));
 		overworldGenWhitelist.forEach((dimId) -> {OVERWORLD_GENERATION_WHITELIST.add(Integer.parseInt(dimId));});
@@ -146,6 +148,7 @@ public class Config {
 		PROPERTY_ORDER_GENERAL.add("Enable Tables");
 		PROPERTY_ORDER_GENERAL.add("Enable Chairs");
 		PROPERTY_ORDER_GENERAL.add("Enable Lattice");
+		PROPERTY_ORDER_GENERAL.add("Maximum Wildberry Wine Amplifier");
 		PROPERTY_ORDER_WORLD.add("Nether Slate");
 		PROPERTY_ORDER_WORLD.add("Slate Veins Per Chunk");
 		PROPERTY_ORDER_WORLD.add("Slate Vein Size");
