@@ -11,8 +11,6 @@ import net.minecraftforge.common.config.Configuration;
 import net.minecraftforge.common.config.Property;
 import rustic.core.CommonProxy;
 
-import javax.annotation.Resource;
-
 public class Config {
 
 	private final static String CATEGORY_GENERAL = "all.general";
@@ -136,6 +134,7 @@ public class Config {
 			int value = Integer.parseInt(splitString[1]);
 			WILDBERRY_POTION_AMPLIFIERS.put(loc, value);
 		});
+		
 		PROPERTY_ORDER_GENERAL.add("Flesh Smelting");
 		PROPERTY_ORDER_GENERAL.add("Enable Olive Oiling");
 		PROPERTY_ORDER_GENERAL.add("Olive Oil Food Blacklist");
