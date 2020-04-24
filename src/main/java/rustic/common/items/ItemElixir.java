@@ -24,6 +24,7 @@ import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import rustic.common.crafting.CondenserRecipe;
+import rustic.common.crafting.ICondenserRecipe;
 import rustic.common.crafting.Recipes;
 import rustic.common.util.ElixirUtils;
 import rustic.core.ClientProxy;
@@ -39,7 +40,7 @@ public class ItemElixir extends ItemBase implements IColoredItem {
 
 	@Override
 	public void getSubItems(CreativeTabs tab, NonNullList<ItemStack> subItems) {
-		for (CondenserRecipe recipe : Recipes.condenserRecipes) {
+		for (ICondenserRecipe recipe : Recipes.condenserRecipes) {
 			if (!subItems.contains(recipe.getResult())) {
 				if(isInCreativeTab(tab)) {
 					subItems.add(recipe.getResult());

@@ -23,7 +23,8 @@ import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
-import rustic.common.tileentity.TileEntityCondenserAdvanced;
+import rustic.common.tileentity.TileEntityCondenserAdvancedBottom;
+import rustic.common.tileentity.TileEntityCondenserAdvancedTop;
 import rustic.core.Rustic;
 
 public class BlockCondenserAdvanced extends BlockBase implements ITileEntityProvider {
@@ -125,9 +126,10 @@ public class BlockCondenserAdvanced extends BlockBase implements ITileEntityProv
 	@Override
 	public TileEntity createNewTileEntity(World worldIn, int meta) {
 		if (this.getStateFromMeta(meta).getValue(BOTTOM)) {
-			return new TileEntityCondenserAdvanced(); 
+			return new TileEntityCondenserAdvancedBottom(); 
+		} else {
+			return new TileEntityCondenserAdvancedTop();
 		}
-		return null;
 	}
 	
 	@Override
@@ -139,11 +141,13 @@ public class BlockCondenserAdvanced extends BlockBase implements ITileEntityProv
 
 	@Override
 	public void breakBlock(World worldIn, BlockPos pos, IBlockState state) {
-		if (state.getValue(BOTTOM)) {
-			TileEntity tileentity = worldIn.getTileEntity(pos);
-			if (tileentity != null && tileentity instanceof TileEntityCondenserAdvanced) {
-				((TileEntityCondenserAdvanced) tileentity).breakBlock(worldIn, pos, state);
-				worldIn.removeTileEntity(pos);
+		TileEntity tileentity = worldIn.getTileEntity(pos);
+		if ( tileentity != null) {
+			if (state.getValue(BOTTOM) && tileentity instanceof TileEntityCondenserAdvancedBottom) {
+				((TileEntityCondenserAdvancedBottom) tileentity).breakBlock(worldIn, pos, state);
+					worldIn.removeTileEntity(pos);
+			} else if (tileentity instanceof TileEntityCondenserAdvancedTop) {
+				((TileEntityCondenserAdvancedTop) tileentity).breakBlock(worldIn, pos, state);
 			}
 		}
 		super.breakBlock(worldIn, pos, state);
@@ -153,8 +157,8 @@ public class BlockCondenserAdvanced extends BlockBase implements ITileEntityProv
 	public boolean onBlockActivated(World world, BlockPos pos, IBlockState state, EntityPlayer player, EnumHand hand,
 			EnumFacing side, float hitX, float hitY, float hitZ) {
 		if (state.getValue(BOTTOM)) {
-			if (world.getTileEntity(pos) != null && world.getTileEntity(pos) instanceof TileEntityCondenserAdvanced && hasRetorts(world, pos, state)) {
-				if (!((TileEntityCondenserAdvanced) world.getTileEntity(pos)).activate(world, pos, state, player, hand, side, hitX,
+			if (world.getTileEntity(pos) != null && world.getTileEntity(pos) instanceof TileEntityCondenserAdvancedBottom && hasRetorts(world, pos, state)) {
+				if (!((TileEntityCondenserAdvancedBottom) world.getTileEntity(pos)).activate(world, pos, state, player, hand, side, hitX,
 						hitY, hitZ)) {
 					if (world.isRemote) {
 						return true;
@@ -165,8 +169,8 @@ public class BlockCondenserAdvanced extends BlockBase implements ITileEntityProv
 				return true;
 			}
 		} else {
-			if (world.getTileEntity(pos.down()) != null && world.getTileEntity(pos.down()) instanceof TileEntityCondenserAdvanced && hasRetorts(world, pos.down(), world.getBlockState(pos.down()))) {
-				if (!((TileEntityCondenserAdvanced) world.getTileEntity(pos.down())).activate(world, pos.down(), state, player, hand, side, hitX,
+			if (world.getTileEntity(pos.down()) != null && world.getTileEntity(pos.down()) instanceof TileEntityCondenserAdvancedBottom && hasRetorts(world, pos.down(), world.getBlockState(pos.down()))) {
+				if (!((TileEntityCondenserAdvancedBottom) world.getTileEntity(pos.down())).activate(world, pos.down(), state, player, hand, side, hitX,
 						hitY, hitZ)) {
 					if (world.isRemote) {
 						return true;

@@ -23,6 +23,7 @@ import rustic.common.crafting.BasicCondenserRecipe;
 import rustic.common.crafting.BrewingBarrelRecipe;
 import rustic.common.crafting.CrushingTubRecipe;
 import rustic.common.crafting.EvaporatingBasinRecipe;
+import rustic.common.crafting.ICondenserRecipe;
 import rustic.common.crafting.Recipes;
 import rustic.common.items.ModItems;
 
@@ -66,12 +67,12 @@ public class RusticJEIPlugin implements IModPlugin {
 
 		reg.addRecipeCategories(new AdvancedAlchemyRecipeCategory(guiHelper));
 		reg.addRecipes(AdvancedAlchemyRecipeMaker.getAlchemyRecipes(helper), "rustic.alchemy_advanced");
-		reg.handleRecipes(AdvancedCondenserRecipe.class, new AdvancedAlchemyRecipeWrapperFactory(),
+		reg.handleRecipes(ICondenserRecipe.class, new AdvancedAlchemyRecipeWrapperFactory(),
 				"rustic.alchemy_advanced");
 
 		reg.addRecipeCategories(new SimpleAlchemyRecipeCategory(guiHelper));
 		reg.addRecipes(SimpleAlchemyRecipeMaker.getSimpleAlchemyRecipes(helper), "rustic.alchemy_simple");
-		reg.handleRecipes(BasicCondenserRecipe.class, new SimpleAlchemyRecipeWrapperFactory(), "rustic.alchemy_simple");
+		reg.handleRecipes(ICondenserRecipe.class, new SimpleAlchemyRecipeWrapperFactory(), "rustic.alchemy_simple");
 
 		reg.addRecipeCategories(new BrewingRecipeCategory(guiHelper));
 		reg.addRecipes(Recipes.brewingRecipes, "rustic.brewing");

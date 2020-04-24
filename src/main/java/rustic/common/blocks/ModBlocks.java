@@ -27,7 +27,7 @@ import rustic.common.tileentity.TileEntityBarrel;
 import rustic.common.tileentity.TileEntityBrewingBarrel;
 import rustic.common.tileentity.TileEntityCabinet;
 import rustic.common.tileentity.TileEntityCondenser;
-import rustic.common.tileentity.TileEntityCondenserAdvanced;
+import rustic.common.tileentity.TileEntityCondenserAdvancedBottom;
 import rustic.common.tileentity.TileEntityCrushingTub;
 import rustic.common.tileentity.TileEntityEvaporatingBasin;
 import rustic.common.tileentity.TileEntityLiquidBarrel;
@@ -363,7 +363,7 @@ public class ModBlocks {
 		GameRegistry.registerTileEntity(TileEntityCrushingTub.class, Rustic.MODID + ":tileEntityCrushingTub");
 		GameRegistry.registerTileEntity(TileEntityEvaporatingBasin.class, Rustic.MODID + ":tileEntityEvaporatingBasin");
 		GameRegistry.registerTileEntity(TileEntityCondenser.class, Rustic.MODID + ":tileEntityCondenser");
-		GameRegistry.registerTileEntity(TileEntityCondenserAdvanced.class,
+		GameRegistry.registerTileEntity(TileEntityCondenserAdvancedBottom.class,
 				Rustic.MODID + ":tileEntityCondenserAdvanced");
 		GameRegistry.registerTileEntity(TileEntityBrewingBarrel.class, Rustic.MODID + ":tileEntityBrewingBarrel");
 	}

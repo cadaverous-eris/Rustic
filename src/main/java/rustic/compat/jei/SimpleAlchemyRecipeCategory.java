@@ -10,6 +10,7 @@ import mezz.jei.api.gui.IGuiFluidStackGroup;
 import mezz.jei.api.gui.IGuiItemStackGroup;
 import mezz.jei.api.gui.IRecipeLayout;
 import mezz.jei.api.ingredients.IIngredients;
+import mezz.jei.api.ingredients.VanillaTypes;
 import mezz.jei.api.recipe.BlankRecipeCategory;
 import mezz.jei.api.recipe.IRecipeWrapper;
 import net.minecraft.client.Minecraft;
@@ -19,6 +20,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fluids.FluidStack;
+import rustic.common.tileentity.TileEntityCondenser;
 
 public class SimpleAlchemyRecipeCategory extends BlankRecipeCategory {
 	
@@ -67,27 +69,30 @@ public class SimpleAlchemyRecipeCategory extends BlankRecipeCategory {
 		IGuiItemStackGroup stacks = layout.getItemStacks();
 		IGuiFluidStackGroup fluid = layout.getFluidStacks();
 		
-		stacks.init(0, true, 3, 43);
-		stacks.init(1, true, 3, 19);
-		if (ingredients.getInputs(ItemStack.class) instanceof List
-				&& ingredients.getInputs(ItemStack.class).size() > 0) {
-			stacks.set(0, ingredients.getInputs(ItemStack.class).get(0));
+		// Retrieve bottle from IIngredients object (see SimpleAlchemyRecipeWrapper)
+		stacks.init(TileEntityCondenser.SLOT_BOTTLE, true, 81, 3);
+		if (ingredients.getInputs(VanillaTypes.ITEM).size() > 0) {
+			stacks.set(TileEntityCondenser.SLOT_BOTTLE, ingredients.getInputs(VanillaTypes.ITEM).get(0));
 		}
-		if (ingredients.getInputs(ItemStack.class) instanceof List
-				&& ingredients.getInputs(ItemStack.class).size() > 1) {
-			stacks.set(1, ingredients.getInputs(ItemStack.class).get(1));
+			
+		// Retrieve the two ingredient
+		stacks.init(TileEntityCondenser.SLOT_INGREDIENTS_START, true, 3, 43);
+		stacks.init(TileEntityCondenser.SLOT_INGREDIENTS_START + 1, true, 3, 19);
+		if (ingredients.getInputs(VanillaTypes.ITEM).size() > 1) {
+			stacks.set(TileEntityCondenser.SLOT_INGREDIENTS_START, ingredients.getInputs(VanillaTypes.ITEM).get(1));
+		}
+		if (ingredients.getInputs(VanillaTypes.ITEM).size() > 2) {
+			stacks.set(TileEntityCondenser.SLOT_INGREDIENTS_START + 1, ingredients.getInputs(VanillaTypes.ITEM).get(2));
 		}
 		
-		stacks.init(2, true, 81, 3);
-		stacks.set(2, new ItemStack(Items.GLASS_BOTTLE));
+		fluid.init(0, true, 110, 24, 16, 32, 8000, true, null);
+		if (ingredients.getInputs(VanillaTypes.FLUID).size() > 0) {
+			fluid.set(0, ingredients.getInputs(VanillaTypes.FLUID).get(0));
+		}
 		
-		fluid.init(3, true, 110, 24, 16, 32, 8000, true, null);
-		fluid.set(3, new FluidStack(FluidRegistry.WATER, 125));
-		
-		stacks.init(4, false, 81, 31);
-		if (ingredients.getOutputs(ItemStack.class) instanceof List
-				&& ingredients.getOutputs(ItemStack.class).size() > 0) {
-			stacks.set(4, ingredients.getOutputs(ItemStack.class).get(0));
+		stacks.init(TileEntityCondenser.SLOT_RESULT, false, 81, 31);
+		if (ingredients.getOutputs(VanillaTypes.ITEM).size() > 0) {
+			stacks.set(TileEntityCondenser.SLOT_RESULT, ingredients.getOutputs(VanillaTypes.ITEM).get(0));
 		}
 	}
 	
