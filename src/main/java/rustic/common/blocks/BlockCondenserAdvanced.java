@@ -145,9 +145,10 @@ public class BlockCondenserAdvanced extends BlockBase implements ITileEntityProv
 		if ( tileentity != null) {
 			if (state.getValue(BOTTOM) && tileentity instanceof TileEntityCondenserAdvancedBottom) {
 				((TileEntityCondenserAdvancedBottom) tileentity).breakBlock(worldIn, pos, state);
-					worldIn.removeTileEntity(pos);
+				worldIn.removeTileEntity(pos);
 			} else if (tileentity instanceof TileEntityCondenserAdvancedTop) {
 				((TileEntityCondenserAdvancedTop) tileentity).breakBlock(worldIn, pos, state);
+				worldIn.removeTileEntity(pos);
 			}
 		}
 		super.breakBlock(worldIn, pos, state);

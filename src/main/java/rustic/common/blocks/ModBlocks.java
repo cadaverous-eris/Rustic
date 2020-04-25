@@ -4,6 +4,7 @@ import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
+import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
@@ -28,6 +29,7 @@ import rustic.common.tileentity.TileEntityBrewingBarrel;
 import rustic.common.tileentity.TileEntityCabinet;
 import rustic.common.tileentity.TileEntityCondenser;
 import rustic.common.tileentity.TileEntityCondenserAdvancedBottom;
+import rustic.common.tileentity.TileEntityCondenserAdvancedTop;
 import rustic.common.tileentity.TileEntityCrushingTub;
 import rustic.common.tileentity.TileEntityEvaporatingBasin;
 import rustic.common.tileentity.TileEntityLiquidBarrel;
@@ -354,18 +356,18 @@ public class ModBlocks {
 		DOOR_IRONWOOD = new BlockDoorRustic(Material.WOOD, "ironwood_door");
 
 		Herbs.init();
-
-		GameRegistry.registerTileEntity(TileEntityApiary.class, Rustic.MODID + ":tileEntityApiary");
-		GameRegistry.registerTileEntity(TileEntityVase.class, Rustic.MODID + ":tileEntityVase");
-		GameRegistry.registerTileEntity(TileEntityBarrel.class, Rustic.MODID + ":tileEntityBarrel");
-		GameRegistry.registerTileEntity(TileEntityCabinet.class, Rustic.MODID + ":tileEntityCabinet");
-		GameRegistry.registerTileEntity(TileEntityLiquidBarrel.class, Rustic.MODID + ":tileEntityLiquidBarrel");
-		GameRegistry.registerTileEntity(TileEntityCrushingTub.class, Rustic.MODID + ":tileEntityCrushingTub");
-		GameRegistry.registerTileEntity(TileEntityEvaporatingBasin.class, Rustic.MODID + ":tileEntityEvaporatingBasin");
-		GameRegistry.registerTileEntity(TileEntityCondenser.class, Rustic.MODID + ":tileEntityCondenser");
-		GameRegistry.registerTileEntity(TileEntityCondenserAdvancedBottom.class,
-				Rustic.MODID + ":tileEntityCondenserAdvanced");
-		GameRegistry.registerTileEntity(TileEntityBrewingBarrel.class, Rustic.MODID + ":tileEntityBrewingBarrel");
+		
+		GameRegistry.registerTileEntity(TileEntityApiary.class, new ResourceLocation(Rustic.MODID , "tileEntityApiary"));
+		GameRegistry.registerTileEntity(TileEntityVase.class, new ResourceLocation(Rustic.MODID,  "tileEntityVase"));
+		GameRegistry.registerTileEntity(TileEntityBarrel.class, new ResourceLocation(Rustic.MODID, "tileEntityBarrel"));
+		GameRegistry.registerTileEntity(TileEntityCabinet.class, new ResourceLocation(Rustic.MODID, "tileEntityCabinet"));
+		GameRegistry.registerTileEntity(TileEntityLiquidBarrel.class, new ResourceLocation(Rustic.MODID, "tileEntityLiquidBarrel"));
+		GameRegistry.registerTileEntity(TileEntityCrushingTub.class, new ResourceLocation(Rustic.MODID, "tileEntityCrushingTub"));
+		GameRegistry.registerTileEntity(TileEntityEvaporatingBasin.class, new ResourceLocation(Rustic.MODID, "tileEntityEvaporatingBasin"));
+		GameRegistry.registerTileEntity(TileEntityCondenser.class, new ResourceLocation(Rustic.MODID, "tileEntityCondenser"));
+		GameRegistry.registerTileEntity(TileEntityCondenserAdvancedBottom.class, new ResourceLocation(Rustic.MODID, "tileEntityCondenserAdvanced"));
+		GameRegistry.registerTileEntity(TileEntityCondenserAdvancedTop.class, new ResourceLocation(Rustic.MODID, "tileEntityCondenserAdvancedProxy"));
+		GameRegistry.registerTileEntity(TileEntityBrewingBarrel.class, new ResourceLocation(Rustic.MODID, "tileEntityBrewingBarrel"));
 	}
 
 	@SideOnly(Side.CLIENT)

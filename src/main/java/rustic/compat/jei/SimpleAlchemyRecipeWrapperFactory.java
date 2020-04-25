@@ -2,7 +2,6 @@ package rustic.compat.jei;
 
 import mezz.jei.api.recipe.IRecipeWrapper;
 import mezz.jei.api.recipe.IRecipeWrapperFactory;
-import rustic.common.crafting.BasicCondenserRecipe;
 import rustic.common.crafting.ICondenserRecipe;
 
 public class SimpleAlchemyRecipeWrapperFactory implements IRecipeWrapperFactory<ICondenserRecipe> {

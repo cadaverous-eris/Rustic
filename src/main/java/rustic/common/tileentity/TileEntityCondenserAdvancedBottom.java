@@ -197,7 +197,7 @@ public class TileEntityCondenserAdvancedBottom extends TileEntityCondenserBase {
 				internalStackHandler.extractItem(SLOT_INGREDIENTS_START + 2, consume[1], false);
 				internalStackHandler.extractItem(SLOT_INGREDIENTS_START + 3, consume[2], false);
 				internalStackHandler.extractItem(SLOT_BOTTLE, recipe.getBottleConsumption(bottle), false);
-				this.tank.drain(recipe.getFluid().amount, true);
+				tank.drain(recipe.getFluid().amount, true);
 			}
 		}
 	}

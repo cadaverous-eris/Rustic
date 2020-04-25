@@ -1,8 +1,6 @@
 package rustic.compat.crafttweaker;
 
 import java.util.Iterator;
-import java.util.List;
-
 import crafttweaker.CraftTweakerAPI;
 import crafttweaker.IAction;
 import crafttweaker.api.item.IIngredient;
@@ -11,15 +9,10 @@ import crafttweaker.api.liquid.ILiquidStack;
 import crafttweaker.api.minecraft.CraftTweakerMC;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
-import net.minecraft.potion.PotionEffect;
 import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fluids.FluidStack;
-import rustic.common.crafting.AdvancedCondenserRecipe;
-import rustic.common.crafting.BasicCondenserRecipe;
-import rustic.common.crafting.CondenserRecipe;
 import rustic.common.crafting.ICondenserRecipe;
 import rustic.common.crafting.Recipes;
-import rustic.common.util.ElixirUtils;
 import stanhebben.zenscript.annotations.NotNull;
 import stanhebben.zenscript.annotations.ZenClass;
 import stanhebben.zenscript.annotations.ZenMethod;

@@ -41,23 +41,23 @@ public abstract class TileEntityCondenserBase extends TileFluidHandler implement
 	public static final int SLOT_INGREDIENTS_START = 3;
 
 	public static final int CAPACITY = Fluid.BUCKET_VOLUME * 8;
-	
+
 	protected abstract int getInternalSize();
 
 	protected ItemStackHandler internalStackHandler = new ItemStackHandler(getInternalSize()) {
 		@Override
 		protected void onContentsChanged(int slot) {
 			IBlockState state = world.getBlockState(pos);
-			TileEntityCondenserBase.this.world.addBlockEvent(TileEntityCondenserBase.this.pos,
+			world.addBlockEvent(TileEntityCondenserBase.this.pos,
 					TileEntityCondenserBase.this.getBlockType(), 1, 0);
-			getWorld().notifyBlockUpdate(pos, state, state, 3);
-			world.notifyNeighborsOfStateChange(TileEntityCondenserBase.this.pos, TileEntityCondenserBase.this.getBlockType(),
-					true);
+			world.notifyBlockUpdate(pos, state, state, 3);
+			world.notifyNeighborsOfStateChange(TileEntityCondenserBase.this.pos,
+					TileEntityCondenserBase.this.getBlockType(), true);
 			TileEntityCondenserBase.this.markDirty();
 			TileEntityCondenserBase.this.hasContentChanged = true;
 		}
 	};
-	
+
 	protected ExternalItemHandler externalStackHandler = new ExternalItemHandler(internalStackHandler) {
 		@Override
 		@Nonnull
@@ -98,9 +98,9 @@ public abstract class TileEntityCondenserBase extends TileFluidHandler implement
 		this.currentRecipe = null;
 		this.hasContentChanged = true;
 	}
-	
+
 	public abstract String getName();
-	
+
 	public ITextComponent getDisplayName() {
 		return (ITextComponent) new TextComponentTranslation(this.getName(), new Object[0]);
 	}
@@ -160,9 +160,9 @@ public abstract class TileEntityCondenserBase extends TileFluidHandler implement
 		}
 		return this.internalStackHandler.insertItem(SLOT_RESULT, this.currentRecipe.getResult(), true).isEmpty();
 	}
-	
+
 	protected abstract void refreshCurrentRecipe();
-	
+
 	private boolean burnFuel(boolean consumeNewFuel) {
 		if (this.condenserBurnTime > 0) {
 			--this.condenserBurnTime;
@@ -183,15 +183,14 @@ public abstract class TileEntityCondenserBase extends TileFluidHandler implement
 		}
 		return false;
 	}
-	
+
 	public boolean isBurning() {
 		return this.condenserBurnTime > 0;
 	}
-	
+
 	protected abstract void renderParticles();
-	
+
 	protected abstract void brew();
-	
 
 	@Override
 	public NBTTagCompound getUpdateTag() {
@@ -232,7 +231,7 @@ public abstract class TileEntityCondenserBase extends TileFluidHandler implement
 		tag.setInteger("ItemBurnTime", this.currentItemBurnTime);
 		return tag;
 	}
-	
+
 	@Override
 	public boolean receiveClientEvent(int id, int type) {
 		if (id == 1) {
@@ -244,7 +243,7 @@ public abstract class TileEntityCondenserBase extends TileFluidHandler implement
 			return super.receiveClientEvent(id, type);
 		}
 	}
-	
+
 	public void breakBlock(World world, BlockPos pos, IBlockState state) {
 		this.invalidate();
 		if (internalStackHandler != null && !world.isRemote) {
@@ -256,16 +255,17 @@ public abstract class TileEntityCondenserBase extends TileFluidHandler implement
 		}
 		world.setTileEntity(pos, null);
 	}
-	
+
 	public boolean activate(World world, BlockPos pos, IBlockState state, EntityPlayer player, EnumHand hand,
 			EnumFacing side, float hitX, float hitY, float hitZ) {
 		ItemStack heldItem = player.getHeldItem(hand);
 		if (heldItem != ItemStack.EMPTY) {
-			if ((FluidUtil.getFluidHandler(heldItem) != null || heldItem.getItem() instanceof ItemBucket || heldItem.getItem() instanceof UniversalBucket)) {
+			if ((FluidUtil.getFluidHandler(heldItem) != null || heldItem.getItem() instanceof ItemBucket
+					|| heldItem.getItem() instanceof UniversalBucket)) {
 				boolean didFill = FluidUtil.interactWithFluidHandler(player, hand,
 						this.getCapability(CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY, side));
 				if (didFill) {
-					//player.setHeldItem(hand, didFill.getResult());
+					// player.setHeldItem(hand, didFill.getResult());
 					this.world.addBlockEvent(this.pos, this.getBlockType(), 1, 0);
 					getWorld().notifyBlockUpdate(pos, state, state, 3);
 					this.world.notifyNeighborsOfStateChange(this.pos, this.getBlockType(), true);
