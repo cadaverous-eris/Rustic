@@ -36,17 +36,18 @@ public class MessageVaseMeta implements IMessage {
 		@Override
 		public IMessage onMessage(final MessageVaseMeta message, final MessageContext ctx) {
 			EntityPlayerMP player = ctx.getServerHandler().player;
-			for (ItemStack stack : player.inventory.mainInventory) {
-				if (stack.getItem() == Item.getItemFromBlock(ModBlocks.VASE)) {
-					stack.setItemDamage(message.meta);
+			player.getServerWorld().addScheduledTask(() -> {
+				for (ItemStack stack : player.inventory.mainInventory) {
+					if (stack.getItem() == Item.getItemFromBlock(ModBlocks.VASE)) {
+						stack.setItemDamage(message.meta);
+					}
 				}
-			}
-			for (ItemStack stack : player.inventory.offHandInventory) {
-				if (stack.getItem() == Item.getItemFromBlock(ModBlocks.VASE)) {
-					stack.setItemDamage(message.meta);
+				for (ItemStack stack : player.inventory.offHandInventory) {
+					if (stack.getItem() == Item.getItemFromBlock(ModBlocks.VASE)) {
+						stack.setItemDamage(message.meta);
+					}
 				}
-			}
-			
+			});
 			return null;
 		}
 		

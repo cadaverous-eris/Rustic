@@ -116,7 +116,7 @@ public class TileEntityCondenserAdvancedBottom extends TileEntityCondenserBase {
 			Fluid fluid = this.getFluid();
 			ItemStack modifier = internalStackHandler.getStackInSlot(SLOT_INGREDIENTS_START);
 			ItemStack bottle = internalStackHandler.getStackInSlot(SLOT_BOTTLE);
-			ItemStack[] inputs = new ItemStack[]{ this.internalStackHandler.getStackInSlot(SLOT_INGREDIENTS_START + 1), this.internalStackHandler.getStackInSlot(SLOT_INGREDIENTS_START + 2), this.internalStackHandler.getStackInSlot(SLOT_INGREDIENTS_START + 3)};
+			ItemStack[] inputs = new ItemStack[]{ this.internalStackHandler.getStackInSlot(SLOT_INGREDIENTS_START + 1), this.internalStackHandler.getStackInSlot(SLOT_INGREDIENTS_START + 2), this.internalStackHandler.getStackInSlot(SLOT_INGREDIENTS_START + 3) };
 			if (this.currentRecipe != null && this.currentRecipe.matches(fluid, modifier, bottle, inputs)) {
 				return;
 			}
@@ -126,7 +126,7 @@ public class TileEntityCondenserAdvancedBottom extends TileEntityCondenserBase {
 				if (!recipe.isBasic() && !recipe.isAdvanced()) {
 					continue;
 				}
-				if (recipe.matches(fluid, ItemStack.EMPTY, bottle, inputs)) {
+				if (recipe.matches(fluid, modifier, bottle, inputs)) {
 					this.currentRecipe = recipe;
 					this.totalBrewTime = recipe.getTime();
 					return;
@@ -187,7 +187,7 @@ public class TileEntityCondenserAdvancedBottom extends TileEntityCondenserBase {
 			Fluid fluid = this.getFluid();
 			ItemStack modifier = internalStackHandler.getStackInSlot(SLOT_INGREDIENTS_START);
 			ItemStack bottle = internalStackHandler.getStackInSlot(SLOT_BOTTLE);
-			ItemStack[] inputs = new ItemStack[]{ this.internalStackHandler.getStackInSlot(SLOT_INGREDIENTS_START + 1), this.internalStackHandler.getStackInSlot(SLOT_INGREDIENTS_START + 2), this.internalStackHandler.getStackInSlot(SLOT_INGREDIENTS_START + 3)};
+			ItemStack[] inputs = new ItemStack[]{ this.internalStackHandler.getStackInSlot(SLOT_INGREDIENTS_START + 1), this.internalStackHandler.getStackInSlot(SLOT_INGREDIENTS_START + 2), this.internalStackHandler.getStackInSlot(SLOT_INGREDIENTS_START + 3) };
 			ICondenserRecipe recipe = this.currentRecipe;
 			if (recipe.matches(fluid, modifier, bottle, inputs) && this.getAmount() >= recipe.getFluid().amount) {
 				internalStackHandler.insertItem(SLOT_RESULT, recipe.getResult(), false);
