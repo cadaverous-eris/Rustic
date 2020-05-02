@@ -49,6 +49,7 @@ public class Config {
 	public static boolean ENABLE_CHAIRS;
 	public static boolean ENABLE_LATTICE;
 	public static List<String> OLIVE_OIL_BLACKLIST = new ArrayList<String>();
+	public static boolean OLIVE_OIL_USE_WHITELIST;
 	public static boolean ENABLE_OLIVE_OILING;
 	public static boolean ENABLE_FORESTRY_COMPAT;
 	public static boolean GRAPE_DROP_NEEDS_TOOL;
@@ -110,6 +111,7 @@ public class Config {
 		ENABLE_CHAIRS = cfg.getBoolean("Enable Chairs", CATEGORY_GENERAL, true, "enable/disable all chair blocks");
 		ENABLE_LATTICE = cfg.getBoolean("Enable Lattice", CATEGORY_GENERAL, true, "enable/disable lattice blocks");
 		OLIVE_OIL_BLACKLIST = Arrays.asList(cfg.getStringList("Olive Oil Food Blacklist", CATEGORY_GENERAL, new String[0], "add an item's registry name to this list to prevent it from being craftable with olive oil\nput each item name on a new line, don't use commas\n"));
+		OLIVE_OIL_USE_WHITELIST = cfg.getBoolean("Treat Olive Oil Blacklist as Whitelist", CATEGORY_GENERAL, false, "treat \"Olive Oil Food Blacklist\" as a whitelist instead");
 		ENABLE_OLIVE_OILING = cfg.getBoolean("Enable Olive Oiling", CATEGORY_GENERAL, true, "enable/disable the ability to add olive oil to food");
 		ENABLE_FORESTRY_COMPAT = cfg.getBoolean("Enable Forestry Compat", CATEGORY_COMPAT, true, "with this enabled, Rustic will automatically add recipes for some of Forestry's machines using Rustic's fluids");
 		GRAPE_DROP_NEEDS_TOOL = cfg.getBoolean("Grapeseed Drops Require Tool", CATEGORY_GENERAL, false, "with this value set to true, vines will only drop grape seeds when broken with tools from the whitelist");
