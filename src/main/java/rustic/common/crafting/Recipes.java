@@ -38,7 +38,7 @@ public class Recipes {
 
 	public static List<CrushingTubRecipe> crushingTubRecipes = new ArrayList<CrushingTubRecipe>();
 	public static List<EvaporatingBasinRecipe> evaporatingRecipes = new ArrayList<EvaporatingBasinRecipe>();
-	public static List<CondenserRecipe> condenserRecipes = new ArrayList<CondenserRecipe>();
+	public static List<ICondenserRecipe> condenserRecipes = new ArrayList<ICondenserRecipe>();
 	public static List<BrewingBarrelRecipe> brewingRecipes = new ArrayList<BrewingBarrelRecipe>();
 
 	public static void initOres() {

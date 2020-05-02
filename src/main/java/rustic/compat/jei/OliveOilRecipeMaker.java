@@ -2,6 +2,7 @@ package rustic.compat.jei;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemFood;
@@ -14,16 +15,10 @@ public final class OliveOilRecipeMaker {
 		List<OliveOilRecipeWrapper> recipes = new ArrayList<OliveOilRecipeWrapper>();
 		for (Item item : GameRegistry.findRegistry(Item.class).getValues()) {
 			if (item instanceof ItemFood) {
-				boolean skip = false;
-				for (String itemName : Config.OLIVE_OIL_BLACKLIST) {
-					if (itemName.equals(item.getRegistryName().toString())) {
-						skip = true;
-						break;
-					}
-				}
-				if (!skip) {
-				OliveOilRecipeWrapper recipe = new OliveOilRecipeWrapper(item);
-				recipes.add(recipe);
+				String itemName = Objects.requireNonNull(item.getRegistryName()).toString();
+				if (Config.OLIVE_OIL_USE_WHITELIST == Config.OLIVE_OIL_BLACKLIST.contains(itemName)) { // item found in list
+					OliveOilRecipeWrapper recipe = new OliveOilRecipeWrapper(item);
+					recipes.add(recipe);
 				}
 			}
 		}

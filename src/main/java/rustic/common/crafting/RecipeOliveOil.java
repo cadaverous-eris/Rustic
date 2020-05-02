@@ -2,6 +2,7 @@ package rustic.common.crafting;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 import net.minecraft.inventory.InventoryCrafting;
 import net.minecraft.item.ItemFood;
@@ -40,10 +41,9 @@ public class RecipeOliveOil extends net.minecraftforge.registries.IForgeRegistry
 			ItemStack tempStack = inv.getStackInSlot(i);
 			if (tempStack.getItem() instanceof ItemFood && foodStack.isEmpty()) {
 				//boolean flag = false;
-				for (String itemName : Config.OLIVE_OIL_BLACKLIST) {
-					if (itemName.equals(tempStack.getItem().getRegistryName().toString())) {
-						return false;
-					}
+				String itemName = Objects.requireNonNull(tempStack.getItem().getRegistryName()).toString();
+				if (Config.OLIVE_OIL_USE_WHITELIST != Config.OLIVE_OIL_BLACKLIST.contains(itemName)) {  // item not found in list
+					return false;
 				}
 				foodStack = tempStack;
 				this.foodSlot = i;

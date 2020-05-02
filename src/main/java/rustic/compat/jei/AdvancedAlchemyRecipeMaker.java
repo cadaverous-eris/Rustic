@@ -6,6 +6,7 @@ import java.util.List;
 import mezz.jei.api.IJeiHelpers;
 import rustic.common.crafting.AdvancedCondenserRecipe;
 import rustic.common.crafting.CondenserRecipe;
+import rustic.common.crafting.ICondenserRecipe;
 import rustic.common.crafting.Recipes;
 
 public class AdvancedAlchemyRecipeMaker {
@@ -14,11 +15,11 @@ public class AdvancedAlchemyRecipeMaker {
 
 	}
 
-	public static List<CondenserRecipe> getAlchemyRecipes(IJeiHelpers helpers) {
-		List<CondenserRecipe> recipes = new ArrayList<CondenserRecipe>();
+	public static List<ICondenserRecipe> getAlchemyRecipes(IJeiHelpers helpers) {
+		List<ICondenserRecipe> recipes = new ArrayList<ICondenserRecipe>();
 
-		for (CondenserRecipe recipe : Recipes.condenserRecipes) {
-			if (recipe instanceof AdvancedCondenserRecipe) {
+		for (ICondenserRecipe recipe : Recipes.condenserRecipes) {
+			if (recipe.isAdvanced()) {
 				recipes.add(recipe);
 			}
 		}

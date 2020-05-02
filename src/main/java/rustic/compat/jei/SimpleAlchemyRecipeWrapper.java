@@ -1,22 +1,29 @@
 package rustic.compat.jei;
 
-import mezz.jei.api.ingredients.IIngredients;
-import mezz.jei.api.recipe.BlankRecipeWrapper;
+import java.util.List;
+import java.util.ArrayList;
 import net.minecraft.item.ItemStack;
-import rustic.common.crafting.BasicCondenserRecipe;
+import mezz.jei.api.ingredients.IIngredients;
+import mezz.jei.api.ingredients.VanillaTypes;
+import mezz.jei.api.recipe.IRecipeWrapper;
+import rustic.common.crafting.ICondenserRecipe;
 
-public class SimpleAlchemyRecipeWrapper extends BlankRecipeWrapper {
+public class SimpleAlchemyRecipeWrapper implements IRecipeWrapper {
 
-	public BasicCondenserRecipe recipe = null;
+	public ICondenserRecipe recipe = null;
 	
-	public SimpleAlchemyRecipeWrapper(BasicCondenserRecipe recipe) {
+	public SimpleAlchemyRecipeWrapper(ICondenserRecipe recipe) {
 		this.recipe = recipe;
 	}
 	
 	@Override
 	public void getIngredients(IIngredients ingredients) {
-		ingredients.setInputs(ItemStack.class, recipe.getInputs());
-		ingredients.setOutput(ItemStack.class, recipe.getResult());
+		List<List<ItemStack>> inputs = new ArrayList<>();
+		inputs.add(recipe.getBottles());
+		inputs.addAll(recipe.getInputs());
+		ingredients.setInputLists(VanillaTypes.ITEM, inputs);
+		ingredients.setInput(VanillaTypes.FLUID, recipe.getFluid());
+		ingredients.setOutput(VanillaTypes.ITEM, recipe.getResult());
 	}
 
 }

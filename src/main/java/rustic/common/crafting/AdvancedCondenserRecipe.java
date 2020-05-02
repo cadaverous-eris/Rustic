@@ -1,9 +1,11 @@
 package rustic.common.crafting;
 
 import java.util.Arrays;
+import java.util.List;
 
 import net.minecraft.item.ItemStack;
 import net.minecraft.potion.PotionEffect;
+import net.minecraftforge.fluids.Fluid;
 import rustic.common.items.ModItems;
 import rustic.common.util.ElixirUtils;
 
@@ -25,7 +27,7 @@ public class AdvancedCondenserRecipe extends CondenserRecipe {
 	}
 	
 	@Override
-	public boolean matches(ItemStack mod, ItemStack[] stacks) {
+	public boolean matches(Fluid fluid, ItemStack mod, ItemStack bottle, ItemStack[] stacks) {
 		if ((!this.modifier.isEmpty() && mod.isEmpty()) || (this.modifier.isEmpty() && !mod.isEmpty())) {
 			return false;
 		}
@@ -42,11 +44,25 @@ public class AdvancedCondenserRecipe extends CondenserRecipe {
 		} else if (this.modifier.hasTagCompound() && !mod.hasTagCompound()) {
 			return false;
 		}
-		return super.matches(mod, stacks);
+		return super.matches(fluid, mod, bottle, stacks);
 	}
 	
-	public ItemStack getModifier() {
-		return this.modifier;
+	@Override
+	public boolean isBasic() {
+		return false;
+	}
+	
+	@Override
+	public boolean isAdvanced() {
+		return true;
+	}
+	
+	public int getTime() {
+		return 300;
+	}
+	
+	public List<ItemStack> getModifiers() {
+		return Arrays.asList(this.modifier.copy());
 	}
 
 }

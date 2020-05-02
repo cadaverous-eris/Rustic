@@ -46,26 +46,21 @@ public class ContainerCondenser extends Container {
 
 	private void addOwnSlots() {
 		IItemHandler itemHandler = this.te.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, null);
-		addSlotToContainer(new SlotItemHandler(itemHandler, 0, 27, 47));
-		addSlotToContainer(new SlotItemHandler(itemHandler, 1, 27, 23));
-		addSlotToContainer(new SlotItemHandler(itemHandler, 2, 66, 62) {
-			@Override
-			public boolean isItemValid(@Nonnull ItemStack stack) {
-				return super.isItemValid(stack) && TileEntityFurnace.isItemFuel(stack);
-			}
-		});
-		addSlotToContainer(new SlotItemHandler(itemHandler, 3, 105, 7) {
-			@Override
-			public boolean isItemValid(@Nonnull ItemStack stack) {
-				return super.isItemValid(stack) && stack.getItem().equals(Items.GLASS_BOTTLE);
-			}
-		});
-		addSlotToContainer(new SlotItemHandler(itemHandler, 4, 105, 35) {
+		addSlotToContainer(new SlotItemHandler(itemHandler, TileEntityCondenserBase.SLOT_RESULT, 105, 35) {
 			@Override
 			public boolean isItemValid(@Nonnull ItemStack stack) {
 				return false;
 			}
 		});
+		addSlotToContainer(new SlotItemHandler(itemHandler, TileEntityCondenserBase.SLOT_FUEL, 66, 62) {
+			@Override
+			public boolean isItemValid(@Nonnull ItemStack stack) {
+				return super.isItemValid(stack) && TileEntityFurnace.isItemFuel(stack);
+			}
+		});
+		addSlotToContainer(new SlotItemHandler(itemHandler, TileEntityCondenserBase.SLOT_BOTTLE, 105, 7));
+		addSlotToContainer(new SlotItemHandler(itemHandler, TileEntityCondenserBase.SLOT_INGREDIENTS_START, 27, 23));
+		addSlotToContainer(new SlotItemHandler(itemHandler, TileEntityCondenserBase.SLOT_INGREDIENTS_START + 1, 27, 47));
 	}
 	
 	@Nullable
@@ -78,30 +73,30 @@ public class ContainerCondenser extends Container {
         {
             ItemStack itemstack1 = slot.getStack();
             itemstack = itemstack1.copy();
-            if (index < 5) {
-                if (!this.mergeItemStack(itemstack1, 5, 41, true)) {
+            if (index < TileEntityCondenser.SLOT_NUM) {
+                if (!this.mergeItemStack(itemstack1, TileEntityCondenser.SLOT_NUM, TileEntityCondenser.SLOT_NUM + 36, true)) {
                     return ItemStack.EMPTY;
                 }
                 slot.onSlotChange(itemstack1, itemstack);
             } else if (index > 4) {
                 if (itemstack1.getItem().equals(Items.GLASS_BOTTLE)) {
-                    if (!this.mergeItemStack(itemstack1, 3, 4, false)) {
+                    if (!this.mergeItemStack(itemstack1, TileEntityCondenser.SLOT_BOTTLE, TileEntityCondenser.SLOT_BOTTLE + 1, false)) {
                         return ItemStack.EMPTY;
                     }
                 } else if (TileEntityFurnace.isItemFuel(itemstack1)) {
-                    if (!this.mergeItemStack(itemstack1, 2, 3, false)) {
+                    if (!this.mergeItemStack(itemstack1, TileEntityCondenser.SLOT_FUEL, TileEntityCondenser.SLOT_FUEL + 1, false)) {
                         return ItemStack.EMPTY;
                     }
-                } else if (!this.mergeItemStack(itemstack1, 0, 2, false)) {
+                } else if (!this.mergeItemStack(itemstack1, TileEntityCondenser.SLOT_INGREDIENTS_START, TileEntityCondenser.SLOT_INGREDIENTS_START + 2, false)) {
                     return ItemStack.EMPTY;
-                } else if (index >= 5 && index < 32) {
-                    if (!this.mergeItemStack(itemstack1, 32, 41, false)) {
+                } else if (index >= TileEntityCondenser.SLOT_NUM && index < TileEntityCondenser.SLOT_NUM + 27) {
+                    if (!this.mergeItemStack(itemstack1, TileEntityCondenser.SLOT_NUM + 27, TileEntityCondenser.SLOT_NUM + 36, false)) {
                         return ItemStack.EMPTY;
                     }
-                } else if (index >= 32 && index < 41 && !this.mergeItemStack(itemstack1, 5, 32, false)) {
+                } else if (index >= TileEntityCondenser.SLOT_NUM + 27 && index < TileEntityCondenser.SLOT_NUM + 36 && !this.mergeItemStack(itemstack1, TileEntityCondenser.SLOT_NUM, TileEntityCondenser.SLOT_NUM + 27, false)) {
                     return ItemStack.EMPTY;
                 }
-            } else if (!this.mergeItemStack(itemstack1, 5, 41, false)) {
+            } else if (!this.mergeItemStack(itemstack1, TileEntityCondenser.SLOT_NUM, TileEntityCondenser.SLOT_NUM + 36, false)) {
                 return ItemStack.EMPTY;
             }
             
