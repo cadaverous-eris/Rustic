@@ -13,7 +13,7 @@ import net.minecraft.util.text.TextFormatting;
 import net.minecraftforge.fluids.FluidStack;
 import rustic.client.util.FluidClientUtil;
 import rustic.common.tileentity.ContainerCondenserAdvanced;
-import rustic.common.tileentity.TileEntityCondenserAdvanced;
+import rustic.common.tileentity.TileEntityCondenserAdvancedBottom;
 import rustic.core.Rustic;
 
 public class GuiCondenserAdvanced extends GuiContainer {
@@ -23,7 +23,7 @@ public class GuiCondenserAdvanced extends GuiContainer {
 
 	private static final ResourceLocation background = new ResourceLocation(Rustic.MODID, "textures/gui/condenser_advanced.png");
 
-	TileEntityCondenserAdvanced te;
+	TileEntityCondenserAdvancedBottom te;
 	InventoryPlayer playerInv;
 	
 	public GuiCondenserAdvanced(ContainerCondenserAdvanced container, InventoryPlayer playerInv) {

@@ -154,6 +154,7 @@ public class BlockCondenser extends BlockBase implements ITileEntityProvider {
 			TileEntity tileentity = worldIn.getTileEntity(pos);
 			if (tileentity != null && tileentity instanceof TileEntityCondenser) {
 				((TileEntityCondenser) tileentity).breakBlock(worldIn, pos, state);
+				tileentity.invalidate();
 				worldIn.removeTileEntity(pos);
 			}
 		}

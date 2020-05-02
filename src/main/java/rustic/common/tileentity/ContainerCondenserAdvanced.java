@@ -16,15 +16,15 @@ import net.minecraftforge.items.SlotItemHandler;
 
 public class ContainerCondenserAdvanced extends Container {
 
-private TileEntityCondenserAdvanced te;
+private TileEntityCondenserAdvancedBottom te;
 	
-	public ContainerCondenserAdvanced(IInventory playerInventory, TileEntityCondenserAdvanced te) {
+	public ContainerCondenserAdvanced(IInventory playerInventory, TileEntityCondenserAdvancedBottom te) {
 		this.te = te;
 		addOwnSlots();
 		addPlayerSlots(playerInventory);
 	}
 
-	public TileEntityCondenserAdvanced getTile() {
+	public TileEntityCondenserAdvancedBottom getTile() {
 		return te;
 	}
 
@@ -46,28 +46,23 @@ private TileEntityCondenserAdvanced te;
 
 	private void addOwnSlots() {
 		IItemHandler itemHandler = this.te.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, null);
-		addSlotToContainer(new SlotItemHandler(itemHandler, 0, 27, 59));
-		addSlotToContainer(new SlotItemHandler(itemHandler, 1, 27, 35));
-		addSlotToContainer(new SlotItemHandler(itemHandler, 2, 27, 11));
-		addSlotToContainer(new SlotItemHandler(itemHandler, 3, 66, 7));
-		addSlotToContainer(new SlotItemHandler(itemHandler, 4, 66, 62) {
-			@Override
-			public boolean isItemValid(@Nonnull ItemStack stack) {
-				return super.isItemValid(stack) && TileEntityFurnace.isItemFuel(stack);
-			}
-		});
-		addSlotToContainer(new SlotItemHandler(itemHandler, 5, 105, 7) {
-			@Override
-			public boolean isItemValid(@Nonnull ItemStack stack) {
-				return super.isItemValid(stack) && stack.getItem().equals(Items.GLASS_BOTTLE);
-			}
-		});
-		addSlotToContainer(new SlotItemHandler(itemHandler, 6, 105, 35) {
+		addSlotToContainer(new SlotItemHandler(itemHandler, TileEntityCondenserBase.SLOT_RESULT, 105, 35) {
 			@Override
 			public boolean isItemValid(@Nonnull ItemStack stack) {
 				return false;
 			}
 		});
+		addSlotToContainer(new SlotItemHandler(itemHandler, TileEntityCondenserBase.SLOT_FUEL, 66, 62) {
+			@Override
+			public boolean isItemValid(@Nonnull ItemStack stack) {
+				return super.isItemValid(stack) && TileEntityFurnace.isItemFuel(stack);
+			}
+		});
+		addSlotToContainer(new SlotItemHandler(itemHandler, TileEntityCondenserBase.SLOT_BOTTLE, 105, 7));
+		addSlotToContainer(new SlotItemHandler(itemHandler, TileEntityCondenserBase.SLOT_INGREDIENTS_START, 66, 7)); // modifier
+		addSlotToContainer(new SlotItemHandler(itemHandler, TileEntityCondenserBase.SLOT_INGREDIENTS_START + 1, 27, 11));
+		addSlotToContainer(new SlotItemHandler(itemHandler, TileEntityCondenserBase.SLOT_INGREDIENTS_START + 2, 27, 35));
+		addSlotToContainer(new SlotItemHandler(itemHandler, TileEntityCondenserBase.SLOT_INGREDIENTS_START + 3, 27, 59));
 	}
 	
 	@Nullable
@@ -80,30 +75,30 @@ private TileEntityCondenserAdvanced te;
         {
             ItemStack itemstack1 = slot.getStack();
             itemstack = itemstack1.copy();
-            if (index < 7) {
-                if (!this.mergeItemStack(itemstack1, 7, 43, true)) {
+            if (index < TileEntityCondenserAdvancedBottom.SLOT_NUM) {
+                if (!this.mergeItemStack(itemstack1, TileEntityCondenserAdvancedBottom.SLOT_NUM, TileEntityCondenserAdvancedBottom.SLOT_NUM+36, true)) {
                     return ItemStack.EMPTY;
                 }
                 slot.onSlotChange(itemstack1, itemstack);
-            } else if (index > 6) {
+            } else if (index >= TileEntityCondenserAdvancedBottom.SLOT_NUM) {
                 if (itemstack1.getItem().equals(Items.GLASS_BOTTLE)) {
-                    if (!this.mergeItemStack(itemstack1, 5, 6, false)) {
+                    if (!this.mergeItemStack(itemstack1, TileEntityCondenserBase.SLOT_BOTTLE, TileEntityCondenserBase.SLOT_BOTTLE + 1, false)) {
                         return ItemStack.EMPTY;
                     }
                 } else if (TileEntityFurnace.isItemFuel(itemstack1)) {
-                    if (!this.mergeItemStack(itemstack1, 4, 5, false)) {
+                    if (!this.mergeItemStack(itemstack1, TileEntityCondenserBase.SLOT_FUEL, TileEntityCondenserBase.SLOT_FUEL + 1, false)) {
                         return ItemStack.EMPTY;
                     }
-                } else if (!this.mergeItemStack(itemstack1, 0, 4, false)) {
+                } else if (!this.mergeItemStack(itemstack1, TileEntityCondenserBase.SLOT_INGREDIENTS_START, TileEntityCondenserAdvancedBottom.SLOT_NUM, false)) {
                     return ItemStack.EMPTY;
-                } else if (index >= 7 && index < 34) {
+                } else if (index < TileEntityCondenserAdvancedBottom.SLOT_NUM + 27) {
                     if (!this.mergeItemStack(itemstack1, 34, 43, false)) {
                         return ItemStack.EMPTY;
                     }
-                } else if (index >= 34 && index < 43 && !this.mergeItemStack(itemstack1, 7, 34, false)) {
+                } else if (index >= TileEntityCondenserAdvancedBottom.SLOT_NUM + 27 && index < TileEntityCondenserAdvancedBottom.SLOT_NUM  + 36 && !this.mergeItemStack(itemstack1, TileEntityCondenserAdvancedBottom.SLOT_NUM, TileEntityCondenserAdvancedBottom.SLOT_NUM + 27, false)) {
                     return ItemStack.EMPTY;
                 }
-            } else if (!this.mergeItemStack(itemstack1, 7, 43, false)) {
+            } else if (!this.mergeItemStack(itemstack1, TileEntityCondenserAdvancedBottom.SLOT_NUM, TileEntityCondenserAdvancedBottom.SLOT_NUM + 36, false)) {
                 return ItemStack.EMPTY;
             }
             

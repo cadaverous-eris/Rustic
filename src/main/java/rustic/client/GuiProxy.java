@@ -29,7 +29,7 @@ import rustic.common.tileentity.TileEntityBarrel;
 import rustic.common.tileentity.TileEntityBrewingBarrel;
 import rustic.common.tileentity.TileEntityCabinet;
 import rustic.common.tileentity.TileEntityCondenser;
-import rustic.common.tileentity.TileEntityCondenserAdvanced;
+import rustic.common.tileentity.TileEntityCondenserAdvancedBottom;
 import rustic.common.tileentity.TileEntityVase;
 
 public class GuiProxy implements IGuiHandler {
@@ -48,8 +48,8 @@ public class GuiProxy implements IGuiHandler {
 			return ((TileEntityCabinet) te).createContainer(player.inventory, player);
 		} else if (te instanceof TileEntityCondenser) {
 			return new ContainerCondenser(player.inventory, (TileEntityCondenser) te);
-		} else if (te instanceof TileEntityCondenserAdvanced) {
-			return new ContainerCondenserAdvanced(player.inventory, (TileEntityCondenserAdvanced) te);
+		} else if (te instanceof TileEntityCondenserAdvancedBottom) {
+			return new ContainerCondenserAdvanced(player.inventory, (TileEntityCondenserAdvancedBottom) te);
 		} else if (te instanceof TileEntityBrewingBarrel) {
 			return new ContainerBrewingBarrel(player.inventory, (TileEntityBrewingBarrel) te);
 		}
@@ -89,8 +89,8 @@ public class GuiProxy implements IGuiHandler {
 			}
 		} else if (te instanceof TileEntityCondenser) {
 			return new GuiCondenser(new ContainerCondenser(player.inventory, (TileEntityCondenser) te), player.inventory);
-		} else if (te instanceof TileEntityCondenserAdvanced) {
-			return new GuiCondenserAdvanced(new ContainerCondenserAdvanced(player.inventory, (TileEntityCondenserAdvanced) te), player.inventory);
+		} else if (te instanceof TileEntityCondenserAdvancedBottom) {
+			return new GuiCondenserAdvanced(new ContainerCondenserAdvanced(player.inventory, (TileEntityCondenserAdvancedBottom) te), player.inventory);
 		} else if (te instanceof TileEntityBrewingBarrel) {
 			return new GuiBrewingBarrel(new ContainerBrewingBarrel(player.inventory, (TileEntityBrewingBarrel) te), player.inventory);
 		}
