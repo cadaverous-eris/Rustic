@@ -4,6 +4,7 @@ import java.util.Random;
 
 import com.google.common.collect.Sets;
 
+import net.minecraft.block.Block;
 import net.minecraft.block.ITileEntityProvider;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.EntityLivingBase;
@@ -147,7 +148,11 @@ public class EventHandlerCommon {
 				} else if (state.getBlock() instanceof ITileEntityProvider && world.getTileEntity(pos) != null
 						&& world.getTileEntity(pos).hasCapability(CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY,
 								event.getFace())) {
-					if (state.getBlock() == ModBlocks.BREWING_BARREL && event.getFace() != EnumFacing.DOWN) {
+					Block block = state.getBlock();
+					if( !ModBlocks.isRusticBlock(block) ) {
+						return;
+					}
+					if (block == ModBlocks.BREWING_BARREL && event.getFace() != EnumFacing.DOWN) {
 						return;
 					}
 					

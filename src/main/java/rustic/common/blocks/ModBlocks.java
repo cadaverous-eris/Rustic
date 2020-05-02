@@ -1,5 +1,11 @@
 package rustic.common.blocks;
 
+import java.lang.reflect.Field;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+
+import net.minecraft.block.Block;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
 import net.minecraft.init.Blocks;
@@ -142,6 +148,8 @@ public class ModBlocks {
 	public static BlockLeavesApple APPLE_LEAVES;
 	public static BlockDoorRustic DOOR_OLIVE;
 	public static BlockDoorRustic DOOR_IRONWOOD;
+	
+	private static HashMap<String, Block> modBlock = new HashMap<>();
 
 	public static void init() {
 		if (Config.ENABLE_PILLARS) {
@@ -366,6 +374,24 @@ public class ModBlocks {
 		GameRegistry.registerTileEntity(TileEntityCondenserAdvanced.class,
 				Rustic.MODID + ":tileEntityCondenserAdvanced");
 		GameRegistry.registerTileEntity(TileEntityBrewingBarrel.class, Rustic.MODID + ":tileEntityBrewingBarrel");
+		
+		// Retrieve all block fields		
+		Field[] declaredFields = ModBlocks.class.getDeclaredFields();
+		for (Field field : declaredFields) {
+		    if (java.lang.reflect.Modifier.isStatic(field.getModifiers())) {
+		    	if( !Block.class.isAssignableFrom(field.getType()) )
+		    		continue;
+		    	Block block;
+				try {
+					block = (Block) field.get(null);
+				} catch (Exception e) {
+					// Ignore it
+					// TODO: Log to console
+					continue;
+				}
+		    	modBlock.put(block.getRegistryName().toString(), block);
+		    }
+		}
 	}
 
 	@SideOnly(Side.CLIENT)
@@ -491,6 +517,10 @@ public class ModBlocks {
 		DOOR_IRONWOOD.initModel();
 
 		Herbs.initModels();
+	}
+	
+	public static boolean isRusticBlock(Block block) {
+		return modBlock.containsKey(block.getRegistryName().toString());
 	}
 
 }
