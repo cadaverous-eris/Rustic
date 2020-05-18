@@ -122,7 +122,14 @@ public class BlockLantern extends BlockBase {
 	
 	@Override
 	public BlockFaceShape getBlockFaceShape(IBlockAccess world, IBlockState state, BlockPos pos, EnumFacing side) {
-		return BlockFaceShape.UNDEFINED;
+
+		EnumFacing mountFace = state.getValue(FACING).getOpposite();
+		
+		if(mountFace == side) {
+			return BlockFaceShape.CENTER;
+		}
+		
+		return side == EnumFacing.DOWN && mountFace != EnumFacing.UP ? BlockFaceShape.CENTER : BlockFaceShape.UNDEFINED;
 	}
 
 }

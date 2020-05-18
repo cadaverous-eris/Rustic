@@ -160,8 +160,6 @@ public class BlockLattice extends BlockBase implements IColoredBlock {
 			return (state.getValue(BlockGrapeLeaves.AXIS) == facing.getAxis());
 		} else if (block instanceof BlockRopeBase) {
 			return (state.getValue(BlockRopeBase.AXIS) == facing.getAxis());
-		} else if (block instanceof BlockLantern) {
-			return (facing.getAxis() == EnumFacing.Axis.Y && state.getValue(BlockLantern.FACING) == facing);
 		}
 		
 		return (

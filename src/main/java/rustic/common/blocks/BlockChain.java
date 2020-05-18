@@ -33,32 +33,51 @@ public class BlockChain extends BlockRopeBase {
 	
 	@Override
 	public boolean isSideSupported(World world, BlockPos pos, IBlockState state, EnumFacing facing) {
-		IBlockState testState = world.getBlockState(pos.offset(facing));
+		IBlockState otherState = world.getBlockState(pos.offset(facing));
 		
 		if (facing == EnumFacing.DOWN) {
-			return false;
+			return false;//A surface below a chain can never be used as support
 		}
 		
-		boolean isSame = testState.getBlock() == state.getBlock() && ((state.getValue(AXIS) == EnumFacing.Axis.Y && facing.getAxis() == EnumFacing.Axis.Y) || testState.getValue(AXIS) == state.getValue(AXIS));
-		boolean isSideSolid = world.isSideSolid(pos.offset(facing), facing.getOpposite(), false);
-		boolean isLattice = testState.getBlock() instanceof BlockLattice;
+		if(otherState.getBlock() == state.getBlock() && ((state.getValue(AXIS) == EnumFacing.Axis.Y && facing.getAxis() == EnumFacing.Axis.Y) || otherState.getValue(AXIS) == state.getValue(AXIS))) {
+			return true;//Is Same
+		}
 		
-		return isSame || isSideSolid || isLattice;
+		if(otherState.getBlock() instanceof BlockLattice) {
+			return true;//Lattice blocks always support
+		}
+		
+		BlockFaceShape faceShape = otherState.getBlockFaceShape(world, pos.offset(facing), facing.getOpposite());
+		
+		return 	faceShape == BlockFaceShape.SOLID || //A Full Face
+				faceShape == BlockFaceShape.CENTER || //Railing(Cathedral Mod) (bottom and top)
+				faceShape == BlockFaceShape.CENTER_BIG || //Walls, Vases(bottom and top)
+				faceShape == BlockFaceShape.CENTER_SMALL; //Fences(bottom and top)
 	}
 	
 	@Override
 	public boolean canPlaceBlockOnSide(World world, BlockPos pos, EnumFacing side) {
-		IBlockState testState = world.getBlockState(pos.offset(side.getOpposite()));
+		BlockPos otherPos = pos.offset(side.getOpposite());
+		IBlockState otherState = world.getBlockState(otherPos);
 		
-		if (side == EnumFacing.UP) {
+		if (side == EnumFacing.UP) {//When attempting to place chain on ground see if there's a block above it to hang from instead.
 			return canPlaceBlockOnSide(world, pos, EnumFacing.DOWN);
 		}
 		
-		boolean isThis = testState.getBlock() == this && testState.getValue(AXIS) == side.getAxis();
-		boolean isSideSolid = world.isSideSolid(pos.offset(side.getOpposite()), side, false);
-		boolean isLattice = testState.getBlock() instanceof BlockLattice;
+		if(otherState.getBlock() == this && otherState.getValue(AXIS) == side.getAxis()) {
+			return true;//Is this
+		}
 		
-		return isThis || isSideSolid || isLattice;
+		if(otherState.getBlock() instanceof BlockLattice) {
+			return true;//Always connect to Lattice blocks
+		}
+		
+		BlockFaceShape faceShape = otherState.getBlockFaceShape(world, otherPos, side);
+		
+		return 	faceShape == BlockFaceShape.SOLID || //A Full Face
+				faceShape == BlockFaceShape.CENTER || //Railing(Cathedral Mod) (bottom and top)
+				faceShape == BlockFaceShape.CENTER_BIG || //Walls, Vases(bottom and top)
+				faceShape == BlockFaceShape.CENTER_SMALL; //Fences(bottom and top)
 	}
 	
 	@Override
