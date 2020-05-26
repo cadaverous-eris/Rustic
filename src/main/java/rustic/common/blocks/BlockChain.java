@@ -33,26 +33,26 @@ public class BlockChain extends BlockRopeBase {
 	
 	@Override
 	public boolean isSideSupported(World world, BlockPos pos, IBlockState state, EnumFacing facing) {
-		IBlockState otherState = world.getBlockState(pos.offset(facing));
-		
 		if (facing == EnumFacing.DOWN) {
-			return false;//A surface below a chain can never be used as support
+			return false; // A surface below a chain can never be used as support
 		}
 		
-		if(otherState.getBlock() == state.getBlock() && ((state.getValue(AXIS) == EnumFacing.Axis.Y && facing.getAxis() == EnumFacing.Axis.Y) || otherState.getValue(AXIS) == state.getValue(AXIS))) {
+		IBlockState otherState = world.getBlockState(pos.offset(facing));
+		
+		if (otherState.getBlock() == state.getBlock() && ((state.getValue(AXIS) == EnumFacing.Axis.Y && facing.getAxis() == EnumFacing.Axis.Y) || otherState.getValue(AXIS) == state.getValue(AXIS))) {
 			return true;//Is Same
 		}
 		
-		if(otherState.getBlock() instanceof BlockLattice) {
+		if (otherState.getBlock() instanceof BlockLattice) {
 			return true;//Lattice blocks always support
 		}
 		
 		BlockFaceShape faceShape = otherState.getBlockFaceShape(world, pos.offset(facing), facing.getOpposite());
 		
-		return 	faceShape == BlockFaceShape.SOLID || //A Full Face
-				faceShape == BlockFaceShape.CENTER || //Railing(Cathedral Mod) (bottom and top)
-				faceShape == BlockFaceShape.CENTER_BIG || //Walls, Vases(bottom and top)
-				faceShape == BlockFaceShape.CENTER_SMALL; //Fences(bottom and top)
+		return 	faceShape == BlockFaceShape.SOLID || // A Full Face
+				faceShape == BlockFaceShape.CENTER || // Railing(Cathedral Mod) (bottom and top)
+				faceShape == BlockFaceShape.CENTER_BIG || // Walls, Vases(bottom and top)
+				faceShape == BlockFaceShape.CENTER_SMALL; // Fences(bottom and top)
 	}
 	
 	@Override
@@ -60,24 +60,24 @@ public class BlockChain extends BlockRopeBase {
 		BlockPos otherPos = pos.offset(side.getOpposite());
 		IBlockState otherState = world.getBlockState(otherPos);
 		
-		if (side == EnumFacing.UP) {//When attempting to place chain on ground see if there's a block above it to hang from instead.
+		if (side == EnumFacing.UP) { // When attempting to place chain on ground see if there's a block above it to hang from instead.
 			return canPlaceBlockOnSide(world, pos, EnumFacing.DOWN);
 		}
 		
-		if(otherState.getBlock() == this && otherState.getValue(AXIS) == side.getAxis()) {
-			return true;//Is this
+		if (otherState.getBlock() == this && otherState.getValue(AXIS) == side.getAxis()) {
+			return true; // Is this
 		}
 		
-		if(otherState.getBlock() instanceof BlockLattice) {
-			return true;//Always connect to Lattice blocks
+		if (otherState.getBlock() instanceof BlockLattice) {
+			return true; // Always connect to Lattice blocks
 		}
 		
 		BlockFaceShape faceShape = otherState.getBlockFaceShape(world, otherPos, side);
 		
-		return 	faceShape == BlockFaceShape.SOLID || //A Full Face
-				faceShape == BlockFaceShape.CENTER || //Railing(Cathedral Mod) (bottom and top)
-				faceShape == BlockFaceShape.CENTER_BIG || //Walls, Vases(bottom and top)
-				faceShape == BlockFaceShape.CENTER_SMALL; //Fences(bottom and top)
+		return 	faceShape == BlockFaceShape.SOLID || // A Full Face
+				faceShape == BlockFaceShape.CENTER || // Railing (Cathedral Mod) (bottom and top)
+				faceShape == BlockFaceShape.CENTER_BIG || // Walls, Vases (bottom and top)
+				faceShape == BlockFaceShape.CENTER_SMALL; // Fences(bottom and top)
 	}
 	
 	@Override
