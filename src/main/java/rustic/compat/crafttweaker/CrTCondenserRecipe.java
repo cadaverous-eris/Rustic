@@ -1,5 +1,6 @@
 package rustic.compat.crafttweaker;
 
+import java.util.Collections;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -32,15 +33,15 @@ public class CrTCondenserRecipe implements ICondenserRecipe {
 		this(output, inputs, modifier, CraftTweakerMC.getIItemStack(new ItemStack(Items.GLASS_BOTTLE)));
 	}
 	
-	public CrTCondenserRecipe(@Nonnull ItemStack output, IIngredient[] inputs, IIngredient modifier, @Nonnull IIngredient bottle) {
+	public CrTCondenserRecipe(@Nonnull ItemStack output, IIngredient[] inputs, IIngredient modifier, IIngredient bottle) {
 		this(output, inputs, modifier, bottle, new FluidStack(FluidRegistry.WATER, 125));
 	}
 	
-	public CrTCondenserRecipe(@Nonnull ItemStack output, IIngredient[] inputs, IIngredient modifier, @Nonnull IIngredient bottle, @Nonnull FluidStack fluid) {
+	public CrTCondenserRecipe(@Nonnull ItemStack output, IIngredient[] inputs, IIngredient modifier, IIngredient bottle, @Nonnull FluidStack fluid) {
 		this(output, inputs, modifier, bottle, fluid, 400);
 	}
 	
-	public CrTCondenserRecipe(@Nonnull ItemStack output, IIngredient[] inputs, IIngredient modifier, @Nonnull IIngredient bottle, @Nonnull FluidStack fluid, int time) {
+	public CrTCondenserRecipe(@Nonnull ItemStack output, IIngredient[] inputs, IIngredient modifier, IIngredient bottle, @Nonnull FluidStack fluid, int time) {
 		this.output = output;
 		this.fluid = fluid;
 		this.bottle = bottle;
@@ -59,12 +60,12 @@ public class CrTCondenserRecipe implements ICondenserRecipe {
 			return false;
 		}
 		if (
-				(this.modifier != null && !this.modifier.matchesExact(CraftTweakerMC.getIItemStack((modifier))))
+				(this.modifier != null && !this.modifier.matchesExact(CraftTweakerMC.getIItemStack(modifier)))
 				|| (this.modifier == null && !modifier.isEmpty())
 		) {
 			return false;
 		}
-		if (!this.bottle.matchesExact(CraftTweakerMC.getIItemStack(bottle))) {
+		if (this.bottle != null && !this.bottle.matchesExact(CraftTweakerMC.getIItemStack(bottle))) {
 			return false;
 		}
 		
@@ -120,6 +121,9 @@ public class CrTCondenserRecipe implements ICondenserRecipe {
 
 	@Override
 	public List<ItemStack> getBottles() {
+		if (this.bottle == null) {
+			return Collections.singletonList(ItemStack.EMPTY);
+		}
 		return this.bottle.getItems().stream().map(CraftTweakerMC::getItemStack).collect(Collectors.toList());
 	}
 
@@ -156,6 +160,9 @@ public class CrTCondenserRecipe implements ICondenserRecipe {
 
 	@Override
 	public int getBottleConsumption(ItemStack bottle) {
+		if (this.bottle == null) {
+			return 0;
+		}
 		IItemStack btl = CraftTweakerMC.getIItemStack(bottle);
 		for (IItemStack stack : this.bottle.getItems()) {
 			if (stack.matchesExact(btl)) {

@@ -97,10 +97,10 @@ public class TileEntityCondenserAdvancedBottom extends TileEntityCondenserBase {
 			return false;
 		}
 		
-		if (internalStackHandler.getStackInSlot(SLOT_BOTTLE).isEmpty()
-				|| internalStackHandler.getStackInSlot(SLOT_BOTTLE).getCount() < 1) {
-			return false;
-		}
+//		if (internalStackHandler.getStackInSlot(SLOT_BOTTLE).isEmpty()
+//				|| internalStackHandler.getStackInSlot(SLOT_BOTTLE).getCount() < 1) {
+//			return false;
+//		}
 
 		if (!((BlockCondenserAdvanced) state.getBlock()).hasRetorts(world, pos, state)) {
 			return false;
