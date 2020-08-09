@@ -1,6 +1,7 @@
 package rustic.common.crafting;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import net.minecraft.block.state.IBlockState;
@@ -13,6 +14,7 @@ import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.ResourceLocation;
+import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.FluidUtil;
@@ -37,7 +39,8 @@ import rustic.core.Rustic;
 public class Recipes {
 
 	public static List<CrushingTubRecipe> crushingTubRecipes = new ArrayList<CrushingTubRecipe>();
-	public static List<EvaporatingBasinRecipe> evaporatingRecipes = new ArrayList<EvaporatingBasinRecipe>();
+	//public static List<EvaporatingBasinRecipe> evaporatingRecipes = new ArrayList<EvaporatingBasinRecipe>();
+	public static HashMap<Fluid, IEvaporatingBasinRecipe> evaporatingRecipes = new HashMap<Fluid, IEvaporatingBasinRecipe>();
 	public static List<ICondenserRecipe> condenserRecipes = new ArrayList<ICondenserRecipe>();
 	public static List<BrewingBarrelRecipe> brewingRecipes = new ArrayList<BrewingBarrelRecipe>();
 
@@ -349,8 +352,13 @@ public class Recipes {
 	}
 
 	private static void addEvaporatingRecipes() {
-		evaporatingRecipes.add(new EvaporatingBasinRecipe(new ItemStack(ModItems.IRON_DUST_TINY, 1),
-				new FluidStack(ModFluids.IRONBERRY_JUICE, 500)));
+		evaporatingRecipes.put(
+				ModFluids.IRONBERRY_JUICE,
+				new EvaporatingBasinRecipe(
+						new ItemStack(ModItems.IRON_DUST_TINY, 1),
+						new FluidStack(ModFluids.IRONBERRY_JUICE, 500)
+				)
+		);
 	}
 
 	private static void addCondenserRecipes() {
