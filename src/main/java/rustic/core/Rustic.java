@@ -42,7 +42,7 @@ import rustic.compat.dynamictrees.DynamicTreesCompat;
 public class Rustic {
 	public static final String MODID = "rustic";
 	public static final String NAME = "Rustic";
-	public static final String VERSION = "1.1.4";
+	public static final String VERSION = "1.1.5";
 	public static final String DEPENDENCIES = "after:dynamictrees@[1.12.2-0.9.1e,);after:dynamictreesbop;before:dynamictreestc";
 
 	@SidedProxy(clientSide = "rustic.core.ClientProxy", serverSide = "rustic.core.CommonProxy")
