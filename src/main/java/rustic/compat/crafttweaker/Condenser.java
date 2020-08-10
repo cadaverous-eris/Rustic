@@ -7,7 +7,6 @@ import crafttweaker.api.item.IIngredient;
 import crafttweaker.api.item.IItemStack;
 import crafttweaker.api.liquid.ILiquidStack;
 import crafttweaker.api.minecraft.CraftTweakerMC;
-import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fluids.FluidStack;
@@ -49,9 +48,6 @@ public class Condenser {
 		if (inputs.length > 3) {
 			throw new IllegalArgumentException("Condenser recipe has at most 3 inputs");
 		}
-		if (bottle == null) {
-			bottle = CraftTweakerMC.getIItemStack(new ItemStack(Items.GLASS_BOTTLE));
-		}
 		ICondenserRecipe r = new CrTCondenserRecipe(CraftTweakerMC.getItemStack(output), inputs, modifier, bottle);
 		CraftTweakerAPI.apply(new Add(r));
 	}
@@ -60,9 +56,6 @@ public class Condenser {
 	public static void addRecipe(@NotNull IItemStack output, @NotNull IIngredient[] inputs, IIngredient modifier, IIngredient bottle, ILiquidStack fluid) {
 		if (inputs.length > 3) {
 			throw new IllegalArgumentException("Condenser recipe has at most 3 inputs");
-		}
-		if (bottle == null) {
-			bottle = CraftTweakerMC.getIItemStack(new ItemStack(Items.GLASS_BOTTLE));
 		}
 		if (fluid == null) {
 			fluid = CraftTweakerMC.getILiquidStack(new FluidStack(FluidRegistry.WATER, 125));
@@ -75,9 +68,6 @@ public class Condenser {
 	public static void addRecipe(@NotNull IItemStack output, @NotNull IIngredient[] inputs, IIngredient modifier, IIngredient bottle, ILiquidStack fluid, int time) {
 		if (inputs.length > 3) {
 			throw new IllegalArgumentException("Condenser recipe has at most 3 inputs");
-		}
-		if (bottle == null) {
-			bottle = CraftTweakerMC.getIItemStack(new ItemStack(Items.GLASS_BOTTLE));
 		}
 		if (fluid == null) {
 			fluid = CraftTweakerMC.getILiquidStack(new FluidStack(FluidRegistry.WATER, 125));
