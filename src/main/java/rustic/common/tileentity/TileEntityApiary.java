@@ -1,6 +1,7 @@
 package rustic.common.tileentity;
 
 import java.util.Random;
+import java.lang.Math;
 
 import javax.annotation.Nonnull;
 
@@ -168,7 +169,7 @@ public class TileEntityApiary extends TileEntity implements ITickable {
 				}
 			}
 
-			if (Config.BEE_GROWTH_MULTIPLIER != 0 && random.nextInt((int) (2048F / (numBees * Config.BEE_GROWTH_MULTIPLIER))) == 0) {
+			if (Config.BEE_GROWTH_MULTIPLIER != 0 && random.nextInt(Math.ceil(2048F / (numBees * Config.BEE_GROWTH_MULTIPLIER))) == 0) {
 				int randX = random.nextInt(9) - 4;
 				int randZ = random.nextInt(9) - 4;
 				int x = this.getPos().getX();
