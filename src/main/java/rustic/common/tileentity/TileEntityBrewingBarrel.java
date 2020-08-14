@@ -33,6 +33,7 @@ import net.minecraftforge.items.ItemStackHandler;
 import rustic.common.Config;
 import rustic.common.blocks.fluids.FluidBooze;
 import rustic.common.crafting.BrewingBarrelRecipe;
+import rustic.common.crafting.IBrewingBarrelRecipe;
 import rustic.common.crafting.Recipes;
 import rustic.common.inventory.ExternalItemHandler;
 import rustic.common.items.ModItems;
@@ -84,7 +85,7 @@ public class TileEntityBrewingBarrel extends TileEntity implements ITickable {
 
 	protected int brewTime;
 
-	protected BrewingBarrelRecipe recipe = null;
+	protected IBrewingBarrelRecipe recipe = null;
 
 	@Override
 	public NBTTagCompound writeToNBT(NBTTagCompound tag) {
@@ -432,9 +433,9 @@ public class TileEntityBrewingBarrel extends TileEntity implements ITickable {
 		this.markDirty();
 	}
 
-	private BrewingBarrelRecipe getRecipe() {
+	private IBrewingBarrelRecipe getRecipe() {
 		if (input.getFluidAmount() > 0) {
-			for (BrewingBarrelRecipe recipe : Recipes.brewingRecipes) {
+			for (IBrewingBarrelRecipe recipe : Recipes.brewingRecipes) {
 				if (recipe.matches(input.getFluid(), auxiliary.getFluid())) {
 					if (output.getFluid() == null
 							|| (recipe.getResult(input.getFluid(), auxiliary.getFluid()).getFluid() == output.getFluid()

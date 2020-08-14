@@ -31,6 +31,7 @@ import net.minecraftforge.fluids.capability.TileFluidHandler;
 import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.ItemStackHandler;
 import rustic.common.crafting.CrushingTubRecipe;
+import rustic.common.crafting.ICrushingTubRecipe;
 import rustic.common.crafting.Recipes;
 
 public class TileEntityCrushingTub extends TileFluidHandler {
@@ -67,7 +68,7 @@ public class TileEntityCrushingTub extends TileFluidHandler {
 	public void crush(EntityLivingBase entity) {
 		if (!itemStackHandler.getStackInSlot(0).isEmpty()) {
 			ItemStack stack = itemStackHandler.getStackInSlot(0);
-			for (CrushingTubRecipe recipe : Recipes.crushingTubRecipes) {
+			for (ICrushingTubRecipe recipe : Recipes.crushingTubRecipes) {
 				if (recipe.matches(stack)) {
 					FluidStack output = recipe.getResult();
 					if (this.getAmount() <= this.getCapacity() - output.amount) {

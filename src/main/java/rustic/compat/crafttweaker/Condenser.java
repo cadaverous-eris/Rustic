@@ -99,9 +99,8 @@ public class Condenser {
 	}
 
 	@ZenMethod
-	public static void removeRecipe(IItemStack output) {
-		if (!CraftTweakerHelper.toStack(output).isEmpty())
-			CraftTweakerAPI.apply(new Remove(CraftTweakerHelper.toStack(output)));
+	public static void removeRecipe(@NotNull IItemStack output) {
+		CraftTweakerAPI.apply(new Remove(CraftTweakerMC.getItemStack(output)));
 	}
 
 	private static class Remove implements IAction {
@@ -113,35 +112,7 @@ public class Condenser {
 
 		@Override
 		public void apply() {
-			//List<PotionEffect> effects = ElixirUtils.getEffects(output);
-			Iterator<ICondenserRecipe> it = Recipes.condenserRecipes.iterator();
-			while (it.hasNext()) {
-				ICondenserRecipe r = it.next();
-				if (r != null && r.getResult() != null && ItemStack.areItemStacksEqual(r.getResult(), output)) {
-					it.remove();
-				}
-//				List<PotionEffect> rEffects = ElixirUtils.getEffects(r.getResult());
-//				if (r != null && r.getResult() != null && r.getResult().isItemEqual(output)) {
-//					//boolean matches = true;
-//					for (PotionEffect pe : effects) {
-//						boolean hasMatch = false;
-//						for (PotionEffect pe1 : rEffects) {
-//							if (pe.getPotion() == pe1.getPotion() && pe.getAmplifier() == pe1.getAmplifier()
-//									&& pe.getDuration() == pe1.getDuration()) {
-//								hasMatch = true;
-//								break;
-//							}
-//						}
-//						if (!hasMatch) {
-//							//matches = false;
-//							break;
-//						}
-//					}
-//					if (effects.equals(rEffects)) {
-//						it.remove();
-//					}
-//				}
-			}
+			Recipes.removeCondenserRecipe(this.output);
 		}
 
 		@Override

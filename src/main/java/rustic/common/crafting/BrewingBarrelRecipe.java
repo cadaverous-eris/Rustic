@@ -7,7 +7,7 @@ import net.minecraftforge.fluids.FluidStack;
 import rustic.common.Config;
 import rustic.common.blocks.fluids.FluidBooze;
 
-public class BrewingBarrelRecipe {
+public class BrewingBarrelRecipe implements IBrewingBarrelRecipe {
 	
 	private static final Random rand = new Random();
 	
@@ -17,6 +17,14 @@ public class BrewingBarrelRecipe {
 	public BrewingBarrelRecipe(FluidStack output, FluidStack input) {
 		this.output = output;
 		this.input = input;
+	}
+	
+	public FluidStack getInput() {
+		return input.copy();
+	}
+	
+	public FluidStack getOuput() {
+		return this.output.copy();
 	}
 	
 	public boolean matches(FluidStack in) {
@@ -71,10 +79,6 @@ public class BrewingBarrelRecipe {
 			return out;
 		}
 		return null;
-	}
-	
-	public FluidStack getInput() {
-		return input.copy();
 	}
 
 }
