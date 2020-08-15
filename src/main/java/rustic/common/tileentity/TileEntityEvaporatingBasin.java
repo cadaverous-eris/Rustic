@@ -58,7 +58,7 @@ public class TileEntityEvaporatingBasin extends TileFluidHandler implements ITic
 		tank = new FluidTank(capacity) {
 			public boolean canFillFluidType(FluidStack fluid)
 		    {
-		        return fluid != null && Recipes.evaporatingRecipes.containsKey(fluid.getFluid()) && canFill();
+		        return fluid != null && Recipes.evaporatingRecipesMap.containsKey(fluid.getFluid()) && canFill();
 		    }
 		};
 		tank.setTileEntity(this);
@@ -82,7 +82,7 @@ public class TileEntityEvaporatingBasin extends TileFluidHandler implements ITic
 			int to_drain = 0;
 			IEvaporatingBasinRecipe recipe;
 			if (this.getFluid() != null) {
-				recipe = Recipes.evaporatingRecipes.get(this.getFluid());
+				recipe = Recipes.evaporatingRecipesMap.get(this.getFluid());
 				int temp = 20 * recipe.getAmount() + this.remainder;
 				to_drain = temp / recipe.getTime();
 				this.remainder = temp % recipe.getTime();
@@ -106,7 +106,7 @@ public class TileEntityEvaporatingBasin extends TileFluidHandler implements ITic
 			}
 			
 			if (evaporatedFluid != null && evaporatedFluid.amount > 0) {
-				recipe = Recipes.evaporatingRecipes.get(evaporatedFluid.getFluid());
+				recipe = Recipes.evaporatingRecipesMap.get(evaporatedFluid.getFluid());
 				ItemStack result = recipe.getOutput();
 				if (evaporatedFluid.amount >= recipe.getAmount() && itemStackHandler.insertItem(0, result, true).isEmpty()) {
 					evaporatedFluid.amount -= recipe.getAmount();

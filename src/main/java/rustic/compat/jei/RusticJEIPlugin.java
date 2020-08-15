@@ -57,7 +57,7 @@ public class RusticJEIPlugin implements IModPlugin {
 
 		reg.addRecipeCategories(new EvaporatingRecipeCategory(guiHelper));
 		ArrayList<IEvaporatingBasinRecipe> evaporatingRecipes = new ArrayList<IEvaporatingBasinRecipe>();
-		for (IEvaporatingBasinRecipe recipe : Recipes.evaporatingRecipes.values()) {
+		for (IEvaporatingBasinRecipe recipe : Recipes.evaporatingRecipesMap.values()) {
 			evaporatingRecipes.add(recipe);
 		}
 		reg.addRecipes(evaporatingRecipes, "rustic.evaporating");

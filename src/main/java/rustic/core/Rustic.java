@@ -160,5 +160,8 @@ public class Rustic {
 		if (Loader.isModLoaded("forestry") && Config.ENABLE_FORESTRY_COMPAT) {
 			Compat.doForestryCompat();
 		}
+		
+		// Fix for Rustic Thaumaturgy adding recipes directly in the data structure
+		Recipes.injectEvaporatingRecipes();
 	}
 }

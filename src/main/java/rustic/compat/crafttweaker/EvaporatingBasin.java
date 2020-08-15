@@ -49,7 +49,7 @@ public class EvaporatingBasin {
 
 		@Override
 		public void apply() {
-			Recipes.evaporatingRecipes.put(recipe.getFluid(), recipe);
+			Recipes.evaporatingRecipesMap.put(recipe.getFluid(), recipe);
 		}
 
 		@Override

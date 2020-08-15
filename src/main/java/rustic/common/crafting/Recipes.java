@@ -46,7 +46,8 @@ public class Recipes {
 	// Do not read directly those data structures, use the public methods below
 	// Those are not made private to prevent breaking changes
 	public static List<ICrushingTubRecipe> crushingTubRecipes = new ArrayList<ICrushingTubRecipe>();
-	public static HashMap<Fluid, IEvaporatingBasinRecipe> evaporatingRecipes = new HashMap<Fluid, IEvaporatingBasinRecipe>();
+	public static List<IEvaporatingBasinRecipe> evaporatingRecipes = new ArrayList<IEvaporatingBasinRecipe>();
+	public static HashMap<Fluid, IEvaporatingBasinRecipe> evaporatingRecipesMap = new HashMap<Fluid, IEvaporatingBasinRecipe>();
 	public static List<ICondenserRecipe> condenserRecipes = new ArrayList<ICondenserRecipe>();
 	public static List<IBrewingBarrelRecipe> brewingRecipes = new ArrayList<IBrewingBarrelRecipe>();
 
@@ -64,12 +65,19 @@ public class Recipes {
 		addBrewingRecipes();
 	}
 	
+	// Fix for Rustic Thaumaturgy adding recipes directly in the data structure
+	public static void injectEvaporatingRecipes() {
+		for (IEvaporatingBasinRecipe recipe : evaporatingRecipes) {
+			evaporatingRecipesMap.putIfAbsent(recipe.getFluid(), recipe);
+		}
+	}
+	
 	public static void add(ICrushingTubRecipe recipe) {
 		crushingTubRecipes.add(recipe);
 	}
 	
 	public static void add(IEvaporatingBasinRecipe recipe) {
-		evaporatingRecipes.put(recipe.getFluid(), recipe);
+		evaporatingRecipesMap.put(recipe.getFluid(), recipe);
 	}
 	
 	public static void add(ICondenserRecipe recipe) {
@@ -85,7 +93,7 @@ public class Recipes {
 	}
 	
 	public static Collection<IEvaporatingBasinRecipe> getEvaporatingRecipes() {
-		return Collections.unmodifiableCollection(evaporatingRecipes.values());
+		return Collections.unmodifiableCollection(evaporatingRecipesMap.values());
 	}
 	
 	public static Collection<ICondenserRecipe> getCondenserRecipe() {
@@ -128,7 +136,7 @@ public class Recipes {
 	
 	public static int removeEvaporatingRecipe(ItemStack output) {
 		int removed = 0;
-		Iterator<Map.Entry<Fluid, IEvaporatingBasinRecipe>> it = evaporatingRecipes.entrySet().iterator();
+		Iterator<Map.Entry<Fluid, IEvaporatingBasinRecipe>> it = evaporatingRecipesMap.entrySet().iterator();
 		IEvaporatingBasinRecipe r;
 		while (it.hasNext()) {
 			r = it.next().getValue();
@@ -141,7 +149,7 @@ public class Recipes {
 	}
 	
 	public static boolean removeEvaporatingRecipe(FluidStack input) {
-		return (evaporatingRecipes.remove(input.getFluid()) !=  null);
+		return (evaporatingRecipesMap.remove(input.getFluid()) !=  null);
 	}
 	
 	public static int removeCondenserRecipe(ItemStack output) {
@@ -453,7 +461,7 @@ public class Recipes {
 	}
 
 	private static void addEvaporatingRecipes() {
-		evaporatingRecipes.put(
+		evaporatingRecipesMap.put(
 				ModFluids.IRONBERRY_JUICE,
 				new EvaporatingBasinRecipe(
 						new ItemStack(ModItems.IRON_DUST_TINY, 1),
