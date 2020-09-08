@@ -1,0 +1,28 @@
+{
+	"type": "forge:ore_shaped",
+	"pattern": [
+		"SPS",
+		"GTG",
+		"SPS"
+	],
+	"key": {
+		"P": {
+			"type": "forge:ore_dict",
+			"ore": "plankWood"
+		},
+		"S": {
+			"type": "forge:ore_dict",
+			"ore": "stickWood"
+		},
+		"T": {
+			"item": "minecraft:torch"
+		},
+		"G": {
+			"item": "minecraft:glass_pane"
+		}
+	},
+	"result": {
+		"item": "rustic:lantern_wood",
+		"count": 1
+	}
+}

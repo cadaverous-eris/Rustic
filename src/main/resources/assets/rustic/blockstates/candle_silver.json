@@ -1,0 +1,9 @@
+{
+	"variants": {
+		"facing=north":	{ "model": "rustic:candle_wall_silver" },
+		"facing=east":	{ "model": "rustic:candle_wall_silver", "y": 90},
+		"facing=south":	{ "model": "rustic:candle_wall_silver", "y": 180 },
+		"facing=west":	{ "model": "rustic:candle_wall_silver", "y": 270 },
+		"facing=up":	{ "model": "rustic:candle_silver" }
+	}
+}

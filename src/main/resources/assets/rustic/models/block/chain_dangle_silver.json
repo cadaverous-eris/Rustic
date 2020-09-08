@@ -1,0 +1,6 @@
+{
+    "parent": "rustic:block/chain_dangle",
+    "textures": {
+        "chain": "rustic:blocks/chain_silver"
+    }
+}

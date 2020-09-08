@@ -170,7 +170,7 @@ public class TileEntityApiary extends TileEntity implements ITickable {
 			}
 
 			if (Config.BEE_GROWTH_MULTIPLIER != 0 && random.nextInt((int) Math.ceil(2048F / (numBees * Config.BEE_GROWTH_MULTIPLIER))) == 0) {
-				System.out.println("apiary growth");
+				//System.out.println("apiary growth");
 				int randX = random.nextInt(9) - 4;
 				int randZ = random.nextInt(9) - 4;
 				int x = this.getPos().getX();
