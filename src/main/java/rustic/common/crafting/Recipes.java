@@ -1,8 +1,12 @@
 package rustic.common.crafting;
 
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
@@ -37,12 +41,15 @@ import rustic.compat.dynamictrees.DynamicTreesCompat;
 import rustic.core.Rustic;
 
 public class Recipes {
-
-	public static List<CrushingTubRecipe> crushingTubRecipes = new ArrayList<CrushingTubRecipe>();
-	//public static List<EvaporatingBasinRecipe> evaporatingRecipes = new ArrayList<EvaporatingBasinRecipe>();
-	public static HashMap<Fluid, IEvaporatingBasinRecipe> evaporatingRecipes = new HashMap<Fluid, IEvaporatingBasinRecipe>();
+	
+	// Do no add recipes directly to those data structures, use the public methods below
+	// Do not read directly those data structures, use the public methods below
+	// Those are not made private to prevent breaking changes
+	public static List<ICrushingTubRecipe> crushingTubRecipes = new ArrayList<ICrushingTubRecipe>();
+	public static List<IEvaporatingBasinRecipe> evaporatingRecipes = new ArrayList<IEvaporatingBasinRecipe>();
+	public static HashMap<Fluid, IEvaporatingBasinRecipe> evaporatingRecipesMap = new HashMap<Fluid, IEvaporatingBasinRecipe>();
 	public static List<ICondenserRecipe> condenserRecipes = new ArrayList<ICondenserRecipe>();
-	public static List<BrewingBarrelRecipe> brewingRecipes = new ArrayList<BrewingBarrelRecipe>();
+	public static List<IBrewingBarrelRecipe> brewingRecipes = new ArrayList<IBrewingBarrelRecipe>();
 
 	public static void initOres() {
 		addOreDictEntries();
@@ -57,6 +64,108 @@ public class Recipes {
 		addCondenserRecipes();
 		addBrewingRecipes();
 	}
+	
+	// Fix for Rustic Thaumaturgy adding recipes directly in the data structure
+	public static void injectEvaporatingRecipes() {
+		for (IEvaporatingBasinRecipe recipe : evaporatingRecipes) {
+			evaporatingRecipesMap.putIfAbsent(recipe.getFluid(), recipe);
+		}
+	}
+	
+	public static void add(ICrushingTubRecipe recipe) {
+		crushingTubRecipes.add(recipe);
+	}
+	
+	public static void add(IEvaporatingBasinRecipe recipe) {
+		evaporatingRecipesMap.put(recipe.getFluid(), recipe);
+	}
+	
+	public static void add(ICondenserRecipe recipe) {
+		condenserRecipes.add(recipe);
+	}
+	
+	public static void add(IBrewingBarrelRecipe recipe) {
+		brewingRecipes.add(recipe);
+	}
+	
+	public static Collection<ICrushingTubRecipe> getCrushingRecipes() {
+		return Collections.unmodifiableList(crushingTubRecipes);
+	}
+	
+	public static Collection<IEvaporatingBasinRecipe> getEvaporatingRecipes() {
+		return Collections.unmodifiableCollection(evaporatingRecipesMap.values());
+	}
+	
+	public static Collection<ICondenserRecipe> getCondenserRecipe() {
+		return Collections.unmodifiableList(condenserRecipes);
+	}
+	
+	public static Collection<IBrewingBarrelRecipe> getBrewingRecipes() {
+		return Collections.unmodifiableList(brewingRecipes);
+	}
+	
+	public static int removeCrushingRecipe(ItemStack input) {
+		int removed = 0;
+		Iterator<ICrushingTubRecipe> it = Recipes.crushingTubRecipes.iterator();
+		ICrushingTubRecipe r;
+		while (it.hasNext()) {
+			r = it.next();
+			if (r != null && r.getInput().isItemEqual(input)) {
+				it.remove();
+				removed++;
+			}
+		}
+		return removed;
+	}
+	
+	public static int removeCrushingRecipe(FluidStack output, ItemStack input) {
+		int removed = 0;
+		Iterator<ICrushingTubRecipe> it = Recipes.crushingTubRecipes.iterator();
+		ICrushingTubRecipe r;
+		while (it.hasNext()) {
+			r = it.next();
+			if (r != null && r.getResult() != null && r.getResult().isFluidEqual(output)) {
+				if (input == null || (r.getInput().isItemEqual(input))) {
+					it.remove();
+					removed++;
+				}
+			}
+		}
+		return removed;
+	}
+	
+	public static int removeEvaporatingRecipe(ItemStack output) {
+		int removed = 0;
+		Iterator<Map.Entry<Fluid, IEvaporatingBasinRecipe>> it = evaporatingRecipesMap.entrySet().iterator();
+		IEvaporatingBasinRecipe r;
+		while (it.hasNext()) {
+			r = it.next().getValue();
+			if (output.isItemEqual(r.getOutput())) {
+				removed++;
+				it.remove();
+			}
+		}
+		return removed;
+	}
+	
+	public static boolean removeEvaporatingRecipe(FluidStack input) {
+		return (evaporatingRecipesMap.remove(input.getFluid()) !=  null);
+	}
+	
+	public static int removeCondenserRecipe(ItemStack output) {
+		int removed = 0;
+		Iterator<ICondenserRecipe> it = Recipes.condenserRecipes.iterator();
+		ICondenserRecipe r;
+		while (it.hasNext()) {
+			r = it.next();
+			if (r != null && r.getResult() != null && ItemStack.areItemStacksEqual(r.getResult(), output)) {
+				it.remove();
+				removed++;
+			}
+		}
+		return removed;
+	}
+	
 	public static void postInit() {
 		addSilverCraftingRecipes();
 	}
@@ -392,7 +501,7 @@ public class Recipes {
 	}
 
 	private static void addEvaporatingRecipes() {
-		evaporatingRecipes.put(
+		evaporatingRecipesMap.put(
 				ModFluids.IRONBERRY_JUICE,
 				new EvaporatingBasinRecipe(
 						new ItemStack(ModItems.IRON_DUST_TINY, 1),

@@ -18,12 +18,9 @@ import rustic.client.gui.GuiCondenser;
 import rustic.client.gui.GuiCondenserAdvanced;
 import rustic.common.Config;
 import rustic.common.blocks.ModBlocks;
-import rustic.common.crafting.AdvancedCondenserRecipe;
-import rustic.common.crafting.BasicCondenserRecipe;
-import rustic.common.crafting.BrewingBarrelRecipe;
-import rustic.common.crafting.CrushingTubRecipe;
-import rustic.common.crafting.EvaporatingBasinRecipe;
+import rustic.common.crafting.IBrewingBarrelRecipe;
 import rustic.common.crafting.ICondenserRecipe;
+import rustic.common.crafting.ICrushingTubRecipe;
 import rustic.common.crafting.IEvaporatingBasinRecipe;
 import rustic.common.crafting.Recipes;
 import rustic.common.items.ModItems;
@@ -51,16 +48,16 @@ public class RusticJEIPlugin implements IModPlugin {
 		
 		crushingTubCat = new CrushingTubRecipeCategory(guiHelper);
 		reg.addRecipeCategories(crushingTubCat);
-		ArrayList<CrushingTubRecipe> crushingTubRecipes = new ArrayList<CrushingTubRecipe>();
+		ArrayList<ICrushingTubRecipe> crushingTubRecipes = new ArrayList<ICrushingTubRecipe>();
 		for (int i = 0; i < Recipes.crushingTubRecipes.size(); i++) {
 			crushingTubRecipes.add(Recipes.crushingTubRecipes.get(i));
 		}
 		reg.addRecipes(crushingTubRecipes, "rustic.crushing_tub");
-		reg.handleRecipes(CrushingTubRecipe.class, new CrushingTubRecipeWrapperFactory(), "rustic.crushing_tub");
+		reg.handleRecipes(ICrushingTubRecipe.class, new CrushingTubRecipeWrapperFactory(), "rustic.crushing_tub");
 
 		reg.addRecipeCategories(new EvaporatingRecipeCategory(guiHelper));
 		ArrayList<IEvaporatingBasinRecipe> evaporatingRecipes = new ArrayList<IEvaporatingBasinRecipe>();
-		for (IEvaporatingBasinRecipe recipe : Recipes.evaporatingRecipes.values()) {
+		for (IEvaporatingBasinRecipe recipe : Recipes.evaporatingRecipesMap.values()) {
 			evaporatingRecipes.add(recipe);
 		}
 		reg.addRecipes(evaporatingRecipes, "rustic.evaporating");
@@ -77,7 +74,7 @@ public class RusticJEIPlugin implements IModPlugin {
 
 		reg.addRecipeCategories(new BrewingRecipeCategory(guiHelper));
 		reg.addRecipes(Recipes.brewingRecipes, "rustic.brewing");
-		reg.handleRecipes(BrewingBarrelRecipe.class, new BrewingRecipeWrapperFactory(), "rustic.brewing");
+		reg.handleRecipes(IBrewingBarrelRecipe.class, new BrewingRecipeWrapperFactory(), "rustic.brewing");
 
 		reg.addRecipeCategoryCraftingItem(new ItemStack(ModBlocks.CRUSHING_TUB), "rustic.crushing_tub");
 		reg.addRecipeCategoryCraftingItem(new ItemStack(ModBlocks.EVAPORATING_BASIN), "rustic.evaporating");

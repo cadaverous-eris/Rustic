@@ -6,10 +6,12 @@ import crafttweaker.CraftTweakerAPI;
 import crafttweaker.IAction;
 import crafttweaker.api.item.IItemStack;
 import crafttweaker.api.liquid.ILiquidStack;
+import crafttweaker.api.minecraft.CraftTweakerMC;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.fluids.FluidStack;
 import rustic.common.crafting.CrushingTubRecipe;
 import rustic.common.crafting.Recipes;
+import stanhebben.zenscript.annotations.Optional;
 import stanhebben.zenscript.annotations.ZenClass;
 import stanhebben.zenscript.annotations.ZenMethod;
 
@@ -41,39 +43,48 @@ public class CrushingTub {
 		}
 
 	}
-
+	
 	@ZenMethod
-	public static void removeRecipe(ILiquidStack output, IItemStack input) {
-		if (CraftTweakerHelper.toFluidStack(output) != null && !CraftTweakerHelper.toStack(input).isEmpty())
-			CraftTweakerAPI
-					.apply(new RemoveFluid(CraftTweakerHelper.toFluidStack(output), CraftTweakerHelper.toStack(input)));
+	public static void removeRecipe(IItemStack input) {
+		CraftTweakerAPI.apply(
+				new Remove(null, CraftTweakerMC.getItemStack(input))
+		);
 	}
 
-	private static class RemoveFluid implements IAction {
+	@ZenMethod
+	public static void removeRecipe(ILiquidStack output, @Optional IItemStack input) {
+		if (output == null) {
+			throw new IllegalArgumentException("Cannot remove Crushing Tub recipe for null Fluid input");
+		}
+		CraftTweakerAPI.apply(
+				new Remove(CraftTweakerMC.getLiquidStack(output), input == null ? null : CraftTweakerMC.getItemStack(input)));
+	}
+
+	private static class Remove implements IAction {
 		private final FluidStack output;
 		private final ItemStack input;
 
-		public RemoveFluid(FluidStack output, ItemStack input) {
+		public Remove(FluidStack output, ItemStack input) {
 			this.output = output;
 			this.input = input;
 		}
 
 		@Override
 		public void apply() {
-			Iterator<CrushingTubRecipe> it = Recipes.crushingTubRecipes.iterator();
-			while (it.hasNext()) {
-				CrushingTubRecipe r = it.next();
-				if (r != null && r.getResult() != null && r.getResult().isFluidEqual(output)) {
-					if (r.getInput().isItemEqual(input)) {
-						it.remove();
-					}
-				}
+			if (this.output == null) {
+				Recipes.removeCrushingRecipe(this.input);
+			} else {
+				Recipes.removeCrushingRecipe(this.output, this.input);
 			}
 		}
 
 		@Override
 		public String describe() {
-			return "Removing Crushing Tub Recipes for Fluid " + output.getLocalizedName();
+			if (this.output == null) {
+				return "Removing Crushing Tub Recipes for Item " + input.getDisplayName();
+			} else {
+				return "Removing Crushing Tub Recipes for Fluid " + output.getLocalizedName();
+			}
 		}
 
 	}

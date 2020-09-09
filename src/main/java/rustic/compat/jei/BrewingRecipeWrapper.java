@@ -5,12 +5,13 @@ import mezz.jei.api.recipe.BlankRecipeWrapper;
 import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fluids.FluidStack;
 import rustic.common.crafting.BrewingBarrelRecipe;
+import rustic.common.crafting.IBrewingBarrelRecipe;
 
 public class BrewingRecipeWrapper extends BlankRecipeWrapper {
 
-	public BrewingBarrelRecipe recipe = null;
+	public IBrewingBarrelRecipe recipe = null;
 
-	public BrewingRecipeWrapper(BrewingBarrelRecipe recipe) {
+	public BrewingRecipeWrapper(IBrewingBarrelRecipe recipe) {
 		this.recipe = recipe;
 	}
 

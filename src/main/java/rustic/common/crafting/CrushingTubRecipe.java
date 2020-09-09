@@ -4,7 +4,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fluids.FluidStack;
 
-public class CrushingTubRecipe {
+public class CrushingTubRecipe implements ICrushingTubRecipe {
 
 	protected ItemStack input;
 	protected ItemStack byproduct;
