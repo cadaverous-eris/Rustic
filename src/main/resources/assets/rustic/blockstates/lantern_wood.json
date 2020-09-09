@@ -1,0 +1,15 @@
+{
+	"forge_marker": 1,
+	"variants": {
+		"facing": {
+			"up": { "model": "rustic:lantern_wood" },
+			"north": { "model": "rustic:lantern_wood_wall" },
+			"east": { "model": "rustic:lantern_wood_wall", "y": 90 },
+			"south": { "model": "rustic:lantern_wood_wall", "y": 180 },
+			"west": { "model": "rustic:lantern_wood_wall", "y": 270 }
+		},
+		"inventory": {
+			"model": "rustic:lantern_wood"
+		}
+	}
+}

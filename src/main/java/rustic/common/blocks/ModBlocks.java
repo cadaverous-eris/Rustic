@@ -61,6 +61,9 @@ public class ModBlocks {
 	public static BlockChain CHAIN_GOLD;
 	public static BlockCandle CANDLE_GOLD;
 	public static BlockChandelier CHANDELIER_GOLD;
+	public static BlockChain CHAIN_SILVER;
+	public static BlockCandle CANDLE_SILVER;
+	public static BlockChandelier CHANDELIER_SILVER;
 	public static BlockBeehive BEEHIVE;
 	public static BlockApiary APIARY;
 	public static BlockChair CHAIR_OAK;
@@ -80,6 +83,7 @@ public class ModBlocks {
 	public static BlockLattice IRON_LATTICE;
 	public static BlockLantern IRON_LANTERN;
 	public static BlockLantern GOLDEN_LANTERN;
+	public static BlockLantern SILVER_LANTERN;
 	public static BlockBase PAINTED_WOOD_WHITE;
 	public static BlockBase PAINTED_WOOD_ORANGE;
 	public static BlockBase PAINTED_WOOD_MAGENTA;
@@ -144,6 +148,7 @@ public class ModBlocks {
 	public static BlockLeavesApple APPLE_LEAVES;
 	public static BlockDoorRustic DOOR_OLIVE;
 	public static BlockDoorRustic DOOR_IRONWOOD;
+	public static BlockWoodLantern LANTERN_WOOD;
 
 	public static void init() {
 		if (Config.ENABLE_PILLARS) {
@@ -161,6 +166,11 @@ public class ModBlocks {
 		CHAIN_GOLD = new BlockChain("chain_gold");
 		CANDLE_GOLD = new BlockCandle("candle_gold");
 		CHANDELIER_GOLD = new BlockChandelier("chandelier_gold");
+		if (Config.ENABLE_SILVER_DECOR) {
+			CHAIN_SILVER = new BlockChain("chain_silver");
+			CANDLE_SILVER = new BlockCandle("candle_silver");
+			CHANDELIER_SILVER = new BlockChandelier("chandelier_silver");
+		}
 		BEEHIVE = new BlockBeehive();
 		APIARY = new BlockApiary();
 		if (Config.ENABLE_SLATE) {
@@ -214,6 +224,9 @@ public class ModBlocks {
 		}
 		IRON_LANTERN = new BlockLantern(Material.IRON, "iron_lantern");
 		GOLDEN_LANTERN = new BlockLantern(Material.IRON, "golden_lantern");
+		if (Config.ENABLE_SILVER_DECOR) {
+			SILVER_LANTERN = new BlockLantern(Material.IRON, "silver_lantern");
+		}
 		if (Config.ENABLE_PAINTED_WOOD) {
 			PAINTED_WOOD_WHITE = ((BlockBase) new BlockBase(Material.WOOD, "painted_wood_white").setHardness(2.0F))
 					.setBlockSoundType(SoundType.WOOD);
@@ -354,6 +367,7 @@ public class ModBlocks {
 		APPLE_LEAVES = new BlockLeavesApple();
 		DOOR_OLIVE = new BlockDoorRustic(Material.WOOD, "olive_door");
 		DOOR_IRONWOOD = new BlockDoorRustic(Material.WOOD, "ironwood_door");
+		LANTERN_WOOD = new BlockWoodLantern();
 
 		Herbs.init();
 		
@@ -387,6 +401,11 @@ public class ModBlocks {
 		CHAIN_GOLD.initModel();
 		CANDLE_GOLD.initModel();
 		CHANDELIER_GOLD.initModel();
+		if (Config.ENABLE_SILVER_DECOR) {
+			CHAIN_SILVER.initModel();
+			CANDLE_SILVER.initModel();
+			CHANDELIER_SILVER.initModel();
+		}
 		BEEHIVE.initModel();
 		APIARY.initModel();
 		if (Config.ENABLE_SLATE) {
@@ -436,6 +455,9 @@ public class ModBlocks {
 		}
 		IRON_LANTERN.initModel();
 		GOLDEN_LANTERN.initModel();
+		if (Config.ENABLE_SILVER_DECOR) {
+			SILVER_LANTERN.initModel();
+		}
 		if (Config.ENABLE_PAINTED_WOOD) {
 			PAINTED_WOOD_WHITE.initModel();
 			PAINTED_WOOD_ORANGE.initModel();
@@ -491,6 +513,7 @@ public class ModBlocks {
 		APPLE_LEAVES.initModel();
 		DOOR_OLIVE.initModel();
 		DOOR_IRONWOOD.initModel();
+		LANTERN_WOOD.initModel();
 
 		Herbs.initModels();
 	}

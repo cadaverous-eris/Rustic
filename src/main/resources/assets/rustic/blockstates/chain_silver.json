@@ -1,0 +1,9 @@
+{
+    "multipart": [
+        { "when": { "axis": "x" }, "apply": { "model": "rustic:chain_horizontal_silver", "y": 90 } },
+        { "when": { "axis": "y" }, "apply": { "model": "rustic:chain_silver" } },
+        { "when": { "axis": "z" }, "apply": { "model": "rustic:chain_horizontal_silver" } },
+        { "when": { "axis": "x", "dangle": "true" }, "apply": { "model": "rustic:chain_dangle_silver", "y": 90 } },
+        { "when": { "axis": "y|z", "dangle": "true" }, "apply": { "model": "rustic:chain_dangle_silver" } }
+    ]
+}

@@ -23,6 +23,7 @@ import net.minecraftforge.fml.common.SidedProxy;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
+import net.minecraftforge.fml.common.eventhandler.EventPriority;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
@@ -42,7 +43,7 @@ import rustic.compat.dynamictrees.DynamicTreesCompat;
 public class Rustic {
 	public static final String MODID = "rustic";
 	public static final String NAME = "Rustic";
-	public static final String VERSION = "1.1.5";
+	public static final String VERSION = "1.1.6";
 	public static final String DEPENDENCIES = "after:dynamictrees@[1.12.2-0.9.1e,);after:dynamictreesbop;before:dynamictreestc";
 
 	@SidedProxy(clientSide = "rustic.core.ClientProxy", serverSide = "rustic.core.CommonProxy")
@@ -146,6 +147,10 @@ public class Rustic {
 	@SubscribeEvent
 	public void initRecipes(RegistryEvent.Register<IRecipe> event) {
 		Recipes.init();
+	}
+	@SubscribeEvent(priority = EventPriority.LOWEST)
+	public void postInitRecipes(RegistryEvent.Register<IRecipe> event) {
+		Recipes.postInit();
 	}
 	
 	@EventHandler

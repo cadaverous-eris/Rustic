@@ -166,6 +166,9 @@ public class Recipes {
 		return removed;
 	}
 	
+	public static void postInit() {
+		addSilverCraftingRecipes();
+	}
 
 	private static void addSmeltingRecipes() {
 		GameRegistry.addSmelting(new ItemStack(ModItems.HONEYCOMB), new ItemStack(ModItems.BEESWAX), 0.3F);
@@ -284,7 +287,7 @@ public class Recipes {
 		OreDictionary.registerOre("dyePurple", new ItemStack(ModItems.GRAPES));
 		OreDictionary.registerOre("dyeLightGray", new ItemStack(ModItems.IRONBERRIES));
 	}
-
+	
 	private static void addCraftingRecipes() {
 		if (Config.ENABLE_PILLARS) {
 			GameRegistry.addShapedRecipe(new ResourceLocation(Rustic.MODID, "pillar_stone"), null, new ItemStack(ModBlocks.STONE_PILLAR, 6), "SS ", "SS ", "SS ", 'S',
@@ -435,6 +438,43 @@ public class Recipes {
 			GameRegistry.addShapelessRecipe(new ResourceLocation(Rustic.MODID, "ironwoodseed"), null, new ItemStack(DynamicTreesCompat.getIronwoodSeed()), Ingredient.fromItem(ModItems.IRONBERRIES));
 			
 			DynamicTreesCompat.addRecipes();
+		}
+	}
+	
+	private static void addSilverCraftingRecipes() {
+		if (Config.ENABLE_SILVER_DECOR && OreDictionary.doesOreNameExist("ingotSilver")) {
+			GameRegistry.findRegistry(IRecipe.class).register(new ShapedOreRecipe(null,
+					new ItemStack(ModBlocks.CANDLE_SILVER, 4),
+						"S",
+						"W",
+						"I",
+					'S', new ItemStack(Items.STRING),
+					'W', "wax",
+					'I', "ingotSilver"
+			).setRegistryName(new ResourceLocation(Rustic.MODID, "candle_silver")));
+			GameRegistry.findRegistry(IRecipe.class).register(new ShapedOreRecipe(null,
+					new ItemStack(ModBlocks.CHAIN_SILVER, 12),
+						"I",
+						"I",
+						"I",
+					'I', "ingotSilver"
+			).setRegistryName(new ResourceLocation(Rustic.MODID, "chain_silver")));
+			GameRegistry.findRegistry(IRecipe.class).register(new ShapedOreRecipe(null,
+					new ItemStack(ModBlocks.CHANDELIER_SILVER, 2),
+						" I ",
+						"C C",
+						"III",
+					'I', "ingotSilver",
+					'C', ModBlocks.CHAIN_SILVER
+			).setRegistryName(new ResourceLocation(Rustic.MODID, "chandelier_silver")));
+			GameRegistry.findRegistry(IRecipe.class).register(new ShapedOreRecipe(null,
+					new ItemStack(ModBlocks.SILVER_LANTERN, 4),
+						"I",
+						"C",
+						"I",
+					'I', "ingotSilver",
+					'C', Ingredient.fromStacks(new ItemStack(Items.COAL, 1, 0), new ItemStack(Items.COAL, 1, 1))
+			).setRegistryName(new ResourceLocation(Rustic.MODID, "silver_lantern")));
 		}
 	}
 
