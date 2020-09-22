@@ -63,6 +63,7 @@ public class Config {
 	public static boolean ENABLE_BOTTLE_EMPTYING;
 	public static List<Integer> OVERWORLD_GENERATION_WHITELIST = new ArrayList<Integer>();
 	public static List<Integer> NETHER_GENERATION_WHITELIST = new ArrayList<Integer>();
+	public static boolean ENABLE_CANDLE_INFUSION;
 
 	public static void readConfig() {
 		Configuration cfg = CommonProxy.config;
@@ -124,6 +125,7 @@ public class Config {
 		MAX_BREW_TIME = cfg.getInt("Maximum Brew Time", CATEGORY_GENERAL, 12000, 1200, 120000, "how long it should take for a brewing barrel to finish a brew, in ticks");
 		ENABLE_BOTTLE_EMPTYING = cfg.getBoolean("Enable Bottle Emptying", CATEGORY_GENERAL, true, "set this to false if you experience any issues with Rustic's glass bottle emptying recipe");
 		ENABLE_SILVER_DECOR = cfg.getBoolean("Enable Silver Decoration Blocks", CATEGORY_COMPAT, true, "set this to false to disable silver chain, chandelier, candle, and lantern blocks");
+		ENABLE_CANDLE_INFUSION = cfg.getBoolean("Enable Thaumcraft Candle Infusion Stabilization", CATEGORY_COMPAT, true, "set this to false to remove rustic candles from thaumcraft paraphernalia.");
 		List<String> overworldGenWhitelist = Arrays.asList(cfg.getStringList("Overworld Generation Dimension Whitelist", CATEGORY_WORLD, new String[] {"0"}, "add numerical dimension ids to this list to allow Rustic's overworld world gen to occur in those dimensions\ndimensions that are not listed here will not receive Rustic's overworld world generation\n"));
 		List<String> netherGenWhitelist = Arrays.asList(cfg.getStringList("Nether Generation Dimension Whitelist", CATEGORY_WORLD, new String[] {"-1"}, "add numerical dimension ids to this list to allow Rustic's nether world gen to occur in those dimensions\ndimensions that are not listed here will not receive Rustic's nether world generation\n"));
 		overworldGenWhitelist.forEach((dimId) -> {OVERWORLD_GENERATION_WHITELIST.add(Integer.parseInt(dimId));});
@@ -170,6 +172,7 @@ public class Config {
 		PROPERTY_ORDER_BEES.add("Bee Crop Boost Multiplier");
 		PROPERTY_ORDER_COMPAT.add("Enable Silver Decoration Blocks");
 		PROPERTY_ORDER_COMPAT.add("Enable Forestry Compat");
+		PROPERTY_ORDER_COMPAT.add("Enable Thaumcraft Candle Infusion Stabilization");
 
 		cfg.setCategoryPropertyOrder(CATEGORY_GENERAL, PROPERTY_ORDER_GENERAL);
 		cfg.setCategoryPropertyOrder(CATEGORY_BEES, PROPERTY_ORDER_BEES);

@@ -24,10 +24,15 @@ import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
+import net.minecraftforge.fml.common.Optional;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+import thaumcraft.api.crafting.IInfusionStabiliser;
 
-public class BlockCandle extends BlockBase {
+import static rustic.common.Config.ENABLE_CANDLE_INFUSION;
+
+@Optional.Interface(modid = "thaumcraft", iface = "thaumcraft.api.crafting.IInfusionStabiliser", striprefs = true)
+public class BlockCandle extends BlockBase implements IInfusionStabiliser {
 
 	public static final PropertyDirection FACING = PropertyDirection.create("facing", new Predicate<EnumFacing>() {
 		public boolean apply(@Nullable EnumFacing p_apply_1_) {
@@ -282,4 +287,8 @@ public class BlockCandle extends BlockBase {
 		return side == EnumFacing.DOWN ? BlockFaceShape.CENTER_SMALL : BlockFaceShape.UNDEFINED;
 	}
 
+	@Override
+	public boolean canStabaliseInfusion(World world, BlockPos blockPos) {
+		return ENABLE_CANDLE_INFUSION;
+	}
 }
