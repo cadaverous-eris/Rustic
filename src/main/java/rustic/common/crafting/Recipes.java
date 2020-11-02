@@ -451,7 +451,14 @@ public class Recipes {
 					'S', new ItemStack(Items.STRING),
 					'W', "wax",
 					'I', "ingotSilver"
-			).setRegistryName(new ResourceLocation(Rustic.MODID, "candle_silver")));
+			).setRegistryName(new ResourceLocation(Rustic.MODID, "candle_lever_silver")));
+			GameRegistry.findRegistry(IRecipe.class).register(new ShapedOreRecipe(null,
+					new ItemStack(ModBlocks.CANDLE_LEVER_SILVER, 1),
+						"C",
+						"R",
+					'C', new ItemStack(ModBlocks.CANDLE_SILVER),
+					'R', "dustRedstone"
+			).setRegistryName(new ResourceLocation(Rustic.MODID, "candle_lever_silver")));
 			GameRegistry.findRegistry(IRecipe.class).register(new ShapedOreRecipe(null,
 					new ItemStack(ModBlocks.CHAIN_SILVER, 12),
 						"I",

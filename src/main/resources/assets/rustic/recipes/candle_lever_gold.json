@@ -1,0 +1,20 @@
+{
+	"type": "forge:ore_shaped",
+	"pattern": [
+		"C",
+		"R"
+	],
+	"key": {
+		"C": {
+			"item": "rustic:candle_gold"
+		},
+		"R": {
+			"type": "forge:ore_dict",
+			"ore": "dustRedstone"
+		}
+	},
+	"result": {
+		"item": "rustic:candle_lever_gold",
+		"count": 1
+	}
+}

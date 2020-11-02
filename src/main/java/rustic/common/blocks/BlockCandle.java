@@ -68,8 +68,8 @@ public class BlockCandle extends BlockBase {
 	
 	@Override
 	public boolean isPassable(IBlockAccess worldIn, BlockPos pos) {
-        return false;
-    }
+		return false;
+	}
 
 	private boolean canPlaceOn(World worldIn, BlockPos pos) {
 		IBlockState state = worldIn.getBlockState(pos);
@@ -98,7 +98,7 @@ public class BlockCandle extends BlockBase {
 		return false;
 	}
 
-	private boolean canPlaceAt(World worldIn, BlockPos pos, EnumFacing facing) {
+	protected boolean canPlaceAt(World worldIn, BlockPos pos, EnumFacing facing) {
 		BlockPos blockpos = pos.offset(facing.getOpposite());
 		boolean flag = facing.getAxis().isHorizontal();
 		return flag && worldIn.isSideSolid(blockpos, facing, true)

@@ -1,0 +1,14 @@
+{
+	"variants": {
+		"facing=north,powered=false":	{ "model": "rustic:candle_wall" },
+		"facing=east,powered=false":	{ "model": "rustic:candle_wall", "y": 90},
+		"facing=south,powered=false":	{ "model": "rustic:candle_wall", "y": 180 },
+		"facing=west,powered=false":	{ "model": "rustic:candle_wall", "y": 270 },
+		"facing=up,powered=false":		{ "model": "rustic:candle" },
+		"facing=north,powered=true":	{ "model": "rustic:candle_wall_pulled" },
+		"facing=east,powered=true":		{ "model": "rustic:candle_wall_pulled", "y": 90},
+		"facing=south,powered=true":	{ "model": "rustic:candle_wall_pulled", "y": 180 },
+		"facing=west,powered=true":		{ "model": "rustic:candle_wall_pulled", "y": 270 },
+		"facing=up,powered=true":		{ "model": "rustic:candle_pulled" }
+	}
+}
