@@ -36,14 +36,14 @@ import rustic.common.crafting.Recipes;
 import rustic.common.items.ModItems;
 import rustic.common.potions.EventHandlerPotions;
 import rustic.compat.Compat;
-//import rustic.compat.crafttweaker.CraftTweakerHelper;
+import rustic.compat.crafttweaker.CraftTweakerHelper;
 import rustic.compat.dynamictrees.DynamicTreesCompat;
 
 @Mod(modid = Rustic.MODID, name = Rustic.NAME, version = Rustic.VERSION, dependencies = Rustic.DEPENDENCIES)
 public class Rustic {
 	public static final String MODID = "rustic";
 	public static final String NAME = "Rustic";
-	public static final String VERSION = "1.1.6";
+	public static final String VERSION = "1.1.7";
 	public static final String DEPENDENCIES = "after:dynamictrees@[1.12.2-0.9.1e,);after:dynamictreesbop;before:dynamictreestc";
 
 	@SidedProxy(clientSide = "rustic.core.ClientProxy", serverSide = "rustic.core.CommonProxy")
@@ -135,9 +135,9 @@ public class Rustic {
 		
 		proxy.preInit(event);
 		
-		/*if (Loader.isModLoaded("crafttweaker")) {
+		if (Loader.isModLoaded("crafttweaker")) {
 			CraftTweakerHelper.preInit();
-		}*/
+		}
 		
 		if (Loader.isModLoaded("dynamictrees")) {
 			MinecraftForge.EVENT_BUS.register(DynamicTreesCompat.class);
