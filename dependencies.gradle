@@ -6,4 +6,6 @@ dependencies {
     deobfCompile "CraftTweaker2:CraftTweaker2-MC1120-Main:1.12-4.1.20.554"
     deobfCompile "net.sengir.forestry:forestry_1.12.2:5.7.0.214"
     deobfCompile curse.resolveUrl("https://www.curseforge.com/minecraft/mc-mods/dynamictrees/files/2870267")
+    compile 'baubles:Baubles:1.12:1.5.2'
+    compile "thaumcraft:Thaumcraft:1.12.2:6.1.BETA26"
 }
