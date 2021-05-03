@@ -19,12 +19,21 @@ container.rustic.brewing_barrel=酿造桶
 
 #Blocks
 tile.rustic.chain.name=铁链
+tile.rustic.chain_gold.name=金链
+tile.rustic.chain_silver.name=银链
 tile.rustic.stone_pillar.name=石柱
 tile.rustic.andesite_pillar.name=安山岩柱
 tile.rustic.diorite_pillar.name=闪长岩柱
 tile.rustic.granite_pillar.name=花岗岩柱
-tile.rustic.chandelier.name=环形吊灯
-tile.rustic.candle.name=蜡烛
+tile.rustic.chandelier.name=铁环形吊灯
+tile.rustic.chandelier_gold.name=金环形吊灯
+tile.rustic.chandelier_silver.name=银环形吊灯
+tile.rustic.candle.name=铁蜡烛
+tile.rustic.candle_lever.name=铁蜡烛拉杆
+tile.rustic.candle_gold.name=金蜡烛
+tile.rustic.candle_lever_gold.name=金蜡烛拉杆
+tile.rustic.candle_silver.name=银蜡烛
+tile.rustic.candle_lever_silver.name=银蜡烛拉杆
 tile.rustic.beehive.name=蜂窝
 tile.rustic.apiary.name=蜂房
 tile.rustic.slate.name=板岩
@@ -54,6 +63,8 @@ tile.rustic.slate_chiseled.name=精雕板岩
 tile.rustic.barrel.name=木桶
 tile.rustic.iron_lattice.name=铁格栏
 tile.rustic.iron_lantern.name=铁灯笼
+tile.rustic.golden_lantern.name=金灯笼
+tile.rustic.silver_lantern.name=银灯笼
 tile.rustic.painted_wood_white.name=白色彩绘木板
 tile.rustic.painted_wood_orange.name=橙色彩绘木板
 tile.rustic.painted_wood_magenta.name=品红色彩绘木板
@@ -126,6 +137,10 @@ tile.rustic.brewing_barrel.name=酿造桶
 tile.rustic.apple_seeds.name=苹果籽
 tile.rustic.sapling_apple.name=苹果树苗
 tile.rustic.leaves_apple.name=苹果树叶
+tile.rustic.lantern_wood.name=木灯笼
+tile.rustic:olivebranch.name=动态橄榄树
+tile.rustic:ironwoodbranch.name=动态铁木树
+tile.rustic:leaves0.name=动态树叶
 
 #Items
 item.rustic.book.name=年历通书
@@ -149,6 +164,8 @@ item.rustic.wildberries.name=野莓果
 item.rustic.grapes.name=葡萄
 item.tile.rustic.olive_door.name=橄榄木门
 item.tile.rustic.ironwood_door.name=铁树门
+item.rustic:oliveseed.name=橄榄核
+item.rustic:ironwoodseed.name=铁树莓种子
 
 #Fluids
 tile.rustic.olive_oil.name=橄榄油
@@ -186,14 +203,14 @@ effect.tipsy=醉酒
 
 #Elixirs
 rustic.elixir.prefix=瓶装药剂——
-rutsic.elixir.separator=，
+rustic.jei.recipe.advanced_alchemy=高级炼金术
 
 #JEI Categories
-rustic.jei.recipe.crushing_tub=压榨木盆
 rustic.jei.recipe.evaporating=蒸发皿
 rustic.jei.recipe.simple_alchemy=简易炼金术
-rustic.jei.recipe.advanced_alchemy=高级炼金术
+rutsic.elixir.separator=，
 rustic.jei.recipe.brewing=酿造桶
+rustic.jei.recipe.crushing_tub=压榨木盆
 
 #Book
 book.rustic.entry.categories=年历通书目录索引
@@ -247,7 +264,7 @@ book.rustic.text.cabinets=一个柜子可以提供27格存储空间，它只能�
 book.rustic.text.rope=绳子可以用作梯子、装饰和葡萄种植的支架。可以横向和竖向放置，能像梯子一样让玩家爬行。对着已经放置的绳子右键，它会尽可能的在右键的绳子下方进行放置，这样很容易建立爬梯。
 book.rustic.text.rope_1=绳子也可以绑在栽培木桩上，作为葡萄藤的攀援物。用箭射击绳子会使绳子破坏并掉落。
 book.rustic.text.chain=铁链可以作为装饰或者梯子。可以横向和竖向放置，能像梯子一样让玩家爬行。对着已经放置的铁链右键，它会尽可能的在右键的铁链下方进行放置，这样很容易建立爬梯。
-book.rustic.text.candles=蜡烛是类似火把的装饰性光源。可以放置在任意方块顶部和任意非透明方块的侧面，当放置在环形吊灯的四面时，他们看起来非常漂亮。
+book.rustic.text.candles=蜡烛是类似火把的装饰性光源。可以放置在任意方块顶部和任意非透明方块的侧面，当放置在环形吊灯的四面时，它们看起来非常漂亮。
 book.rustic.text.chandeliers=装饰方块，蜡烛或火把可以插在它的四个面上。吊灯上方必须连有绳子、铁链或者非透明方块，否则，吊灯将会向下直线掉落并造成巨大伤害。
 book.rustic.text.lanterns=发光的灯笼，可以替代火把的时尚物品。可以放置在方块的任意一个面上。
 book.rustic.text.lattice=格栏是一个装饰方块，它会连接到任意相邻的格栏、方块和铁链上。对着格栏使用叶子右键可以使格栏覆盖上枝叶。
@@ -279,7 +296,7 @@ book.rustic.text.grape_juice=葡萄可以在压榨盆中压榨成汁，葡萄汁
 book.rustic.text.apple_trees=苹果树由苹果籽生长而成。苹果籽可以从压榨盆中压榨苹果获得。苹果树的树干由橡木构成，如果苹果树叶的底面或者任意侧面相邻的方块为空气方块，那么苹果就会在树叶中生长。
 book.rustic.text.apple_trees_1=生长完成后，可以通过右键树叶或打破树叶得到苹果。但最好不要打破树叶，因为叶子不会再生长，苹果叶被破坏时有几率掉落苹果树苗以及其内生长完成的苹果（如果有）。
 book.rustic.text.apple_juice=苹果可以在压榨盆中压榨成苹果汁，并掉落苹果籽。苹果汁可以装瓶直接喝，或者酿制成苹果酒。
-book.rustic.text.olive_trees=橄榄树在森林，平原和山脉中自然生成。并且它们不会在可以下雪的地方生成。原木可以制作成橄榄木板，木板可用于制作楼梯等木制品的橄榄木版本。打破树叶会掉落橄榄，未加工的橄榄不宜食用，因为他们有微量有害的毒素。
+book.rustic.text.olive_trees=橄榄树在森林，平原和山脉中自然生成。并且它们不会在可以下雪的地方生成。原木可以制作成橄榄木板，木板可用于制作楼梯等木制品的橄榄木版本。打破树叶会掉落橄榄，未加工的橄榄不宜食用，因为它们有微量有害的毒素。
 book.rustic.text.olive_oil=橄榄可以在压榨盆中被压榨成橄榄油。橄榄油虽然很美味，但与别的食物结合是它最好的用法。它是非常棒的调味品，可以与任何食物在工作台合成，让那些食物获得更多的饱食度恢复。
 book.rustic.text.ironwood_trees=铁树在森林，平原，山脉，沼泽和丛林中自然生成。它不会在干燥生物群系中生成。原木可以制成铁树木板，可用于制作楼梯等木制品的铁树版本。打破铁树叶掉落铁树树苗和铁树莓。
 book.rustic.text.ironberry_juice=铁树莓可以吃，但恢复很少。不过吃了它可以获得很多好坏不一的效果。榨成汁后，获得的效果相同，但持续时间显著增加。铁树莓汁更好的利用方式是酿成酒，或者制取铁屑。
