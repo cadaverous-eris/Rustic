@@ -165,7 +165,7 @@ item.rustic.grapes.name=Grapes
 item.tile.rustic.olive_door.name=Olive Door
 item.tile.rustic.ironwood_door.name=Ironwood Door
 item.rustic:oliveseed.name=Olive Pit
-item.rustic:ironwoodseed.name=Ironberry Seeds
+item.rustic:ironwoodseed.name=Ironwood Seeds
 
 #Fluids
 tile.rustic.olive_oil.name=Olive Oil
