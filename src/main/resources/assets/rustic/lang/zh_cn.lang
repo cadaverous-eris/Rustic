@@ -138,9 +138,9 @@ tile.rustic.apple_seeds.name=苹果籽
 tile.rustic.sapling_apple.name=苹果树苗
 tile.rustic.leaves_apple.name=苹果树叶
 tile.rustic.lantern_wood.name=木灯笼
-tile.rustic:olivebranch.name=动态橄榄树
-tile.rustic:ironwoodbranch.name=动态铁木树
-tile.rustic:leaves0.name=动态树叶
+tile.rustic:olivebranch.name=有活力的橄榄树
+tile.rustic:ironwoodbranch.name=有活力的铁木树
+tile.rustic:leaves0.name=有活力的树叶
 
 #Items
 item.rustic.book.name=年历通书
@@ -165,7 +165,7 @@ item.rustic.grapes.name=葡萄
 item.tile.rustic.olive_door.name=橄榄木门
 item.tile.rustic.ironwood_door.name=铁树门
 item.rustic:oliveseed.name=橄榄核
-item.rustic:ironwoodseed.name=铁树莓种子
+item.rustic:ironwoodseed.name=铁树种子
 
 #Fluids
 tile.rustic.olive_oil.name=橄榄油
