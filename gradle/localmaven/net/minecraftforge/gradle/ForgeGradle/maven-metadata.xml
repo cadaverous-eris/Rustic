@@ -1,0 +1,12 @@
+<metadata>
+<groupId>net.minecraftforge.gradle</groupId>
+<artifactId>ForgeGradle</artifactId>
+<versioning>
+<release>2.3-CUSTOM</release>
+<latest>2.3-CUSTOM</latest>
+<lastUpdated>20240207010101</lastUpdated>
+<versions>
+<version>2.3-CUSTOM</version>
+</versions>
+</versioning>
+</metadata>

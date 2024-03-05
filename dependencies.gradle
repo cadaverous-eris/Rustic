@@ -4,6 +4,9 @@ dependencies {
     provided "quark:Quark:r1.4:122"
     compile "CraftTweaker2:CraftTweaker2-API:4.1.20.554"
     deobfCompile "CraftTweaker2:CraftTweaker2-MC1120-Main:1.12-4.1.20.554"
-    deobfCompile "net.sengir.forestry:forestry_1.12.2:5.7.0.214"
-    deobfCompile curse.resolveUrl("https://www.curseforge.com/minecraft/mc-mods/dynamictrees/files/2870267")
+    //deobfCompile "net.sengir.forestry:forestry_1.12.2:5.7.0.214"
+    //deobfCompile curse.resolveUrl("https://www.curseforge.com/minecraft/mc-mods/dynamictrees/files/2870267")
+	deobfCompile "curse.maven:forestry-59751:2504953"
+	deobfCompile "curse.maven:dynamictrees-252818:2658681"
+	//deobfCompile "curse.maven:dynamictrees-252818:3812473"
 }

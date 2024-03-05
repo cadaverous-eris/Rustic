@@ -1,6 +1,10 @@
 buildscript {
     repositories {
         jcenter()
+		maven {
+			name = "localmaven"
+			url = uri("${project.getRootDir()}/gradle/localmaven")
+		}
         maven {
             name = "forge"
             url = "http://files.minecraftforge.net/maven"
@@ -8,7 +12,8 @@ buildscript {
         maven { url = "https://plugins.gradle.org/m2/" }
     }
     dependencies {
-        classpath 'net.minecraftforge.gradle:ForgeGradle:2.3-SNAPSHOT'
+        classpath 'net.minecraftforge.gradle:ForgeGradle:2.3-CUSTOM'
+		//classpath 'net.minecraftforge.gradle:ForgeGradle:2.3-SNAPSHOT'
         classpath 'com.wynprice.cursemaven:CurseMaven:1.2.3'
     }
 }
@@ -25,29 +30,32 @@ repositories {
         name 'jared maven'
         url "http://maven.blamejared.com/"
     }
-    maven { // TOP
-        name 'tterrag maven'
-        url "http://maven.tterrag.com/"
-    }
-	maven { // HWYLA
-		url "http://tehnut.info/maven"
-	}
+    //maven { // TOP
+    //    name 'tterrag maven'
+    //    url "http://maven.tterrag.com/"
+    //}
+	//maven { // HWYLA
+	//	url "http://tehnut.info/maven"
+	//}
     maven {
         name "CoFH"
         url "http://maven.covers1624.net"
     }
+	//maven {
+	//	name "AppleCore"
+	//	url "http://www.ryanliptak.com/maven/"
+	//}
 	maven {
-        name "AppleCore"
-		url "http://www.ryanliptak.com/maven/"
-	}
-    maven {
-        name "CurseForge"
-        url "https://minecraft.curseforge.com/api/maven/"
+		url 'https://www.cursemaven.com'
     }
     maven {
-        name "IC2 Forestry"
-        url "http://maven.ic2.player.to/"
+		name "CurseForge"
+		url "https://minecraft.curseforge.com/api/maven/"
     }
+    //maven {
+    //    name "IC2 Forestry"
+    //    url "http://maven.ic2.player.to/"
+    //}
 }
 
 
@@ -75,8 +83,8 @@ jar {
 
 apply from: 'dependencies.gradle'
 
-version = "1.1.7"
-group = "com.mangoose.rustic"
+version = "1.1.8"
+group = "com.cadaverous_eris.rustic"
 archivesBaseName = "rustic"
 
 sourceCompatibility = targetCompatibility = '1.8' // Need this here so eclipse task generates correctly.
