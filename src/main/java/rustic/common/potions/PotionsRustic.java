@@ -10,6 +10,7 @@ public class PotionsRustic {
 	public static final Potion FEATHER_POTION = new PotionFeather().setRegistryName(new ResourceLocation("rustic:feather"));
 	public static final Potion BLAZING_TRAIL_POTION = new PotionBlazingTrail().setRegistryName(new ResourceLocation("rustic:blazing_trail"));
 	public static final Potion SHAME_POTION = new PotionShame().setRegistryName(new ResourceLocation("rustic:shame"));
+	public static final Potion FULLMETAL_POTION = new PotionFullmetal().setRegistryName(new ResourceLocation("rustic:fullmetal"));
 	
 	public static final Potion FULL_POTION = new PotionBase(false, 6563840, "full").setIconIndex(5, 0).setRegistryName(new ResourceLocation("rustic:full"));
 	public static final Potion MAGIC_RESISTANCE_POTION = new PotionBase(false, 10511560, "magic_resistance").setIconIndex(6, 0).setRegistryName(new ResourceLocation("rustic:magic_resistance"));
@@ -17,12 +18,14 @@ public class PotionsRustic {
 	
 	public static final Potion TIPSY = new PotionTipsy().setRegistryName(new ResourceLocation("rustic:tipsy"));
 	
+	
 	public static void init() {
 		//Potions
 		GameRegistry.findRegistry(Potion.class).register(IRON_SKIN_POTION);
 		GameRegistry.findRegistry(Potion.class).register(FEATHER_POTION);
 		GameRegistry.findRegistry(Potion.class).register(BLAZING_TRAIL_POTION);
 		GameRegistry.findRegistry(Potion.class).register(SHAME_POTION);
+		GameRegistry.findRegistry(Potion.class).register(FULLMETAL_POTION);
 		
 		GameRegistry.findRegistry(Potion.class).register(FULL_POTION);
 		GameRegistry.findRegistry(Potion.class).register(MAGIC_RESISTANCE_POTION);

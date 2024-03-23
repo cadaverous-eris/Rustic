@@ -13,8 +13,8 @@ public class ModEntities {
 	
 	public static void init() {
 		int id = 0;
-		EntityRegistry.registerModEntity(new ResourceLocation(Rustic.MODID + ":tomato"), EntityTomato.class, "tomato", id++, Rustic.instance, 64, 1, true);
-		EntityRegistry.registerModEntity(new ResourceLocation(Rustic.MODID + ":chair"), BlockChair.EntityChair.class, "chair", id++, Rustic.instance, 64, 128, false);
+		EntityRegistry.registerModEntity(new ResourceLocation(Rustic.MODID + ":tomato"), EntityTomato.class, Rustic.MODID + ".tomato", id++, Rustic.instance, 64, 1, true);
+		EntityRegistry.registerModEntity(new ResourceLocation(Rustic.MODID + ":chair"), BlockChair.EntityChair.class, Rustic.MODID + ".chair", id++, Rustic.instance, 64, 128, false);
 	}
 	
 	@SideOnly(Side.CLIENT)

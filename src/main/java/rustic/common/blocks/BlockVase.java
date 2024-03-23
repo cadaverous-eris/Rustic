@@ -30,7 +30,22 @@ import rustic.core.Rustic;
 public class BlockVase extends BlockBase implements ITileEntityProvider {
 
 	public static final int GUI_ID = 1;
-	public static final int MIN_VARIANT = 0, MAX_VARIANT = 5;
+	public static final int MIN_VARIANT = 0, MAX_VARIANT = 12;
+	public static final int[] ITEM_ORDER = {
+		0, // brown ceramic
+		5, // brown ceramic w/ horse design
+		6, // white ceramic
+		2, // white ceramic w/ blue pattern
+		1, // white ceramic w/ brown pattern
+		7, // light gray ceramic
+		4, // dark gray ceramic
+		3, // green ceramic
+		8, // alt model brown ceramic
+		9, // alt model white ceramic
+		10, // alt model white ceramic w/ blue pattern
+		12, // alt model medium gray ceramic
+		11, // alt model dark gray ceramic
+	};
 	public static final PropertyInteger VARIANT = PropertyInteger.create("variant", MIN_VARIANT, MAX_VARIANT);
 	protected static final AxisAlignedBB VASE_AABB = new AxisAlignedBB(0.125D, 0.0D, 0.125D, 0.875D, 1D, 0.875D);
 

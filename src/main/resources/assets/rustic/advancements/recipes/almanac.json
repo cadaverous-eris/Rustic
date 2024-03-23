@@ -1,0 +1,43 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+    "recipes": [
+      "rustic:almanac"
+    ]
+  },
+  "criteria": {
+    "has_olives": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "rustic:olives"
+          }
+        ]
+      }
+    },
+		"has_book": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "minecraft:book"
+          }
+        ]
+      }
+    },
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "rustic:almanac"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_olives",
+			"has_book",
+      "has_the_recipe"
+    ]
+  ]
+}

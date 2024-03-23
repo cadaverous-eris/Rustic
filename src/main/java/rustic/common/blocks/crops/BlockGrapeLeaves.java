@@ -100,7 +100,10 @@ public class BlockGrapeLeaves extends BlockRopeBase implements IGrowable, IColor
 			EnumFacing side, float hitX, float hitY, float hitZ) {
 		if (state.getValue(GRAPES)) {
 			world.setBlockState(pos, state.withProperty(GRAPES, false), 3);
-			Block.spawnAsEntity(world, pos.offset(side), new ItemStack(ModItems.GRAPES, world.rand.nextInt(2) + 1));
+			ItemStack stack = new ItemStack(ModItems.GRAPES, world.rand.nextInt(2) + 1);
+			if (!player.addItemStackToInventory(stack)) {
+			    Block.spawnAsEntity(world, pos.offset(side), stack);
+			}
 			return true;
 		}
 		return false;
@@ -208,7 +211,7 @@ public class BlockGrapeLeaves extends BlockRopeBase implements IGrowable, IColor
 				float f = getGrowthChance(this, worldIn, pos);
 
 				if (net.minecraftforge.common.ForgeHooks.onCropsGrowPre(worldIn, pos, state,
-						rand.nextInt((int) (25.0F / f) + 1) == 0)) {
+						rand.nextInt((int) (35.0F / f) + 1) == 0)) {
 					worldIn.setBlockState(pos, state.withProperty(GRAPES, true), 3);
 					net.minecraftforge.common.ForgeHooks.onCropsGrowPost(worldIn, pos, state,
 							worldIn.getBlockState(pos));
@@ -217,7 +220,7 @@ public class BlockGrapeLeaves extends BlockRopeBase implements IGrowable, IColor
 				float f = getGrowthChance(this, worldIn, pos);
 
 				if (net.minecraftforge.common.ForgeHooks.onCropsGrowPre(worldIn, pos, state,
-						rand.nextInt((int) (25.0F / f) + 1) == 0)) {
+						rand.nextInt((int) (30.0F / f) + 1) == 0)) {
 					spread(worldIn, pos, state);
 					net.minecraftforge.common.ForgeHooks.onCropsGrowPost(worldIn, pos, state,
 							worldIn.getBlockState(pos));
@@ -227,7 +230,7 @@ public class BlockGrapeLeaves extends BlockRopeBase implements IGrowable, IColor
 	}
 
 	protected static float getGrowthChance(Block blockIn, World worldIn, BlockPos pos) {
-		return 3F;
+		return 1F;
 	}
 
 	@Override

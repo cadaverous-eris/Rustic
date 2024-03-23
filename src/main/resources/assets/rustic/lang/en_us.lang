@@ -164,6 +164,9 @@ item.rustic.wildberries.name=Wildberries
 item.rustic.grapes.name=Grapes
 item.tile.rustic.olive_door.name=Olive Door
 item.tile.rustic.ironwood_door.name=Ironwood Door
+item.rustic.lamb_seed.name=Lamb Seed
+item.rustic.muttont.name=Mutton't
+item.rustic.cheese.name=Cheese
 item.rustic:oliveseed.name=Olive Pit
 item.rustic:ironwoodseed.name=Ironberry Seeds
 
@@ -198,12 +201,31 @@ effect.shame=Shame
 effect.full=Full Stomach
 effect.magic_resistance=Magic Resistance
 effect.wither_ward=Wither Ward
-
 effect.tipsy=Inebriated
+effect.fullmetal=Fullmetal
 
 #Elixirs
 rustic.elixir.prefix=Elixir of 
 rustic.elixir.separator=, 
+
+
+#Entities
+entity.rustic.tomato.name=Tomato
+entity.rustic.chair.name=Chair
+entity.rustic.vegetable_lamb=Vegetable Lamb
+
+
+#Advancements
+advancements.rustic.root=Rustic
+advancements.rustic.root.desc=How quaint
+advancements.rustic.almanac=Book Learnin'
+advancements.rustic.almanac.desc=Obtain an almanac
+advancements.rustic.winemaxxing=Mommy is Winemaxxing
+#advancements.rustic.winemaxxing.desc=Not now honey, Mommy is winemaxxing
+advancements.rustic.winemaxxing.desc=Not now honey, Mommy is winemaxxing, Mommy is a winemaxxed vicodinchad. Mommy is pain medpilled and totally mogging, sweetie. Go play your games, honey, go be a good gamercel for Mommy.
+advancements.rustic.max_drunk=No Ragrets
+advancements.rustic.max_drunk.desc=Reach dangerous levels of inebriation
+
 
 #JEI Categories
 rustic.jei.recipe.crushing_tub=Crushing Tub

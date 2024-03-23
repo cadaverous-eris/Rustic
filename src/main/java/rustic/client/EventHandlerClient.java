@@ -17,13 +17,16 @@ import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemFood;
 import net.minecraft.item.ItemStack;
+import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumFacing.Axis;
 import net.minecraft.util.EnumHand;
+import net.minecraft.util.MovementInput;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
@@ -32,26 +35,31 @@ import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraftforge.client.GuiIngameForge;
 import net.minecraftforge.client.event.DrawBlockHighlightEvent;
+import net.minecraftforge.client.event.FOVUpdateEvent;
+import net.minecraftforge.client.event.InputUpdateEvent;
 import net.minecraftforge.client.event.ModelBakeEvent;
 import net.minecraftforge.client.event.MouseEvent;
 import net.minecraftforge.client.event.RenderBlockOverlayEvent;
 import net.minecraftforge.client.event.RenderBlockOverlayEvent.OverlayType;
 import net.minecraftforge.client.event.RenderGameOverlayEvent;
 import net.minecraftforge.client.event.RenderGameOverlayEvent.ElementType;
+import net.minecraftforge.client.event.RenderHandEvent;
 import net.minecraftforge.client.event.RenderLivingEvent;
+import net.minecraftforge.client.event.RenderSpecificHandEvent;
 import net.minecraftforge.client.event.TextureStitchEvent;
 import net.minecraftforge.common.ForgeHooks;
-import net.minecraftforge.event.entity.living.LivingEvent.LivingUpdateEvent;
 import net.minecraftforge.event.entity.player.ItemTooltipEvent;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.FluidUtil;
 import net.minecraftforge.fluids.capability.ItemFluidContainer;
+import net.minecraftforge.fml.common.eventhandler.EventPriority;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import rustic.client.models.BookBakedModel;
 import rustic.client.models.LiquidBarrelItemModel;
 import rustic.client.models.TEISRModel;
+import rustic.client.renderer.LayerIronSkin;
 import rustic.client.util.FluidClientUtil;
 import rustic.common.Config;
 import rustic.common.blocks.BlockChair;
@@ -62,6 +70,8 @@ import rustic.common.blocks.fluids.FluidBooze;
 import rustic.common.blocks.fluids.ModFluids;
 import rustic.common.network.MessageVaseMeta;
 import rustic.common.network.PacketHandler;
+import rustic.common.potions.PotionsRustic;
+import rustic.core.ClientProxy;
 
 public class EventHandlerClient {
 
@@ -81,6 +91,9 @@ public class EventHandlerClient {
 			"rustic:textures/blocks/fluids/ale_wort_overlay.png");
 	public static ResourceLocation HONEY_OVERLAY = new ResourceLocation(
 			"rustic:textures/blocks/fluids/honey_overlay.png");
+	
+	public static ResourceLocation FULLMETAL_OVERLAY = new ResourceLocation(
+			"rustic:textures/misc/fullmetal_overlay.png");
 
 	//private Random rand = new Random();
 
@@ -122,13 +135,28 @@ public class EventHandlerClient {
 					&& event.getDwheel() != 0) {
 
 				event.setCanceled(true);
-
-				int damage = (player.getHeldItemMainhand().getItemDamage() - BlockVase.MIN_VARIANT
-						+ (event.getDwheel() / 120)) % (BlockVase.MAX_VARIANT - BlockVase.MIN_VARIANT + 1)
-						+ BlockVase.MIN_VARIANT;
-				if (damage < BlockVase.MIN_VARIANT) {
-					damage = BlockVase.MAX_VARIANT;
+				
+				final int currentDamage = player.getHeldItemMainhand().getItemDamage();
+				final int offset = (event.getDwheel() / 120);
+				
+				
+				int currentIndex = -1;
+				for (int i = 0; i < BlockVase.ITEM_ORDER.length; i++) {
+					if (BlockVase.ITEM_ORDER[i] == currentDamage) {
+						currentIndex = i;
+						break;
+					}
 				}
+				
+				int damage = currentDamage;
+				if (currentIndex >= 0) {
+					final int diff = BlockVase.ITEM_ORDER.length;
+					damage = BlockVase.ITEM_ORDER[(((currentIndex + offset) % diff) + diff) % diff];
+				} else {
+					final int diff = BlockVase.MAX_VARIANT - BlockVase.MIN_VARIANT + 1;
+					damage = ((((damage - BlockVase.MIN_VARIANT + offset) % diff) + diff) % diff) + BlockVase.MIN_VARIANT;
+				}
+				
 				player.getHeldItemMainhand().setItemDamage(damage);
 				PacketHandler.INSTANCE.sendToServer(new MessageVaseMeta(damage));
 
@@ -163,6 +191,158 @@ public class EventHandlerClient {
 				}
 			}
 		}
+	}
+	
+	@SideOnly(Side.CLIENT)
+	@SubscribeEvent(priority = EventPriority.HIGHEST)
+	public void onFullmetalFov(FOVUpdateEvent event) {
+		EntityPlayer player = event.getEntity();
+		if (player.isPotionActive(PotionsRustic.FULLMETAL_POTION)) {
+			float f = 1.0F;
+			if (player.isHandActive() && player.getActiveItemStack().getItem() == Items.BOW) {
+	            int i = player.getItemInUseMaxCount();
+	            float f1 = (float) i / 20.0F;
+	            if (f1 > 1.0F) {
+	                f1 = 1.0F;
+	            } else {
+	                f1 = f1 * f1;
+	            }
+	            f *= 1.0F - f1 * 0.15F;
+	        }
+			event.setNewfov(f);
+		}
+	}
+	
+	@SideOnly(Side.CLIENT)
+	@SubscribeEvent
+	public void onPlayerInputEvent(InputUpdateEvent event) {
+		if (event.getEntityPlayer().isPotionActive(PotionsRustic.FULLMETAL_POTION)) {
+			MovementInput mi = event.getMovementInput();
+			mi.jump = false;
+			mi.moveForward = 0F;
+			mi.moveStrafe = 0F;
+		}
+	}
+	
+	@SideOnly(Side.CLIENT)
+	@SubscribeEvent
+	public void onRenderLivingPreEvent(RenderLivingEvent.Pre<? extends EntityLivingBase> event) {
+		if (!ClientProxy.IRONSKIN_LAYER_DISABLED_RENDERERS.contains(event.getRenderer().getClass()))
+			LayerIronSkin.preRenderEntity(event.getEntity());
+	}
+	
+	@SideOnly(Side.CLIENT)
+	@SubscribeEvent
+	public void onRenderLivingPostEvent(RenderLivingEvent.Post<? extends EntityLivingBase> event) {
+		if (!ClientProxy.IRONSKIN_LAYER_DISABLED_RENDERERS.contains(event.getRenderer().getClass()))
+			LayerIronSkin.postRenderEntity(event.getEntity());
+	}
+	
+	/* TODO: implement for empty hand and maps?
+	@SideOnly(Side.CLIENT)
+	@SubscribeEvent
+	public void onRenderSpecificFirstPersonHandEvent(RenderSpecificHandEvent event) {
+		if (!event.getItemStack().isEmpty() || (event.getHand() != EnumHand.MAIN_HAND)) return;
+		
+		Minecraft mc = Minecraft.getMinecraft();
+		EntityPlayerSP player = mc.player;
+		
+		if (player.isInvisible()) return;
+		
+		PotionEffect ironSkinEffect = player.getActivePotionEffect(PotionsRustic.IRON_SKIN_POTION);
+		boolean hasFullmetalEffect = player.isPotionActive(PotionsRustic.FULLMETAL_POTION);
+		if ((ironSkinEffect == null) && !hasFullmetalEffect && !LayerIronSkin.FORCE_IRONSKIN_RENDER()) return;
+		
+		
+		
+		
+		// TODO: implement
+		
+		
+	}*/
+	
+	@SideOnly(Side.CLIENT)
+	@SubscribeEvent
+	public void onRenderFullmetalOverlayEvent(RenderHandEvent event) {
+		Minecraft mc = Minecraft.getMinecraft();
+		EntityPlayer player = mc.player;
+		
+		PotionEffect effect = player.getActivePotionEffect(PotionsRustic.FULLMETAL_POTION);
+		if (effect == null) return;
+		
+		event.setCanceled(true);
+		
+		boolean flag = (mc.getRenderViewEntity() instanceof EntityLivingBase) && ((EntityLivingBase) mc.getRenderViewEntity()).isPlayerSleeping();
+	
+		if ((mc.gameSettings.thirdPersonView == 0) && !flag && !mc.gameSettings.hideGUI && !mc.playerController.isSpectator()) {
+            mc.entityRenderer.enableLightmap();
+            mc.entityRenderer.itemRenderer.renderItemInFirstPerson(event.getPartialTicks());
+            mc.entityRenderer.disableLightmap();
+        }
+		
+		GlStateManager.popMatrix();
+		
+		GlStateManager.pushMatrix();
+		
+        GlStateManager.disableAlpha();
+		
+		final float brightness = player.getBrightnessForRender();
+		// TODO: modulate transparency depending on time remaining on effect?
+		
+		final float baseAlpha = 0.9625F;
+		float durationFade = 1.0F;
+		if (effect.getDuration() < 100) {
+			float dur = (effect.getDuration() + event.getPartialTicks()) * 2F;
+            float j1 = 10 - (dur / 20);
+            durationFade = (
+            	0.5F +
+            	MathHelper.clamp(dur / 400F, 0.0F, 0.9375F - 0.5F) + (
+            			MathHelper.cos((200 - dur) * (float) Math.PI / 200F * 9F) *
+            			MathHelper.clamp(j1 / 10.0F * 0.25F, 0.0625F, 0.25F)
+				)
+			);
+            durationFade = MathHelper.sqrt(durationFade);
+            if (dur < 20) {
+            	durationFade *= MathHelper.sqrt(dur / 20F);
+            }
+            //System.out.println(effect.getDuration() + ": " + durationFade);
+            //durationFade = MathHelper.clamp(durationFade, 0.5F, 1.0F);
+        }
+		
+		GlStateManager.color(brightness, brightness, brightness, baseAlpha * durationFade);
+		
+		mc.getTextureManager().bindTexture(FULLMETAL_OVERLAY);
+		Tessellator tessellator = Tessellator.getInstance();
+		BufferBuilder vertexbuffer = tessellator.getBuffer();
+		GlStateManager.enableBlend();
+		GlStateManager.tryBlendFuncSeparate(GlStateManager.SourceFactor.SRC_COLOR,
+				GlStateManager.DestFactor.ONE_MINUS_SRC_ALPHA, GlStateManager.SourceFactor.ONE,
+				GlStateManager.DestFactor.ZERO);
+		GlStateManager.disableDepth();
+		GlStateManager.pushMatrix();
+		//GlStateManager.color(1F, 1F, 1F, 1F);
+		/*float f1 = -1.0F;
+        float f2 = 1.0F;
+        float f3 = -1.0F;
+        float f4 = 1.0F;
+        float f5 = -0.5F;*/
+        double f6 = -0.5F;
+        double f7 = 1.5F;
+        double f8 = -0.5F;
+        double f9 = 1.5F;
+        vertexbuffer.begin(7, DefaultVertexFormats.POSITION_TEX);
+        vertexbuffer.pos(-1.0D, -1.0D, -0.5D).tex(f7, f9).endVertex();
+        vertexbuffer.pos(1.0D, -1.0D, -0.5D).tex(f6, f9).endVertex();
+        vertexbuffer.pos(1.0D, 1.0D, -0.5D).tex(f6, f8).endVertex();
+        vertexbuffer.pos(-1.0D, 1.0D, -0.5D).tex(f7, f8).endVertex();
+		tessellator.draw();
+		GlStateManager.popMatrix();
+		GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
+		GlStateManager.enableDepth();
+		GlStateManager.disableBlend();
+		GlStateManager.enableAlpha();
+		
+		//GlStateManager.pushMatrix();
 	}
 
 	@SideOnly(Side.CLIENT)
@@ -318,7 +498,7 @@ public class EventHandlerClient {
 	
 	@SideOnly(Side.CLIENT)
 	@SubscribeEvent
-	public void onUpdateSittingEntity(RenderLivingEvent.Pre event) {
+	public void onUpdateSittingEntity(RenderLivingEvent.Pre<? extends EntityLivingBase> event) {
 		EntityLivingBase entity = event.getEntity();
 		if (entity == Minecraft.getMinecraft().player) return;
 		

@@ -146,7 +146,7 @@ public class BlockStakeCrop extends BlockBase implements IGrowable, IPlantable {
 				float f = getGrowthChance(this, worldIn, pos);
 
 				if (net.minecraftforge.common.ForgeHooks.onCropsGrowPre(worldIn, pos, state,
-						rand.nextInt((int) (25.0F / f) + 1) == 0)) {
+						rand.nextInt((int) (50.0F / f) + 1) == 0)) {
 					worldIn.setBlockState(pos, state.withProperty(AGE, i + 1), 2);
 					net.minecraftforge.common.ForgeHooks.onCropsGrowPost(worldIn, pos, state,
 							worldIn.getBlockState(pos));
@@ -155,7 +155,7 @@ public class BlockStakeCrop extends BlockBase implements IGrowable, IPlantable {
 				float f = getGrowthChance(this, worldIn, pos);
 
 				if (net.minecraftforge.common.ForgeHooks.onCropsGrowPre(worldIn, pos, state,
-						rand.nextInt((int) (25.0F / f) + 1) == 0)) {
+						rand.nextInt((int) (30.0F / f) + 1) == 0)) {
 					worldIn.setBlockState(pos.up(), state.withProperty(AGE, 0), 3);
 					net.minecraftforge.common.ForgeHooks.onCropsGrowPost(worldIn, pos, state,
 							worldIn.getBlockState(pos));
@@ -169,7 +169,7 @@ public class BlockStakeCrop extends BlockBase implements IGrowable, IPlantable {
 		IBlockState soil = world.getBlockState(pos.add(0, -1, 0));
 		if (soil.getBlock().isFertile(world, pos.add(0, -1, 0)) || soil.getBlock() == block)
 			growth *= 1.5F;
-		return 3.5F + growth;
+		return Math.abs(1.5F + growth);
 	}
 
 	protected void checkAndDropBlock(World worldIn, BlockPos pos, IBlockState state) {
@@ -250,11 +250,31 @@ public class BlockStakeCrop extends BlockBase implements IGrowable, IPlantable {
 	}
 	
 	@Override
-	public boolean onBlockActivated(World world, BlockPos pos, IBlockState state, EntityPlayer player, EnumHand hand,
-			EnumFacing side, float hitX, float hitY, float hitZ) {
+	public boolean onBlockActivated(World world, BlockPos pos, IBlockState state, EntityPlayer player, EnumHand hand, EnumFacing side, float hitX, float hitY, float hitZ) {
+		boolean result = tryHarvest(world, pos, state, player, hand, side);
+		BlockPos.MutableBlockPos colPos = new BlockPos.MutableBlockPos(pos);
+		for (int y = pos.getY() + 1; y < world.getHeight(); y++) {
+			colPos.setY(y);
+			IBlockState colState = world.getBlockState(colPos);
+			if (colState.getBlock() != this) break;
+			result = tryHarvest(world, colPos, colState, player, hand, side);
+		}
+		for (int y = pos.getY() - 1; y >= 0; y--) {
+			colPos.setY(y);
+			IBlockState colState = world.getBlockState(colPos);
+			if (colState.getBlock() != this) break;
+			result = tryHarvest(world, colPos, colState, player, hand, side) || result;
+		}
+		return result;
+	}
+	
+	public boolean tryHarvest(World world, BlockPos pos, IBlockState state, EntityPlayer player, EnumHand hand, EnumFacing interactSide) {
 		if (state.getValue(AGE) >= getMaxAge()) {
 			world.setBlockState(pos, state.withProperty(AGE, getMaxAge() - 1), 2);
-			Block.spawnAsEntity(world, pos.offset(side), new ItemStack(getCrop()));
+			ItemStack stack = new ItemStack(getCrop());
+			if (!player.addItemStackToInventory(stack)) {
+			    Block.spawnAsEntity(world, pos.offset(interactSide), stack);
+			}
 			return true;
 		}
 		return false;

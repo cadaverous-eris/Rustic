@@ -1,5 +1,7 @@
 package rustic.common.items;
 
+import java.util.Random;
+
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.MobEffects;
 import net.minecraft.init.SoundEvents;
@@ -16,6 +18,7 @@ import net.minecraftforge.common.MinecraftForge;
 import rustic.common.Config;
 import rustic.common.blocks.ModBlocks;
 import rustic.common.entities.EntityTomato;
+import rustic.common.potions.PotionsRustic;
 import rustic.core.Rustic;
 
 public class ModItems {
@@ -72,12 +75,19 @@ public class ModItems {
 			@Override
 			protected void onFoodEaten(ItemStack stack, World worldIn, EntityPlayer player) {
 				if (!worldIn.isRemote) {
-					player.addPotionEffect(new PotionEffect(MobEffects.RESISTANCE, 200, 15, false, false));
-					player.addPotionEffect(new PotionEffect(MobEffects.FIRE_RESISTANCE, 200, 15, false, false));
-					player.addPotionEffect(new PotionEffect(MobEffects.SLOWNESS, 200, 15, false, false));
-					player.addPotionEffect(new PotionEffect(MobEffects.MINING_FATIGUE, 200, 15, false, false));
-					player.addPotionEffect(new PotionEffect(MobEffects.WEAKNESS, 200, 15, false, false));
-					player.addPotionEffect(new PotionEffect(MobEffects.JUMP_BOOST, 200, 250, false, false));
+					//player.addPotionEffect(new PotionEffect(MobEffects.RESISTANCE, 200, 2, false, false));
+					//player.addPotionEffect(new PotionEffect(MobEffects.FIRE_RESISTANCE, 200, 2, false, false));
+					//player.addPotionEffect(new PotionEffect(MobEffects.SLOWNESS, 200, 15, false, false));
+					//player.addPotionEffect(new PotionEffect(MobEffects.MINING_FATIGUE, 200, 15, false, false));
+					//player.addPotionEffect(new PotionEffect(MobEffects.WEAKNESS, 200, 15, false, false));
+					//player.addPotionEffect(new PotionEffect(MobEffects.JUMP_BOOST, 200, 250, false, false));
+					int duration = 15 * 20;
+					PotionEffect effect = player.getActivePotionEffect(PotionsRustic.FULLMETAL_POTION);
+					if (effect == null) {
+						player.addPotionEffect(new PotionEffect(PotionsRustic.FULLMETAL_POTION, duration, 0, false, true));
+					} else {
+						player.addPotionEffect(new PotionEffect(PotionsRustic.FULLMETAL_POTION, effect.getDuration() + duration, 0, false, true));
+					}
 				}
 			}
 		};
@@ -103,7 +113,7 @@ public class ModItems {
 						worldIn.spawnEntity(entitytomato);
 					}
 					playerIn.addStat(StatList.getObjectUseStats(this));
-					return new ActionResult(EnumActionResult.SUCCESS, itemstack);
+					return new ActionResult<ItemStack>(EnumActionResult.SUCCESS, itemstack);
 				}
 				return super.onItemRightClick(worldIn, playerIn, handIn);
 			}
@@ -113,10 +123,13 @@ public class ModItems {
 			MinecraftForge.addGrassSeed(new ItemStack(TOMATO_SEEDS), Config.SEED_DROP_RATE);
 		}
 		CHILI_PEPPER = new ItemFoodBase("chili_pepper", 3, 0.4F, false) {
+			private Random rand = new Random();
 			@Override
 			protected void onFoodEaten(ItemStack stack, World worldIn, EntityPlayer player) {
-				player.attackEntityFrom(DamageSource.ON_FIRE, 1.0F);
-				player.addPotionEffect(new PotionEffect(MobEffects.SPEED, 400));
+				if (!worldIn.isRemote && (rand.nextInt(24) == 0)) {
+					player.attackEntityFrom(DamageSource.ON_FIRE, 1.0F);
+					player.addPotionEffect(new PotionEffect(MobEffects.SPEED, 400));
+				}
 			}
 		};
 		CHILI_PEPPER_SEEDS = new ItemStakeCropSeed("chili_pepper_seeds", ModBlocks.CHILI_CROP);

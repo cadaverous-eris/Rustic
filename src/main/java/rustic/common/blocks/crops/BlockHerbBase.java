@@ -77,7 +77,7 @@ public abstract class BlockHerbBase extends BlockBush implements IGrowable, IPla
 				float f = getGrowthChance(this, worldIn, pos);
 
 				if (net.minecraftforge.common.ForgeHooks.onCropsGrowPre(worldIn, pos, state,
-						rand.nextInt((int) (25.0F / f) + 1) == 0)) {
+						rand.nextInt((int) (45.0F / f) + 1) == 0)) {
 					worldIn.setBlockState(pos, this.withAge(i + 1), 2);
 					net.minecraftforge.common.ForgeHooks.onCropsGrowPost(worldIn, pos, state,
 							worldIn.getBlockState(pos));
@@ -87,7 +87,7 @@ public abstract class BlockHerbBase extends BlockBush implements IGrowable, IPla
 	}
 
 	protected static float getGrowthChance(Block blockIn, World worldIn, BlockPos pos) {
-		return 4F;
+		return 3F;
 	}
 
 	@Override

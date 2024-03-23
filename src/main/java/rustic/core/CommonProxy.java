@@ -1,9 +1,15 @@
 package rustic.core;
 
 import java.io.File;
+import java.net.URL;
+import java.net.URLClassLoader;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 import net.minecraft.block.BlockDispenser;
 import net.minecraft.item.Item;
+import net.minecraft.server.MinecraftServer;
 import net.minecraft.world.World;
 import net.minecraftforge.common.config.Configuration;
 import net.minecraftforge.fluids.FluidRegistry;
@@ -97,7 +103,9 @@ public class CommonProxy {
     }
     
     public void spawnAlchemySmokeFX(World world, int brewTime, double x, double y, double z, double xVel, double yVel, double zVel) {
-    	
+    }
+    
+    public void disableIronSkinRenderer(String entityName) {
     }
 	
 }

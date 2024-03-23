@@ -1,0 +1,26 @@
+{
+	"parent": "rustic:main/root",
+	"display": {
+		"icon": {
+			"item": "rustic:book"
+		},
+		"title": {
+			"translate": "advancements.rustic.almanac"
+		},
+		"description": {
+			"translate": "advancements.rustic.almanac.desc"
+		}
+	},
+	"criteria": {
+		"has_almanac": {
+			"trigger": "minecraft:inventory_changed",
+			"conditions": {
+				"items": [
+					{
+						"item": "rustic:book"
+					}
+				]
+			}
+		}
+	}
+}

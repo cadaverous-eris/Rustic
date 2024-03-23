@@ -56,6 +56,10 @@ repositories {
     //    name "IC2 Forestry"
     //    url "http://maven.ic2.player.to/"
     //}
+	//maven { // cloner
+	//	name 'Sonatype'
+	//	url 'https://central.sonatype.com/'
+	//}
 }
 
 
@@ -63,12 +67,19 @@ configurations {
     provided
     shade
     compile.extendsFrom shade
+	bundledLib
+	compile.extendsFrom bundledLib
 }
 
 idea {
     module {
         scopes.PROVIDED.plus += [configurations.provided]
     }
+}
+
+dependencies {
+	// has to be declared before the 'jar' section
+	//bundledLib "io.github.kostaskougios:cloning:1.10.3"
 }
 
 jar {
@@ -79,6 +90,16 @@ jar {
     }
 
     from sourceSets.api.output
+	
+	manifest {
+        attributes 'FMLAT': 'rustic_at.cfg'
+    }
+	
+	def libBuildDir = mkdir "${buildDir}/resources/main/lib"
+	copy {
+		from { configurations.bundledLib }
+		into { libBuildDir }
+	}
 }
 
 apply from: 'dependencies.gradle'
@@ -117,6 +138,9 @@ processResources {
 task deobfJar(type: Jar) {
     from sourceSets.main.output
     classifier = 'deobf'
+	manifest {
+        attributes 'FMLAT': 'rustic_at.cfg'
+    }
 }
 
 tasks.build.dependsOn deobfJar

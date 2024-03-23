@@ -1,0 +1,30 @@
+{
+	"parent": "rustic:main/root",
+	"display": {
+		"icon": {
+			"item": "rustic:fluid_bottle",
+			"nbt": "{ Fluid: { FluidName: \"wine\", Amount: 1000, Tag: { Quality: 1.0f } } }"
+		},
+		"title": {
+			"translate": "advancements.rustic.winemaxxing"
+		},
+		"description": {
+			"translate": "advancements.rustic.winemaxxing.desc"
+		},
+		"frame": "challenge"
+	},
+	"criteria": {
+		"has_max_quality_wine": {
+			"trigger": "minecraft:inventory_changed",
+			"conditions": {
+				"items": [
+					{
+						"type": "rustic:alcohol",
+						"fluid": "wine",
+						"quality": { "min": 0.999 }
+					}
+				]
+			}
+		}
+	}
+}

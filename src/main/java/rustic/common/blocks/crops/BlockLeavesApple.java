@@ -124,11 +124,13 @@ public class BlockLeavesApple extends BlockLeaves implements IColoredBlock, IGro
 	}
 
 	@Override
-	public boolean onBlockActivated(World world, BlockPos pos, IBlockState state, EntityPlayer player, EnumHand hand,
-			EnumFacing side, float hitX, float hitY, float hitZ) {
+	public boolean onBlockActivated(World world, BlockPos pos, IBlockState state, EntityPlayer player, EnumHand hand, EnumFacing side, float hitX, float hitY, float hitZ) {
 		if (state.getValue(AGE) >= getMaxAge()) {
 			world.setBlockState(pos, state.withProperty(AGE, 0), 3);
-			Block.spawnAsEntity(world, pos.offset(side), new ItemStack(Items.APPLE));
+			ItemStack stack = new ItemStack(Items.APPLE);
+			if (!player.addItemStackToInventory(stack)) {
+			    Block.spawnAsEntity(world, pos.offset(side), stack);
+			}
 			return true;
 		}
 		return false;
@@ -213,18 +215,18 @@ public class BlockLeavesApple extends BlockLeaves implements IColoredBlock, IGro
 	@Override
 	@SideOnly(Side.CLIENT)
 	public BlockRenderLayer getBlockLayer() {
-		return Blocks.LEAVES.getBlockLayer();
+		return BlockRenderLayer.CUTOUT_MIPPED;
 	}
 
 	@Override
 	public boolean isOpaqueCube(IBlockState state) {
-		return Blocks.LEAVES.isOpaqueCube(state);
+		return false;
 	}
 
 	@SideOnly(Side.CLIENT)
 	@Override
 	public boolean shouldSideBeRendered(IBlockState state, IBlockAccess world, BlockPos pos, EnumFacing side) {
-		return Blocks.LEAVES.shouldSideBeRendered(state, world, pos, side);
+		return !world.getBlockState(pos.offset(side)).doesSideBlockRendering(world, pos.offset(side), side.getOpposite());
 	}
 
 	@Override

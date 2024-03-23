@@ -36,6 +36,7 @@ public class Config {
 	public static boolean FLESH_SMELTING;
 	public static boolean TOUGHNESS_HUD;
 	public static boolean EXTRA_ARMOR_HUD;
+	public static List<String> IRONSKIN_RENDER_ENTITY_BLACKLIST;
 	public static float HERB_GEN_CHANCE;
 	public static int MAX_HERB_ATTEMPTS;
 	public static float WILDBERRY_GEN_CHANCE;
@@ -99,6 +100,7 @@ public class Config {
 		MAX_IRONWOOD_GEN_ATTEMPTS = cfg.getInt("Max Ironwood Generation Attempts", CATEGORY_WORLD, 4, 0, 128, "maximum number of times the generator will attempt to place an ironwood tree in a chunk");
 		EXTRA_ARMOR_HUD = cfg.getBoolean("Extra Armor HUD", CATEGORY_GENERAL, true, "if enabled, allows the armor meter to go beyond one row\nonly one extra row will ever be rendered, because the armor stat is naturally capped at 30");
 		TOUGHNESS_HUD = cfg.getBoolean("Armor Toughness HUD", CATEGORY_GENERAL, true, "if enabled, adds a hud elemnt over the hunger meter to show armor toughness, if applicable");
+		IRONSKIN_RENDER_ENTITY_BLACKLIST = Arrays.asList(cfg.getStringList("Iron Skin Renderer Blacklist", CATEGORY_GENERAL, new String[] {"minecraft:slime", "minecraft:shulker"}, "add entity ids to this list to disable the iron skin visual effect for the specified entities\nput each entity id on a new line, don't use commas\n"));
 		HERB_GEN_CHANCE = cfg.getFloat("Herb Generation Chance", CATEGORY_WORLD, 0.125F, 0, 1F, "chance for an herb to try to generate in a chunk");
 		MAX_HERB_ATTEMPTS = cfg.getInt("Max Herb Generation Attempts", CATEGORY_WORLD, 8, 0, 128, "maximum number of times the generator will attempt to place an herb in a chunk");
 		WILDBERRY_GEN_CHANCE = cfg.getFloat("Wildberry Generation Chance", CATEGORY_WORLD, 0.05F, 0, 1F, "chance for wildberry bushes to try to generate in a chunk");
@@ -119,9 +121,9 @@ public class Config {
 		GRAPE_TOOL_WHITELIST = Arrays.asList(cfg.getStringList("Grapeseed Tool Whitelist", CATEGORY_GENERAL, new String[] {"minecraft:iron_hoe", "minecraft:diamond_hoe"}, "add an item's registry name to this list to allow vines to drop grape seeds when broken with it\nput each item name on a new line, don't use commas\n"));
 		ENABLE_SEED_DROPS = cfg.getBoolean("Enable Seed Drops", CATEGORY_GENERAL, true, "set this to false to prevent any of Rustic's seeds from dropping from grass or vines");
 		SEED_DROP_RATE = cfg.getInt("Seed Drop Rate",CATEGORY_GENERAL, 7, 1, 100, "decrease this number to make seeds more difficult to find (10 is wheat seed rarity)");
-		MIN_BREW_QUALITY_CHANGE = cfg.getInt("Minimum Increase To Brew Quality", CATEGORY_GENERAL, -1, -50, 50, "the minimum amount of increase that booze culture will provide to the new brew, in percent");
-		MAX_BREW_QUALITY_CHANGE = cfg.getInt("Maximum Increase To Brew Quality", CATEGORY_GENERAL, 4, -50, 50, "the maximum amount of increase that booze culture will provide to the new brew, in percent");
-		MAX_BREW_TIME = cfg.getInt("Maximum Brew Time", CATEGORY_GENERAL, 12000, 1200, 120000, "how long it should take for a brewing barrel to finish a brew, in ticks");
+		MIN_BREW_QUALITY_CHANGE = cfg.getInt("Minimum Change To Brew Quality", CATEGORY_GENERAL, -1, -50, 50, "the minimum amount of increase that booze culture will provide to the new brew, in percent");
+		MAX_BREW_QUALITY_CHANGE = cfg.getInt("Maximum Change To Brew Quality", CATEGORY_GENERAL, 4, -50, 50, "the maximum amount of increase that booze culture will provide to the new brew, in percent");
+		MAX_BREW_TIME = cfg.getInt("Brewing Time", CATEGORY_GENERAL, 12000, 1200, 120000, "how long it should take for a brewing barrel to finish a brew, in ticks");
 		ENABLE_BOTTLE_EMPTYING = cfg.getBoolean("Enable Bottle Emptying", CATEGORY_GENERAL, true, "set this to false if you experience any issues with Rustic's glass bottle emptying recipe");
 		ENABLE_SILVER_DECOR = cfg.getBoolean("Enable Silver Decoration Blocks", CATEGORY_COMPAT, true, "set this to false to disable silver chain, chandelier, candle, and lantern blocks");
 		List<String> overworldGenWhitelist = Arrays.asList(cfg.getStringList("Overworld Generation Dimension Whitelist", CATEGORY_WORLD, new String[] {"0"}, "add numerical dimension ids to this list to allow Rustic's overworld world gen to occur in those dimensions\ndimensions that are not listed here will not receive Rustic's overworld world generation\n"));
@@ -134,15 +136,16 @@ public class Config {
 		PROPERTY_ORDER_GENERAL.add("Olive Oil Food Blacklist");
 		PROPERTY_ORDER_GENERAL.add("Extra Armor HUD");
 		PROPERTY_ORDER_GENERAL.add("Armor Toughness HUD");
+		PROPERTY_ORDER_GENERAL.add("Iron Skin Renderer Blacklist");
 		PROPERTY_ORDER_GENERAL.add("Wildberry Bush Offset");
 		PROPERTY_ORDER_GENERAL.add("Enable Seed Drops");
 		PROPERTY_ORDER_GENERAL.add("Seed Drop Rate");
 		PROPERTY_ORDER_GENERAL.add("Grapeseed Drops Require Tool");
 		PROPERTY_ORDER_GENERAL.add("Grapeseed Tool Whitelist");
 		PROPERTY_ORDER_GENERAL.add("Enable Bottle Emptying");
-		PROPERTY_ORDER_GENERAL.add("Minimum Increase To Brew Quality");
-		PROPERTY_ORDER_GENERAL.add("Maximum Increase To Brew Quality");
-		PROPERTY_ORDER_GENERAL.add("Maximum Brew Time");
+		PROPERTY_ORDER_GENERAL.add("Minimum Change To Brew Quality");
+		PROPERTY_ORDER_GENERAL.add("Maximum Change To Brew Quality");
+		PROPERTY_ORDER_GENERAL.add("Brewing Time");
 		PROPERTY_ORDER_GENERAL.add("Enable Slate");
 		PROPERTY_ORDER_GENERAL.add("Enable Stone Pillars");
 		PROPERTY_ORDER_GENERAL.add("Enable Clay Walls");
@@ -175,27 +178,6 @@ public class Config {
 		cfg.setCategoryPropertyOrder(CATEGORY_BEES, PROPERTY_ORDER_BEES);
 		cfg.setCategoryPropertyOrder(CATEGORY_WORLD, PROPERTY_ORDER_WORLD);
 		cfg.setCategoryPropertyOrder(CATEGORY_COMPAT,  PROPERTY_ORDER_COMPAT);
-		
-		// Fix config issues
-		ConfigCategory general = cfg.getCategory(CATEGORY_GENERAL);
-		if (general != null) {
-			Property minBrewQualityChange = general.get("Minimum Increase To Brew Quality");
-			Property maxBrewQualityChange = general.get("Maximum Increase To Brew Quality");
-			Property maxBrewTime = general.get("Maximum Brew Time");
-			
-			if (minBrewQualityChange != null && (minBrewQualityChange.getInt() == -50 || minBrewQualityChange.getInt() == 1)) {
-				minBrewQualityChange.setValue(-1);
-				MIN_BREW_QUALITY_CHANGE = -1;
-			}
-			if (maxBrewQualityChange != null && maxBrewQualityChange.getInt() == -50) {
-				maxBrewQualityChange.setValue(4);
-				MAX_BREW_QUALITY_CHANGE = 4;
-			}
-			if (maxBrewTime != null && maxBrewTime.getInt() == 1200) {
-				maxBrewTime.setValue(12000);
-				MAX_BREW_TIME = 12000;
-			}
-		}
 	}
 
 }

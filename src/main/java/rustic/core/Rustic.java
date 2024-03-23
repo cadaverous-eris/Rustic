@@ -30,6 +30,7 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 import rustic.client.EventHandlerClient;
 import rustic.common.Config;
 import rustic.common.EventHandlerCommon;
+import rustic.common.advancements.ModAdvancements;
 import rustic.common.blocks.ModBlocks;
 import rustic.common.blocks.fluids.ModFluids;
 import rustic.common.crafting.Recipes;
@@ -142,6 +143,8 @@ public class Rustic {
 		if (Loader.isModLoaded("dynamictrees")) {
 			MinecraftForge.EVENT_BUS.register(DynamicTreesCompat.class);
 		}
+		
+		ModAdvancements.preInit();
 	}
 	
 	@SubscribeEvent
@@ -169,4 +172,5 @@ public class Rustic {
 		// Fix for Rustic Thaumaturgy adding recipes directly in the data structure
 		Recipes.injectEvaporatingRecipes();
 	}
+	
 }

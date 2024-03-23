@@ -4,14 +4,20 @@ import java.util.ArrayList;
 import java.util.Random;
 
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.player.EntityPlayer.SleepResult;
 import net.minecraft.init.Items;
 import net.minecraft.init.PotionTypes;
+import net.minecraft.init.SoundEvents;
 import net.minecraft.item.ItemStack;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.potion.PotionUtils;
 import net.minecraft.util.DamageSource;
+import net.minecraftforge.event.entity.EntityMountEvent;
 import net.minecraftforge.event.entity.living.LivingEntityUseItemEvent;
+import net.minecraftforge.event.entity.living.LivingEvent;
+import net.minecraftforge.event.entity.living.LivingFallEvent;
 import net.minecraftforge.event.entity.living.LivingHurtEvent;
+import net.minecraftforge.event.entity.player.PlayerSleepInBedEvent;
 import net.minecraftforge.fml.common.eventhandler.EventPriority;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
@@ -40,6 +46,47 @@ public class EventHandlerPotions {
 			}
 		}
 	}
+	
+	@SubscribeEvent
+	public void onJumpEvent(LivingEvent.LivingJumpEvent event) {
+		if (event.getEntityLiving() == null) return;
+		
+		EntityLivingBase entity = event.getEntityLiving();
+		if (entity.getActivePotionEffect(PotionsRustic.FULLMETAL_POTION) != null) {
+			entity.motionY = 0;
+		}
+	}
+	
+	@SubscribeEvent
+	public void onMountEvent(EntityMountEvent event) {
+		if (!event.isMounting()) return;
+		if ((event.getEntityMounting() == null) || !(event.getEntityMounting() instanceof EntityLivingBase)) return;
+		if ((event.getEntityBeingMounted() == null) || !(event.getEntityBeingMounted() instanceof EntityLivingBase)) return;
+		EntityLivingBase top = (EntityLivingBase) event.getEntityMounting();
+		//EntityLivingBase bottom = (EntityLivingBase) event.getEntityBeingMounted();
+		
+		if (top.getActivePotionEffect(PotionsRustic.FULLMETAL_POTION) != null) {
+			event.setCanceled(true);
+		}
+	}
+	
+	@SubscribeEvent
+	public void onSleepEvent(PlayerSleepInBedEvent event) {
+		if ((event.getEntityPlayer() != null) && (event.getEntityPlayer().getActivePotionEffect(PotionsRustic.FULLMETAL_POTION) != null)) {
+			event.setResult(SleepResult.OTHER_PROBLEM);
+		}
+	}
+	
+	@SubscribeEvent
+	public void onFallEvent(LivingFallEvent event) {
+		EntityLivingBase entity = event.getEntityLiving();
+		float d = event.getDistance();
+		if (entity.isPotionActive(PotionsRustic.FULLMETAL_POTION) && (d >= 0.6F) && !entity.isInWater() && !entity.isInLava()) {
+			entity.playSound(SoundEvents.BLOCK_ANVIL_LAND, 1.0F, 1.0F);
+			
+			// TODO: damage anything fallen on?
+		}
+	}
 
 	// FULL, MAGIC RESISTANCE, WITHER WARD
 
@@ -47,6 +94,12 @@ public class EventHandlerPotions {
 	public void onEntityDamage(LivingHurtEvent event) {
 		DamageSource source = event.getSource();
 		EntityLivingBase entity = event.getEntityLiving();
+		
+		if (entity.isPotionActive(PotionsRustic.FULLMETAL_POTION) && (source != DamageSource.OUT_OF_WORLD)) {
+			event.setAmount(0);
+			return;
+		}
+		
 		if (source == DamageSource.STARVE) {
 			PotionEffect effect = entity.getActivePotionEffect(PotionsRustic.FULL_POTION);
 			if (effect != null) {

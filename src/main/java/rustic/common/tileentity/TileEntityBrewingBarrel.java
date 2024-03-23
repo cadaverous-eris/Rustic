@@ -20,6 +20,7 @@ import net.minecraft.util.text.TextComponentTranslation;
 import net.minecraft.world.World;
 import net.minecraftforge.common.ForgeModContainer;
 import net.minecraftforge.common.capabilities.Capability;
+import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.FluidTank;
 import net.minecraftforge.fluids.FluidUtil;
@@ -29,6 +30,7 @@ import net.minecraftforge.fluids.capability.IFluidHandlerItem;
 import net.minecraftforge.fluids.capability.ItemFluidContainer;
 import net.minecraftforge.fluids.capability.templates.FluidHandlerItemStack;
 import net.minecraftforge.items.CapabilityItemHandler;
+import net.minecraftforge.items.ItemHandlerHelper;
 import net.minecraftforge.items.ItemStackHandler;
 import rustic.common.Config;
 import rustic.common.blocks.fluids.FluidBooze;
@@ -39,6 +41,14 @@ import rustic.common.inventory.ExternalItemHandler;
 import rustic.common.items.ModItems;
 
 public class TileEntityBrewingBarrel extends TileEntity implements ITickable {
+	
+	public static final int INPUT_IN_SLOT = 0;
+	public static final int OUTPUT_IN_SLOT = 1;
+	public static final int AUX_IN_SLOT = 2;
+	public static final int INPUT_OUT_SLOT = 3;
+	public static final int OUTPUT_OUT_SLOT = 4;
+	public static final int AUX_OUT_SLOT = 5;
+	
 
 	protected ItemStackHandler internalStackHandler = new ItemStackHandler(6) {
 		@Override
@@ -63,15 +73,15 @@ public class TileEntityBrewingBarrel extends TileEntity implements ITickable {
 		}
 
 		private boolean isStackAllowedInSlot(int slot, ItemStack stack) {
-			if (slot == 1) {
+			if (slot == OUTPUT_IN_SLOT) {
 				return stack.getItem() == Items.GLASS_BOTTLE;
-			} else if (slot == 2) {
+			} else if (slot == AUX_IN_SLOT) {
 				if (FluidUtil.getFluidHandler(stack) != null) {
 					FluidStack fluid = FluidUtil.getFluidContained(stack);
 					if (fluid != null && fluid.getFluid() != null) return fluid.getFluid() instanceof FluidBooze;
 				}
 				return stack.getItem() == Items.GLASS_BOTTLE;
-			} else if (slot == 0) {
+			} else if (slot == INPUT_IN_SLOT) {
 				return FluidUtil.getFluidHandler(stack) != null || stack.getItem() instanceof UniversalBucket || stack.getItem() instanceof ItemFluidContainer
 						|| stack.getItem() == Items.GLASS_BOTTLE || stack.getItem() instanceof ItemBucket;
 			}
@@ -243,148 +253,75 @@ public class TileEntityBrewingBarrel extends TileEntity implements ITickable {
 		}
 		world.setTileEntity(pos, null);
 	}
+	
+	
+	protected boolean tryTankIO(FluidTank tank, int inSlot, int outSlot, boolean allowFill, boolean onlyBooze) {
+		if (world.isRemote) return false;
+		
+		ItemStack stack = itemInSlot(inSlot);
+		if (stack.isEmpty()) return false;
+		
+		ItemStack in = (stack.getItem() == Items.GLASS_BOTTLE)
+						? new ItemStack(ModItems.FLUID_BOTTLE)
+						: ItemHandlerHelper.copyStackWithSize(stack, 1);
+		
+		IFluidHandlerItem fluidHandler = getFluidHandler(in);
+		if (fluidHandler == null) return false;
+		
+		FluidStack fs = FluidUtil.getFluidContained(in);
+		
+		boolean fsEmpty = isFluidStackEmpty(fs);
+		boolean tankEmpty = tank.getFluidAmount() <= 0;
+		boolean fluidsEqual = (fsEmpty) ? tankEmpty : fs.isFluidEqual(tank.getFluid());
+		
+		// try fill tank from item
+		if (allowFill && !fsEmpty &&
+			(tankEmpty || fluidsEqual) &&
+			(!onlyBooze || (fs.getFluid() instanceof FluidBooze))
+		) {
+			int fillAmount = tank.fill(fs, false);
+			FluidStack drained = fluidHandler.drain(fillAmount, true);
+			ItemStack out = fluidHandler.getContainer();
+			if (out.getItem() == ForgeModContainer.getInstance().universalBucket) {
+				//out = new ItemStack(Items.BUCKET);
+			}
+			if (!isFluidStackEmpty(drained) && internalStackHandler.insertItem(outSlot, out, true).isEmpty()) {
+				tank.fill(drained, true);
+				itemInSlot(inSlot).shrink(1);
+				internalStackHandler.insertItem(outSlot, out, false);
+				return true;
+			}
+		}
+		
+		// try drain tank into item
+		if (!tankEmpty && (fsEmpty || fluidsEqual)) {
+			int amount = fluidHandler.fill(tank.getFluid(), true);
+			ItemStack out = fluidHandler.getContainer();
+			if (out.hasTagCompound() && out.getTagCompound().hasKey(FluidHandlerItemStack.FLUID_NBT_KEY)) {
+				NBTTagCompound fluidTag = out.getTagCompound().getCompoundTag(FluidHandlerItemStack.FLUID_NBT_KEY);
+				if (!fluidTag.hasKey("Tag") && (tank.getFluid().tag != null)) {
+					fluidTag.setTag("Tag", tank.getFluid().tag);
+				}
+			}
+			if ((amount > 0) && internalStackHandler.insertItem(outSlot, out, true).isEmpty()) {
+				tank.drain(amount, true);
+				itemInSlot(inSlot).shrink(1);
+				internalStackHandler.insertItem(outSlot, out, false);
+				return true;
+			}
+		}
+		
+		return false;
+	}
 
 	@Override
 	public void update() {
 		boolean fluidChanged = false;
-		if (!internalStackHandler.getStackInSlot(0).isEmpty() && !world.isRemote) {
-			ItemStack stack = internalStackHandler.getStackInSlot(0);
-			ItemStack in = stack.copy();
-			in.setCount(1);
-			if (stack.getItem() == Items.GLASS_BOTTLE && input.getFluidAmount() > 0) {
-				ItemStack out = new ItemStack(ModItems.FLUID_BOTTLE);
-				IFluidHandlerItem fluidHandlerDummy = out
-						.getCapability(CapabilityFluidHandler.FLUID_HANDLER_ITEM_CAPABILITY, null);
-				int amount = fluidHandlerDummy.fill(input.getFluid(), true);
-				out = fluidHandlerDummy.getContainer();
-				if (amount > 0 && internalStackHandler.insertItem(3, out, true).isEmpty()) {
-					input.drain(amount, true);
-					internalStackHandler.getStackInSlot(0).shrink(1);
-					internalStackHandler.insertItem(3, out, false);
-					fluidChanged |= true;
-				}
-			} else if (in.hasCapability(CapabilityFluidHandler.FLUID_HANDLER_ITEM_CAPABILITY, null)) {
-				FluidStack fluid = FluidUtil.getFluidContained(in);
-				if (fluid != null && fluid.getFluid() != null && input.fill(fluid, false) == fluid.amount) {
-					ItemStack out = new ItemStack(in.getItem());
-					IFluidHandlerItem fluidHandlerDummy = out
-							.getCapability(CapabilityFluidHandler.FLUID_HANDLER_ITEM_CAPABILITY, null);
-					if (fluidHandlerDummy != null) {
-						fluidHandlerDummy.drain(input.getCapacity() - input.getFluidAmount(), true);
-						out = fluidHandlerDummy.getContainer();
-						if (out.getItem() == ForgeModContainer.getInstance().universalBucket) {
-							out = new ItemStack(Items.BUCKET);
-						}
-						if (internalStackHandler.insertItem(3, out, true).isEmpty()) {
-							input.fill(fluid, true);
-							internalStackHandler.getStackInSlot(0).shrink(1);
-							internalStackHandler.insertItem(3, out, false);
-							fluidChanged |= true;
-						}
-					}
-				} else if ((fluid == null || fluid.getFluid() == null) && input.getFluidAmount() > 0) {
-					ItemStack out = new ItemStack(in.getItem());
-					IFluidHandlerItem fluidHandlerDummy = out
-							.getCapability(CapabilityFluidHandler.FLUID_HANDLER_ITEM_CAPABILITY, null);
-					int amount = fluidHandlerDummy.fill(input.getFluid(), true);
-					out = fluidHandlerDummy.getContainer();
-					if (amount > 0 && internalStackHandler.insertItem(3, out, true).isEmpty()) {
-						input.drain(amount, true);
-						internalStackHandler.getStackInSlot(0).shrink(1);
-						internalStackHandler.insertItem(3, out, false);
-						fluidChanged |= true;
-					}
-				}
-			}
-		}
-		if (!internalStackHandler.getStackInSlot(1).isEmpty() && !world.isRemote) {
-			ItemStack stack = internalStackHandler.getStackInSlot(1);
-			ItemStack in = stack.copy();
-			in.setCount(1);
-			if (stack.getItem() == Items.GLASS_BOTTLE && output.getFluidAmount() > 0) {
-				ItemStack out = new ItemStack(ModItems.FLUID_BOTTLE);
-				IFluidHandlerItem fluidHandlerDummy = out
-						.getCapability(CapabilityFluidHandler.FLUID_HANDLER_ITEM_CAPABILITY, null);
-				int amount = fluidHandlerDummy.fill(output.getFluid(), true);
-				out = fluidHandlerDummy.getContainer();
-				if (amount > 0 && internalStackHandler.insertItem(4, out, true).isEmpty()) {
-					output.drain(amount, true);
-					internalStackHandler.getStackInSlot(1).shrink(1);
-					internalStackHandler.insertItem(4, out, false);
-					fluidChanged |= true;
-				}
-			} else if (in.hasCapability(CapabilityFluidHandler.FLUID_HANDLER_ITEM_CAPABILITY, null)) {
-				FluidStack fluid = FluidUtil.getFluidContained(in);
-				if ((fluid == null || fluid.getFluid() == null) && output.getFluidAmount() > 0) {
-					ItemStack out = new ItemStack(in.getItem());
-					IFluidHandlerItem fluidHandlerDummy = out
-							.getCapability(CapabilityFluidHandler.FLUID_HANDLER_ITEM_CAPABILITY, null);
-					int amount = fluidHandlerDummy.fill(output.getFluid(), true);
-					out = fluidHandlerDummy.getContainer();
-					if (amount > 0 && internalStackHandler.insertItem(4, out, true).isEmpty()) {
-						output.drain(amount, true);
-						internalStackHandler.getStackInSlot(1).shrink(1);
-						internalStackHandler.insertItem(4, out, false);
-						fluidChanged |= true;
-					}
-				}
-			}
-		}
-		if (!internalStackHandler.getStackInSlot(2).isEmpty() && !world.isRemote) {
-			ItemStack stack = internalStackHandler.getStackInSlot(2);
-			ItemStack in = stack.copy();
-			in.setCount(1);
-			if (stack.getItem() == Items.GLASS_BOTTLE && auxiliary.getFluidAmount() > 0) {
-				ItemStack out = new ItemStack(ModItems.FLUID_BOTTLE);
-				IFluidHandlerItem fluidHandlerDummy = out
-						.getCapability(CapabilityFluidHandler.FLUID_HANDLER_ITEM_CAPABILITY, null);
-				int amount = fluidHandlerDummy.fill(auxiliary.getFluid(), true);
-				out = fluidHandlerDummy.getContainer();
-				if (out.hasTagCompound() && out.getTagCompound().hasKey(FluidHandlerItemStack.FLUID_NBT_KEY)) {
-					NBTTagCompound fluidTag = out.getTagCompound().getCompoundTag(FluidHandlerItemStack.FLUID_NBT_KEY);
-					if (!fluidTag.hasKey("Tag") && auxiliary.getFluid().tag != null) {
-						fluidTag.setTag("Tag", auxiliary.getFluid().tag);
-					}
-				}
-				if (amount > 0 && internalStackHandler.insertItem(5, out, true).isEmpty()) {
-					auxiliary.drain(amount, true);
-					internalStackHandler.getStackInSlot(2).shrink(1);
-					internalStackHandler.insertItem(5, out, false);
-					fluidChanged |= true;
-				}
-			} else if (in.hasCapability(CapabilityFluidHandler.FLUID_HANDLER_ITEM_CAPABILITY, null)) {
-				FluidStack fluid = FluidUtil.getFluidContained(in);
-				if (fluid != null && fluid.getFluid() != null && fluid.getFluid() instanceof FluidBooze
-						&& auxiliary.fill(fluid, false) == fluid.amount) {
-					ItemStack out = new ItemStack(in.getItem());
-					IFluidHandlerItem fluidHandlerDummy = out
-							.getCapability(CapabilityFluidHandler.FLUID_HANDLER_ITEM_CAPABILITY, null);
-					fluidHandlerDummy.drain(auxiliary.getCapacity() - auxiliary.getFluidAmount(), true);
-					out = fluidHandlerDummy.getContainer();
-					if (out.getItem() == ForgeModContainer.getInstance().universalBucket) {
-						out = new ItemStack(Items.BUCKET);
-					}
-					if (internalStackHandler.insertItem(5, out, true).isEmpty()) {
-						auxiliary.fill(fluid, true);
-						internalStackHandler.getStackInSlot(2).shrink(1);
-						internalStackHandler.insertItem(5, out, false);
-						fluidChanged |= true;
-					}
-				} else if ((fluid == null || fluid.getFluid() == null) && auxiliary.getFluidAmount() > 0) {
-					ItemStack out = new ItemStack(in.getItem());
-					IFluidHandlerItem fluidHandlerDummy = out
-							.getCapability(CapabilityFluidHandler.FLUID_HANDLER_ITEM_CAPABILITY, null);
-					int amount = fluidHandlerDummy.fill(auxiliary.getFluid(), true);
-					out = fluidHandlerDummy.getContainer();
-					if (amount > 0 && internalStackHandler.insertItem(5, out, true).isEmpty()) {
-						auxiliary.drain(amount, true);
-						internalStackHandler.getStackInSlot(2).shrink(1);
-						internalStackHandler.insertItem(5, out, false);
-						fluidChanged |= true;
-					}
-				}
-			}
-		}
+		
+		fluidChanged = tryTankIO(input, INPUT_IN_SLOT, INPUT_OUT_SLOT, true, false) || fluidChanged;
+		fluidChanged = tryTankIO(output, OUTPUT_IN_SLOT, OUTPUT_OUT_SLOT, false, false) || fluidChanged;
+		fluidChanged = tryTankIO(auxiliary, AUX_IN_SLOT, AUX_OUT_SLOT, true, true) || fluidChanged;
+
 		if (fluidChanged) {
 			brewTime = 0;
 			if (recipe != null && !recipe.matches(input.getFluid(), auxiliary.getFluid())) {
@@ -447,6 +384,10 @@ public class TileEntityBrewingBarrel extends TileEntity implements ITickable {
 		}
 		return null;
 	}
+	
+	public ItemStack itemInSlot(int slot) {
+		return this.internalStackHandler.getStackInSlot(slot);
+	}
 
 	public boolean isBrewing() {
 		return brewTime > 0;
@@ -459,6 +400,23 @@ public class TileEntityBrewingBarrel extends TileEntity implements ITickable {
 	public int getMaxBrewTime() {
 		return Config.MAX_BREW_TIME;
 		//return 6;
+	}
+	
+	
+	static boolean hasFluidHandler(ItemStack s) {
+		return (s != null) && !s.isEmpty() && s.hasCapability(CapabilityFluidHandler.FLUID_HANDLER_ITEM_CAPABILITY, null);
+	}
+	static IFluidHandlerItem getFluidHandler(ItemStack s) {
+		return ((s != null) && !s.isEmpty()) ? s.getCapability(CapabilityFluidHandler.FLUID_HANDLER_ITEM_CAPABILITY, null) : null;
+	}
+	static Fluid getFluidFromStack(FluidStack fs) {
+		return (fs == null) ? null : fs.getFluid();
+	}
+	static boolean isFluidStackNull(FluidStack fs) {
+		return (fs == null) || (fs.getFluid() == null);
+	}
+	static boolean isFluidStackEmpty(FluidStack fs) {
+		return (fs == null) || (fs.getFluid() == null) || (fs.amount <= 0);
 	}
 
 }

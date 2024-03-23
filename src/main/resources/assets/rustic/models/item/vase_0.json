@@ -1,3 +1,8 @@
 {
-	"parent": "rustic:block/vase_0"
+	"parent": "rustic:block/vase_0",
+	"textures": {
+		"side": "rustic:blocks/vases/vase_side_0",
+		"top": "rustic:blocks/vases/vase_top_0",
+		"bottom": "rustic:blocks/vases/vase_bottom_0"
+	}
 }

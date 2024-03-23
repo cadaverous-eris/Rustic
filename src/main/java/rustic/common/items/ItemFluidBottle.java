@@ -6,11 +6,13 @@ import java.util.List;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
+import net.minecraft.advancements.CriteriaTriggers;
 import net.minecraft.client.renderer.ItemMeshDefinition;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.init.Items;
 import net.minecraft.item.EnumAction;
 import net.minecraft.item.Item;
@@ -76,7 +78,7 @@ public class ItemFluidBottle extends ItemFluidContainer {
 
 	@SideOnly(Side.CLIENT)
 	public ItemStack getDefaultInstance() {
-		NBTTagCompound nbt = new FluidStack(ModFluids.OLIVE_OIL, 1000).writeToNBT(new NBTTagCompound());
+		NBTTagCompound nbt = new FluidStack(ModFluids.OLIVE_OIL, this.getCapacity()).writeToNBT(new NBTTagCompound());
 		ItemStack stack = super.getDefaultInstance();
 		NBTTagCompound tag = new NBTTagCompound();
 		tag.setTag(FLUID_NBT_KEY, nbt);
@@ -113,6 +115,10 @@ public class ItemFluidBottle extends ItemFluidContainer {
 
 		if (entityplayer != null) {
 			entityplayer.addStat(StatList.getObjectUseStats(this));
+			
+			if (entityplayer instanceof EntityPlayerMP) {
+	            CriteriaTriggers.CONSUME_ITEM.trigger((EntityPlayerMP) entityplayer, stack);
+	        }
 		}
 
 		if (entityplayer == null || !entityplayer.capabilities.isCreativeMode) {
@@ -210,7 +216,7 @@ public class ItemFluidBottle extends ItemFluidContainer {
 
 	@Override
 	public ICapabilityProvider initCapabilities(@Nonnull ItemStack stack, @Nullable NBTTagCompound nbt) {
-		FluidHandlerItemStack.SwapEmpty handler = new FluidHandlerItemStack.SwapEmpty(stack, empty, capacity) {
+		FluidHandlerItemStack.SwapEmpty handler = new FluidHandlerItemStack.SwapEmpty(stack, empty.copy(), capacity) {
 			@Override
 			public boolean canFillFluidType(FluidStack fluidstack) {
 				return ItemFluidBottle.VALID_FLUIDS.contains(fluidstack.getFluid());
@@ -218,23 +224,23 @@ public class ItemFluidBottle extends ItemFluidContainer {
 
 			@Override
 			public int fill(FluidStack resource, boolean doFill) {
-				if (resource == null || resource.amount < Fluid.BUCKET_VOLUME || getFluid() != null
+				if (resource == null || resource.amount < this.capacity || getFluid() != null
 						|| !canFillFluidType(resource)) {
 					return 0;
 				}
 				if (doFill) {
 					setFluid(resource.copy());
 				}
-				return Fluid.BUCKET_VOLUME;
+				return this.capacity;
 			}
 
 			protected void setFluid(@Nullable FluidStack fluid) {
 				if (fluid == null) {
-					container = new ItemStack(Items.GLASS_BOTTLE);
+					container = this.emptyContainer;
 				} else {
-					container = new ItemStack(ModItems.FLUID_BOTTLE);
+					container = new ItemStack(ItemFluidBottle.this, 1);
 					FluidStack fs = fluid.copy();
-					fs.amount = 1000;
+					fs.amount = this.capacity;
 					NBTTagCompound fluidTag = fs.writeToNBT(new NBTTagCompound());
 					NBTTagCompound tag = new NBTTagCompound();
 					tag.setTag(FLUID_NBT_KEY, fluidTag);
@@ -244,7 +250,7 @@ public class ItemFluidBottle extends ItemFluidContainer {
 
 			@Override
 			public FluidStack drain(FluidStack resource, boolean doDrain) {
-				if (resource == null || resource.amount < Fluid.BUCKET_VOLUME) {
+				if (resource == null || resource.amount < this.capacity) {
 					return null;
 				}
 				return super.drain(resource, doDrain);
@@ -252,7 +258,7 @@ public class ItemFluidBottle extends ItemFluidContainer {
 
 			@Override
 			public FluidStack drain(int maxDrain, boolean doDrain) {
-				if (maxDrain < Fluid.BUCKET_VOLUME) {
+				if (maxDrain < this.capacity) {
 					return null;
 				}
 				return super.drain(maxDrain, doDrain);
@@ -263,7 +269,7 @@ public class ItemFluidBottle extends ItemFluidContainer {
 			public ItemStack getContainer() {
 				FluidStack contained = getFluid();
 				if (contained == null || contained.getFluid() == null || contained.amount <= 0) {
-					return new ItemStack(Items.GLASS_BOTTLE);
+					return this.emptyContainer;
 				}
 				return container;
 			}

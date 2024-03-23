@@ -63,12 +63,19 @@ public class ModFluids {
 			@Override
 			public void onDrank(World world, EntityPlayer player, ItemStack stack, FluidStack fluid) {
 				player.getFoodStats().addStats(1, 0.8F);
-				player.addPotionEffect(new PotionEffect(MobEffects.RESISTANCE, 600, 15, false, false));
-				player.addPotionEffect(new PotionEffect(MobEffects.FIRE_RESISTANCE, 600, 15, false, false));
-				player.addPotionEffect(new PotionEffect(MobEffects.SLOWNESS, 600, 15, false, false));
-				player.addPotionEffect(new PotionEffect(MobEffects.MINING_FATIGUE, 600, 15, false, false));
-				player.addPotionEffect(new PotionEffect(MobEffects.WEAKNESS, 600, 15, false, false));
-				player.addPotionEffect(new PotionEffect(MobEffects.JUMP_BOOST, 600, 250, false, false));
+				//player.addPotionEffect(new PotionEffect(MobEffects.RESISTANCE, 600, 2, false, false));
+				//player.addPotionEffect(new PotionEffect(MobEffects.FIRE_RESISTANCE, 600, 2, false, false));
+				//player.addPotionEffect(new PotionEffect(MobEffects.SLOWNESS, 600, 15, false, false));
+				//player.addPotionEffect(new PotionEffect(MobEffects.MINING_FATIGUE, 600, 15, false, false));
+				//player.addPotionEffect(new PotionEffect(MobEffects.WEAKNESS, 600, 15, false, false));
+				//player.addPotionEffect(new PotionEffect(MobEffects.JUMP_BOOST, 600, 250, false, false));
+				int duration = 30 * 20;
+				PotionEffect effect = player.getActivePotionEffect(PotionsRustic.FULLMETAL_POTION);
+				if (effect == null) {
+					player.addPotionEffect(new PotionEffect(PotionsRustic.FULLMETAL_POTION, duration, 0, false, true));
+				} else {
+					player.addPotionEffect(new PotionEffect(PotionsRustic.FULLMETAL_POTION, effect.getDuration() + duration, 0, false, true));
+				}
 			}
 		}.setDensity(1100).setViscosity(1100);
 		register(IRONBERRY_JUICE);

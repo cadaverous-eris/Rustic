@@ -1,10 +1,112 @@
 {
+	"forge_marker": 1,
+	"defaults": {},
 	"variants": {
-		"variant=0":	{ "model": "rustic:vase_0" },
-		"variant=1":	{ "model": "rustic:vase_1" },
-		"variant=2":	{ "model": "rustic:vase_2" },
-		"variant=3":	{ "model": "rustic:vase_3" },
-		"variant=4":	{ "model": "rustic:vase_4" },
-		"variant=5":	{ "model": "rustic:vase_5" }
+		"variant": {
+			0: {
+				"model": "rustic:vase_0",
+				"textures": {
+					"side": "rustic:blocks/vases/vase_side_0",
+					"top": "rustic:blocks/vases/vase_top_0",
+					"bottom": "rustic:blocks/vases/vase_bottom_0"
+				}
+			},
+			1: {
+				"model": "rustic:vase_0",
+				"textures": {
+					"side": "rustic:blocks/vases/vase_side_1",
+					"top": "rustic:blocks/vases/vase_top_1",
+					"bottom": "rustic:blocks/vases/vase_bottom_1"
+				}
+			},
+			2: {
+				"model": "rustic:vase_0",
+				"textures": {
+					"side": "rustic:blocks/vases/vase_side_2",
+					"top": "rustic:blocks/vases/vase_top_2",
+					"bottom": "rustic:blocks/vases/vase_bottom_2"
+				}
+			},
+			3: {
+				"model": "rustic:vase_0",
+				"textures": {
+					"side": "rustic:blocks/vases/vase_side_3",
+					"top": "rustic:blocks/vases/vase_top_3",
+					"bottom": "rustic:blocks/vases/vase_bottom_3"
+				}
+			},
+			4: {
+				"model": "rustic:vase_0",
+				"textures": {
+					"side": "rustic:blocks/vases/vase_side_4",
+					"top": "rustic:blocks/vases/vase_top_4",
+					"bottom": "rustic:blocks/vases/vase_bottom_4"
+				}
+			},
+			5: {
+				"model": "rustic:vase_0",
+				"textures": {
+					"side": "rustic:blocks/vases/vase_side_5",
+					"top": "rustic:blocks/vases/vase_top_5",
+					"bottom": "rustic:blocks/vases/vase_bottom_5"
+				}
+			},
+			6: {
+				"model": "rustic:vase_0",
+				"textures": {
+					"side": "rustic:blocks/vases/vase_side_6",
+					"top": "rustic:blocks/vases/vase_top_6",
+					"bottom": "rustic:blocks/vases/vase_bottom_6"
+				}
+			},
+			7: {
+				"model": "rustic:vase_0",
+				"textures": {
+					"side": "rustic:blocks/vases/vase_side_7",
+					"top": "rustic:blocks/vases/vase_top_7",
+					"bottom": "rustic:blocks/vases/vase_bottom_7"
+				}
+			},
+			8: {
+				"model": "rustic:vase_1",
+				"textures": {
+					"side": "rustic:blocks/vases/vase_side_8",
+					"top": "rustic:blocks/vases/vase_top_8",
+					"bottom": "rustic:blocks/vases/vase_bottom_8"
+				}
+			},
+			9: {
+				"model": "rustic:vase_1",
+				"textures": {
+					"side": "rustic:blocks/vases/vase_side_9",
+					"top": "rustic:blocks/vases/vase_top_9",
+					"bottom": "rustic:blocks/vases/vase_bottom_9"
+				}
+			},
+			10: {
+				"model": "rustic:vase_1",
+				"textures": {
+					"side": "rustic:blocks/vases/vase_side_10",
+					"top": "rustic:blocks/vases/vase_top_10",
+					"bottom": "rustic:blocks/vases/vase_bottom_10"
+				}
+			},
+			11: {
+				"model": "rustic:vase_1",
+				"textures": {
+					"side": "rustic:blocks/vases/vase_side_11",
+					"top": "rustic:blocks/vases/vase_top_11",
+					"bottom": "rustic:blocks/vases/vase_bottom_11"
+				}
+			},
+			12: {
+				"model": "rustic:vase_1",
+				"textures": {
+					"side": "rustic:blocks/vases/vase_side_12",
+					"top": "rustic:blocks/vases/vase_top_12",
+					"bottom": "rustic:blocks/vases/vase_bottom_12"
+				}
+			}
+		}
 	}
 }

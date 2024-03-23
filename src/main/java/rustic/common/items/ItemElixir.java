@@ -4,11 +4,13 @@ import java.util.List;
 
 import javax.annotation.Nullable;
 
+import net.minecraft.advancements.CriteriaTriggers;
 import net.minecraft.client.renderer.color.IItemColor;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.init.Items;
 import net.minecraft.init.MobEffects;
 import net.minecraft.item.EnumAction;
@@ -73,6 +75,10 @@ public class ItemElixir extends ItemBase implements IColoredItem {
 
 		if (entityplayer != null) {
 			entityplayer.addStat(StatList.getObjectUseStats(this));
+			
+			if (entityplayer instanceof EntityPlayerMP) {
+	            CriteriaTriggers.CONSUME_ITEM.trigger((EntityPlayerMP) entityplayer, stack);
+	        }
 		}
 
 		if (entityplayer != null && !entityplayer.capabilities.isCreativeMode) {

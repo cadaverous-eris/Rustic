@@ -1,0 +1,10 @@
+{
+	"variants": {
+		"variant=0":	{ "model": "rustic:vase_0" },
+		"variant=1":	{ "model": "rustic:vase_1" },
+		"variant=2":	{ "model": "rustic:vase_2" },
+		"variant=3":	{ "model": "rustic:vase_3" },
+		"variant=4":	{ "model": "rustic:vase_4" },
+		"variant=5":	{ "model": "rustic:vase_5" }
+	}
+}

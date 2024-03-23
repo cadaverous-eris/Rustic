@@ -72,10 +72,10 @@ public abstract class BlockBerryBush extends BlockBase implements IColoredBlock,
 		if (worldIn.getLightFromNeighbors(pos.up()) >= 9) {
 
 			if (!state.getValue(BERRIES)) {
-				float f = 2f;
+				float f = 1.5f;
 
 				if (net.minecraftforge.common.ForgeHooks.onCropsGrowPre(worldIn, pos, state,
-						rand.nextInt((int) (40.0F / f) + 1) == 0)) {
+						rand.nextInt((int) (60.0F / f) + 1) == 0)) {
 					worldIn.setBlockState(pos, state.withProperty(BERRIES, true), 3);
 					net.minecraftforge.common.ForgeHooks.onCropsGrowPost(worldIn, pos, state,
 							worldIn.getBlockState(pos));
