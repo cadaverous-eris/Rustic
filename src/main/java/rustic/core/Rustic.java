@@ -1,5 +1,7 @@
 package rustic.core;
 
+import java.util.UUID;
+
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -120,6 +122,8 @@ public class Rustic {
 	public static Rustic instance;
 	
 	public static final Logger logger = LogManager.getLogger(MODID);
+	
+	public static final UUID ERIS_UUID = UUID.fromString("8167f7a5-2db0-42ca-b177-ebc1396dbe55");
 
 	static {
 		FluidRegistry.enableUniversalBucket();

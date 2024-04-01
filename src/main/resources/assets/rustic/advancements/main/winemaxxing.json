@@ -1,5 +1,5 @@
 {
-	"parent": "rustic:main/root",
+	"parent": "rustic:main/the_good_stuff",
 	"display": {
 		"icon": {
 			"item": "rustic:fluid_bottle",

@@ -60,6 +60,7 @@ import rustic.client.models.BookBakedModel;
 import rustic.client.models.LiquidBarrelItemModel;
 import rustic.client.models.TEISRModel;
 import rustic.client.renderer.LayerIronSkin;
+import rustic.client.util.ClientUtils;
 import rustic.client.util.FluidClientUtil;
 import rustic.common.Config;
 import rustic.common.blocks.BlockChair;
@@ -185,8 +186,7 @@ public class EventHandlerClient {
 				if (fluid != null && fluid.getFluid() != null && fluid.getFluid() instanceof FluidBooze) {
 					if (fluid.tag != null && fluid.tag.hasKey(FluidBooze.QUALITY_NBT_KEY, 5)) {
 						float quality = fluid.tag.getFloat(FluidBooze.QUALITY_NBT_KEY);
-						event.getToolTip()
-								.add(TextFormatting.GOLD + "" + I18n.format("tooltip.rustic.quality") + quality);
+						event.getToolTip().add(ClientUtils.getQualityTooltip(quality));
 					}
 				}
 			}

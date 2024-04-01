@@ -11,6 +11,7 @@ import net.minecraft.inventory.IInventory;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraftforge.fluids.FluidStack;
+import rustic.client.util.ClientUtils;
 import rustic.client.util.FluidClientUtil;
 import rustic.common.blocks.fluids.FluidBooze;
 import rustic.common.tileentity.ContainerBrewingBarrel;
@@ -115,7 +116,7 @@ public class GuiBrewingBarrel extends GuiContainer {
 			lines.add(TextFormatting.GRAY + "" + fluid.amount + "/" + capacity);
 			if (fluid.getFluid() instanceof FluidBooze && fluid.tag != null && fluid.tag.hasKey(FluidBooze.QUALITY_NBT_KEY, 5)) {
 				float quality = fluid.tag.getFloat(FluidBooze.QUALITY_NBT_KEY);
-				lines.add(TextFormatting.GOLD + "" + I18n.format("tooltip.rustic.quality") + quality);
+				lines.add(ClientUtils.getQualityTooltip(quality));
 			}
 		}
 		drawHoveringText(lines, x - guiLeft, y - guiTop);

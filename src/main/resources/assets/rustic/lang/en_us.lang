@@ -5,8 +5,63 @@ itemGroup.rustic.alchemy=Rustic Alchemy
 
 #Tooltips
 tooltip.rustic.olive_oil=Olive Oiled
-tooltip.rustic.quality=Quality: 
 tooltip.rustic.empty=Empty
+tooltip.rustic.quality.desc=Quality: %s §8[%s]
+#Quality - Highest
+tooltip.rustic.quality.highest.0=Heavenly
+tooltip.rustic.quality.highest.1=Exceptional
+tooltip.rustic.quality.highest.2=Improbably Delicious
+tooltip.rustic.quality.highest.3=Divine
+tooltip.rustic.quality.highest.4=Ambrosial
+tooltip.rustic.quality.highest.5=Tantalizing
+tooltip.rustic.quality.highest.6=Sensual
+tooltip.rustic.quality.highest.7=God-Tier
+#Quality - High
+tooltip.rustic.quality.high.0=Tasty
+tooltip.rustic.quality.high.1=Quite Good
+tooltip.rustic.quality.high.2=Enjoyable
+tooltip.rustic.quality.high.3=Agreeable
+tooltip.rustic.quality.high.4=Splendid
+tooltip.rustic.quality.high.5=Delightful
+tooltip.rustic.quality.high.6=Delectable
+tooltip.rustic.quality.high.7=Yummy
+#Quality - High-ish
+tooltip.rustic.quality.highish.0=Acceptable
+tooltip.rustic.quality.highish.1=Fair
+tooltip.rustic.quality.highish.2=Drinkable
+tooltip.rustic.quality.highish.3=Moderate
+tooltip.rustic.quality.highish.4=Inoffensive
+tooltip.rustic.quality.highish.5=Tolerable
+tooltip.rustic.quality.highish.6=Palatable
+tooltip.rustic.quality.highish.7=Passable
+#Quality - Low-ish
+tooltip.rustic.quality.lowish.0=Dubious
+tooltip.rustic.quality.lowish.1=Bad
+tooltip.rustic.quality.lowish.2=Not Quite Drinkable
+tooltip.rustic.quality.lowish.3=Questionable
+tooltip.rustic.quality.lowish.4=Unpleasant
+tooltip.rustic.quality.lowish.5=Dodgy
+tooltip.rustic.quality.lowish.6=Disagreeable
+tooltip.rustic.quality.lowish.7=Suspicious
+#Quality - Low
+tooltip.rustic.quality.low.0=Disgusting
+tooltip.rustic.quality.low.1=Really Quite Bad
+tooltip.rustic.quality.low.2=Repugnant
+tooltip.rustic.quality.low.3=Nauseating
+tooltip.rustic.quality.low.4=Sickening
+tooltip.rustic.quality.low.5=Foul
+tooltip.rustic.quality.low.6=Repellent
+tooltip.rustic.quality.low.7=Gross
+#Quality - Lowest
+tooltip.rustic.quality.lowest.0=Atrocious
+tooltip.rustic.quality.lowest.1=Offensively Bad
+tooltip.rustic.quality.lowest.2=Undrinkable
+tooltip.rustic.quality.lowest.3=Vile
+tooltip.rustic.quality.lowest.4=Revolting
+tooltip.rustic.quality.lowest.5=Noxious
+tooltip.rustic.quality.lowest.6=Rancid
+tooltip.rustic.quality.lowest.7=Worse Than Piss
+
 
 #Containers
 container.rustic.cabinet=Cabinet
@@ -220,6 +275,8 @@ advancements.rustic.root=Rustic
 advancements.rustic.root.desc=How quaint
 advancements.rustic.almanac=Book Learnin'
 advancements.rustic.almanac.desc=Obtain an almanac
+advancements.rustic.the_good_stuff=The Good Stuff
+advancements.rustic.the_good_stuff.desc=Brew a beverage with a quality of at least 90%%
 advancements.rustic.winemaxxing=Mommy is Winemaxxing
 #advancements.rustic.winemaxxing.desc=Not now honey, Mommy is winemaxxing
 advancements.rustic.winemaxxing.desc=Not now honey, Mommy is winemaxxing, Mommy is a winemaxxed vicodinchad. Mommy is pain medpilled and totally mogging, sweetie. Go play your games, honey, go be a good gamercel for Mommy.
