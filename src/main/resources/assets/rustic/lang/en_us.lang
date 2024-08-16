@@ -176,6 +176,7 @@ tile.rustic.horsetail.name=Horsetail
 tile.rustic.marsh_mallow.name=Marsh Mallow
 tile.rustic.mooncap_mushroom.name=Mooncap Mushroom
 tile.rustic.wind_thistle.name=Wind Thistle
+tile.rustic.vanta_lily.name=Vanta Lily
 tile.rustic.condenser.name=Alchemic Condenser
 tile.rustic.retort.name=Alchemic Retort
 tile.rustic.condenser_advanced.name=Advanced Alchemic Condenser
@@ -240,6 +241,8 @@ tile.rustic.ale_wort.name=Ale Wort
 fluid.alewort=Ale Wort
 tile.rustic.honey.name=Honey
 fluid.honey=Honey
+tile.rustic.vantaoil.name=Vanta Oil
+fluid.vantaoil=Vanta Oil
 
 fluid.ale=Ale
 fluid.cider=Cider

@@ -1,5 +1,7 @@
 package rustic.common.tileentity;
 
+import java.util.Random;
+
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
@@ -9,6 +11,7 @@ import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.SoundEvents;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemBucket;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
@@ -16,6 +19,7 @@ import net.minecraft.network.NetworkManager;
 import net.minecraft.network.play.server.SPacketUpdateTileEntity;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
+import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.util.math.BlockPos;
@@ -33,6 +37,7 @@ import net.minecraftforge.items.ItemStackHandler;
 import rustic.common.crafting.CrushingTubRecipe;
 import rustic.common.crafting.ICrushingTubRecipe;
 import rustic.common.crafting.Recipes;
+import rustic.common.items.ModItems;
 
 public class TileEntityCrushingTub extends TileFluidHandler {
 
@@ -72,18 +77,35 @@ public class TileEntityCrushingTub extends TileFluidHandler {
 				if (recipe.matches(stack)) {
 					FluidStack output = recipe.getResult();
 					if (this.getAmount() <= this.getCapacity() - output.amount) {
-						tank.fillInternal(output, true);
-						itemStackHandler.extractItem(0, 1, false);
-						ItemStack by = recipe.getByproduct().copy();
-						if (!by.isEmpty()) {
-							Block.spawnAsEntity(world, pos, by);
+						if (!this.world.isRemote) {
+							tank.fillInternal(output, true);
+							itemStackHandler.extractItem(0, 1, false);
+							ItemStack by = recipe.getByproduct().copy();
+							if (!by.isEmpty()) {
+								Block.spawnAsEntity(world, pos, by);
+							}
+							this.world.playSound((EntityPlayer)null, this.pos.getX() + 0.5, this.pos.getY() + 0.5, this.pos.getZ() + 0.5, SoundEvents.BLOCK_SLIME_FALL, SoundCategory.BLOCKS, 0.5F, this.world.rand.nextFloat() * 0.1F + 0.9F);
+							IBlockState state = world.getBlockState(pos);
+							this.world.addBlockEvent(this.pos, this.getBlockType(), 1, 0);
+							getWorld().notifyBlockUpdate(pos, state, state, 3);
+							this.world.notifyNeighborsOfStateChange(this.pos, this.getBlockType(), true);
+							markDirty();
+						} else {
+							Random rand = this.world.rand;
+							if (stack.getHasSubtypes()) {
+			                    for (int i = 0; i < rand.nextInt(8) + 8; ++i) {
+									this.world.spawnParticle(EnumParticleTypes.ITEM_CRACK, this.pos.getX() + 0.5, this.pos.getY() + 0.5, this.pos.getZ() + 0.5,
+											((rand.nextDouble() * 0.1) - 0.05), ((rand.nextDouble() * 0.05) + 0.05),
+											((rand.nextDouble() * 0.1) - 0.05), Item.getIdFromItem(stack.getItem()), stack.getMetadata());
+								}
+							} else {
+			                    for (int i = 0; i < rand.nextInt(8) + 8; ++i) {
+									this.world.spawnParticle(EnumParticleTypes.ITEM_CRACK, this.pos.getX() + 0.5, this.pos.getY() + 0.5, this.pos.getZ() + 0.5,
+											((rand.nextDouble() * 0.2) - 0.1), ((rand.nextDouble() * 0.1) + 0.05),
+											((rand.nextDouble() * 0.2) - 0.1), Item.getIdFromItem(stack.getItem()));
+								}
+			                }
 						}
-						this.world.playSound((EntityPlayer)null, this.pos.getX() + 0.5, this.pos.getY() + 0.5, this.pos.getZ() + 0.5, SoundEvents.BLOCK_SLIME_FALL, SoundCategory.BLOCKS, 0.5F, this.world.rand.nextFloat() * 0.1F + 0.9F);
-						IBlockState state = world.getBlockState(pos);
-						this.world.addBlockEvent(this.pos, this.getBlockType(), 1, 0);
-						getWorld().notifyBlockUpdate(pos, state, state, 3);
-						this.world.notifyNeighborsOfStateChange(this.pos, this.getBlockType(), true);
-						markDirty();
 					}
 				}
 			}

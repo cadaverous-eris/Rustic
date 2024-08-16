@@ -93,6 +93,7 @@ public class CommonProxy {
     	if (FluidRegistry.isFluidRegistered("for.honey")) {
     		ItemFluidBottle.addFluid(FluidRegistry.getFluid("for.honey"));
     	}
+    	ItemFluidBottle.addFluid(ModFluids.VANTA_OIL);
     	
     	ItemFluidBottle.addFluid(ModFluids.ALE);
     	ItemFluidBottle.addFluid(ModFluids.CIDER);

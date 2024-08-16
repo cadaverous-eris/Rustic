@@ -286,6 +286,8 @@ public class Recipes {
 		OreDictionary.registerOre("dyeRed", new ItemStack(ModItems.WILDBERRIES));
 		OreDictionary.registerOre("dyePurple", new ItemStack(ModItems.GRAPES));
 		OreDictionary.registerOre("dyeLightGray", new ItemStack(ModItems.IRONBERRIES));
+		
+		OreDictionary.registerOre("dyeBlack", new ItemStack(Herbs.VANTA_LILY));
 	}
 	
 	private static void addCraftingRecipes() {
@@ -505,6 +507,8 @@ public class Recipes {
 		}
 		crushingTubRecipes
 				.add(new CrushingTubRecipe(new FluidStack(ModFluids.HONEY, 250), new ItemStack(ModItems.HONEYCOMB)));
+		crushingTubRecipes
+			.add(new CrushingTubRecipe(new FluidStack(ModFluids.VANTA_OIL, 250), new ItemStack(Herbs.VANTA_LILY)));
 	}
 
 	private static void addEvaporatingRecipes() {

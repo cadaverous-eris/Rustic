@@ -29,6 +29,8 @@ public class ModFluids {
 	public static Fluid ALE_WORT;
 	public static Fluid HONEY;
 	
+	public static Fluid VANTA_OIL;
+	
 	public static Fluid ALE;
 	public static Fluid CIDER;
 	public static Fluid IRON_WINE;
@@ -135,6 +137,16 @@ public class ModFluids {
 			}
 		}.setDensity(1433).setViscosity(5500);
 		register(HONEY);
+		
+		VANTA_OIL = new FluidDrinkable("vantaoil", new ResourceLocation("rustic:blocks/fluids/vanta_oil_still"),
+				new ResourceLocation("rustic:blocks/fluids/vanta_oil_flow")) {
+			@Override
+			public void onDrank(World world, EntityPlayer player, ItemStack stack, FluidStack fluid) {
+				player.getFoodStats().addStats(1, 0.4F);
+				player.addPotionEffect(new PotionEffect(MobEffects.BLINDNESS, 600, 0));
+			}
+		}.setDensity(920).setViscosity(2000);
+		register(VANTA_OIL);
 		
 		
 		ALE = new FluidBooze("ale", new ResourceLocation("rustic:blocks/fluids/booze/ale_still"), new ResourceLocation("rustic:blocks/fluids/booze/ale_flow")) {

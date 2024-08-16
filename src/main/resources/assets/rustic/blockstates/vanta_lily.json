@@ -1,0 +1,13 @@
+{
+
+    "variants": {
+
+        "age=0": { "model": "rustic:vanta_lily_seed" },
+
+        "age=1": { "model": "rustic:vanta_lily_seed" },
+
+        "age=2": { "model": "rustic:vanta_lily_seed" },
+
+        "age=3": { "model": "rustic:vanta_lily" }
+    }
+}

@@ -72,7 +72,7 @@ public class BlockCrushingTub extends BlockBase implements ITileEntityProvider {
 
 	@Override
 	public void onFallenUpon(World worldIn, BlockPos pos, Entity entityIn, float fallDistance) {
-		if (entityIn instanceof EntityLivingBase && !worldIn.isRemote) {
+		if (entityIn instanceof EntityLivingBase) {
 			if (worldIn.getTileEntity(pos) instanceof TileEntityCrushingTub) {
 				((TileEntityCrushingTub) worldIn.getTileEntity(pos)).crush((EntityLivingBase) entityIn);
 			}
