@@ -6,8 +6,10 @@ import java.net.URLClassLoader;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Set;
 
 import net.minecraft.block.BlockDispenser;
+import net.minecraft.entity.passive.EntityChicken;
 import net.minecraft.item.Item;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.world.World;
@@ -79,6 +81,12 @@ public class CommonProxy {
     	
     	BlockDispenser.DISPENSE_BEHAVIOR_REGISTRY.putObject(Item.getItemFromBlock(ModBlocks.ROPE), DispenseRope.getInstance());
     	
+    	Set<Item> chickenTemptItems = EntityChicken.TEMPTATION_ITEMS;
+    	chickenTemptItems.add(ModItems.CHILI_PEPPER_SEEDS);
+    	chickenTemptItems.add(ModItems.TOMATO_SEEDS);
+    	chickenTemptItems.add(Item.getItemFromBlock(ModBlocks.APPLE_SEEDS));
+    	chickenTemptItems.add(Item.getItemFromBlock(ModBlocks.GRAPE_STEM));
+    	
     	BookManager.init();
     }
     
@@ -93,6 +101,7 @@ public class CommonProxy {
     	if (FluidRegistry.isFluidRegistered("for.honey")) {
     		ItemFluidBottle.addFluid(FluidRegistry.getFluid("for.honey"));
     	}
+    	ItemFluidBottle.addFluid(ModFluids.GOLDEN_APPLE_JUICE);
     	ItemFluidBottle.addFluid(ModFluids.VANTA_OIL);
     	
     	ItemFluidBottle.addFluid(ModFluids.ALE);

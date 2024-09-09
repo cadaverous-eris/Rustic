@@ -25,6 +25,9 @@
 		}],
 		"honey": [{
 			"custom": { "fluid": "honey" }
+		}],
+		"goldenapplejuice": [{
+			"custom": { "fluid": "goldenapplejuice" }
 		}]
 	}
 }

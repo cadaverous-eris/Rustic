@@ -28,6 +28,7 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 import rustic.common.crafting.ICondenserRecipe;
 import rustic.common.crafting.Recipes;
 import rustic.common.util.ElixirUtils;
+import rustic.common.util.RusticUtils;
 import rustic.core.ClientProxy;
 import rustic.core.Rustic;
 
@@ -81,14 +82,13 @@ public class ItemElixir extends ItemBase implements IColoredItem {
 	        }
 		}
 
-		if (entityplayer != null && !entityplayer.capabilities.isCreativeMode) {
-			if (!entityplayer.inventory.addItemStackToInventory(new ItemStack(Items.GLASS_BOTTLE))) {
-				entityplayer.dropItem(new ItemStack(Items.GLASS_BOTTLE), false);
-			}
-		}
-		
-		if (entityplayer == null || !entityplayer.capabilities.isCreativeMode) {
+		if ((entityplayer == null) || !entityplayer.capabilities.isCreativeMode) {
 			stack.shrink(1);
+			if (stack.isEmpty()) {
+				return new ItemStack(Items.GLASS_BOTTLE);
+			} else if (entityplayer != null) {
+				RusticUtils.givePlayerItem(entityplayer, new ItemStack(Items.GLASS_BOTTLE));
+			}
 		}
 
 		return stack;

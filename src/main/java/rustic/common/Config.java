@@ -58,6 +58,7 @@ public class Config {
 	public static List<String> GRAPE_TOOL_WHITELIST = new ArrayList<String>();
 	public static boolean ENABLE_SEED_DROPS;
 	public static int SEED_DROP_RATE;
+	public static List<String> VANTA_OIL_WHITELIST = new ArrayList<String>();
 	public static int MIN_BREW_QUALITY_CHANGE;
 	public static int MAX_BREW_QUALITY_CHANGE;
 	public static int MAX_BREW_TIME;
@@ -121,6 +122,7 @@ public class Config {
 		GRAPE_TOOL_WHITELIST = Arrays.asList(cfg.getStringList("Grapeseed Tool Whitelist", CATEGORY_GENERAL, new String[] {"minecraft:iron_hoe", "minecraft:diamond_hoe"}, "add an item's registry name to this list to allow vines to drop grape seeds when broken with it\nput each item name on a new line, don't use commas\n"));
 		ENABLE_SEED_DROPS = cfg.getBoolean("Enable Seed Drops", CATEGORY_GENERAL, true, "set this to false to prevent any of Rustic's seeds from dropping from grass or vines");
 		SEED_DROP_RATE = cfg.getInt("Seed Drop Rate",CATEGORY_GENERAL, 7, 1, 100, "decrease this number to make seeds more difficult to find (10 is wheat seed rarity)");
+		VANTA_OIL_WHITELIST = Arrays.asList(cfg.getStringList("Vanta Oil Whitelist", CATEGORY_GENERAL, new String[] {"#stickWood", "minecraft:bone", "tconstruct:broadsword", "tconstruct:longsword", "tconstruct:rapier", "tconstruct:frypan", "tconstruct:battlesign", "tconstruct:cleaver"}, "add an item's registry name to this list to make it craftable with vanta oil and elixirs\nput each item name on a new line, don't use commas\n"));
 		MIN_BREW_QUALITY_CHANGE = cfg.getInt("Minimum Change To Brew Quality", CATEGORY_GENERAL, -1, -50, 50, "the minimum amount of increase that booze culture will provide to the new brew, in percent");
 		MAX_BREW_QUALITY_CHANGE = cfg.getInt("Maximum Change To Brew Quality", CATEGORY_GENERAL, 4, -50, 50, "the maximum amount of increase that booze culture will provide to the new brew, in percent");
 		MAX_BREW_TIME = cfg.getInt("Brewing Time", CATEGORY_GENERAL, 12000, 1200, 120000, "how long it should take for a brewing barrel to finish a brew, in ticks");
@@ -146,6 +148,7 @@ public class Config {
 		PROPERTY_ORDER_GENERAL.add("Minimum Change To Brew Quality");
 		PROPERTY_ORDER_GENERAL.add("Maximum Change To Brew Quality");
 		PROPERTY_ORDER_GENERAL.add("Brewing Time");
+		PROPERTY_ORDER_GENERAL.add("Vanta Oil Whitelist");
 		PROPERTY_ORDER_GENERAL.add("Enable Slate");
 		PROPERTY_ORDER_GENERAL.add("Enable Stone Pillars");
 		PROPERTY_ORDER_GENERAL.add("Enable Clay Walls");

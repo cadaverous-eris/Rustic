@@ -7,7 +7,6 @@ import org.lwjgl.opengl.GL11;
 import com.mojang.authlib.GameProfile;
 
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.entity.EntityPlayerSP;
 import net.minecraft.client.renderer.BufferBuilder;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.block.model.BakedQuad;
@@ -157,6 +156,22 @@ public class ClientUtils {
 					qualityColor + I18n.format("tooltip.rustic.quality." + tier + "." + qualityVariant),
 					String.format("%.0f%%", quality * 100)
 				);
+	}
+	
+	public static int getQualityLabelColor(float quality) {
+		if (quality >= 0.89999F) {
+			return 0xC29311; // highest tier, gold
+		} else if (quality >= 0.69999F) {
+			return 0x4A7ABD; // high tier, blue
+		} else if (quality >= 0.5F) {
+			return 0xDBD3BD; // high-ish tier, parchment
+		} else if (quality >= 0.35F) {
+			return 0xDBD3BD; // low-ish tier, parchment
+		} else if (quality >= 0.2F) {
+			return 0xBAA911; // low tier, yellow
+		} else {
+			return 0x222222; // lowest tier, black
+		}
 	}
 
 }

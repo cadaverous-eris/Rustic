@@ -59,6 +59,7 @@ public class BookManager {
 	
 	public static BookEntry alchemy;
 	public static BookEntry elixirs;
+	public static BookEntry vanta_oil;
 	public static BookEntry brewing;
 	public static BookEntry alcoholic_beverages;
 	public static BookEntry crushing;
@@ -120,6 +121,7 @@ public class BookManager {
 		
 		alchemy = new BookEntry("alchemy", production).setIcon(new ItemStack(ModBlocks.CONDENSER));
 		elixirs = new BookEntry("elixirs", production).setIcon(new ItemStack(ModItems.ELIXIR));
+		vanta_oil = new BookEntry("vanta_oil", production).setIcon(ModItems.FLUID_BOTTLE.getFilledBottle(ModFluids.VANTA_OIL));
 		brewing = new BookEntry("brewing", production).setIcon(new ItemStack(ModBlocks.BREWING_BARREL));
 		alcoholic_beverages = new BookEntry("alcoholic_beverages", production).setIcon(ModItems.FLUID_BOTTLE.getFilledBottle(ModFluids.WINE));
 		crushing = new BookEntry("crushing", production).setIcon(new ItemStack(ModBlocks.CRUSHING_TUB));
@@ -171,9 +173,12 @@ public class BookManager {
 		apple_trees.addPage(new BookPageText(apple_trees, "apple_trees").addRelatedEntries(crushing, brewing)).addPage(new BookPageText(apple_trees, "apple_trees_1").addRelatedEntries(crushing, brewing)).addPage(new BookPageText(apple_trees, "apple_juice").addRelatedEntries(crushing, brewing));
 		olive_trees.addPage(new BookPageText(olive_trees, "olive_trees").addRelatedEntries(crushing)).addPage(new BookPageText(olive_trees, "olive_oil").addRelatedEntries(crushing));
 		ironwood_trees.addPage(new BookPageText(ironwood_trees, "ironwood_trees").addRelatedEntries(crushing, drying, alchemy, brewing)).addPage(new BookPageText(ironwood_trees, "ironberry_juice").addRelatedEntries(crushing, drying, alchemy, brewing));
-		herbs.addPage(new BookPageText(herbs, "herbs").addRelatedEntries(alchemy)).addPage(new BookPageText(herbs, "aloe", "blood_orchid", "chamomile", "cloudsbluff", "cohosh").addRelatedEntries(alchemy)).addPage(new BookPageText(herbs, "core_root", "deathstalk", "ginseng", "horsetail", "marsh_mallow", "mooncap").addRelatedEntries(alchemy)).addPage(new BookPageText(herbs, "wind_thistle"));
+		herbs.addPage(new BookPageText(herbs, "herbs").addRelatedEntries(alchemy))
+		.addPage(new BookPageText(herbs, "aloe", "blood_orchid", "chamomile", "cloudsbluff", "cohosh").addRelatedEntries(alchemy))
+		.addPage(new BookPageText(herbs, "core_root", "deathstalk", "ginseng", "horsetail", "marsh_mallow", "mooncap").addRelatedEntries(alchemy))
+		.addPage(new BookPageText(herbs, "wind_thistle", "vanta_lily").addRelatedEntries(alchemy, crushing, vanta_oil));
 		
-		elixirs.addPage(new BookPageText(elixirs, "elixirs").addRelatedEntries(alchemy));
+		elixirs.addPage(new BookPageText(elixirs, "elixirs").addRelatedEntries(alchemy, vanta_oil));
 		alchemy.addPage(new BookPageText(alchemy, "alchemy").addRelatedEntries(elixirs, herbs, bees, chili_peppers, ironwood_trees))
 		.addPage(new BookPageText(alchemy, "alchemy_basic").addRelatedEntries(elixirs, herbs, bees, chili_peppers, ironwood_trees))
 		.addPage(new BookPageText(alchemy, "alchemy_basic_1").addRelatedEntries(elixirs, herbs, bees, chili_peppers, ironwood_trees))
@@ -181,6 +186,8 @@ public class BookManager {
 		.addPage(new BookPageText(alchemy, "alchemy_advanced").addRelatedEntries(elixirs, herbs, bees, chili_peppers, ironwood_trees))
 		.addPage(new BookPageText(alchemy, "alchemy_advanced_1").addRelatedEntries(elixirs, herbs, bees, chili_peppers, ironwood_trees))
 		.addPage(new BookPageText(alchemy, "alchemy_advanced_2").addRelatedEntries(elixirs, herbs, bees, chili_peppers, ironwood_trees));
+		vanta_oil.addPage(new BookPageText(vanta_oil, "vanta_oil_weapons").addRelatedEntries(herbs, crushing, elixirs))
+		.addPage(new BookPageText(vanta_oil, "vanta_oil_weapons_1").addRelatedEntries(herbs, crushing, elixirs));
 		alcoholic_beverages.addPage(new BookPageText(alcoholic_beverages, "alcoholic_beverages").addRelatedEntries(brewing, bees, ironwood_trees, apple_trees, grapes, wildberries))
 		.addPage(new BookPageText(alcoholic_beverages, "alcoholic_beverages_1").addRelatedEntries(brewing, bees, ironwood_trees, apple_trees, grapes, wildberries))
 		.addPage(new BookPageText(alcoholic_beverages, "alcoholic_beverages_2").addRelatedEntries(brewing, bees, ironwood_trees, apple_trees, grapes, wildberries))

@@ -2,7 +2,7 @@
 {
   "modid": "rustic",
   "name": "Rustic",
-  "description": "A medieval themed Minecraft mod based around decoration, exploration, and agriculture.",
+  "description": "A medieval themed Minecraft mod based around decoration, exploration, agriculture, and alchemy.",
   "version": "${version}",
   "mcversion": "${mcversion}",
   "url": "https://github.com/cadaverous-eris/Rustic",

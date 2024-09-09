@@ -5,8 +5,12 @@ itemGroup.rustic.alchemy=Rustic Alchemy
 
 #Tooltips
 tooltip.rustic.olive_oil=Olive Oiled
+tooltip.rustic.vanta_oil=Vanta Oiled:
+tooltip.rustic.vanta_oil_use=%s use remaining
+tooltip.rustic.vanta_oil_uses=%s uses remaining
 tooltip.rustic.empty=Empty
 tooltip.rustic.quality.desc=Quality: %s §8[%s]
+tooltip.rustic.drinkable=Drinkable
 #Quality - Highest
 tooltip.rustic.quality.highest.0=Heavenly
 tooltip.rustic.quality.highest.1=Exceptional
@@ -241,7 +245,9 @@ tile.rustic.ale_wort.name=Ale Wort
 fluid.alewort=Ale Wort
 tile.rustic.honey.name=Honey
 fluid.honey=Honey
-tile.rustic.vantaoil.name=Vanta Oil
+tile.rustic.golden_apple_juice.name=Golden Apple Juice
+fluid.goldenapplejuice=Golden Apple Juice
+tile.rustic.vanta_oil.name=Vanta Oil
 fluid.vantaoil=Vanta Oil
 
 fluid.ale=Ale
@@ -287,7 +293,7 @@ advancements.rustic.max_drunk=No Ragrets
 advancements.rustic.max_drunk.desc=Reach dangerous levels of inebriation
 
 
-#JEI Categories
+#JEI
 rustic.jei.recipe.crushing_tub=Crushing Tub
 rustic.jei.recipe.evaporating=Drying Basin
 rustic.jei.recipe.simple_alchemy=Simple Alchemy
@@ -295,7 +301,7 @@ rustic.jei.recipe.advanced_alchemy=Advanced Alchemy
 rustic.jei.recipe.brewing=Brewing Barrel
 
 #Book
-book.rustic.entry.categories=Almanac Index
+book.rustic.entry.categories=Index
 
 book.rustic.category.decoration=Decoration
 book.rustic.category.agriculture=Agriculture
@@ -334,6 +340,7 @@ book.rustic.entry.herbs=Herbs
 
 book.rustic.entry.alchemy=Alchemy
 book.rustic.entry.elixirs=Elixirs
+book.rustic.entry.vanta_oil=Vanta Oil
 book.rustic.entry.brewing=Brewing
 book.rustic.entry.alcoholic_beverages=Alcoholic Beverages
 book.rustic.entry.crushing=Crushing
@@ -353,8 +360,8 @@ book.rustic.text.lattice=Lattice is a decorative block. It will connect to adjac
 book.rustic.text.tables=Tables are decorative blocks. The planks used in crafting affect the type of table you get. Tables connect to adjacent tables so that only the corners of connected tables have legs.
 book.rustic.text.chairs=Chairs are decorative blocks. The planks used in crafting affect the type of chair you get. Right-clicking a chair will allow you to sit in it, and sneaking will allow you to dismount.
 book.rustic.text.gargoyles=Gargoyles are statues of monstrous creatures. They can be oriented in an of the four cardinal directions.
-book.rustic.text.slate=Slate is a stone variant that spawns throughout the overworld. It can be crafted into a variety of decorative building blocks, but is most known as a material to make rooves out of.
-book.rustic.text.slate_alt_nether=Slate is a stone variant that spawns throughout the nether. It can be crafted into a variety of decorative building blocks, but is most known as a material to make rooves out of.
+book.rustic.text.slate=Slate is a stone variant that spawns throughout the overworld. It can be crafted into a variety of decorative building blocks, but is most known as a material to make roofs out of.
+book.rustic.text.slate_alt_nether=Slate is a stone variant that spawns throughout the nether. It can be crafted into a variety of decorative building blocks, but is most known as a material to make roofs out of.
 book.rustic.text.pillars=Stone pillars can be crafted from a variety of stone types, and can be placed along any of the three axes.
 book.rustic.text.clay_walls=Clay walls make for an attractive building material. There are three different clay wall blocks, each with a different support beam pattern.
 book.rustic.text.painted_wood=Wood planks can be painted sixteen different colors to give your constructions more visual flavor.
@@ -368,7 +375,7 @@ book.rustic.text.crop_stakes=Crop Stakes are wooden poles used to support the gr
 book.rustic.text.tomatoes=Tomatoes are the fruit of tomato plants, which can be grown on crop stakes. Tomato seeds can be found by breaking tall grass, and can be planted by interacting with a crop stake with the seeds in hand. The seeds can only be planted on crop stakes that are above farmland or fertile soil. Tomato seeds will then grow into vines, which will eventually grow tomatoes.
 book.rustic.text.tomatoes_1=Tomato vines can grow upwards onto crop stakes, but only up to a height of three blocks tall. Tomatoes can be harvested from fully grown tomato vines by interacting with a fully grown vine, or by breaking the vine. It is better not to break the vine, however, because broken vines will have to grow back before producing more tomatoes. Tomatoes can be eaten, but they can also be thrown (sneak while using), which has been known to induce shame in victims.
 book.rustic.text.chili_peppers=Chili peppers are the fruit of chili pepper plants, which can be grown on crop stakes. Chili Pepper seeds can be found by breaking tall grass, and can be planted by interacting with a crop stake with the seeds in hand. The seeds can only be planted on crop stakes that are above farmland or fertile soil. When mature, chili pepper plants produce chili peppers. When the plant has chili peppers, it can also grow upward onto crop stakes, but only up to a height of 2 blocks tall.
-book.rustic.text.chili_peppers_1=Chili peppers can be harvested from mature plants by interacting with or breaking the plant. It is better not to break the plant, as broken plants will need to regrow before bearing more chili peppers. Chili peppers can be eaten, but doing so will cause some fire damage due to the spiciness of the crop. However, eating them also gives a short buff to the consumer's speed. Chili peppers can also be used as an alchemy ingredient.
+book.rustic.text.chili_peppers_1=Chili peppers can be harvested from mature plants by interacting with or breaking the plant. It is better not to break the plant, as broken plants will need to regrow before bearing more chili peppers. Chili peppers can be eaten, and while the spiciness of the crop may occasionally be burn you, it also gives a short buff to your speed. Chili peppers can also be used as an alchemy ingredient.
 book.rustic.text.wildberries=Wildberries come from wildberry bushes. Wildberry bushes spawn naturally throughout the overworld in warm, but not dry climates. Wildberries can be harvested from fully grown bushes by interacting with the bush. Breaking the bush also works, but then the bush must be replaced.
 book.rustic.text.wildberries_1=Wildberry bushes will not reproduce naturally, but bonemeal can be applied to make them spread. Wildberries can be eaten, but they are not very filling. However, they can be eaten faster than normal foods, and they grow very quickly.
 book.rustic.text.wildberry_juice=Crushing wildberries in a crushing tub yields the berries' juice. When drank from a bottle, wildberry juice fills some hunger and saturation, with a chance of providing a regeneration buff, and a smaller chance of poisoning the consumer. Wildberry juice can also be brewed into wildberry wine.
@@ -381,7 +388,7 @@ book.rustic.text.apple_juice=Apple juice is produced along with apple seeds from
 book.rustic.text.olive_trees=Olive trees grow naturally in the overworld in forests, plains, and mountains, but not in places where it can snow. The logs can be crafted into olive wood planks, which can be used to make olive wood variants of many wood blocks. Olive leaves drop olive saplings and olives. Raw, unprocessed olives should not be consumed, as they contain some harmful toxins.
 book.rustic.text.olive_oil=Crushing olives in a crushing tub yields olive oil. Olive oil is much to flavorful to be consumed by itself, it is much better to combine it with food items in a crafting table. Doing so will add the olive oil to the food, which makes the food more filling and more saturating. Olive oil can be applied to virtually any food.
 book.rustic.text.ironwood_trees=Ironwood Trees grow naturally in the overworld in forests, plains, mountains, swamps, and jungles. They do not grow naturally in dry biomes. The logs can be crafted into ironwood planks, which can be used to make ironwood variants of many wood blocks. Ironwood leaves drop ironwood saplings and ironberries.
-book.rustic.text.ironberry_juice=Ironberry Juice come from crushing ironberries in a crushing tub. It can be drank, if stored in a bottle, but doing so paralyzes the consumer. Ironberry juice is better used for brewing iron wine, or for getting iron dust.
+book.rustic.text.ironberry_juice=Ironberry Juice comes from crushing ironberries in a crushing tub. It can be drank, if stored in a bottle, but doing so paralyzes the consumer. Ironberry juice is better used for brewing iron wine, or for getting iron dust.
 book.rustic.text.iron_dust=Leaving ironberry juice in a drying basin will slowly produce tiny piles of iron dust. These piles can be smelted into iron nuggets.
 book.rustic.text.herbs=Herbs spawn naturally throughout the overworld and nether in a variety of different climates. Some Herbs are edible, and all herbs can be used as ingredients or modifiers in alchemy. Once gathered, all herbs can be planted as crops and regrown.
 book.rustic.text.aloe=Aloe vera spawns in sandy biomes, savanna biomes, and mesa biomes.
@@ -396,6 +403,7 @@ book.rustic.text.horsetail=Horsetail spawns in jungle, swamp, plains and forest 
 book.rustic.text.marsh_mallow=Marsh mallow spawns in jungle and swamp biomes. It is edible.
 book.rustic.text.mooncap=Mooncap mushroom spawns in jungle biomes and caves.
 book.rustic.text.wind_thistle=Wind thistle spawns in mountain and plains biomes.
+book.rustic.text.vanta_lily=Vanta lily spawns in plains and forest biomes. It can be crushed into vanta oil.
 
 book.rustic.text.elixirs=Elixirs are magical concoctions created through alchemy in condensers. They are very similar in nature to potions, however they can be stacked up to sixteen, and they cannot be crafted with arrows, or made into splash or lingering variants.
 book.rustic.text.alchemy=Alchemy is the process of brewing elixirs in condensers. Alchemy is done in condensers, which are require retorts to be attached to them. Creating elixirs requires water, a glass bottle, ingredients (and optionally modifiers), as well as fuel to operate the condenser. Any furnace fuel should work.
@@ -405,9 +413,11 @@ book.rustic.text.alchemy_basic_2=The slot in the bottom-middle of the gui is for
 book.rustic.text.alchemy_advanced=Advanced condensers are very similar to their more basic counterpart, but they have a few key differences. First, instead of regular retorts, they require advanced retorts, and they need three advanced retorts attached to them in order to operate. The advanced retorts must be attached on the bottom half of the advanced condenser, on the left, right, and back sides, relative to the direction the advanced condenser is facing.
 book.rustic.text.alchemy_advanced_1=Advanced condensers can also be used to create elixirs with up to three ingredients, as well as another ingredient called a modifier. Modifiers can optionally be added to most recipes, and they can change certain aspects of the resulting elixir. In the advanced condenser's GUI, modifiers can be added in the slot located in the top-middle of the interface, directly above the fuel slot. The GUI also has a third ingredient slot, over the basic condenser's two.
 book.rustic.text.alchemy_advanced_2=Finally, advanced condensers are moderatley faster than basic ones. Any elixir that can be made in a basic condenser can also be made in an advanced condenser.
-book.rustic.text.alcoholic_beverages=Alcoholic beverages, or booze, can be created by brewing certain fluids in a brewing barrel. Such beverages can provide unique and poweful effects if used correctly, but can otherwise lead to disastrous consequences. All booze has a quality between 0 and 1. Drinking booze with a quality of at least 0.5 will have a positive effect, and drinking booze with a quality below 0.5 will have negative effects.
+book.rustic.text.vanta_oil_weapons=Vanta oil can be acquired by crushing vanta lilies. It can be crafted with most melee weapons along with any number of the same type of elixir or potion to imbue the weapon with the effect of the elixirs or potions it was crafted with. Striking another creature with an oiled weapon will use of some of the weapon's oil to apply the imbued effect onto the target.
+book.rustic.text.vanta_oil_weapons_1=Effects that are not instant will be applied for ~15 seconds per hit, and subsequent blows will add on to the duration of the applied effect. You can add more oil to an already oiled weapon by crafting it with more vanta oil and more elixirs or potions with the same effect.
+book.rustic.text.alcoholic_beverages=Alcoholic beverages, or booze, can be created by brewing certain fluids in a brewing barrel. Such beverages can provide unique and powerful effects if used correctly, but can otherwise lead to disastrous consequences. All booze has a quality between 0 and 1. Drinking booze with a quality of at least 0.5 will have a positive effect, and drinking booze with a quality below 0.5 will have negative effects.
 book.rustic.text.alcoholic_beverages_1=The strength or duration of either sort of effect is relative to the quality of the booze, with the strength/duration increasing as the quality approaches 0 or 1. If you aquire booze with a quality below 0.5, it is best so simply dispose of it. For convenience, simply placing a bottle of booze in a crafting table will return an empty glass bottle.
-book.rustic.text.alcoholic_beverages_2=Regardless of the quality of your drink, there is always a chance that drinking alcohol beverages will inebriate you. Inebriation is a debuff, but it cannot be cured with milk. Continuing to drink while inebriated can increase the duration and severity of the effect. An inebriation debuff of level I or II, will do nothing. At level III, the debuff will continuously inflict slowness I and blindness I on it's victim. At level IV, it inflicts slowness II, blindess I, and nausea II.
+book.rustic.text.alcoholic_beverages_2=Regardless of the quality of your drink, there is always a chance that drinking alcohol beverages will inebriate you. Inebriation is a debuff, but it cannot be cured with milk. Continuing to drink while inebriated can increase the duration and severity of the effect. An inebriation debuff of level I or II, will do nothing. At level III, the debuff will continuously inflict slowness I and blindness I on it's victim. At level IV, it inflicts slowness II, blindness I, and nausea II.
 book.rustic.text.ale=Ale is a very saturating drink, and it applies the Full Stomach effect, which decreases damage taken from starvation.
 book.rustic.text.ale_wort=Ale is brewed with ale wort, which is made by combining a water bucket, bread, and sugar in a crafting table.
 book.rustic.text.cider=Cider applies magic resistance effect, which reduces damage taken from magical sources, including poison.
@@ -416,12 +426,12 @@ book.rustic.text.mead=Mead applies the wither ward effect, which reduces damage 
 book.rustic.text.wildberry_wine=Wildberry wine increases the level of all positive effects, up to level III.
 book.rustic.text.wine=Wine increases the duration of all positive effects by up to ten minutes.
 book.rustic.text.brewing=Brewing is the process of fermenting fluids to get alcohol, and it is done with a brewing barrel. The brewing process involves up to three fluids: the input, the output, and optionally the starter culture fluid. Starter culture fluid can only be added to a recipe if it is the same type of fluid as the recipe's output. A brewing barrel's interface has three tanks for holding these fluids, as well as a slot above and below each tank.
-book.rustic.text.brewing_1=The slots above the tanks are used for inputing and/or outputing from each tank by placing either full or empty fluid containers, like buckets or bottles, inside of them. The barrel will attempt to fill tanks from full fluid containers, and empty tanks into empty containers. The result of either interaction appears in the slot beneath the relevant tank. The tank in the middle of the interface is for inputs, the tank on the right is for outputs.
+book.rustic.text.brewing_1=The slots above the tanks are used for inputing and/or outputting from each tank by placing either full or empty fluid containers, like buckets or bottles, inside of them. The barrel will attempt to fill tanks from full fluid containers, and empty tanks into empty containers. The result of either interaction appears in the slot beneath the relevant tank. The tank in the middle of the interface is for inputs, the tank on the right is for outputs.
 book.rustic.text.brewing_2=The tank on the left is for starter culture fluids.
 book.rustic.text.brewing_3=The brewing process takes half of a day (10 minutes), and will commence as soon as any amount of valid fluid is in the input tank, as long as either the starter culture tank is empty, or the fluid in the starter culture tank is valid for the input's recipe. Brewing without any fluid in the starter culture tank will produce an output with a random quality between 0.05 and 0.75.
 book.rustic.text.brewing_4=Brewing with some pre-brewed booze in the starter culture tank can negate most of the randomness, and will insure that the quality of the output is no less than the quality of the starter culture booze minus 0.01, and no greater than the quality of the starter culture booze plus 0.04. For example, putting honey in the input tank and mead with a quality of 0.7 in the starter culture tank will produce mead with a quality between 0.69 and 0.74.
 book.rustic.text.brewing_5=Fluid in the starter culture tank is not consumed in the brewing process.
-book.rustic.text.brewing_6=The best way to go about brewing is to continue making booze with random qualities until you get something with a quality around 0.5, although higher is better. Then, use that as a starter culture for the next batch, and if the product of that is of a greater quality than the preivious batch, use the new stuff as a starter culture for another batch, and so forth, until a satisfactory quality has been achieved.
+book.rustic.text.brewing_6=The best way to go about brewing is to continue making booze with random qualities until you get something with a quality around 0.5, although higher is better. Then, use that as a starter culture for the next batch, and if the product of that is of a greater quality than the previous batch, use the new stuff as a starter culture for another batch, and so forth, until a satisfactory quality has been achieved.
 book.rustic.text.crushing=Crushing tubs are used to crush solids into liquids. They can hold up to one stack of items, and up to eight buckets of liquid. To use a crushing tub, place it in the world an insert items into it by interacting with the block with items in hand. Remove items by interacting with the tub with an empty hand. Once a tub has items inside, if the items are a valid recipe, jumping on the tub will crush the items into their corresponding fluid, one at a time.
 book.rustic.text.crushing_1=If the tub is too full of fluid, crushing will not occur. If necessary, you can void all fluid contained in the tub by interacting with the block with an empty hand while sneaking. Some crushing recipes produce both fluid and items. If a recipe has an item byproduct, then the item will appear in the world above the tub when crushing occurs.
 book.rustic.text.drying=Drying basins are used to extract items from fluids through evaporation. They can hold up to one stack of items, and up to six buckets of liquid. To use an evaporation basin, place it in the world. Then, insert fluid into it by interacting with the block with a filled bucket in hand. Remove fluid by interacting with the block with an empty bucket in hand, or by interacting with the basin with an empty hand while sneaking, which destroys any fluid in the basin.

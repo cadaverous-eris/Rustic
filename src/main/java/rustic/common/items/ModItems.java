@@ -126,9 +126,11 @@ public class ModItems {
 			private Random rand = new Random();
 			@Override
 			protected void onFoodEaten(ItemStack stack, World worldIn, EntityPlayer player) {
-				if (!worldIn.isRemote && (rand.nextInt(24) == 0)) {
-					player.attackEntityFrom(DamageSource.ON_FIRE, 1.0F);
+				if (!worldIn.isRemote) {
 					player.addPotionEffect(new PotionEffect(MobEffects.SPEED, 400));
+					if (rand.nextInt(24) == 0) {						
+						player.attackEntityFrom(DamageSource.ON_FIRE, 1.0F);
+					}
 				}
 			}
 		};

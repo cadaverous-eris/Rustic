@@ -43,6 +43,7 @@ public class RusticJEIPlugin implements IModPlugin {
 		if (Config.ENABLE_OLIVE_OILING) {
 			reg.addRecipes(OliveOilRecipeMaker.getOliveOilRecipes(), VanillaRecipeCategoryUid.CRAFTING);
 		}
+		reg.addRecipes(VantaOilRecipeWrapper.getVantaOilRecipes(), VanillaRecipeCategoryUid.CRAFTING);
 		
 		reg.addRecipes(CabinetRecipeWrapper.getCabinetRecipes(), VanillaRecipeCategoryUid.CRAFTING);
 		

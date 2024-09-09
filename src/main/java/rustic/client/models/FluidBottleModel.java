@@ -47,6 +47,7 @@ import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.capability.templates.FluidHandlerItemStack;
+import rustic.common.blocks.fluids.FluidBooze;
 import rustic.core.Rustic;
 
 public class FluidBottleModel implements IModel {
@@ -64,17 +65,27 @@ public class FluidBottleModel implements IModel {
 	@Nullable
 	private final ResourceLocation bottleLocation;
 	@Nullable
+	private final ResourceLocation labelLocation;
+	@Nullable
 	private final Fluid fluid;
 
 	public FluidBottleModel() {
 		liquidLocation = new ResourceLocation("minecraft", "items/potion_overlay");
 		bottleLocation = new ResourceLocation("minecraft", "items/potion_bottle_drinkable");
+		labelLocation = null;
 		fluid = null;
 	}
 
 	public FluidBottleModel(Fluid fluid) {
-		liquidLocation = new ResourceLocation("minecraft", "items/potion_overlay");
-		bottleLocation = new ResourceLocation("minecraft", "items/potion_bottle_drinkable");
+		if ((fluid != null) && (fluid instanceof FluidBooze)) {
+			liquidLocation = new ResourceLocation(Rustic.MODID, "items/alcohol_overlay");
+			bottleLocation = new ResourceLocation(Rustic.MODID, "items/alcohol_bottle");
+			labelLocation = new ResourceLocation(Rustic.MODID, "items/alcohol_label");
+		} else {
+			liquidLocation = new ResourceLocation("minecraft", "items/potion_overlay");
+			bottleLocation = new ResourceLocation("minecraft", "items/potion_bottle_drinkable");
+			labelLocation = null;
+		}
 		this.fluid = fluid;
 	}
 
@@ -115,6 +126,8 @@ public class FluidBottleModel implements IModel {
 			builder.add(liquidLocation);
 		if (bottleLocation != null)
 			builder.add(bottleLocation);
+		if (labelLocation != null)
+			builder.add(labelLocation);
 		return builder.build();
 	}
 
@@ -144,6 +157,13 @@ public class FluidBottleModel implements IModel {
 					NORTH_Z_FLUID, EnumFacing.NORTH, fluid.getColor()));
 			builder.addAll(ItemTextureQuadConverter.convertTexture(format, transform, liquid, fluidSprite,
 					SOUTH_Z_FLUID, EnumFacing.SOUTH, fluid.getColor()));
+		}
+		
+		if (labelLocation != null) {
+			//IBakedModel model = (new ItemLayerModel(ImmutableList.of(labelLocation))).bake(state, format, bakedTextureGetter);
+			//builder.addAll(model.getQuads(null, null, 0));
+			TextureAtlasSprite labelSprite = bakedTextureGetter.apply(labelLocation);
+			builder.addAll(ItemLayerModel.getQuadsForSprite(2, labelSprite, format, Optional.of(transform)));
 		}
 
 		return new BakedFluidBottle(this, builder.build(), fluidSprite, format, Maps.immutableEnumMap(transformMap),

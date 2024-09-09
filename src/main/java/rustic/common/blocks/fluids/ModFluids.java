@@ -6,8 +6,10 @@ import java.util.List;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.MobEffects;
+import net.minecraft.item.EnumRarity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.DamageSource;
@@ -28,6 +30,7 @@ public class ModFluids {
 	public static Fluid APPLE_JUICE;
 	public static Fluid ALE_WORT;
 	public static Fluid HONEY;
+	public static Fluid GOLDEN_APPLE_JUICE;
 	
 	public static Fluid VANTA_OIL;
 	
@@ -47,6 +50,7 @@ public class ModFluids {
 	public static BlockFluidRustic BLOCK_APPLE_JUICE;
 	public static BlockFluidRustic BLOCK_ALE_WORT;
 	public static BlockFluidRustic BLOCK_HONEY;
+	public static BlockFluidRustic BLOCK_GOLDEN_APPLE_JUICE;
 
 	public static void init() {
 		OLIVE_OIL = new FluidDrinkable("oliveoil", new ResourceLocation("rustic:blocks/fluids/olive_oil_still"),
@@ -137,6 +141,23 @@ public class ModFluids {
 			}
 		}.setDensity(1433).setViscosity(5500);
 		register(HONEY);
+		
+		GOLDEN_APPLE_JUICE = new FluidDrinkable("goldenapplejuice", new ResourceLocation("rustic:blocks/fluids/golden_apple_juice_still"),
+				new ResourceLocation("rustic:blocks/fluids/golden_apple_juice_flow")) {
+			@Override
+			public void onDrank(World world, EntityPlayer player, ItemStack stack, FluidStack fluid) {
+				player.getFoodStats().addStats(3, 1.8F);
+				player.addPotionEffect(new PotionEffect(MobEffects.REGENERATION, 400, 1));
+                player.addPotionEffect(new PotionEffect(MobEffects.RESISTANCE, 6000, 0));
+                player.addPotionEffect(new PotionEffect(MobEffects.FIRE_RESISTANCE, 6000, 0));
+                player.addPotionEffect(new PotionEffect(MobEffects.ABSORPTION, 2400, 3));
+			}
+			@Override
+			public EnumRarity getRarity() {
+				return EnumRarity.EPIC;
+			}
+		}.setDensity(1050).setViscosity(1100);
+		register(GOLDEN_APPLE_JUICE);
 		
 		VANTA_OIL = new FluidDrinkable("vantaoil", new ResourceLocation("rustic:blocks/fluids/vanta_oil_still"),
 				new ResourceLocation("rustic:blocks/fluids/vanta_oil_flow")) {
@@ -314,6 +335,17 @@ public class ModFluids {
 			}
 		};
 		BLOCK_HONEY.setQuantaPerBlock(2);
+		
+		BLOCK_GOLDEN_APPLE_JUICE = new BlockFluidRustic("golden_apple_juice", GOLDEN_APPLE_JUICE, Material.WATER) {
+			@Override
+			public void onEntityCollidedWithBlock(World world, BlockPos pos, IBlockState state, Entity entity) {
+				if ((entity != null) && (entity instanceof EntityLivingBase) && ((entity.ticksExisted % 10) == 0)) {
+					EntityLivingBase e = (EntityLivingBase) entity;
+					e.addPotionEffect(new PotionEffect(MobEffects.REGENERATION, 100, 0, true, true));
+				}
+			}
+		};
+		BLOCK_GOLDEN_APPLE_JUICE.setQuantaPerBlock(6);
 	}
 
 	public static void initModels() {
@@ -324,6 +356,7 @@ public class ModFluids {
 		BLOCK_APPLE_JUICE.initModel();
 		BLOCK_ALE_WORT.initModel();
 		BLOCK_HONEY.initModel();
+		BLOCK_GOLDEN_APPLE_JUICE.initModel();
 	}
 
 	private static void register(Fluid fluid) {

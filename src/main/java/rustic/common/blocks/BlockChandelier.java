@@ -59,23 +59,8 @@ public class BlockChandelier extends BlockFallingBase {
 	@Override
 	protected void onStartFalling(EntityFallingBlock fallingEntity) {
 		fallingEntity.setHurtEntities(true);
-		for (Field field : fallingEntity.getClass().getDeclaredFields()) {
-			if (field.getName().equals("fallHurtMax") || field.getName().equals("field_145815_h")) {
-				field.setAccessible(true);
-				try {
-					field.setInt(fallingEntity, 400);
-				} catch (IllegalArgumentException | IllegalAccessException e) {
-					Rustic.logger.warn("Error setting falling chandelier maximum damage with reflection", e);
-				}
-			} else if (field.getName().equals("fallHurtAmount") || field.getName().equals("field_145816_i")) {
-				field.setAccessible(true);
-				try {
-					field.setFloat(fallingEntity, 6F);
-				} catch (IllegalArgumentException | IllegalAccessException e) {
-					Rustic.logger.warn("Error setting falling chandelier damage with reflection", e);
-				}
-			}
-		}
+		fallingEntity.fallHurtMax = 400;
+		fallingEntity.fallHurtAmount = 6.0F;
 	}
 
 	@Override

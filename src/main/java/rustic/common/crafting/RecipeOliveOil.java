@@ -19,7 +19,7 @@ import rustic.common.blocks.fluids.ModFluids;
 import rustic.common.items.ModItems;
 
 public class RecipeOliveOil extends net.minecraftforge.registries.IForgeRegistryEntry.Impl<IRecipe> implements IRecipe {
-
+	
 	private int foodSlot = 0;
 
 	@Override

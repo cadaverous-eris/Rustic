@@ -10,10 +10,12 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagByte;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.capability.templates.FluidHandlerItemStack;
 import rustic.common.blocks.fluids.ModFluids;
 import rustic.common.items.ModItems;
+import rustic.core.Rustic;
 
 public class OliveOilRecipeWrapper extends BlankRecipeWrapper implements ICraftingRecipeWrapper {
 	
@@ -40,6 +42,11 @@ public class OliveOilRecipeWrapper extends BlankRecipeWrapper implements ICrafti
 	public void getIngredients(IIngredients ingredients) {
 		ingredients.setInputs(ItemStack.class, this.inputs);
 		ingredients.setOutput(ItemStack.class, this.output);
+	}
+	
+	@Override
+	public ResourceLocation getRegistryName() {
+		return new ResourceLocation(Rustic.MODID, "olive_oiling");
 	}
 
 }

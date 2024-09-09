@@ -1,6 +1,7 @@
 package rustic.common.blocks;
 
 import net.minecraft.block.SoundType;
+import net.minecraft.block.material.MapColor;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.BlockFaceShape;
 import net.minecraft.block.state.IBlockState;
@@ -16,8 +17,21 @@ import rustic.common.blocks.crops.BlockGrapeLeaves;
 
 public class BlockRope extends BlockRopeBase {
 
+	public static class MaterialRope extends Material {
+		public MaterialRope() {
+			this(MapColor.CLOTH);
+		}
+		public MaterialRope(MapColor mapColor) {
+			super(mapColor);
+			this.setBurning();
+			this.setNoPushMobility();
+		}
+	}
+	
+	public static final Material MATERIAL_ROPE = new MaterialRope();
+	
 	public BlockRope(String name) {
-		super(Material.CLOTH, name, true);
+		super(MATERIAL_ROPE, name, true);
 		setHardness(0.5F);
 		setSoundType(SoundType.CLOTH);
 		this.setDefaultState(this.blockState.getBaseState().withProperty(AXIS, EnumFacing.Axis.Y));

@@ -435,6 +435,10 @@ public class Recipes {
 			GameRegistry.findRegistry(IRecipe.class).register(new RecipeOliveOil().setRegistryName(new ResourceLocation(Rustic.MODID, "olive_oiling")));
 		}
 		
+		RecipeSorter.register("rustic:vanta_oil", RecipeVantaOil.class, RecipeSorter.Category.SHAPELESS,
+				"after:minecraft:shapeless");
+		GameRegistry.findRegistry(IRecipe.class).register(new RecipeVantaOil().setRegistryName(new ResourceLocation(Rustic.MODID, "vanta_oiling")));
+		
 		if (Loader.isModLoaded("dynamictrees")) {
 			GameRegistry.addShapelessRecipe(new ResourceLocation(Rustic.MODID, "oliveseed"), null, new ItemStack(DynamicTreesCompat.getOliveSeed()), Ingredient.fromItem(ModItems.OLIVES));
 			GameRegistry.addShapelessRecipe(new ResourceLocation(Rustic.MODID, "ironwoodseed"), null, new ItemStack(DynamicTreesCompat.getIronwoodSeed()), Ingredient.fromItem(ModItems.IRONBERRIES));
@@ -507,6 +511,13 @@ public class Recipes {
 		}
 		crushingTubRecipes
 				.add(new CrushingTubRecipe(new FluidStack(ModFluids.HONEY, 250), new ItemStack(ModItems.HONEYCOMB)));
+		if (!Loader.isModLoaded("dynamictrees")) {
+			crushingTubRecipes.add(new CrushingTubRecipe(new FluidStack(ModFluids.GOLDEN_APPLE_JUICE, 100), new ItemStack(Items.GOLDEN_APPLE, 1, 0), new ItemStack(ModBlocks.APPLE_SEEDS)));
+			crushingTubRecipes.add(new CrushingTubRecipe(new FluidStack(ModFluids.GOLDEN_APPLE_JUICE, 1000), new ItemStack(Items.GOLDEN_APPLE, 1, 1), new ItemStack(ModBlocks.APPLE_SEEDS)));
+		} else {
+			crushingTubRecipes.add(new CrushingTubRecipe(new FluidStack(ModFluids.GOLDEN_APPLE_JUICE, 100), new ItemStack(Items.GOLDEN_APPLE, 1, 0), new ItemStack(DynamicTreesCompat.getAppleSeed())));
+			crushingTubRecipes.add(new CrushingTubRecipe(new FluidStack(ModFluids.GOLDEN_APPLE_JUICE, 1000), new ItemStack(Items.GOLDEN_APPLE, 1, 1), new ItemStack(DynamicTreesCompat.getAppleSeed())));
+		}
 		crushingTubRecipes
 			.add(new CrushingTubRecipe(new FluidStack(ModFluids.VANTA_OIL, 250), new ItemStack(Herbs.VANTA_LILY)));
 	}

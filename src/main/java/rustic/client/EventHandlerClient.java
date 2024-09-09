@@ -72,7 +72,9 @@ import rustic.common.blocks.fluids.ModFluids;
 import rustic.common.network.MessageVaseMeta;
 import rustic.common.network.PacketHandler;
 import rustic.common.potions.PotionsRustic;
+import rustic.common.util.ElixirUtils;
 import rustic.core.ClientProxy;
+import rustic.core.Rustic;
 
 public class EventHandlerClient {
 
@@ -92,6 +94,8 @@ public class EventHandlerClient {
 			"rustic:textures/blocks/fluids/ale_wort_overlay.png");
 	public static ResourceLocation HONEY_OVERLAY = new ResourceLocation(
 			"rustic:textures/blocks/fluids/honey_overlay.png");
+	public static ResourceLocation GOLDEN_APPLE_JUICE_OVERLAY = new ResourceLocation(
+			"rustic:textures/blocks/fluids/golden_apple_juice_overlay.png");
 	
 	public static ResourceLocation FULLMETAL_OVERLAY = new ResourceLocation(
 			"rustic:textures/misc/fullmetal_overlay.png");
@@ -103,7 +107,19 @@ public class EventHandlerClient {
 	public void onTextureStitchPre(TextureStitchEvent.Pre event) {
 		FluidClientUtil.initTextures(event.getMap());
 	}
-
+	
+	@SideOnly(Side.CLIENT)
+	@SubscribeEvent
+	public void onTextureStitch(TextureStitchEvent event) {
+		ResourceLocation liquidLocation = new ResourceLocation(Rustic.MODID, "items/alcohol_overlay");
+		ResourceLocation bottleLocation = new ResourceLocation(Rustic.MODID, "items/alcohol_bottle");
+		ResourceLocation labelLocation = new ResourceLocation(Rustic.MODID, "items/alcohol_label");
+		
+		event.getMap().registerSprite(liquidLocation);
+		event.getMap().registerSprite(bottleLocation);
+		event.getMap().registerSprite(labelLocation);
+	}
+	
 	@SideOnly(Side.CLIENT)
 	@SubscribeEvent
 	public void onModelBakeEvent(ModelBakeEvent event) {
@@ -175,6 +191,18 @@ public class EventHandlerClient {
 					TextFormatting.DARK_GREEN + "" + TextFormatting.ITALIC + I18n.format("tooltip.rustic.olive_oil"));
 		}
 	}
+	
+	@SideOnly(Side.CLIENT)
+	@SubscribeEvent
+	public void onVantaOilTooltip(ItemTooltipEvent event) {
+		ItemStack stack = event.getItemStack();
+		PotionEffect effect = ElixirUtils.getVantaOilEffect(stack);
+		if (effect != null) {
+			//System.out.println("tooltip[0]: " + event.getToolTip().get(0));
+			ElixirUtils.addVantaOilTooltip(stack, effect, event.getToolTip());
+		}
+		//if (stack.hasTagCompound()) event.getToolTip().add(TextFormatting.DARK_GRAY + stack.getTagCompound().toString());
+	}
 
 	@SideOnly(Side.CLIENT)
 	@SubscribeEvent
@@ -185,6 +213,7 @@ public class EventHandlerClient {
 				FluidStack fluid = FluidUtil.getFluidContained(stack);
 				if (fluid != null && fluid.getFluid() != null && fluid.getFluid() instanceof FluidBooze) {
 					if (fluid.tag != null && fluid.tag.hasKey(FluidBooze.QUALITY_NBT_KEY, 5)) {
+						//if (event.getToolTip().size() > 1) event.getToolTip().add("");
 						float quality = fluid.tag.getFloat(FluidBooze.QUALITY_NBT_KEY);
 						event.getToolTip().add(ClientUtils.getQualityTooltip(quality));
 					}
@@ -395,6 +424,12 @@ public class EventHandlerClient {
 				float brightness = player.getBrightnessForRender();
 				GlStateManager.color(brightness, brightness, brightness, 0.99F);
 				drawBlockOverlay(HONEY_OVERLAY);
+				GlStateManager.color(1, 1, 1, 1);
+			} else if (state.getBlock().equals(ModFluids.BLOCK_GOLDEN_APPLE_JUICE)) {
+				event.setCanceled(true);
+				float brightness = player.getBrightnessForRender();
+				GlStateManager.color(brightness, brightness, brightness, 0.99F);
+				drawBlockOverlay(GOLDEN_APPLE_JUICE_OVERLAY);
 				GlStateManager.color(1, 1, 1, 1);
 			}
 		}
