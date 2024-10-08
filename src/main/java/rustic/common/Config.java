@@ -2,8 +2,10 @@ package rustic.common;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
 
+import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.config.ConfigCategory;
 import net.minecraftforge.common.config.Configuration;
 import net.minecraftforge.common.config.Property;
@@ -65,6 +67,7 @@ public class Config {
 	public static boolean ENABLE_BOTTLE_EMPTYING;
 	public static List<Integer> OVERWORLD_GENERATION_WHITELIST = new ArrayList<Integer>();
 	public static List<Integer> NETHER_GENERATION_WHITELIST = new ArrayList<Integer>();
+	public static HashMap<ResourceLocation, Integer> WILDBERRY_POTION_AMPLIFIERS = new HashMap<>();
 
 	public static void readConfig() {
 		Configuration cfg = CommonProxy.config;
@@ -132,6 +135,13 @@ public class Config {
 		List<String> netherGenWhitelist = Arrays.asList(cfg.getStringList("Nether Generation Dimension Whitelist", CATEGORY_WORLD, new String[] {"-1"}, "add numerical dimension ids to this list to allow Rustic's nether world gen to occur in those dimensions\ndimensions that are not listed here will not receive Rustic's nether world generation\n"));
 		overworldGenWhitelist.forEach((dimId) -> {OVERWORLD_GENERATION_WHITELIST.add(Integer.parseInt(dimId));});
 		netherGenWhitelist.forEach((dimId) -> {NETHER_GENERATION_WHITELIST.add(Integer.parseInt(dimId));});
+		List<String> wildberryPotionAmplifiers = Arrays.asList(cfg.getStringList("Wildberry Amplifier Overrides", CATEGORY_GENERAL, new String[0], "add potion resource locations followed by a '=' and the desired amplifier to override the default max amplifier of 2"));
+		wildberryPotionAmplifiers.forEach((entry)-> {
+			String[] splitString = entry.split("=");
+			ResourceLocation loc = new ResourceLocation(splitString[0]);
+			int value = Integer.parseInt(splitString[1]);
+			WILDBERRY_POTION_AMPLIFIERS.put(loc, value);
+		});
 		
 		PROPERTY_ORDER_GENERAL.add("Flesh Smelting");
 		PROPERTY_ORDER_GENERAL.add("Enable Olive Oiling");
@@ -156,6 +166,7 @@ public class Config {
 		PROPERTY_ORDER_GENERAL.add("Enable Tables");
 		PROPERTY_ORDER_GENERAL.add("Enable Chairs");
 		PROPERTY_ORDER_GENERAL.add("Enable Lattice");
+		PROPERTY_ORDER_GENERAL.add("Wildberry Amplifier Overrides");
 		PROPERTY_ORDER_WORLD.add("Nether Slate");
 		PROPERTY_ORDER_WORLD.add("Slate Veins Per Chunk");
 		PROPERTY_ORDER_WORLD.add("Slate Vein Size");
