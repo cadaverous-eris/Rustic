@@ -11,6 +11,7 @@ tooltip.rustic.vanta_oil_uses=%s uses remaining
 tooltip.rustic.empty=Empty
 tooltip.rustic.quality.desc=Quality: %s §8[%s]
 tooltip.rustic.drinkable=Drinkable
+tooltip.rustic.ghost_pepper=Possessed by the Spirit of Hellfire
 #Quality - Highest
 tooltip.rustic.quality.highest.0=Heavenly
 tooltip.rustic.quality.highest.1=Exceptional
@@ -219,6 +220,7 @@ item.tile.rustic.marsh_mallow.name=Marsh Mallow Root
 item.rustic.tomato.name=Tomato
 item.rustic.tomato_seeds.name=Tomato Seeds
 item.rustic.chili_pepper.name=Chili Pepper
+item.rustic.ghost_pepper.name=Ghost Pepper
 item.rustic.chili_pepper_seeds.name=Chili Pepper Seeds
 item.rustic.wildberries.name=Wildberries
 item.rustic.grapes.name=Grapes
@@ -267,6 +269,7 @@ effect.magic_resistance=Magic Resistance
 effect.wither_ward=Wither Ward
 effect.tipsy=Inebriated
 effect.fullmetal=Fullmetal
+effect.fire_power=Fire Power
 
 #Elixirs
 rustic.elixir.prefix=Elixir of 

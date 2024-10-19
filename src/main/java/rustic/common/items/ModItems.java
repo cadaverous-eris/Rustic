@@ -1,7 +1,11 @@
 package rustic.common.items;
 
+import java.util.List;
 import java.util.Random;
 
+import javax.annotation.Nullable;
+
+import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.MobEffects;
 import net.minecraft.init.SoundEvents;
@@ -13,8 +17,12 @@ import net.minecraft.util.DamageSource;
 import net.minecraft.util.EnumActionResult;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.SoundCategory;
+import net.minecraft.util.text.TextFormatting;
+import net.minecraft.util.text.translation.I18n;
 import net.minecraft.world.World;
 import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 import rustic.common.Config;
 import rustic.common.blocks.ModBlocks;
 import rustic.common.entities.EntityTomato;
@@ -37,6 +45,7 @@ public class ModItems {
 	public static ItemFoodBase TOMATO;
 	public static ItemStakeCropSeed TOMATO_SEEDS;
 	public static ItemFoodBase CHILI_PEPPER;
+	public static ItemFoodBase GHOST_PEPPER;
 	public static ItemStakeCropSeed CHILI_PEPPER_SEEDS;
 	public static ItemFoodBase WILDBERRIES;
 	public static ItemFoodBase GRAPES;
@@ -128,10 +137,31 @@ public class ModItems {
 			protected void onFoodEaten(ItemStack stack, World worldIn, EntityPlayer player) {
 				if (!worldIn.isRemote) {
 					player.addPotionEffect(new PotionEffect(MobEffects.SPEED, 400));
-					if (rand.nextInt(24) == 0) {						
+					if (rand.nextInt(24) == 0) {
 						player.attackEntityFrom(DamageSource.ON_FIRE, 1.0F);
 					}
 				}
+			}
+		};
+		GHOST_PEPPER = new ItemFoodBase("ghost_pepper", 4, 0.7F, false) {
+			@Override
+			public void initFood() {
+				setAlwaysEdible();
+			}
+
+			@Override
+			protected void onFoodEaten(ItemStack stack, World worldIn, EntityPlayer player) {
+				if (!worldIn.isRemote) {
+					player.attackEntityFrom(DamageSource.ON_FIRE, 2.0F);
+					//player.addPotionEffect(new PotionEffect(MobEffects.SPEED, 1200, 0));
+					player.addPotionEffect(new PotionEffect(PotionsRustic.FIRE_POWER_POTION, 1200, 0));
+				}
+			}
+			
+			@Override
+			@SideOnly(Side.CLIENT)
+			public void addInformation(ItemStack stack, @Nullable World worldIn, List<String> tooltip, ITooltipFlag flagIn) {
+				tooltip.add(TextFormatting.YELLOW + "" + TextFormatting.ITALIC + I18n.translateToLocalFormatted("tooltip.rustic.ghost_pepper"));
 			}
 		};
 		CHILI_PEPPER_SEEDS = new ItemStakeCropSeed("chili_pepper_seeds", ModBlocks.CHILI_CROP);
@@ -167,6 +197,7 @@ public class ModItems {
 		TOMATO.initModel();
 		TOMATO_SEEDS.initModel();
 		CHILI_PEPPER.initModel();
+		GHOST_PEPPER.initModel();
 		CHILI_PEPPER_SEEDS.initModel();
 		WILDBERRIES.initModel();
 		GRAPES.initModel();

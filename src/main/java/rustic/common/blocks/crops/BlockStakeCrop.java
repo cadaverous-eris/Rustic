@@ -122,7 +122,7 @@ public class BlockStakeCrop extends BlockBase implements IGrowable, IPlantable {
 		Random rand = world instanceof World ? ((World)world).rand : new Random();
 		stacks.add(new ItemStack(getSeed(), rand.nextInt(2) + 1));
 		if (state.getValue(AGE) >= getMaxAge()) {
-			stacks.add(new ItemStack(getCrop()));
+			stacks.add(new ItemStack(getCrop(rand)));
 		}
 		return stacks;
 	}
@@ -249,6 +249,10 @@ public class BlockStakeCrop extends BlockBase implements IGrowable, IPlantable {
 		return null;
 	}
 	
+	protected Item getCrop(Random rand) {
+		return this.getCrop();
+	}
+	
 	@Override
 	public boolean onBlockActivated(World world, BlockPos pos, IBlockState state, EntityPlayer player, EnumHand hand, EnumFacing side, float hitX, float hitY, float hitZ) {
 		boolean result = tryHarvest(world, pos, state, player, hand, side);
@@ -271,7 +275,7 @@ public class BlockStakeCrop extends BlockBase implements IGrowable, IPlantable {
 	public boolean tryHarvest(World world, BlockPos pos, IBlockState state, EntityPlayer player, EnumHand hand, EnumFacing interactSide) {
 		if (state.getValue(AGE) >= getMaxAge()) {
 			world.setBlockState(pos, state.withProperty(AGE, getMaxAge() - 1), 2);
-			ItemStack stack = new ItemStack(getCrop());
+			ItemStack stack = new ItemStack(getCrop(world.rand));
 			if (!player.addItemStackToInventory(stack)) {
 			    Block.spawnAsEntity(world, pos.offset(interactSide), stack);
 			}
