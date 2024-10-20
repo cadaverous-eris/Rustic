@@ -193,7 +193,7 @@ public class Recipes {
 					return 100;
 				}
 				if (item == Item.getItemFromBlock(ModBlocks.WILDBERRY_BUSH)) {
-					return 150;
+					return 200;
 				}
 				return 0;
 			}
