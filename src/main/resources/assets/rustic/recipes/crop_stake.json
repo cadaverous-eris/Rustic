@@ -12,6 +12,7 @@
 		}
 	},
 	"result": {
-		"item": "rustic:crop_stake"
+		"item": "rustic:crop_stake",
+		"count": 3
 	}
 }

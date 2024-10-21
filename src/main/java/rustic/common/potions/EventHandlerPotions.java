@@ -12,6 +12,7 @@ import net.minecraft.entity.projectile.EntityFireball;
 import net.minecraft.entity.projectile.EntityLargeFireball;
 import net.minecraft.entity.projectile.EntitySmallFireball;
 import net.minecraft.init.Items;
+import net.minecraft.init.MobEffects;
 import net.minecraft.init.PotionTypes;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.item.ItemStack;
@@ -22,6 +23,7 @@ import net.minecraft.util.EnumHand;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.BlockPos;
 import net.minecraftforge.event.entity.EntityMountEvent;
+import net.minecraftforge.event.entity.living.LivingDeathEvent;
 import net.minecraftforge.event.entity.living.LivingEntityUseItemEvent;
 import net.minecraftforge.event.entity.living.LivingEvent;
 import net.minecraftforge.event.entity.living.LivingFallEvent;
@@ -190,13 +192,12 @@ public class EventHandlerPotions {
 	
 
 	// FULL, MAGIC RESISTANCE, WITHER WARD
-
 	@SubscribeEvent
 	public void onEntityDamage(LivingHurtEvent event) {
 		DamageSource source = event.getSource();
 		EntityLivingBase entity = event.getEntityLiving();
 		
-		if (entity.isPotionActive(PotionsRustic.FULLMETAL_POTION) && (source != DamageSource.OUT_OF_WORLD)) {
+		if (entity.isPotionActive(PotionsRustic.FULLMETAL_POTION) && (source != DamageSource.OUT_OF_WORLD) && !source.canHarmInCreative()) {
 			event.setAmount(0);
 			return;
 		}
@@ -221,5 +222,39 @@ public class EventHandlerPotions {
 			}
 		}
 	}
+	
+	
+	// UNDYING
+	@SubscribeEvent(priority = EventPriority.HIGHEST)
+	public void onEntityDeath(LivingDeathEvent event) {
+		if (event.getSource().canHarmInCreative()) return;
+		if (!(event.getEntityLiving() instanceof EntityPlayer)) return; // TODO: enable for non-players?
+		
+		EntityPlayer p = (EntityPlayer) event.getEntityLiving();
+		
+		PotionEffect effect = p.getActivePotionEffect(PotionsRustic.UNDYING_POTION);
+		if (effect == null) return;
+		
+		p.removePotionEffect(PotionsRustic.UNDYING_POTION);
+		
+		p.setHealth(1.0F);
+        p.clearActivePotions();
+        p.addPotionEffect(new PotionEffect(MobEffects.REGENERATION, 900, 1));
+        p.addPotionEffect(new PotionEffect(MobEffects.ABSORPTION, 100, 1));
+        p.world.setEntityState(p, (byte) 35);
+        
+        if (effect.getAmplifier() > 0) {
+			p.addPotionEffect(new PotionEffect(
+					PotionsRustic.UNDYING_POTION,
+					effect.getDuration(),
+					effect.getAmplifier() - 1,
+					effect.getIsAmbient(),
+					effect.doesShowParticles()
+			));
+		}
+		
+		event.setCanceled(true);
+	}
+	
 
 }

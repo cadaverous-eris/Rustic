@@ -3,6 +3,7 @@ package rustic.compat;
 import java.util.ArrayList;
 import java.util.List;
 
+import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidRegistry;
@@ -217,6 +218,12 @@ public class Compat {
 			forestry.api.recipes.RecipeManagers.squeezerManager.addRecipe(10, new ItemStack(ModItems.IRONBERRIES),
 					new FluidStack(FluidRegistry.getFluid("ironberryjuice"), 250),
 					new ItemStack(ModItems.IRON_DUST_TINY), 5);
+			forestry.api.recipes.RecipeManagers.squeezerManager.addRecipe(10, new ItemStack(Items.GOLDEN_APPLE, 1, 0),
+					new FluidStack(FluidRegistry.getFluid("goldenapplejuice"), 100),
+					new ItemStack(ModItems.GOLD_DUST, 1), 20);
+			forestry.api.recipes.RecipeManagers.squeezerManager.addRecipe(10, new ItemStack(Items.GOLDEN_APPLE, 1, 1),
+					new FluidStack(FluidRegistry.getFluid("goldenapplejuice"), 1000),
+					new ItemStack(ModItems.GOLD_DUST, 1), 90);
 			forestry.api.recipes.RecipeManagers.squeezerManager.addRecipe(10, new ItemStack(ModItems.WILDBERRIES),
 					new FluidStack(FluidRegistry.getFluid("wildberryjuice"), 250));
 			forestry.api.recipes.RecipeManagers.squeezerManager.addRecipe(10, new ItemStack(ModItems.GRAPES),

@@ -41,7 +41,7 @@ public class PotionTipsy extends PotionBase {
 	
 	@Override
 	public boolean isReady(int duration, int amplifier) {
-		return amplifier > 1 && duration % 100 == 0;
+		return (amplifier > 1) && ((duration % 100) == 0);
 	}
 	
 	@Override

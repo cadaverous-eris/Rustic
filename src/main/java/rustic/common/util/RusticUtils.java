@@ -16,6 +16,7 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.potion.PotionUtils;
+import net.minecraft.util.DamageSource;
 import net.minecraft.util.NonNullList;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.RayTraceResult;
@@ -33,6 +34,9 @@ import rustic.common.items.ModItems;
 import rustic.core.Rustic;
 
 public class RusticUtils {
+	
+	public static final DamageSource BAD_AMBROSIA_DAMAGE = (new DamageSource("badAmbrosia")).setDamageBypassesArmor().setDamageAllowedInCreativeMode();
+	
 	
 	public static boolean isVantaOilableWeapon(ItemStack stack) {
 		if (stack.isEmpty()) return false;

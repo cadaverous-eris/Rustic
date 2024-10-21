@@ -30,6 +30,10 @@ public class ItemHerbEdible extends ItemFood implements IPlantable {
 		setUnlocalizedName(herbBlock.getUnlocalizedName());
 		setCreativeTab(Rustic.alchemyTab);
 		GameRegistry.findRegistry(Item.class).register(this);
+		initFood();
+	}
+	
+	public void initFood() {
 	}
 	
 	public void initModel(){

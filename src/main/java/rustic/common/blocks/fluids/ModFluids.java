@@ -20,6 +20,7 @@ import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fluids.FluidStack;
 import rustic.common.potions.PotionsRustic;
+import rustic.common.util.RusticUtils;
 
 public class ModFluids {
 
@@ -40,6 +41,7 @@ public class ModFluids {
 	public static Fluid MEAD;
 	public static Fluid WILDBERRY_WINE;
 	public static Fluid WINE;
+	public static Fluid AMBROSIA;
 	
 	private static List<Fluid> FLUIDS = new ArrayList<Fluid>();
 
@@ -176,10 +178,10 @@ public class ModFluids {
 				if (quality >= 0.5F) {
 					float saturation = 4F * quality;
 					player.getFoodStats().addStats(2, saturation);
-					int duration = (int) (12000 * (Math.max(Math.abs((quality - 0.5F) * 2F), 0F)));
+					int duration = 1200 + ((int) (10800 * (Math.max(Math.abs((quality - 0.5F) * 2F), 0F))));
 					player.addPotionEffect(new PotionEffect(PotionsRustic.FULL_POTION, duration));
 				} else {
-					int duration = (int) (6000 * Math.max(1 - quality, 0));
+					int duration = (int) (6000 * Math.max(1 - quality, 0.25));
 					player.addPotionEffect(new PotionEffect(MobEffects.HUNGER, duration));
 					player.addPotionEffect(new PotionEffect(MobEffects.NAUSEA, duration));
 				}
@@ -193,12 +195,12 @@ public class ModFluids {
 				if (quality >= 0.5F) {
 					float saturation = 2F * quality;
 					player.getFoodStats().addStats(1, saturation);
-					int duration = (int) (12000 * (Math.max(Math.abs((quality - 0.5F) * 2F), 0F)));
+					int duration = 1200 + ((int) (10800 * (Math.max(Math.abs((quality - 0.5F) * 2F), 0F))));
 					player.addPotionEffect(new PotionEffect(PotionsRustic.MAGIC_RESISTANCE_POTION, duration));
 				} else {
-					int duration = (int) (1200 * Math.max(1 - quality, 0));
+					int duration = (int) (1200 * Math.max(1 - quality, 0.25F));
 					player.addPotionEffect(new PotionEffect(MobEffects.POISON, duration));
-					duration = (int) (6000 * Math.max(1 - quality, 0));
+					duration = (int) (6000 * Math.max(1 - quality, 0.25F));
 					player.addPotionEffect(new PotionEffect(MobEffects.NAUSEA, duration));
 				}
 			}
@@ -214,8 +216,8 @@ public class ModFluids {
 					player.getFoodStats().addStats(1, saturation);
 					player.setAbsorptionAmount(Math.max(Math.min(player.getAbsorptionAmount() + absorption, 20F), player.getAbsorptionAmount()));
 				} else {
-					int duration = (int) (6000 * Math.max(1 - quality, 0));
-					float damage = 10F * (Math.max(Math.abs(quality - 0.5F) + 0.1F, 0F));
+					int duration = (int) (6000 * Math.max(1 - quality, 0.25));
+					float damage = 10F * (Math.max(Math.abs(quality - 0.5F) + 0.1F, 0.25F));
 					player.attackEntityFrom(DamageSource.MAGIC, damage);
 					player.addPotionEffect(new PotionEffect(MobEffects.NAUSEA, duration));
 				}
@@ -229,12 +231,12 @@ public class ModFluids {
 				if (quality >= 0.5F) {
 					float saturation = 2F * quality;
 					player.getFoodStats().addStats(1, saturation);
-					int duration = (int) (6000 * (Math.max(Math.abs((quality - 0.5F) * 2F), 0F)));
+					int duration = 1200 + ((int) (6000 * (Math.max(Math.abs((quality - 0.5F) * 2F), 0F))));
 					player.addPotionEffect(new PotionEffect(PotionsRustic.WITHER_WARD_POTION, duration));
 				} else {
-					int duration = (int) (800 * Math.max(1 - quality, 0));
+					int duration = (int) (800 * Math.max(1 - quality, 0.25));
 					player.addPotionEffect(new PotionEffect(MobEffects.WITHER, duration));
-					duration = (int) (6000 * Math.max(1 - quality, 0));
+					duration = (int) (6000 * Math.max(1 - quality, 0.25));
 					player.addPotionEffect(new PotionEffect(MobEffects.NAUSEA, duration));
 				}
 			}
@@ -265,7 +267,7 @@ public class ModFluids {
 							}
 						}
 					}
-					int duration = (int) (6000 * Math.max(1 - quality, 0));
+					int duration = (int) (6000 * Math.max(1 - quality, 0.25F));
 					player.addPotionEffect(new PotionEffect(MobEffects.NAUSEA, duration));
 				}
 			}
@@ -278,7 +280,7 @@ public class ModFluids {
 				if (quality >= 0.5F) {
 					float saturation = 2F * quality;
 					player.getFoodStats().addStats(1, saturation);
-					int durationIncrease = (int) (2400 * ((quality - 0.5F) * 2F));
+					int durationIncrease = 600 + ((int) (2400 * ((quality - 0.5F) * 2F)));
 					for (PotionEffect effect : player.getActivePotionEffects()) {
 						if (!effect.getPotion().isBadEffect() && effect.getDuration() < 12000) {
 							int duration = Math.max(Math.min(effect.getDuration() + durationIncrease, 12000), effect.getDuration());
@@ -289,7 +291,7 @@ public class ModFluids {
 					PotionEffect[] effects = player.getActivePotionEffects().toArray(new PotionEffect[0]);
 					for (int i = 0; i < effects.length; i++) {
 						PotionEffect effect = effects[i];
-						int durationDecrease = (int) (2400 * (Math.abs(quality - 0.5)));
+						int durationDecrease = (int) (2400 * (Math.abs(quality - 0.6)));
 						if (!effect.getPotion().isBadEffect()) {
 							int duration = effect.getDuration() - durationDecrease;
 							if (duration > 0) {
@@ -306,6 +308,31 @@ public class ModFluids {
 			}
 		}.setInebriationChance(0.5F).setDensity(1034).setViscosity(1500);
 		register(WINE, false);
+		
+		AMBROSIA = new FluidBooze("ambrosia", new ResourceLocation("rustic:blocks/fluids/booze/ambrosia_still"), new ResourceLocation("rustic:blocks/fluids/booze/ambrosia_flow")) {
+			@Override
+			protected void affectPlayer(World world, EntityPlayer player, float quality) {
+				if (quality >= 0.5F) {
+					float saturation = 2F * quality;
+					player.getFoodStats().addStats(2, saturation);
+					int duration;
+					if (quality > 0.99F) {
+						duration = 999999;//Short.MAX_VALUE;
+						player.removePotionEffect(PotionsRustic.UNDYING_POTION);
+					} else {
+						duration = (20 * 300) + ((int) (18000 * (Math.max(Math.abs((quality - 0.5F) * 2F), 0.00F))));
+					}
+					player.addPotionEffect(new PotionEffect(PotionsRustic.UNDYING_POTION, duration, 0, false, false));
+				} else {
+					player.attackEntityFrom(RusticUtils.BAD_AMBROSIA_DAMAGE, Float.MAX_VALUE);
+				}
+			}
+			@Override
+			public EnumRarity getRarity() {
+				return EnumRarity.EPIC;
+			}
+		}.setInebriationChance(0.5F).setDensity(1004).setViscosity(1400);
+		register(AMBROSIA, false);
 		
 
 		BLOCK_OLIVE_OIL = new BlockFluidRustic("olive_oil", OLIVE_OIL, Material.WATER);

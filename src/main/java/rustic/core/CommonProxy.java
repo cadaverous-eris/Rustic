@@ -110,6 +110,7 @@ public class CommonProxy {
     	ItemFluidBottle.addFluid(ModFluids.MEAD);
     	ItemFluidBottle.addFluid(ModFluids.WILDBERRY_WINE);
     	ItemFluidBottle.addFluid(ModFluids.WINE);
+    	ItemFluidBottle.addFluid(ModFluids.AMBROSIA);
     }
     
     public void spawnAlchemySmokeFX(World world, int brewTime, double x, double y, double z, double xVel, double yVel, double zVel) {

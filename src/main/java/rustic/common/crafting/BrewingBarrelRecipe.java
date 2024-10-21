@@ -9,7 +9,7 @@ import rustic.common.blocks.fluids.FluidBooze;
 
 public class BrewingBarrelRecipe implements IBrewingBarrelRecipe {
 	
-	private static final Random rand = new Random();
+	protected static final Random rand = new Random();
 	
 	protected final FluidStack input;
 	protected final FluidStack output;

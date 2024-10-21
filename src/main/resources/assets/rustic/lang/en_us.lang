@@ -213,6 +213,7 @@ item.rustic.ironberries.name=Ironberries
 item.rustic.olives.name=Olives
 item.rustic.fluid_bottle.name=Bottle of %s
 item.rustic.dust_tiny_iron.name=Tiny Pile of Iron Dust
+item.rustic.dust_gold.name=Gold Dust
 item.tile.rustic.cloudsbluff.name=Cloudsbluff
 item.tile.rustic.core_root.name=Core Root
 item.tile.rustic.ginseng.name=Ginseng Root
@@ -258,6 +259,7 @@ fluid.ironwine=Iron Wine
 fluid.mead=Mead
 fluid.wildberrywine=Wildberry Wine
 fluid.wine=Wine
+fluid.ambrosia=Ambrosia
 
 #Potion Effects
 effect.ironskin=Iron Skin
@@ -267,9 +269,10 @@ effect.shame=Shame
 effect.full=Full Stomach
 effect.magic_resistance=Magic Resistance
 effect.wither_ward=Wither Ward
-effect.tipsy=Inebriated
+effect.undying=Undying
 effect.fullmetal=Fullmetal
 effect.fire_power=Fire Power
+effect.tipsy=Inebriated
 
 #Elixirs
 rustic.elixir.prefix=Elixir of 
@@ -282,6 +285,10 @@ entity.rustic.chair.name=Chair
 entity.rustic.vegetable_lamb=Vegetable Lamb
 
 
+#Deaths
+death.attack.badAmbrosia=%1$s tasted tainted divinity
+
+
 #Advancements
 advancements.rustic.root=Rustic
 advancements.rustic.root.desc=How quaint
@@ -289,9 +296,9 @@ advancements.rustic.almanac=Book Learnin'
 advancements.rustic.almanac.desc=Obtain an almanac
 advancements.rustic.the_good_stuff=The Good Stuff
 advancements.rustic.the_good_stuff.desc=Brew a beverage with a quality of at least 90%%
-advancements.rustic.winemaxxing=Mommy is Winemaxxing
-#advancements.rustic.winemaxxing.desc=Not now honey, Mommy is winemaxxing
-advancements.rustic.winemaxxing.desc=Not now honey, Mommy is winemaxxing, Mommy is a winemaxxed vicodinchad. Mommy is pain medpilled and totally mogging, sweetie. Go play your games, honey, go be a good gamercel for Mommy.
+advancements.rustic.winemaxxing=Winemaxxing
+advancements.rustic.winemaxxing.desc=Not now honey, Mommy is winemaxxing
+#advancements.rustic.winemaxxing.desc=Not now honey, Mommy is winemaxxing, Mommy is a winemaxxed vicodinchad. Mommy is pain medpilled and totally mogging, sweetie. Go play your games, honey, go be a good gamercel for Mommy.
 advancements.rustic.max_drunk=No Ragrets
 advancements.rustic.max_drunk.desc=Reach dangerous levels of inebriation
 

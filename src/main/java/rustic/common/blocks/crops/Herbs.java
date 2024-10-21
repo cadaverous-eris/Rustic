@@ -202,6 +202,10 @@ public class Herbs {
 				
 		CLOUDSBLUFF = new ItemHerbEdible(CLOUDSBLUFF_CROP, 2, 0.2F) {
 			@Override
+			public void initFood() {
+				this.setAlwaysEdible();
+			}
+			@Override
 			protected void onFoodEaten(ItemStack stack, World worldIn, EntityPlayer player) {
 				if (!worldIn.isRemote) {
 					player.addPotionEffect(new PotionEffect(MobEffects.LEVITATION, 400));

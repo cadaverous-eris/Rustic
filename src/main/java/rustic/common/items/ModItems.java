@@ -41,6 +41,7 @@ public class ModItems {
 	public static ItemFoodBase IRONBERRIES;
 	public static ItemFluidBottle FLUID_BOTTLE;
 	public static ItemBase IRON_DUST_TINY;
+	public static ItemBase GOLD_DUST;
 	public static ItemElixir ELIXIR;
 	public static ItemFoodBase TOMATO;
 	public static ItemStakeCropSeed TOMATO_SEEDS;
@@ -103,6 +104,8 @@ public class ModItems {
 		FLUID_BOTTLE = new ItemFluidBottle();
 		IRON_DUST_TINY = new ItemBase("dust_tiny_iron");
 		IRON_DUST_TINY.setCreativeTab(Rustic.farmingTab);
+		GOLD_DUST = new ItemBase("dust_gold");
+		GOLD_DUST.setCreativeTab(Rustic.farmingTab);
 		ELIXIR = new ItemElixir();
 		TOMATO = new ItemFoodBase("tomato", 4, 0.4F, false) {
 			@Override
@@ -132,6 +135,10 @@ public class ModItems {
 			MinecraftForge.addGrassSeed(new ItemStack(TOMATO_SEEDS), Config.SEED_DROP_RATE);
 		}
 		CHILI_PEPPER = new ItemFoodBase("chili_pepper", 3, 0.4F, false) {
+			@Override
+			public void initFood() {
+				setAlwaysEdible();
+			}
 			private Random rand = new Random();
 			@Override
 			protected void onFoodEaten(ItemStack stack, World worldIn, EntityPlayer player) {
@@ -193,6 +200,7 @@ public class ModItems {
 		IRONBERRIES.initModel();
 		FLUID_BOTTLE.initModel();
 		IRON_DUST_TINY.initModel();
+		GOLD_DUST.initModel();
 		ELIXIR.initModel();
 		TOMATO.initModel();
 		TOMATO_SEEDS.initModel();
