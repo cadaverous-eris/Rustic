@@ -1,74 +1,83 @@
 {
-    "__comment": "Model generated using MrCrayfish's Model Creator (http://mrcrayfish.com/modelcreator/)",
-    "textures": {
-        "candle": "rustic:blocks/candle",
-				"particle": "rustic:blocks/candle"
-    },
-    "elements": [
-        {
-            "name": "Cube",
-            "from": [ 6.0, 0.0, 15.0 ], 
-            "to": [ 10.0, 4.0, 16.0 ], 
-            "faces": {
-                "north": { "texture": "#candle", "uv": [ 0.0, 12.0, 4.0, 16.0 ] },
-                "east": { "texture": "#candle", "uv": [ 3.0, 12.0, 4.0, 16.0 ] },
-                "south": { "texture": "#candle", "uv": [ 0.0, 12.0, 4.0, 16.0 ] },
-                "west": { "texture": "#candle", "uv": [ 4.0, 12.0, 3.0, 16.0 ] },
-                "up": { "texture": "#candle", "uv": [ 0.0, 15.0, 4.0, 16.0 ] },
-                "down": { "texture": "#candle", "uv": [ 0.0, 15.0, 4.0, 16.0 ] }
-            }
-        },
-        {
-            "name": "Cube",
-            "from": [ 8.0, 0.0, 11.0 ], 
-            "to": [ 8.0, 6.0, 15.0 ], 
-            "faces": {
-                "north": { "texture": "#-1", "uv": [ 0.0, 0.0, 0.0, 6.0 ] },
-                "east": { "texture": "#candle", "uv": [ 0.0, 6.0, 4.0, 12.0 ] },
-                "south": { "texture": "#-1", "uv": [ 0.0, 0.0, 0.0, 6.0 ] },
-                "west": { "texture": "#candle", "uv": [ 4.0, 6.0, 0.0, 12.0 ] },
-                "up": { "texture": "#-1", "uv": [ 0.0, 0.0, 0.0, 4.0 ] },
-                "down": { "texture": "#-1", "uv": [ 0.0, 0.0, 0.0, 4.0 ] }
-            }
-        },
-        {
-            "name": "Cube",
-            "from": [ 6.5, 6.0, 11.0 ], 
-            "to": [ 9.5, 7.0, 14.0 ], 
-            "faces": {
-                "north": { "texture": "#candle", "uv": [ 4.0, 15.0, 7.0, 16.0 ] },
-                "east": { "texture": "#candle", "uv": [ 4.0, 15.0, 7.0, 16.0 ] },
-                "south": { "texture": "#candle", "uv": [ 4.0, 15.0, 7.0, 16.0 ] },
-                "west": { "texture": "#candle", "uv": [ 4.0, 15.0, 7.0, 16.0 ] },
-                "up": { "texture": "#candle", "uv": [ 4.0, 13.0, 7.0, 16.0 ] },
-                "down": { "texture": "#candle", "uv": [ 4.0, 13.0, 7.0, 16.0 ] }
-            }
-        },
-        {
-            "name": "Cube",
-            "from": [ 7.0, 7.0, 11.5 ], 
-            "to": [ 9.0, 13.0, 13.5 ], 
-            "faces": {
-                "north": { "texture": "#candle", "uv": [ 10.0, 10.0, 12.0, 16.0 ] },
-                "east": { "texture": "#candle", "uv": [ 10.0, 10.0, 12.0, 16.0 ] },
-                "south": { "texture": "#candle", "uv": [ 10.0, 10.0, 12.0, 16.0 ] },
-                "west": { "texture": "#candle", "uv": [ 10.0, 10.0, 12.0, 16.0 ] },
-                "up": { "texture": "#candle", "uv": [ 10.0, 10.0, 12.0, 12.0 ] },
-                "down": { "texture": "#-1", "uv": [ 0.0, 0.0, 2.0, 2.0 ] }
-            }
-        },
-        {
-            "name": "Cube",
-            "from": [ 7.75, 13.0, 12.25 ], 
-            "to": [ 8.25, 14.0, 12.75 ], 
-            "faces": {
-                "north": { "texture": "#candle", "uv": [ 12.0, 15.0, 12.5, 16.0 ] },
-                "east": { "texture": "#candle", "uv": [ 12.0, 15.0, 12.5, 16.0 ] },
-                "south": { "texture": "#candle", "uv": [ 12.0, 15.0, 12.5, 16.0 ] },
-                "west": { "texture": "#candle", "uv": [ 12.0, 15.0, 12.5, 16.0 ] },
-                "up": { "texture": "#candle", "uv": [ 12.0, 15.0, 12.5, 15.5 ] },
-                "down": { "texture": "#-1", "uv": [ 0.0, 0.0, 0.5, 0.5 ] }
-            }
-        }
-    ]
+	"credit": "Model generated using MrCrayfish's Model Creator (http://mrcrayfish.com/modelcreator/)",
+	"textures": {
+		"particle": "rustic:blocks/candle",
+		"candle": "rustic:blocks/candle"
+	},
+	"elements": [
+		{
+			"name": "mount",
+			"from": [6, 0, 15],
+			"to": [10, 4, 16],
+			"faces": {
+				"north": {"uv": [0, 12, 4, 16], "texture": "#candle"},
+				"east": {"uv": [3, 12, 4, 16], "texture": "#candle"},
+				"south": {"uv": [0, 12, 4, 16], "texture": "#candle"},
+				"west": {"uv": [4, 12, 3, 16], "texture": "#candle"},
+				"up": {"uv": [0, 15, 4, 16], "texture": "#candle"},
+				"down": {"uv": [0, 15, 4, 16], "texture": "#candle"}
+			}
+		},
+		{
+			"name": "stick_1",
+			"from": [8, 0, 11],
+			"to": [8, 6, 15],
+			"faces": {
+				"north": {"uv": [0, 0, 0, 6], "texture": "#-1"},
+				"east": {"uv": [0, 6, 4, 12], "texture": "#candle"},
+				"south": {"uv": [0, 0, 0, 6], "texture": "#-1"},
+				"west": {"uv": [4, 6, 0, 12], "texture": "#candle"},
+				"up": {"uv": [0, 0, 0, 4], "texture": "#-1"},
+				"down": {"uv": [0, 0, 0, 4], "texture": "#-1"}
+			}
+		},
+		{
+			"name": "stick_2",
+			"from": [6.5, 4, 12.5],
+			"to": [9.5, 6, 12.5],
+			"faces": {
+				"north": {"uv": [7, 10, 10, 12], "texture": "#candle"},
+				"south": {"uv": [7, 10, 10, 12], "texture": "#candle"}
+			}
+		},
+		{
+			"name": "candle_base",
+			"from": [6.5, 6, 11],
+			"to": [9.5, 7, 14],
+			"faces": {
+				"north": {"uv": [4, 15, 7, 16], "texture": "#candle"},
+				"east": {"uv": [4, 15, 7, 16], "texture": "#candle"},
+				"south": {"uv": [4, 15, 7, 16], "texture": "#candle"},
+				"west": {"uv": [4, 15, 7, 16], "texture": "#candle"},
+				"up": {"uv": [4, 13, 7, 16], "texture": "#candle"},
+				"down": {"uv": [4, 13, 7, 16], "texture": "#candle"}
+			}
+		},
+		{
+			"name": "candle",
+			"from": [7, 7, 11.5],
+			"to": [9, 13, 13.5],
+			"faces": {
+				"north": {"uv": [10, 10, 12, 16], "texture": "#candle"},
+				"east": {"uv": [10, 10, 12, 16], "texture": "#candle"},
+				"south": {"uv": [10, 10, 12, 16], "texture": "#candle"},
+				"west": {"uv": [10, 10, 12, 16], "texture": "#candle"},
+				"up": {"uv": [10, 10, 12, 12], "texture": "#candle"},
+				"down": {"uv": [0, 0, 2, 2], "texture": "#-1"}
+			}
+		},
+		{
+			"name": "wick",
+			"from": [7.75, 13, 12.25],
+			"to": [8.25, 14, 12.75],
+			"faces": {
+				"north": {"uv": [12, 15, 12.5, 16], "texture": "#candle"},
+				"east": {"uv": [12, 15, 12.5, 16], "texture": "#candle"},
+				"south": {"uv": [12, 15, 12.5, 16], "texture": "#candle"},
+				"west": {"uv": [12, 15, 12.5, 16], "texture": "#candle"},
+				"up": {"uv": [12, 15, 12.5, 15.5], "texture": "#candle"},
+				"down": {"uv": [0, 0, 0.5, 0.5], "texture": "#-1"}
+			}
+		}
+	]
 }

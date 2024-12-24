@@ -1,0 +1,183 @@
+{
+	"credit": "Model generated using MrCrayfish's Model Creator (http://mrcrayfish.com/modelcreator/)",
+	"textures": {
+		"particle": "rustic:blocks/candle_double",
+		"candle": "rustic:blocks/candle_double"
+	},
+	"elements": [
+		{
+			"name": "base",
+			"from": [6, 0, 6],
+			"to": [10, 1, 10],
+			"faces": {
+				"north": {"uv": [0, 15, 4, 16], "texture": "#candle"},
+				"east": {"uv": [0, 15, 4, 16], "texture": "#candle"},
+				"south": {"uv": [0, 15, 4, 16], "texture": "#candle"},
+				"west": {"uv": [0, 15, 4, 16], "texture": "#candle"},
+				"up": {"uv": [0, 12, 4, 16], "texture": "#candle"},
+				"down": {"uv": [0, 12, 4, 16], "texture": "#candle"}
+			}
+		},
+		{
+			"name": "stick_1",
+			"from": [3.5, 1, 8],
+			"to": [12.5, 7, 8],
+			"rotation": {"angle": 0, "axis": "y", "origin": [-3, 0, 0]},
+			"faces": {
+				"north": {"uv": [0, 0, 9, 6], "texture": "#candle"},
+				"east": {"uv": [0, 0, 0, 6], "texture": "#-1"},
+				"south": {"uv": [0, 0, 9, 6], "texture": "#candle"},
+				"west": {"uv": [0, 0, 0, 6], "texture": "#-1"},
+				"up": {"uv": [0, 0, 3, 0], "texture": "#-1"},
+				"down": {"uv": [0, 0, 3, 0], "texture": "#-1"}
+			}
+		},
+		{
+			"name": "stick_2",
+			"from": [8, 1, 6.5],
+			"to": [8, 3, 9.5],
+			"faces": {
+				"north": {"uv": [0, 0, 0, 6], "texture": "#-1"},
+				"east": {"uv": [7, 14, 10, 16], "texture": "#candle"},
+				"south": {"uv": [0, 0, 0, 6], "texture": "#-1"},
+				"west": {"uv": [7, 14, 10, 16], "texture": "#candle"},
+				"up": {"uv": [0, 0, 0, 3], "texture": "#-1"},
+				"down": {"uv": [0, 0, 0, 3], "texture": "#-1"}
+			}
+		},
+		{
+			"name": "stick_3",
+			"from": [5, 5, 6.5],
+			"to": [5, 7, 9.5],
+			"faces": {
+				"north": {"uv": [0, 0, 0, 6], "texture": "#-1"},
+				"east": {"uv": [7, 10, 10, 12], "texture": "#candle"},
+				"south": {"uv": [0, 0, 0, 6], "texture": "#-1"},
+				"west": {"uv": [7, 10, 10, 12], "texture": "#candle"},
+				"up": {"uv": [0, 0, 0, 3], "texture": "#-1"},
+				"down": {"uv": [0, 0, 0, 3], "texture": "#-1"}
+			}
+		},
+		{
+			"name": "stick_4",
+			"from": [11, 5, 6.5],
+			"to": [11, 7, 9.5],
+			"faces": {
+				"north": {"uv": [0, 0, 0, 6], "texture": "#-1"},
+				"east": {"uv": [7, 10, 10, 12], "texture": "#candle"},
+				"south": {"uv": [0, 0, 0, 6], "texture": "#-1"},
+				"west": {"uv": [7, 10, 10, 12], "texture": "#candle"},
+				"up": {"uv": [0, 0, 0, 3], "texture": "#-1"},
+				"down": {"uv": [0, 0, 0, 3], "texture": "#-1"}
+			}
+		},
+		{
+			"name": "candle_base_1",
+			"from": [9.5, 7, 6.5],
+			"to": [12.5, 8, 9.5],
+			"rotation": {"angle": 0, "axis": "y", "origin": [3, 0, 0]},
+			"faces": {
+				"north": {"uv": [4, 15, 7, 16], "texture": "#candle"},
+				"east": {"uv": [4, 15, 7, 16], "texture": "#candle"},
+				"south": {"uv": [4, 15, 7, 16], "texture": "#candle"},
+				"west": {"uv": [4, 15, 7, 16], "texture": "#candle"},
+				"up": {"uv": [4, 13, 7, 16], "texture": "#candle"},
+				"down": {"uv": [4, 13, 7, 16], "texture": "#candle"}
+			}
+		},
+		{
+			"name": "wick_1",
+			"from": [10.75, 14, 7.75],
+			"to": [11.25, 15, 8.25],
+			"rotation": {"angle": 0, "axis": "y", "origin": [3, 0, 0]},
+			"faces": {
+				"north": {"uv": [12, 15, 12.5, 16], "texture": "#candle"},
+				"east": {"uv": [12, 15, 12.5, 16], "texture": "#candle"},
+				"south": {"uv": [12, 15, 12.5, 16], "texture": "#candle"},
+				"west": {"uv": [12, 15, 12.5, 16], "texture": "#candle"},
+				"up": {"uv": [12, 15, 12.5, 15.5], "texture": "#candle"},
+				"down": {"uv": [0, 0, 0.5, 0.5], "texture": "#-1"}
+			}
+		},
+		{
+			"name": "candle_1",
+			"from": [10, 8, 7],
+			"to": [12, 14, 9],
+			"rotation": {"angle": 0, "axis": "y", "origin": [3, 0, 0]},
+			"faces": {
+				"north": {"uv": [10, 10, 12, 16], "texture": "#candle"},
+				"east": {"uv": [10, 10, 12, 16], "texture": "#candle"},
+				"south": {"uv": [10, 10, 12, 16], "texture": "#candle"},
+				"west": {"uv": [10, 10, 12, 16], "texture": "#candle"},
+				"up": {"uv": [10, 10, 12, 12], "texture": "#candle"},
+				"down": {"uv": [0, 0, 2, 2], "texture": "#-1"}
+			}
+		},
+		{
+			"name": "candle_base_2",
+			"from": [3.5, 7, 6.5],
+			"to": [6.5, 8, 9.5],
+			"rotation": {"angle": 0, "axis": "y", "origin": [-3, 0, 0]},
+			"faces": {
+				"north": {"uv": [4, 15, 7, 16], "texture": "#candle"},
+				"east": {"uv": [4, 15, 7, 16], "texture": "#candle"},
+				"south": {"uv": [4, 15, 7, 16], "texture": "#candle"},
+				"west": {"uv": [4, 15, 7, 16], "texture": "#candle"},
+				"up": {"uv": [4, 13, 7, 16], "texture": "#candle"},
+				"down": {"uv": [4, 13, 7, 16], "texture": "#candle"}
+			}
+		},
+		{
+			"name": "candle_2",
+			"from": [4, 8, 7],
+			"to": [6, 14, 9],
+			"rotation": {"angle": 0, "axis": "y", "origin": [-3, 0, 0]},
+			"faces": {
+				"north": {"uv": [10, 10, 12, 16], "texture": "#candle"},
+				"east": {"uv": [10, 10, 12, 16], "texture": "#candle"},
+				"south": {"uv": [10, 10, 12, 16], "texture": "#candle"},
+				"west": {"uv": [10, 10, 12, 16], "texture": "#candle"},
+				"up": {"uv": [10, 10, 12, 12], "texture": "#candle"},
+				"down": {"uv": [0, 0, 2, 2], "texture": "#-1"}
+			}
+		},
+		{
+			"name": "wick_2",
+			"from": [4.75, 14, 7.75],
+			"to": [5.25, 15, 8.25],
+			"rotation": {"angle": 0, "axis": "y", "origin": [-3, 0, 0]},
+			"faces": {
+				"north": {"uv": [12, 15, 12.5, 16], "texture": "#candle"},
+				"east": {"uv": [12, 15, 12.5, 16], "texture": "#candle"},
+				"south": {"uv": [12, 15, 12.5, 16], "texture": "#candle"},
+				"west": {"uv": [12, 15, 12.5, 16], "texture": "#candle"},
+				"up": {"uv": [12, 15, 12.5, 15.5], "texture": "#candle"},
+				"down": {"uv": [0, 0, 0.5, 0.5], "texture": "#-1"}
+			}
+		}
+	],
+	"display": {
+		"thirdperson_righthand": {
+			"translation": [0, 2.5, 0]
+		},
+		"firstperson_righthand": {
+			"rotation": [0, 45, 0],
+			"scale": [0.4, 0.4, 0.4]
+		},
+		"firstperson_lefthand": {
+			"rotation": [0, 225, 0],
+			"scale": [0.4, 0.4, 0.4]
+		},
+		"ground": {
+			"translation": [0, 3, 0],
+			"scale": [0.25, 0.25, 0.25]
+		},
+		"gui": {
+			"rotation": [30, 225, 0],
+			"scale": [0.625, 0.625, 0.625]
+		},
+		"fixed": {
+			"scale": [0.5, 0.5, 0.5]
+		}
+	}
+}

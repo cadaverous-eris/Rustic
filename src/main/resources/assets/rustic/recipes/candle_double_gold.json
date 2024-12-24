@@ -1,0 +1,25 @@
+{
+	"type": "forge:ore_shaped",
+	"pattern": [
+		"S S",
+		"W W",
+		" I "
+	],
+	"key": {
+		"I": {
+			"type": "forge:ore_dict",
+			"ore": "ingotGold"
+		},
+		"W": {
+			"type": "forge:ore_dict",
+			"ore": "wax"
+		},
+		"S": {
+			"item": "minecraft:string"
+		}
+	},
+	"result": {
+		"item": "rustic:candle_double_gold",
+		"count": 4
+	}
+}

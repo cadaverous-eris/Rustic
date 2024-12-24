@@ -67,14 +67,17 @@ public class ModBlocks {
 	public static BlockClayWallDiag CLAY_WALL_DIAG;
 	public static BlockChain CHAIN;
 	public static BlockCandle CANDLE;
+	public static BlockCandleDouble CANDLE_DOUBLE;
 	public static BlockCandle CANDLE_LEVER;
 	public static BlockChandelier CHANDELIER;
 	public static BlockChain CHAIN_GOLD;
 	public static BlockCandle CANDLE_GOLD;
+	public static BlockCandleDouble CANDLE_DOUBLE_GOLD;
 	public static BlockCandle CANDLE_LEVER_GOLD;
 	public static BlockChandelier CHANDELIER_GOLD;
 	public static BlockChain CHAIN_SILVER;
 	public static BlockCandle CANDLE_SILVER;
+	public static BlockCandleDouble CANDLE_DOUBLE_SILVER;
 	public static BlockCandle CANDLE_LEVER_SILVER;
 	public static BlockChandelier CHANDELIER_SILVER;
 	public static BlockBeehive BEEHIVE;
@@ -175,15 +178,18 @@ public class ModBlocks {
 		}
 		CHAIN = new BlockChain();
 		CANDLE = new BlockCandle();
+		CANDLE_DOUBLE = new BlockCandleDouble();
 		CANDLE_LEVER = new BlockCandleLever();
 		CHANDELIER = new BlockChandelier();
 		CHAIN_GOLD = new BlockChain("chain_gold");
 		CANDLE_GOLD = new BlockCandle("candle_gold");
+		CANDLE_DOUBLE_GOLD = new BlockCandleDouble("candle_double_gold");
 		CANDLE_LEVER_GOLD = new BlockCandleLever("candle_lever_gold");
 		CHANDELIER_GOLD = new BlockChandelier("chandelier_gold");
 		if (Config.ENABLE_SILVER_DECOR) {
 			CHAIN_SILVER = new BlockChain("chain_silver");
 			CANDLE_SILVER = new BlockCandle("candle_silver");
+			CANDLE_DOUBLE_SILVER = new BlockCandleDouble("candle_double_silver");
 			CANDLE_LEVER_SILVER = new BlockCandleLever("candle_lever_silver");
 			CHANDELIER_SILVER = new BlockChandelier("chandelier_silver");
 		}
@@ -419,15 +425,18 @@ public class ModBlocks {
 		}
 		CHAIN.initModel();
 		CANDLE.initModel();
+		CANDLE_DOUBLE.initModel();
 		CANDLE_LEVER.initModel();
 		CHANDELIER.initModel();
 		CHAIN_GOLD.initModel();
 		CANDLE_GOLD.initModel();
+		CANDLE_DOUBLE_GOLD.initModel();
 		CANDLE_LEVER_GOLD.initModel();
 		CHANDELIER_GOLD.initModel();
 		if (Config.ENABLE_SILVER_DECOR) {
 			CHAIN_SILVER.initModel();
 			CANDLE_SILVER.initModel();
+			CANDLE_DOUBLE_SILVER.initModel();
 			CANDLE_LEVER_SILVER.initModel();
 			CHANDELIER_SILVER.initModel();
 		}

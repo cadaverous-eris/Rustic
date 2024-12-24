@@ -71,7 +71,7 @@ public class BlockCandle extends BlockBase {
 		return false;
 	}
 
-	private boolean canPlaceOn(World worldIn, BlockPos pos) {
+	protected boolean canPlaceOn(World worldIn, BlockPos pos) {
 		IBlockState state = worldIn.getBlockState(pos);
 		BlockFaceShape faceShape = state.getBlockFaceShape(worldIn, pos, EnumFacing.UP);
 		
