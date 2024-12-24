@@ -167,7 +167,7 @@ public class BookManager {
 		fertile_soil.addPage(new BookPageText(fertile_soil, "fertile_soil"));
 		crop_stakes.addPage(new BookPageText(crop_stakes, "crop_stakes").addRelatedEntries(tomatoes, chili_peppers, rope));
 		tomatoes.addPage(new BookPageText(tomatoes, "tomatoes").addRelatedEntries(crop_stakes)).addPage(new BookPageText(tomatoes, "tomatoes_1").addRelatedEntries(crop_stakes));
-		chili_peppers.addPage(new BookPageText(chili_peppers, "chili_peppers").addRelatedEntries(crop_stakes, alchemy)).addPage(new BookPageText(chili_peppers, "chili_peppers_1").addRelatedEntries(crop_stakes, alchemy));
+		chili_peppers.addPage(new BookPageText(chili_peppers, "chili_peppers").addRelatedEntries(crop_stakes, alchemy)).addPage(new BookPageText(chili_peppers, "chili_peppers_1").addRelatedEntries(crop_stakes, alchemy)).addPage(new BookPageText(chili_peppers, "chili_peppers_2").addRelatedEntries(crop_stakes, alchemy));
 		wildberries.addPage(new BookPageText(wildberries, "wildberries").addRelatedEntries(crushing, brewing)).addPage(new BookPageText(wildberries, "wildberries_1").addRelatedEntries(crushing, brewing)).addPage(new BookPageText(wildberries, "wildberry_juice").addRelatedEntries(crushing, brewing));
 		grapes.addPage(new BookPageText(grapes, "grapes").addRelatedEntries(rope, crushing, brewing)).addPage(new BookPageText(grapes, "grapes_1").addRelatedEntries(rope, crushing, brewing)).addPage(new BookPageText(grapes, "grape_juice").addRelatedEntries(rope, crushing, brewing));
 		apple_trees.addPage(new BookPageText(apple_trees, "apple_trees").addRelatedEntries(crushing, brewing)).addPage(new BookPageText(apple_trees, "apple_trees_1").addRelatedEntries(crushing, brewing)).addPage(new BookPageText(apple_trees, "apple_juice").addRelatedEntries(crushing, brewing));
@@ -196,7 +196,8 @@ public class BookManager {
 		.addPage(new BookPageText(alcoholic_beverages, "iron_wine").addRelatedEntries(brewing, bees, ironwood_trees, apple_trees, grapes, wildberries))
 		.addPage(new BookPageText(alcoholic_beverages, "mead").addRelatedEntries(brewing, bees, ironwood_trees, apple_trees, grapes, wildberries))
 		.addPage(new BookPageText(alcoholic_beverages, "wildberry_wine").addRelatedEntries(brewing, bees, ironwood_trees, apple_trees, grapes, wildberries))
-		.addPage(new BookPageText(alcoholic_beverages, "wine").addRelatedEntries(brewing, bees, ironwood_trees, apple_trees, grapes, wildberries));
+		.addPage(new BookPageText(alcoholic_beverages, "wine").addRelatedEntries(brewing, bees, ironwood_trees, apple_trees, grapes, wildberries))
+		.addPage(new BookPageText(alcoholic_beverages, "ambrosia").addRelatedEntries(brewing, bees, ironwood_trees, apple_trees, grapes, wildberries));
 		brewing.addPage(new BookPageText(brewing, "brewing").addRelatedEntries(alcoholic_beverages, bees, ironwood_trees, apple_trees, grapes, wildberries))
 		.addPage(new BookPageText(brewing, "brewing_1").addRelatedEntries(alcoholic_beverages, bees, ironwood_trees, apple_trees, grapes, wildberries))
 		.addPage(new BookPageText(brewing, "brewing_2", "brewing_3").addRelatedEntries(alcoholic_beverages, bees, ironwood_trees, apple_trees, grapes, wildberries))
