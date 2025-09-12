@@ -1,0 +1,9 @@
+{
+	"variants": {
+		"facing=north":	{ "model": "rustic:iron_torch_wall", "y": 270 },
+		"facing=east":	{ "model": "rustic:iron_torch_wall" },
+		"facing=south":	{ "model": "rustic:iron_torch_wall", "y": 90 },
+		"facing=west":	{ "model": "rustic:iron_torch_wall", "y": 180 },
+		"facing=up":	{ "model": "rustic:iron_torch_alt" }
+	}
+}

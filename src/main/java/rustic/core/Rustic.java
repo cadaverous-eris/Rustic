@@ -38,6 +38,7 @@ import rustic.common.blocks.fluids.ModFluids;
 import rustic.common.crafting.Recipes;
 import rustic.common.items.ModItems;
 import rustic.common.potions.EventHandlerPotions;
+import rustic.common.util.RusticUtils;
 import rustic.compat.Compat;
 import rustic.compat.crafttweaker.CraftTweakerHelper;
 import rustic.compat.dynamictrees.DynamicTreesCompat;
@@ -46,7 +47,7 @@ import rustic.compat.dynamictrees.DynamicTreesCompat;
 public class Rustic {
 	public static final String MODID = "rustic";
 	public static final String NAME = "Rustic";
-	public static final String VERSION = "1.2.0";
+	public static final String VERSION = "1.3.0";
 	public static final String DEPENDENCIES = "after:dynamictrees@[1.12.2-0.9.1e,);after:dynamictreesbop;before:dynamictreestc";
 
 	@SidedProxy(clientSide = "rustic.core.ClientProxy", serverSide = "rustic.core.CommonProxy")
@@ -163,6 +164,9 @@ public class Rustic {
 	@EventHandler
 	public void init(FMLInitializationEvent event) {
 		proxy.init(event);
+		
+		// init banners
+		RusticUtils.addBanner("eris", "eris", new ItemStack(ModItems.BOOK));
 	}
 
 	@EventHandler

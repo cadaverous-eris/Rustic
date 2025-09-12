@@ -1,0 +1,139 @@
+{
+	"credit": "Made with Blockbench",
+	"ambientocclusion": false,
+	"textures": {
+		"particle": "rustic:blocks/iron_torch_on",
+		"torch": "rustic:blocks/iron_torch_on"
+	},
+	"elements": [
+		{
+			"name": "torch_faces_y",
+			"from": [3.5, 0, 7],
+			"to": [5.5, 10, 9],
+			"shade": false,
+			"rotation": {"angle": 0, "axis": "y", "origin": [-3.5, 0, 0]},
+			"faces": {
+				"up": {"uv": [7, 6, 9, 8], "texture": "#torch"},
+				"down": {"uv": [7, 13, 9, 15], "texture": "#torch"}
+			}
+		},
+		{
+			"name": "torch_faces_x",
+			"from": [3.5, 0, 6],
+			"to": [5.5, 16, 10],
+			"shade": false,
+			"rotation": {"angle": 0, "axis": "y", "origin": [-3.5, 0, 0]},
+			"faces": {
+				"east": {"uv": [6, 0, 10, 16], "texture": "#torch"},
+				"west": {"uv": [6, 0, 10, 16], "texture": "#torch"}
+			}
+		},
+		{
+			"name": "torch_faces_z",
+			"from": [2.5, 0, 7],
+			"to": [6.5, 16, 9],
+			"shade": false,
+			"rotation": {"angle": 0, "axis": "y", "origin": [-3.5, 0, 0]},
+			"faces": {
+				"north": {"uv": [6, 0, 10, 16], "texture": "#torch"},
+				"south": {"uv": [6, 0, 10, 16], "texture": "#torch"}
+			}
+		},
+		{
+			"name": "bars_outer",
+			"from": [2.5, 7, 6],
+			"to": [6.5, 11, 10],
+			"rotation": {"angle": 0, "axis": "y", "origin": [2, 6.5, 5.5]},
+			"faces": {
+				"north": {"uv": [0.5, 0, 4.5, 4], "texture": "#torch"},
+				"east": {"uv": [0.5, 0, 4.5, 4], "texture": "#torch"},
+				"south": {"uv": [0.5, 0, 4.5, 4], "texture": "#torch"},
+				"west": {"uv": [0.5, 0, 4.5, 4], "texture": "#torch"}
+			}
+		},
+		{
+			"name": "bars_inner",
+			"from": [6.5, 11, 10],
+			"to": [2.5, 7, 6],
+			"rotation": {"angle": 0, "axis": "y", "origin": [10, 6.5, 9.5]},
+			"faces": {
+				"north": {"uv": [4.5, 4, 0.5, 0], "texture": "#torch"},
+				"east": {"uv": [4.5, 4, 0.5, 0], "texture": "#torch"},
+				"south": {"uv": [4.5, 4, 0.5, 0], "texture": "#torch"},
+				"west": {"uv": [4.5, 4, 0.5, 0], "texture": "#torch"}
+			}
+		},
+		{
+			"name": "bars_base",
+			"from": [3, 6.5, 6.5],
+			"to": [6, 7.5, 9.5],
+			"rotation": {"angle": 0, "axis": "y", "origin": [3, 6.5, 6.5]},
+			"faces": {
+				"north": {"uv": [0, 11, 3, 12], "texture": "#torch"},
+				"east": {"uv": [0, 11, 3, 12], "texture": "#torch"},
+				"south": {"uv": [0, 11, 3, 12], "texture": "#torch"},
+				"west": {"uv": [0, 11, 3, 12], "texture": "#torch"},
+				"up": {"uv": [0, 9, 3, 12], "texture": "#torch"},
+				"down": {"uv": [0, 9, 3, 12], "texture": "#torch"}
+			}
+		},
+		{
+			"name": "bars_botton",
+			"from": [2.5, 7, 6],
+			"to": [6.5, 7, 10],
+			"rotation": {"angle": 0, "axis": "y", "origin": [2.5, 7, 6]},
+			"faces": {
+				"up": {"uv": [11.5, 0.5, 15.5, 4.5], "texture": "#torch"},
+				"down": {"uv": [11.5, 0.5, 15.5, 4.5], "texture": "#torch"}
+			}
+		},
+		{
+			"name": "bars_top",
+			"from": [2.5, 11, 6],
+			"to": [6.5, 11, 10],
+			"rotation": {"angle": 0, "axis": "y", "origin": [2.5, 11, 6]},
+			"faces": {
+				"up": {"uv": [11.5, 0.5, 15.5, 4.5], "texture": "#torch"},
+				"down": {"uv": [11.5, 0.5, 15.5, 4.5], "texture": "#torch"}
+			}
+		},
+		{
+			"name": "torch_base",
+			"from": [3, 2, 6.5],
+			"to": [6, 3, 9.5],
+			"rotation": {"angle": 0, "axis": "y", "origin": [2.5, 2, 6]},
+			"faces": {
+				"north": {"uv": [0, 15, 4, 16], "texture": "#torch"},
+				"east": {"uv": [0, 15, 4, 16], "texture": "#torch"},
+				"south": {"uv": [0, 15, 4, 16], "texture": "#torch"},
+				"west": {"uv": [0, 15, 4, 16], "texture": "#torch"},
+				"up": {"uv": [0, 12, 4, 16], "texture": "#torch"},
+				"down": {"uv": [0, 12, 4, 16], "texture": "#torch"}
+			}
+		},
+		{
+			"name": "mount",
+			"from": [0, 0, 6],
+			"to": [1, 4, 10],
+			"rotation": {"angle": 0, "axis": "y", "origin": [0, 0, 6]},
+			"faces": {
+				"north": {"uv": [3, 12, 4, 16], "texture": "#torch"},
+				"east": {"uv": [0, 12, 4, 16], "texture": "#torch"},
+				"south": {"uv": [0, 12, 1, 16], "texture": "#torch"},
+				"west": {"uv": [0, 12, 4, 16], "texture": "#torch"},
+				"up": {"uv": [0, 12, 4, 13], "rotation": 90, "texture": "#torch"},
+				"down": {"uv": [0, 15, 4, 16], "rotation": 90, "texture": "#torch"}
+			}
+		},
+		{
+			"name": "mount_connect",
+			"from": [1, 1, 8],
+			"to": [3, 3, 8],
+			"rotation": {"angle": 0, "axis": "y", "origin": [1, 1, 6]},
+			"faces": {
+				"north": {"uv": [2, 7, 0, 9], "texture": "#torch"},
+				"south": {"uv": [0, 7, 2, 9], "texture": "#torch"}
+			}
+		}
+	]
+}

@@ -65,7 +65,7 @@ tooltip.rustic.quality.lowest.3=Vile
 tooltip.rustic.quality.lowest.4=Revolting
 tooltip.rustic.quality.lowest.5=Noxious
 tooltip.rustic.quality.lowest.6=Rancid
-tooltip.rustic.quality.lowest.7=Worse Than Piss
+tooltip.rustic.quality.lowest.7=Skibidi Toilet Water
 
 
 #Containers
@@ -97,6 +97,7 @@ tile.rustic.candle_lever_gold.name=Golden Candle Lever
 tile.rustic.candle_silver.name=Silver Candle
 tile.rustic.candle_double_silver.name=Silver Candelabra
 tile.rustic.candle_lever_silver.name=Silver Candle Lever
+tile.rustic.iron_torch.name=Iron Torch
 tile.rustic.beehive.name=Beehive
 tile.rustic.apiary.name=Apiary
 tile.rustic.slate.name=Slate
@@ -264,6 +265,7 @@ fluid.wildberrywine=Wildberry Wine
 fluid.wine=Wine
 fluid.ambrosia=Ambrosia
 
+
 #Potion Effects
 effect.ironskin=Iron Skin
 effect.feather=Feather
@@ -290,6 +292,25 @@ entity.rustic.vegetable_lamb=Vegetable Lamb
 
 #Deaths
 death.attack.badAmbrosia=%1$s tasted tainted divinity
+
+
+#Banner Patterns
+item.banner.rustic_eris.black=Black Eris Symbol
+item.banner.rustic_eris.red=Red Eris Symbol
+item.banner.rustic_eris.green=Green Eris Symbol
+item.banner.rustic_eris.brown=Brown Eris Symbol
+item.banner.rustic_eris.blue=Blue Eris Symbol
+item.banner.rustic_eris.purple=Purple Eris Symbol
+item.banner.rustic_eris.cyan=Cyan Eris Symbol
+item.banner.rustic_eris.silver=Light Gray Eris Symbol
+item.banner.rustic_eris.gray=Gray Eris Symbol
+item.banner.rustic_eris.pink=Pink Eris Symbol
+item.banner.rustic_eris.lime=Lime Eris Symbol
+item.banner.rustic_eris.yellow=Yellow Eris Symbol
+item.banner.rustic_eris.lightBlue=Light Blue Eris Symbol
+item.banner.rustic_eris.magenta=Magenta Eris Symbol
+item.banner.rustic_eris.orange=Orange Eris Symbol
+item.banner.rustic_eris.white=White Eris Symbol
 
 
 #Advancements

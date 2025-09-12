@@ -271,7 +271,7 @@ public class ModFluids {
 					player.addPotionEffect(new PotionEffect(MobEffects.NAUSEA, duration));
 				}
 			}
-		}.setInebriationChance(0.5F).setDensity(1034).setViscosity(1500);
+		}.setInebriationChance(0.85F).setDensity(1034).setViscosity(1500);
 		register(WILDBERRY_WINE, false);
 		
 		WINE = new FluidBooze("wine", new ResourceLocation("rustic:blocks/fluids/booze/wine_still"), new ResourceLocation("rustic:blocks/fluids/booze/wine_flow")) {
@@ -331,7 +331,23 @@ public class ModFluids {
 			public EnumRarity getRarity() {
 				return EnumRarity.EPIC;
 			}
-		}.setInebriationChance(0.5F).setDensity(1004).setViscosity(1400);
+			@Override
+			protected void inebriate(World world, EntityPlayer player, float quality) {
+				int duration = (quality  >= 0.5f)
+						? ((int) (12000 * (Math.max(1 - Math.abs(quality - 0.75F), 0.5F))))
+						: ((int) (12000 * (Math.max(1 - (quality * 0.5F), 0.5F))));
+				PotionEffect tipsyEffect = player.getActivePotionEffect(PotionsRustic.TIPSY);
+				if (world.rand.nextFloat() < this.inebriationChance) {
+					if (tipsyEffect == null) {
+						int amp = (quality > 0.99F) ? 1 : 0;
+						player.addPotionEffect(new PotionEffect(PotionsRustic.TIPSY, duration, amp, false, false));
+					} else if (tipsyEffect.getAmplifier() < 3) {
+						int newAmp = Math.min(tipsyEffect.getAmplifier() + ((quality > 0.99F) ? 2 : 1), 3);
+						player.addPotionEffect(new PotionEffect(PotionsRustic.TIPSY, Math.max(duration, tipsyEffect.getDuration()), newAmp, false, false));
+					}
+				}
+			}
+		}.setInebriationChance(1.0F).setDensity(1004).setViscosity(1400);
 		register(AMBROSIA, false);
 		
 

@@ -1,0 +1,32 @@
+{
+	"type": "forge:ore_shaped",
+	"pattern": [
+		"I",
+		"C",
+		"S"
+	],
+	"key": {
+		"I": {
+			"type": "forge:ore_dict",
+			"ore": "nuggetIron"
+		},
+		"S": {
+			"type": "forge:ore_dict",
+			"ore": "stickWood"
+		},
+		"C": [
+			{
+				"item": "minecraft:coal",
+				"data": 0
+			},
+			{
+				"item": "minecraft:coal",
+				"data": 1
+			}
+		]
+	},
+	"result": {
+		"item": "rustic:iron_torch",
+		"count": 4
+	}
+}

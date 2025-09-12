@@ -2,8 +2,8 @@
     "forge_marker": 1,
     "defaults": { "model": "rustic:wildberry_bush" },
     "variants": {
-        "berries": {
-            "true": { "submodel": { "berries": [
+        "age": {
+            "5": { "submodel": { "berries": [
                 { "model": "rustic:wildberries_0" },
                 { "model": "rustic:wildberries_0", "y": 90 },
                 { "model": "rustic:wildberries_0", "y": 180 },
@@ -13,7 +13,11 @@
                 { "model": "rustic:wildberries_1", "y": 180 },
                 { "model": "rustic:wildberries_1", "y": 270 }
                 ] } },
-            "false": {}
+            "4": {},
+            "3": {},
+            "2": {},
+            "1": {},
+            "0": {}
         },
 	"inventory": []
     }

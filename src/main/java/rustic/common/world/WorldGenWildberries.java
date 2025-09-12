@@ -60,7 +60,7 @@ public class WorldGenWildberries extends WorldGenerator {
 		IBlockState state = world.getBlockState(pos);
 		if (state.getMaterial().isLiquid()) return false;
 		if (ModBlocks.WILDBERRY_BUSH.canPlaceBlockAt(world, pos)) {
-			world.setBlockState(pos, ModBlocks.WILDBERRY_BUSH.getDefaultState().withProperty(BlockBerryBush.BERRIES, rand.nextBoolean()));
+			world.setBlockState(pos, ModBlocks.WILDBERRY_BUSH.withAge(rand.nextInt(6)));
 			return true;
 		}
 		return false;

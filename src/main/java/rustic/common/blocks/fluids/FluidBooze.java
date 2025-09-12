@@ -12,7 +12,7 @@ public class FluidBooze extends FluidDrinkable {
 	
 	public static final String QUALITY_NBT_KEY = "Quality";
 	
-	private float inebriationChance = 0.5F;
+	protected float inebriationChance = 0.5F;
 
 	public FluidBooze(String fluidName, ResourceLocation still, ResourceLocation flowing) {
 		super(fluidName, still, flowing);
@@ -48,14 +48,16 @@ public class FluidBooze extends FluidDrinkable {
 	}
 	
 	protected void inebriate(World world, EntityPlayer player, float quality) {
-		int duration = (int) (12000 * (Math.max(1 - Math.abs(quality - 0.75F), 0F)));
+		int duration = (quality  >= 0.5f)
+				? ((int) (12000 * (Math.max(1 - Math.abs(quality - 0.75F), 0.5F))))
+				: ((int) (12000 * (Math.max(1 - (quality * 0.5F), 0.5F))));
 		float inebriationChanceMod = Math.max(Math.min(1 - Math.abs(0.67F * (quality - 0.75F)), 1), 0);
 		PotionEffect tipsyEffect = player.getActivePotionEffect(PotionsRustic.TIPSY);
 		if (world.rand.nextFloat() < this.inebriationChance * inebriationChanceMod) {
 			if (tipsyEffect == null) {
 				player.addPotionEffect(new PotionEffect(PotionsRustic.TIPSY, duration, 0, false, false));
 			} else if (tipsyEffect.getAmplifier() < 3) {
-				player.addPotionEffect(new PotionEffect(PotionsRustic.TIPSY, duration, tipsyEffect.getAmplifier() + 1, false, false));
+				player.addPotionEffect(new PotionEffect(PotionsRustic.TIPSY, Math.max(duration, tipsyEffect.getDuration()), tipsyEffect.getAmplifier() + 1, false, false));
 			}
 		}
 	}

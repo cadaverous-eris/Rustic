@@ -16,12 +16,14 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.potion.PotionUtils;
+import net.minecraft.tileentity.BannerPattern;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.NonNullList;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
+import net.minecraftforge.common.util.EnumHelper;
 import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fluids.FluidStack;
@@ -170,6 +172,16 @@ public class RusticUtils {
 				}
 			}
 		}
+	}
+	
+	public static void addBanner(String name, String id, ItemStack craftingItem) {
+		name = Rustic.MODID + '_' + name;
+		id = Rustic.MODID + '_' + id;
+		
+		BannerPattern patternEnum = EnumHelper.addEnum(BannerPattern.class, name.toUpperCase(),
+				new Class[] { String.class, String.class, ItemStack.class },
+				name, id, craftingItem
+		);
 	}
 	
 	

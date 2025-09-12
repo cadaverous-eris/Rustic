@@ -1,0 +1,146 @@
+{
+	"credit": "Made with Blockbench",
+	"ambientocclusion": false,
+	"textures": {
+		"particle": "rustic:blocks/iron_torch_on",
+		"torch": "rustic:blocks/iron_torch_on"
+	},
+	"elements": [
+		{
+			"name": "torch_faces_y",
+			"from": [7, 0, 7],
+			"to": [9, 10, 9],
+			"shade": false,
+			"faces": {
+				"up": {"uv": [7, 6, 9, 8], "texture": "#torch"},
+				"down": {"uv": [7, 13, 9, 15], "texture": "#torch"}
+			}
+		},
+		{
+			"name": "torch_faces_x",
+			"from": [7, 0, 6],
+			"to": [9, 16, 10],
+			"shade": false,
+			"faces": {
+				"east": {"uv": [6, 0, 10, 16], "texture": "#torch"},
+				"west": {"uv": [6, 0, 10, 16], "texture": "#torch"}
+			}
+		},
+		{
+			"name": "torch_faces_z",
+			"from": [6, 0, 7],
+			"to": [10, 16, 9],
+			"shade": false,
+			"faces": {
+				"north": {"uv": [6, 0, 10, 16], "texture": "#torch"},
+				"south": {"uv": [6, 0, 10, 16], "texture": "#torch"}
+			}
+		},
+		{
+			"name": "bars_outer",
+			"from": [6, 7, 6],
+			"to": [10, 11, 10],
+			"rotation": {"angle": 0, "axis": "y", "origin": [5.5, 6.5, 5.5]},
+			"faces": {
+				"north": {"uv": [0.5, 0, 4.5, 4], "texture": "#torch"},
+				"east": {"uv": [0.5, 0, 4.5, 4], "texture": "#torch"},
+				"south": {"uv": [0.5, 0, 4.5, 4], "texture": "#torch"},
+				"west": {"uv": [0.5, 0, 4.5, 4], "texture": "#torch"}
+			}
+		},
+		{
+			"name": "bars_inner",
+			"from": [10, 11, 10],
+			"to": [6, 7, 6],
+			"rotation": {"angle": 0, "axis": "y", "origin": [13.5, 6.5, 9.5]},
+			"faces": {
+				"north": {"uv": [4.5, 4, 0.5, 0], "texture": "#torch"},
+				"east": {"uv": [4.5, 4, 0.5, 0], "texture": "#torch"},
+				"south": {"uv": [4.5, 4, 0.5, 0], "texture": "#torch"},
+				"west": {"uv": [4.5, 4, 0.5, 0], "texture": "#torch"}
+			}
+		},
+		{
+			"name": "bars_base",
+			"from": [6.5, 6.5, 6.5],
+			"to": [9.5, 7.5, 9.5],
+			"rotation": {"angle": 0, "axis": "y", "origin": [6.5, 6.5, 6.5]},
+			"faces": {
+				"north": {"uv": [0, 11, 3, 12], "texture": "#torch"},
+				"east": {"uv": [0, 11, 3, 12], "texture": "#torch"},
+				"south": {"uv": [0, 11, 3, 12], "texture": "#torch"},
+				"west": {"uv": [0, 11, 3, 12], "texture": "#torch"},
+				"up": {"uv": [0, 9, 3, 12], "texture": "#torch"},
+				"down": {"uv": [0, 9, 3, 12], "texture": "#torch"}
+			}
+		},
+		{
+			"name": "bars_botton",
+			"from": [6, 7, 6],
+			"to": [10, 7, 10],
+			"rotation": {"angle": 0, "axis": "y", "origin": [6, 7, 6]},
+			"faces": {
+				"up": {"uv": [11.5, 0.5, 15.5, 4.5], "texture": "#torch"},
+				"down": {"uv": [11.5, 0.5, 15.5, 4.5], "texture": "#torch"}
+			}
+		},
+		{
+			"name": "bars_top",
+			"from": [6, 11, 6],
+			"to": [10, 11, 10],
+			"rotation": {"angle": 0, "axis": "y", "origin": [6, 11, 6]},
+			"faces": {
+				"up": {"uv": [11.5, 0.5, 15.5, 4.5], "texture": "#torch"},
+				"down": {"uv": [11.5, 0.5, 15.5, 4.5], "texture": "#torch"}
+			}
+		},
+		{
+			"name": "torch_base",
+			"from": [6.5, 1, 6.5],
+			"to": [9.5, 2, 9.5],
+			"rotation": {"angle": 0, "axis": "y", "origin": [6, 1, 6]},
+			"faces": {
+				"north": {"uv": [0, 15, 4, 16], "texture": "#torch"},
+				"east": {"uv": [0, 15, 4, 16], "texture": "#torch"},
+				"south": {"uv": [0, 15, 4, 16], "texture": "#torch"},
+				"west": {"uv": [0, 15, 4, 16], "texture": "#torch"},
+				"up": {"uv": [0, 12, 4, 16], "texture": "#torch"},
+				"down": {"uv": [0, 12, 4, 16], "texture": "#torch"}
+			}
+		}
+	],
+	"display": {
+		"thirdperson_righthand": {
+			"rotation": [-55, 90, 55],
+			"translation": [0, 2.5, 1.25],
+			"scale": [0.9375, 0.9375, 0.9375]
+		},
+		"thirdperson_lefthand": {
+			"rotation": [-55, 90, 55],
+			"translation": [0, 2.5, 1.25],
+			"scale": [0.9375, 0.9375, 0.9375]
+		},
+		"firstperson_righthand": {
+			"rotation": [0, 45, 0],
+			"scale": [0.4, 0.4, 0.4]
+		},
+		"firstperson_lefthand": {
+			"rotation": [0, 135, 0],
+			"scale": [0.4, 0.4, 0.4]
+		},
+		"ground": {
+			"translation": [0, 3, 0],
+			"scale": [0.25, 0.25, 0.25]
+		},
+		"gui": {
+			"rotation": [30, 135, 0],
+			"scale": [0.625, 0.625, 0.625]
+		},
+		"head": {
+			"translation": [0, 14.5, 0]
+		},
+		"fixed": {
+			"scale": [0.5, 0.5, 0.5]
+		}
+	}
+}

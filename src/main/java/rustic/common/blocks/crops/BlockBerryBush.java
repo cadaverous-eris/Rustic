@@ -12,6 +12,7 @@ import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.properties.PropertyBool;
+import net.minecraft.block.properties.PropertyInteger;
 import net.minecraft.block.state.BlockFaceShape;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
@@ -29,6 +30,7 @@ import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.ColorizerFoliage;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
@@ -46,7 +48,7 @@ import rustic.core.Rustic;
 
 public abstract class BlockBerryBush extends BlockBase implements IColoredBlock, IPlantable, IGrowable {
 
-	public static final PropertyBool BERRIES = PropertyBool.create("berries");
+	public static final PropertyInteger AGE = PropertyInteger.create("age", 0, 5);
 
 	protected static final AxisAlignedBB BUSH_AABB = new AxisAlignedBB(0.125D, 0.0D, 0.125D, 0.875D, 1D, 0.875D);
 
@@ -57,28 +59,55 @@ public abstract class BlockBerryBush extends BlockBase implements IColoredBlock,
 		setHardness(0.2F);
 		setLightOpacity(1);
 		setTickRandomly(true);
-		setDefaultState(this.blockState.getBaseState().withProperty(BERRIES, false));
+		setDefaultState(this.blockState.getBaseState().withProperty(this.getAgeProperty(), 0));
 		
 		Blocks.FIRE.setFireInfo(this, 40, 80);
 	}
 
 	public abstract Item getBerries();
+	
+	protected PropertyInteger getAgeProperty() {
+		return AGE;
+	}
+
+	public int getMaxAge() {
+		return 5;
+	}
+	
+	protected int getAge(IBlockState state) {
+        return state.getValue(this.getAgeProperty());
+    }
+	
+	public IBlockState withAge(int age) {
+        return this.getDefaultState().withProperty(this.getAgeProperty(), age);
+    }
+
+    public boolean isMaxAge(IBlockState state) {
+        return this.getAge(state) >= this.getMaxAge();
+    }
+    
+    protected int getBonemealAgeIncrease(World worldIn) {
+        return MathHelper.getInt(worldIn.rand, 2, 5);
+    }
 
 	@Override
 	public void updateTick(World worldIn, BlockPos pos, IBlockState state, Random rand) {
 		super.updateTick(worldIn, pos, state, rand);
 		this.checkAndDropBlock(worldIn, pos, state);
 
+		if (!worldIn.isAreaLoaded(pos, 1)) return;
 		if (worldIn.getLightFromNeighbors(pos.up()) >= 9) {
 
-			if (!state.getValue(BERRIES)) {
-				float f = 1.5f;
+			int i = this.getAge(state);
+			
+			if (i < this.getMaxAge()) {
+				float f = 6.0f; // growthChance
 
 				if (net.minecraftforge.common.ForgeHooks.onCropsGrowPre(worldIn, pos, state,
-						rand.nextInt((int) (60.0F / f) + 1) == 0)) {
-					worldIn.setBlockState(pos, state.withProperty(BERRIES, true), 3);
-					net.minecraftforge.common.ForgeHooks.onCropsGrowPost(worldIn, pos, state,
-							worldIn.getBlockState(pos));
+						rand.nextInt((int) (25.0F / f) + 1) == 0)) {
+					worldIn.setBlockState(pos, state.withProperty(this.getAgeProperty(), i + 1), 3);
+					
+					net.minecraftforge.common.ForgeHooks.onCropsGrowPost(worldIn, pos, state, worldIn.getBlockState(pos));
 				}
 			}/* else {
 				float f = getGrowthChance(this, worldIn, pos);
@@ -131,7 +160,7 @@ public abstract class BlockBerryBush extends BlockBase implements IColoredBlock,
 	@Override
 	public List<ItemStack> getDrops(IBlockAccess world, BlockPos pos, IBlockState state, int fortune) {
 		List<ItemStack> stacks = super.getDrops(world, pos, state, fortune);
-		if (state.getValue(BERRIES)) {
+		if (this.isMaxAge(state)) {
 			if (getBerries() != null) {
 				stacks.add(new ItemStack(getBerries()));
 			}
@@ -144,8 +173,8 @@ public abstract class BlockBerryBush extends BlockBase implements IColoredBlock,
 			EnumFacing side, float hitX, float hitY, float hitZ) {
 		ItemStack heldItem = player.getHeldItem(hand);
 		
-		if (state.getValue(BERRIES) && !(!heldItem.isEmpty() && heldItem.getItem() == Items.DYE && heldItem.getMetadata() == 15)) {
-			world.setBlockState(pos, state.withProperty(BERRIES, false), 3);
+		if (this.isMaxAge(state) && !(!heldItem.isEmpty() && (heldItem.getItem() == Items.DYE) && (heldItem.getMetadata() == 15))) {
+			world.setBlockState(pos, state.withProperty(this.getAgeProperty(), 0), 3);
 			ItemStack stack = new ItemStack(getBerries());
 			if (!player.addItemStackToInventory(stack)) {
 			    Block.spawnAsEntity(world, pos.offset(player.getHorizontalFacing().getOpposite()), stack);
@@ -239,22 +268,22 @@ public abstract class BlockBerryBush extends BlockBase implements IColoredBlock,
 
 	@Override
 	public int damageDropped(IBlockState state) {
-		return getMetaFromState(getDefaultState().withProperty(BERRIES, false));
+		return getMetaFromState(getDefaultState().withProperty(this.getAgeProperty(), 0));
 	}
 
 	@Override
 	public IBlockState getStateFromMeta(int meta) {
-		return this.getDefaultState().withProperty(BERRIES, meta > 0 ? true : false);
+		return this.withAge(meta);
 	}
 
 	@Override
 	public int getMetaFromState(IBlockState state) {
-		return state.getValue(BERRIES) ? 1 : 0;
+		return state.getValue(this.getAgeProperty());
 	}
 
 	@Override
 	protected BlockStateContainer createBlockState() {
-		return new BlockStateContainer(this, new IProperty[] { BERRIES });
+		return new BlockStateContainer(this, new IProperty[] { this.getAgeProperty() });
 	}
 
 	@Override
@@ -269,10 +298,17 @@ public abstract class BlockBerryBush extends BlockBase implements IColoredBlock,
 
 	@Override
 	public void grow(World worldIn, Random rand, BlockPos pos, IBlockState state) {
-		if (state.getValue(BERRIES)) {
+		int age = this.getAge(state);
+		final int maxAge = this.getMaxAge();
+		
+		if (age >= maxAge) {
 			this.growOutward(worldIn, pos, rand);
 		} else {
-			worldIn.setBlockState(pos, state.withProperty(BERRIES, true), 3);
+			age += this.getBonemealAgeIncrease(worldIn);
+			if (age > maxAge) {
+				age = maxAge;
+			}
+			worldIn.setBlockState(pos, state.withProperty(this.getAgeProperty(), age), 3);
 		}
 	}
 

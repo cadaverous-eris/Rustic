@@ -70,6 +70,7 @@ public class ModBlocks {
 	public static BlockCandleDouble CANDLE_DOUBLE;
 	public static BlockCandle CANDLE_LEVER;
 	public static BlockChandelier CHANDELIER;
+	public static BlockIronTorch IRON_TORCH;
 	public static BlockChain CHAIN_GOLD;
 	public static BlockCandle CANDLE_GOLD;
 	public static BlockCandleDouble CANDLE_DOUBLE_GOLD;
@@ -181,6 +182,7 @@ public class ModBlocks {
 		CANDLE_DOUBLE = new BlockCandleDouble();
 		CANDLE_LEVER = new BlockCandleLever();
 		CHANDELIER = new BlockChandelier();
+		IRON_TORCH = new BlockIronTorch();
 		CHAIN_GOLD = new BlockChain("chain_gold");
 		CANDLE_GOLD = new BlockCandle("candle_gold");
 		CANDLE_DOUBLE_GOLD = new BlockCandleDouble("candle_double_gold");
@@ -428,6 +430,7 @@ public class ModBlocks {
 		CANDLE_DOUBLE.initModel();
 		CANDLE_LEVER.initModel();
 		CHANDELIER.initModel();
+		IRON_TORCH.initModel();
 		CHAIN_GOLD.initModel();
 		CANDLE_GOLD.initModel();
 		CANDLE_DOUBLE_GOLD.initModel();
